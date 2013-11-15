@@ -1,0 +1,52 @@
+{
+  "name": "aglio",
+  "version": "1.0.0",
+  "description": "An API Blueprint renderer with theme support",
+  "main": "lib/main.js",
+  "bin": {
+    "aglio": "./bin/aglio.js"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "blanket": {
+      "pattern": [
+        "lib"
+      ],
+      "data-cover-never": "node_modules"
+    }
+  },
+  "author": "Daniel G. Taylor",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielgtaylor/aglio"
+  },
+  "bugs": {
+    "url": "https://github.com/danielgtaylor/aglio/issues"
+  },
+  "keywords": [
+    "api",
+    "blueprint",
+    "protagonist",
+    "snowcrash",
+    "html",
+    "parse",
+    "markdown"
+  ],
+  "dependencies": {
+    "coffee-script": "~1.6.3",
+    "jade": "~0.35.0",
+    "marked": "~0.2.10",
+    "optimist": "~0.6.0",
+    "protagonist": "~0.5.4",
+    "highlight.js": "~7.4.0",
+    "moment": "~2.4.0",
+    "sinon": "~1.7.3"
+  },
+  "devDependencies": {
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt": "~0.4.1",
+    "grunt-mocha-cov": "0.0.7",
+    "grunt-coffeelint": "0.0.7"
+  }
+}
