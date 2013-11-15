@@ -73,6 +73,18 @@ Create a new note
 
 + Response 201
 
++ Response 400
+
+    + Headers
+
+            Content-Type: applicatoin/json
+
+    + Body
+
+        {
+            "error": "Invalid title"
+        }
+
 ## Note [/notes/{id}]
 Note description
 
@@ -103,6 +115,20 @@ Get a single note.
 
     [Note][]
 
++ Response 404
+
+    + Headers
+
+            Content-Type: application/json
+            X-Request-ID: f72fc914
+            X-Response-Time: 4ms
+
+    + Body
+
+        {
+            "error": "Note not found"
+        }
+
 ### Update a Note [PUT]
 Update a single note
 
@@ -122,10 +148,38 @@ Update a single note
 
     [Note][]
 
++ Response 404
+
+    + Headers
+
+            Content-Type: application/json
+            X-Request-ID: f72fc914
+            X-Response-Time: 4ms
+
+    + Body
+
+        {
+            "error": "Note not found"
+        }
+
 ### Delete a Note [DELETE]
 Delete a single note
 
 + Response 204
+
++ Response 404
+
+    + Headers
+
+            Content-Type: application/json
+            X-Request-ID: f72fc914
+            X-Response-Time: 4ms
+
+    + Body
+
+        {
+            "error": "Note not found"
+        }
 
 # Group Users
 Group description
@@ -164,6 +218,6 @@ A list of users
 ### Get users [GET]
 Get a list of users
 
-+ Response
++ Response 200
 
     [User List][]

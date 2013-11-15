@@ -1,25 +1,36 @@
-Aglio
-=====
+![aglio](https://raw.github.com/danielgtaylor/aglio/master/aglio.png)
+
 [![Dependency Status](https://gemnasium.com/danielgtaylor/aglio.png)](https://gemnasium.com/danielgtaylor/aglio) [![Build Status](https://travis-ci.org/danielgtaylor/aglio.png?branch=master)](https://travis-ci.org/danielgtaylor/aglio) [![Coverage Status](https://coveralls.io/repos/danielgtaylor/aglio/badge.png)](https://coveralls.io/r/danielgtaylor/aglio) [![NPM version](https://badge.fury.io/js/aglio.png)](http://badge.fury.io/js/aglio)
 
-An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple themes and outputs static HTML that can be served by any web host. Features:
+Introduction
+============
+
+An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple themes and outputs static HTML that can be served by any web host. Currently supported is API Blueprint format 1A.
+
+Features
+--------
 
  * Fast parsing thanks to [Protagonist](https://github.com/apiaryio/protagonist)
  * Asyncronous processing
- * Multiple templates
+ * Multiple templates/themes
  * Support for custom templates written in [Jade](http://jade-lang.com/)
  * Commandline executable `aglio -i api.md -o api.html`
  * Node.js library `require('aglio')`
  * Excellent test coverage
 
-#### Example Output
+Example Output
+--------------
 
  * [Default theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default.html)
  * [Slate theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html)
 
 Installation & Usage
---------------------
-Install aglio via NPM (you may need `sudo`):
+====================
+There are two ways to use aglio: as an executable or as a library for Node.js.
+
+Executable
+----------
+Install aglio via NPM. You need Node.js installed and you may need to use `sudo` to install globally:
 
 ```bash
 npm install -g aglio
@@ -44,8 +55,8 @@ aglio -t /path/to/template.jade -i input.md -o output.html
 algio -i input.md -o -
 ```
 
-Node.js
--------
+Node.js Library
+---------------
 You can also use aglio as a library. First, install and save it as a dependency:
 
 ```bash
@@ -102,7 +113,7 @@ aglio.renderFile('/tmp/input.md', '/tmp/output.html', 'default', function (err) 
 ```
 
 Development
------------
+===========
 Pull requests are encouraged! Feel free to fork and hack away, especially on new themes. The build system in use is Grunt, so make sure you have it installed:
 
 ```bash
@@ -122,8 +133,22 @@ grunt test
 grunt coverage
 ```
 
+Custom Themes
+-------------
+Themes are written using Jade, with support for Coffeescript and Stylus via filters. The output of aglio is a single HTML file, but custom themes can make use of Jade's extend and include directives, which allow you to split a theme among multiple files. The locals available to themes look like the following:
+
+| Name      | Description                                              |
+| --------- | -------------------------------------------------------- |
+| api       | The API AST from Protagonist                             |
+| date      | Date and time handling from Moment.js                    |
+| highlight | A function (`code`, `lang`) to highlight a piece of code |
+| markdown  | A function to convert Markdown strings to HTML           |
+| slug      | A function to convert a string to a slug usable as an ID |
+
+The default themes in the `templates` directory provide a fairly complete example of how to use the above locals. Remember, you can use any functionality available in Jade, Javascript, Coffeescript, CSS, and Stylus. Even though only one HTML page is generated, you can for example do client-side routing with Backbone, Sammy or Davis and get multiple pages on the client.
+
 License
--------
+=======
 Copyright (c) 2013 Daniel G. Taylor
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
