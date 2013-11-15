@@ -1,6 +1,6 @@
 Aglio
 =====
-[![Dependency Status](https://gemnasium.com/danielgtaylor/aglio.png)](https://gemnasium.com/danielgtaylor/aglio) [![Build Status](https://travis-ci.org/danielgtaylor/aglio.png)](https://travis-ci.org/danielgtaylor/aglio) [![Coverage Status](https://coveralls.io/repos/danielgtaylor/aglio/badge.png)](https://coveralls.io/r/danielgtaylor/aglio) [![NPM version](https://badge.fury.io/js/aglio.png)](http://badge.fury.io/js/aglio)
+[![Dependency Status](https://gemnasium.com/danielgtaylor/aglio.png)](https://gemnasium.com/danielgtaylor/aglio) [![Build Status](https://travis-ci.org/danielgtaylor/aglio.png?branch=master)](https://travis-ci.org/danielgtaylor/aglio) [![Coverage Status](https://coveralls.io/repos/danielgtaylor/aglio/badge.png)](https://coveralls.io/r/danielgtaylor/aglio) [![NPM version](https://badge.fury.io/js/aglio.png)](http://badge.fury.io/js/aglio)
 
 An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple themes and outputs static HTML that can be served by any web host. Features:
 
