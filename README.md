@@ -1,5 +1,7 @@
 Aglio
 =====
+[![Dependency Status](https://gemnasium.com/danielgtaylor/aglio.png)](https://gemnasium.com/danielgtaylor/aglio) [![Build Status](https://travis-ci.org/danielgtaylor/aglio.png)](https://travis-ci.org/danielgtaylor/aglio) [![Coverage Status](https://coveralls.io/repos/danielgtaylor/aglio/badge.png)](https://coveralls.io/r/danielgtaylor/aglio) [![NPM version](https://badge.fury.io/js/aglio.png)](http://badge.fury.io/js/aglio)
+
 An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple themes and outputs static HTML that can be served by any web host. Features:
 
  * Fast parsing thanks to [Protagonist](https://github.com/apiaryio/protagonist)
@@ -12,8 +14,8 @@ An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple the
 
 #### Example Output
 
- * [Default theme](https://github.com/danielgtaylor/aglio/blob/master/examples/default.html)
- * [Slate theme](https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html)
+ * [Default theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default.html)
+ * [Slate theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html)
 
 Installation & Usage
 --------------------
