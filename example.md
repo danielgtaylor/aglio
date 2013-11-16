@@ -2,10 +2,12 @@ FORMAT: 1A
 HOST: https://api.mywebsite.com
 
 # API Title
-Markdown **formatted** description.
+[Markdown](http://daringfireball.net/projects/markdown/syntax) **formatted** description.
 
 ## Subtitle
-Also Markdown *formatted*.
+Also Markdown *formatted*. This also includes automatic "smartypants" formatting -- hooray!
+
+> "A quote from another time and place"
 
 Another paragraph. Code sample:
 
@@ -20,10 +22,14 @@ Foo bar baz
 ```
 
 # Group Notes
-Group description
+Group description (also with *Markdown*)
 
 ## Note List [/notes]
 Note list description
+
++ Even
++ More
++ Markdown
 
 + Model
 
@@ -184,7 +190,7 @@ Delete a single note
 # Group Users
 Group description
 
-## User List [/users{?name,joinedBefore,joinedAfter,limit}]
+## User List [/users{?name,joinedBefore,joinedAfter,sort,limit}]
 A list of users
 
 + Parameters
@@ -192,6 +198,13 @@ A list of users
     + name (optional, string, `alice`) ... Search for a user by name
     + joinedBefore (optional, string, `2011-01-01`) ... Search by join date
     + joinedAfter (optional, string, `2011-01-01`) ... Search by join date
+    + sort = `name` (optional, string, `joined`) ... Which field to sort by
+
+        + Values
+            + `name`
+            + `joined`
+            + `-joined`
+
     + limit = `10` (optional, integer, `25`) ... The maximum number of users to return, up to `50`
 
 + Model
@@ -216,7 +229,11 @@ A list of users
         ]
 
 ### Get users [GET]
-Get a list of users
+Get a list of users. Example:
+
+```no-highlight
+https://api.mywebsite.com/users?sort=joined&limit=5
+```
 
 + Response 200
 

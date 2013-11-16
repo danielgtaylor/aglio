@@ -26,6 +26,10 @@ mixin Parameters(params)
                                 strong Example:&nbsp;
                                 span= param.example
                         != markdown(param.description)
+                        if param.values.length
+                            p
+                                strong Choices:&nbsp;
+                                != '<code>' + param.values.join('</code>, <code>') + '</code>'
 
 mixin RequestResponse(title, request)
     - var id = Math.round(Math.random() * 1000000)
@@ -76,8 +80,10 @@ mixin ResourceGroup(resourceGroup)
                         when 'GET': - var panelClass = 'panel-info'
                         when 'PUT': - var panelClass = 'panel-warning'
                         when 'DELETE': - var panelClass = 'panel-danger'
-                    section.panel(class=panelClass)
+                    section.panel(class=panelClass, id="#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")
                         .panel-heading
+                            if action.name
+                                span.pull-right(style="text-transform: lowercase")= action.name
                             case action.method
                                 when 'POST': - var btnClass = 'btn-success'
                                 when 'GET': - var btnClass = 'btn-info'
@@ -99,14 +105,17 @@ html
         meta(charset="utf-8")
         link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/bootswatch/3.0.1/slate/bootstrap.min.css")
         link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css")
-        link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata")
+        link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway Dots")
         style.
             /* Highlight.js Theme */
             pre{background:#272b30;border:1px solid rgba(255, 255, 255, 0.2)}
             pre code{display:block;padding:.5em;background:#272b30}pre .tag,pre code{color:#f8f8f2}pre .change,pre .clojure .built_in,pre .flow,pre .function,pre .keyword,pre .lisp .title,pre .literal,pre .nginx .title,pre .tex .special,pre .winutils{color:#66d9ef}pre .params,pre .variable{color:#fd9720}pre .constant{color:#66d9ef}pre .class .title,pre .css .class,pre .title{color:#a6e22e}pre .attribute,pre .css .tag,pre .symbol,pre .symbol .string,pre .tag .title,pre .value{color:#f92672}pre .number,pre .preprocessor,pre .regexp{color:#ae81ff}pre .addition,pre .apache .cbracket,pre .apache .tag,pre .attr_selector,pre .built_in,pre .css .id,pre .django .filter .argument,pre .django .template_tag,pre .django .variable,pre .envvar,pre .haskell .type,pre .prompt,pre .pseudo,pre .ruby .class .parent,pre .smalltalk .array,pre .smalltalk .class,pre .smalltalk .localvars,pre .sql .aggregate,pre .stream,pre .string,pre .subst,pre .tag .value,pre .tex .command{color:#e6db74}pre .apache .sqbracket,pre .comment,pre .deletion,pre .doctype,pre .java .annotation,pre .javadoc,pre .pi,pre .python .decorator,pre .shebang,pre .template_comment,pre .tex .formula{color:#75715e}pre .coffeescript .javascript,pre .javascript .xml,pre .tex .formula,pre .xml .cdata,pre .xml .css,pre .xml .javascript,pre .xml .vbscript{opacity:.5}
         :stylus
-            body
+            body, h4, h5
                 font-family 'Roboto' sans-serif !important
+
+            h1, h2, h3
+                font-family 'Raleway Dots' sans-serif !important
 
             code
                 color #222
@@ -152,16 +161,35 @@ html
             | &nbsp;Back to top
         .container
             .row
-                nav.col-md-3
-                    .list-group(style="margin-top: 38px;")
-                        each resourceGroup in api.resourceGroups
+                nav.col-md-3(style="margin-top: 38px;")
+                    each resourceGroup in api.resourceGroups
+                        .list-group
                             a.list-group-item(href="#resource-group-#{slug(resourceGroup.name)}")
                                 i.fa.fa-folder-open
                                 | &nbsp;
                                 = resourceGroup.name
                             each resource in resourceGroup.resources
                                 a.list-group-item(href="#resource-#{slug(resource.name)}", style="padding-left: 32px;")
+                                    i.fa.fa-list
+                                    | &nbsp;
                                     = resource.name
+                                each action in resource.actions
+                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 48px")
+                                        case action.method
+                                            when 'GET'
+                                                i.fa.fa-arrow-circle-down
+                                            when 'POST'
+                                                i.fa.fa-plus-square
+                                            when 'PUT'
+                                                i.fa.fa-pencil
+                                            when 'PATCH'
+                                                i.fa.fa-pencil
+                                            when 'DELETE'
+                                                i.fa.fa-warning
+                                            default
+                                                i.fa.fa-dot-circle-o
+                                        | &nbsp;
+                                        = action.name || action.method
                     if api.metadata && api.metadata.HOST
                         p(style="text-align: center")
                             a(href=api.metadata.HOST.value)= api.metadata.HOST.value
@@ -178,7 +206,7 @@ html
 
         p.text-muted(style="text-align: center;")
             | Generated by 
-            a(href="http://github.com/danielgtaylor/aglio") Aglio
+            a(href="http://github.com/danielgtaylor/aglio") aglio
             |  on #{date().format('DD MMM YYYY')}
 
 

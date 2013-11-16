@@ -26,6 +26,10 @@ mixin Parameters(params)
                                 strong Example:&nbsp;
                                 span= param.example
                         != markdown(param.description)
+                        if param.values.length
+                            p
+                                strong Choices:&nbsp;
+                                != '<code>' + param.values.join('</code>, <code>') + '</code>'
 
 mixin RequestResponse(title, request)
     - var id = Math.round(Math.random() * 1000000)
@@ -76,8 +80,10 @@ mixin ResourceGroup(resourceGroup)
                         when 'GET': - var panelClass = 'panel-info'
                         when 'PUT': - var panelClass = 'panel-warning'
                         when 'DELETE': - var panelClass = 'panel-danger'
-                    section.panel(class=panelClass)
+                    section.panel(class=panelClass, id="#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")
                         .panel-heading
+                            if action.name
+                                span.pull-right(style="text-transform: lowercase")= action.name
                             case action.method
                                 when 'POST': - var btnClass = 'btn-success'
                                 when 'GET': - var btnClass = 'btn-primary'
@@ -99,13 +105,16 @@ html
         meta(charset="utf-8")
         link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css")
         link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css")
-        link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata")
+        link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway Dots")
         style.
             /* Highlight.js Theme */
             .tomorrow-comment,pre .comment,pre .title{color:#8e908c}.tomorrow-red,pre .attribute,pre .css .class,pre .css .id,pre .css .pseudo,pre .html .doctype,pre .regexp,pre .ruby .constant,pre .tag,pre .variable,pre .xml .doctype,pre .xml .pi,pre .xml .tag .title{color:#c82829}.tomorrow-orange,pre .built_in,pre .constant,pre .literal,pre .number,pre .params,pre .preprocessor{color:#f5871f}.tomorrow-yellow,pre .class,pre .css .rules .attribute,pre .ruby .class .title{color:#eab700}.tomorrow-green,pre .header,pre .inheritance,pre .ruby .symbol,pre .string,pre .value,pre .xml .cdata{color:#718c00}.tomorrow-aqua,pre .css .hexcolor{color:#3e999f}.tomorrow-blue,pre .coffeescript .title,pre .function,pre .javascript .title,pre .perl .sub,pre .python .decorator,pre .python .title,pre .ruby .function .title,pre .ruby .title .keyword{color:#4271ae}.tomorrow-purple,pre .javascript .function,pre .keyword{color:#8959a8}pre code{display:block;background:#fff;color:#4d4d4c;font-family:Menlo,Monaco,Consolas,monospace;line-height:1.5;border:1px solid #ccc;padding:10px}
         :stylus
-            body
+            body, h4, h5
                 font-family 'Roboto' sans-serif !important
+
+            h1, h2, h3
+                font-family 'Raleway Dots' sans-serif !important
 
             code
                 color #444
@@ -150,16 +159,35 @@ html
             | &nbsp;Back to top
         .container
             .row
-                nav.col-md-3
-                    .list-group(style="margin-top: 38px;")
-                        each resourceGroup in api.resourceGroups
+                nav.col-md-3(style="margin-top: 38px;")
+                    each resourceGroup in api.resourceGroups
+                        .list-group
                             a.list-group-item(href="#resource-group-#{slug(resourceGroup.name)}")
                                 i.fa.fa-folder-open
                                 | &nbsp;
                                 = resourceGroup.name
                             each resource in resourceGroup.resources
                                 a.list-group-item(href="#resource-#{slug(resource.name)}", style="padding-left: 32px;")
+                                    i.fa.fa-list
+                                    | &nbsp;
                                     = resource.name
+                                each action in resource.actions
+                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 48px")
+                                        case action.method
+                                            when 'GET'
+                                                i.fa.fa-arrow-circle-down
+                                            when 'POST'
+                                                i.fa.fa-plus-square
+                                            when 'PUT'
+                                                i.fa.fa-pencil
+                                            when 'PATCH'
+                                                i.fa.fa-pencil
+                                            when 'DELETE'
+                                                i.fa.fa-warning
+                                            default
+                                                i.fa.fa-dot-circle-o
+                                        | &nbsp;
+                                        = action.name || action.method
                     if api.metadata && api.metadata.HOST
                         p(style="text-align: center")
                             a(href=api.metadata.HOST.value)= api.metadata.HOST.value
@@ -176,7 +204,7 @@ html
 
         p.text-muted(style="text-align: center;")
             | Generated by 
-            a(href="http://github.com/danielgtaylor/aglio") Aglio
+            a(href="http://github.com/danielgtaylor/aglio") aglio
             |  on #{date().format('DD MMM YYYY')}
 
 
