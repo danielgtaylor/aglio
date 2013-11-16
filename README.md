@@ -20,6 +20,7 @@ Features
 
 Example Output
 --------------
+Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.md).
 
  * [Default theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default.html)
  * [Slate theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html)
