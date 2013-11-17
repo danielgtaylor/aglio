@@ -1,0 +1,66 @@
+extends _bootstrap-layout
+
+block bootstrap-theme
+    link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/bootswatch/3.0.1/flatly/bootstrap.min.css")
+
+block styles
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway Dots")
+    style.
+        /* Highlight.js Theme */
+        pre code{display:block;padding:.5em;color:#333;background:#f8f8ff}pre .comment,pre .diff .header,pre .javadoc,pre .template_comment{color:#998;font-style:italic}pre .css .rule .keyword,pre .javascript .title,pre .keyword,pre .nginx .title,pre .request,pre .status,pre .subst,pre .winutils{color:#333;font-weight:700}pre .hexcolor,pre .number,pre .ruby .constant{color:#099}pre .phpdoc,pre .string,pre .tag .value,pre .tex .formula{color:#d14}pre .coffeescript .params,pre .id,pre .scss .preprocessor,pre .title{color:#900;font-weight:700}pre .clojure .title,pre .javascript .title,pre .lisp .title,pre .subst{font-weight:400}pre .class .title,pre .haskell .type,pre .tex .command,pre .vhdl .literal{color:#458;font-weight:700}pre .django .tag .keyword,pre .rules .property,pre .tag,pre .tag .title{color:navy;font-weight:400}pre .attribute,pre .lisp .body,pre .variable{color:teal}pre .regexp{color:#009926}pre .class{color:#458;font-weight:700}pre .lisp .keyword,pre .prompt,pre .ruby .symbol .string,pre .symbol,pre .tex .special{color:#990073}pre .built_in,pre .clojure .built_in,pre .lisp .title{color:#0086b3}pre .cdata,pre .doctype,pre .pi,pre .preprocessor,pre .shebang{color:#999;font-weight:700}pre .deletion{background:#fdd}pre .addition{background:#dfd}pre .diff .change{background:#0086b3}pre .chunk{color:#aaa}pre {background:#f8f8ff}
+    :stylus
+        body, h4, h5
+            font-family 'Roboto' sans-serif !important
+
+        h1, h2, h3, .aglio
+            font-family 'Raleway Dots' sans-serif !important
+
+        code
+            color #444
+            background-color #ddd
+            font-family 'Inconsolata' monospace !important
+
+        a[data-target]
+            cursor pointer
+
+        h4
+            font-size 100%
+            font-weight bold
+            text-transform uppercase
+
+        .back-to-top
+            position fixed
+            z-index 1
+            bottom 0px
+            right 24px
+            padding 4px 8px
+            background-color #eee
+            text-decoration none !important
+            border-top 1px solid rgba(0, 0, 0, 0.1)
+            border-left 1px solid rgba(0, 0, 0, 0.1)
+            border-right 1px solid rgba(0, 0, 0, 0.1)
+            border-top-left-radius 3px
+            border-top-right-radius 3px
+
+        .panel
+            overflow hidden
+
+        .panel-heading
+            code
+                color white
+                background-color transparent
+            h3
+                margin-top 10px
+                margin-bottom 10px
+
+        a.list-group-item
+            white-space nowrap
+            text-overflow ellipsis
+            overflow hidden
+
+        .list-group-item.collapse
+            display none
+
+block content
+    each resourceGroup in api.resourceGroups
+        +ResourceGroup(resourceGroup, 'info')

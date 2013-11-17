@@ -1,0 +1,120 @@
+//- Common mixins that templates can share
+
+mixin Parameters(params)
+    ul.list-group
+        li.list-group-item.bg-default: strong Parameters
+        li.list-group-item
+            dl.dl-horizontal
+                each name in Object.keys(params)
+                    - var param = params[name]
+                    dt= name
+                    dd
+                        code= param.type
+                        | &nbsp;
+                        if param.required
+                            span.required (required)
+                        else
+                            span (optional)
+                        | &nbsp;
+                        if param.default
+                            span.text-info.default
+                                strong Default:&nbsp;
+                                span= param.default
+                            | &nbsp;
+                        if param.example
+                            span.text-muted.example
+                                strong Example:&nbsp;
+                                span= param.example
+                        != markdown(param.description)
+                        if param.values.length
+                            p
+                                strong Choices:&nbsp;
+                                != '<code>' + param.values.join('</code>, <code>') + '</code>'
+
+mixin RequestResponse(title, request)
+    - var id = Math.round(Math.random() * 1000000)
+    - var content = Object.keys(request.headers).length || request.body
+    li.list-group-item
+        strong
+            = title
+            if request.name
+                | &nbsp;&nbsp;
+                code= request.name
+        if content
+            a.pull-right(data-toggle="collapse", data-target="##{id}") Toggle
+    if content
+        li.list-group-item.collapse(id=id)
+            if Object.keys(request.headers).length
+                h5 Headers
+                pre
+                    code
+                        each name in Object.keys(request.headers)
+                            != highlight(name + ': ' + request.headers[name].value, 'http')
+                            br
+            if request.body
+                h5 Body
+                pre
+                    code!= highlight(request.body)
+
+
+mixin Examples(examples)
+    ul.list-group
+        each example in examples
+            each request in example.requests
+                +RequestResponse('Request', request)
+            each response in example.responses
+                +RequestResponse('Response', response)
+                        
+mixin ResourceGroup(resourceGroup, getButtonClass)
+    .panel.panel-default
+        .panel-heading
+            h3(id="resource-group-#{slug(resourceGroup.name)}")= resourceGroup.name
+        .panel-body
+            != markdown(resourceGroup.description)
+            each resource in resourceGroup.resources
+                h4(id="resource-#{slug(resource.name)}")= resource.name
+                != markdown(resource.description)
+                each action in resource.actions
+                    case action.method
+                        when 'POST': - var panelClass = 'panel-success'
+                        when 'GET': - var panelClass = 'panel-info'
+                        when 'PUT': - var panelClass = 'panel-warning'
+                        when 'PATCH': - var panelClass = 'panel-warning'
+                        when 'DELETE': - var panelClass = 'panel-danger'
+                        default: - var panelClass = 'panel-default'
+                    section.panel(class=panelClass, id="#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")
+                        .panel-heading
+                            if action.name
+                                span.pull-right(style="text-transform: lowercase")= action.name
+                            case action.method
+                                when 'POST': - var btnClass = 'btn-success'
+                                when 'GET': - var btnClass = 'btn-' + getButtonClass
+                                when 'PUT': - var btnClass = 'btn-warning'
+                                when 'PATCH': - var btnClass = 'btn-warning'
+                                when 'DELETE': - var btnClass = 'btn-danger'
+                                default: - var btnClass = 'btn-default'
+                            span.btn.btn-xs(class=btnClass)= action.method
+                            | &nbsp;
+                            code= resource.uriTemplate
+                        .panel-body!= markdown(action.description)
+
+                        - var params = Object.keys(action.parameters).length ? action.parameters : resource.parameters
+                        if Object.keys(params).length
+                            +Parameters(params)
+                        if action.examples
+                            +Examples(action.examples)
+
+mixin Icon(method)
+    case method
+        when 'GET'
+            i.fa.fa-arrow-circle-down
+        when 'POST'
+            i.fa.fa-plus-square
+        when 'PUT'
+            i.fa.fa-pencil
+        when 'PATCH'
+            i.fa.fa-pencil
+        when 'DELETE'
+            i.fa.fa-warning
+        default
+            i.fa.fa-dot-circle-o

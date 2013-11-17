@@ -23,6 +23,7 @@ Example Output
 Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.md).
 
  * [Default theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default.html)
+ * [Flatly theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/flatly.html)
  * [Slate theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html)
 
 Installation & Usage
@@ -136,7 +137,7 @@ grunt coverage
 
 Custom Themes
 -------------
-Themes are written using Jade, with support for Coffeescript and Stylus via filters. The output of aglio is a single HTML file, but custom themes can make use of Jade's extend and include directives, which allow you to split a theme among multiple files. The locals available to themes look like the following:
+Themes are written using Jade, with support for Coffeescript and Stylus via filters. The output of aglio is a single HTML file, but custom themes can make use of Jade's extend and include directives, which allow you to split a theme among multiple files (the built-in themes do this). The locals available to themes look like the following:
 
 | Name      | Description                                              |
 | --------- | -------------------------------------------------------- |

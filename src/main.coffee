@@ -34,7 +34,10 @@ exports.getTemplates = (done) ->
     fs.readdir path.join(root, 'templates'), (err, files) ->
         if err then return done(err)
         
-        done null, files.map (item) -> item.replace /\.jade$/, ''
+        # Return template names without the extension, and exclude items
+        # that start with an underscore, which allows component reuse
+        # among built-in templates.
+        done null, (f for f in files when f[0] isnt '_').map (item) -> item.replace /\.jade$/, ''
 
 # Render an API Blueprint string using a given template
 exports.render = (input, template, done) ->
