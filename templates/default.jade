@@ -100,6 +100,21 @@ mixin ResourceGroup(resourceGroup)
                         if action.examples
                             +Examples(action.examples)
 
+mixin Icon(method)
+    case method
+        when 'GET'
+            i.fa.fa-arrow-circle-down
+        when 'POST'
+            i.fa.fa-plus-square
+        when 'PUT'
+            i.fa.fa-pencil
+        when 'PATCH'
+            i.fa.fa-pencil
+        when 'DELETE'
+            i.fa.fa-warning
+        default
+            i.fa.fa-dot-circle-o
+
 html
     head
         meta(charset="utf-8")
@@ -151,6 +166,11 @@ html
                     margin-top 10px
                     margin-bottom 10px
 
+            a.list-group-item
+                white-space nowrap
+                text-overflow ellipsis
+                overflow hidden
+
             .list-group-item.collapse
                 display none
     body
@@ -165,29 +185,24 @@ html
                             a.list-group-item(href="#resource-group-#{slug(resourceGroup.name)}")
                                 i.fa.fa-folder-open
                                 | &nbsp;
-                                = resourceGroup.name
+                                = resourceGroup.name || 'Resource Group'
                             each resource in resourceGroup.resources
-                                a.list-group-item(href="#resource-#{slug(resource.name)}", style="padding-left: 32px;")
-                                    i.fa.fa-list
-                                    | &nbsp;
-                                    = resource.name
-                                each action in resource.actions
-                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 48px")
-                                        case action.method
-                                            when 'GET'
-                                                i.fa.fa-arrow-circle-down
-                                            when 'POST'
-                                                i.fa.fa-plus-square
-                                            when 'PUT'
-                                                i.fa.fa-pencil
-                                            when 'PATCH'
-                                                i.fa.fa-pencil
-                                            when 'DELETE'
-                                                i.fa.fa-warning
-                                            default
-                                                i.fa.fa-dot-circle-o
+                                if resource.actions.length != 1
+                                    a.list-group-item(href="#resource-#{slug(resource.name)}", style="padding-left: 32px;")
+                                        i.fa.fa-list
                                         | &nbsp;
-                                        = action.name || action.method
+                                        = resource.name || 'Resource'
+                                    each action in resource.actions
+                                        a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 48px")
+                                            +Icon(action.method)
+                                            | &nbsp;
+                                            = action.name || action.method + ' ' + resource.uriTemplate
+                                else
+                                    a.list-group-item(href="#resource-#{slug(resource.name)}", style="padding-left: 32px;")
+                                        - var action = resource.actions[0]
+                                        +Icon(action.method)
+                                        | &nbsp;
+                                        = resource.name || action.name || action.method + ' ' + resource.uriTemplate
                     if api.metadata && api.metadata.HOST
                         p(style="text-align: center")
                             a(href=api.metadata.HOST.value)= api.metadata.HOST.value
