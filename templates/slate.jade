@@ -4,7 +4,7 @@ block bootstrap-theme
     link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/bootswatch/3.0.1/slate/bootstrap.min.css")
 
 block styles
-    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway Dots")
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200")
     style.
         /* Highlight.js Theme */
         pre{background:#272b30;border:1px solid rgba(255, 255, 255, 0.2)}
@@ -14,7 +14,14 @@ block styles
             font-family 'Roboto' sans-serif !important
 
         h1, h2, h3, .aglio
-            font-family 'Raleway Dots' sans-serif !important
+            font-family 'Raleway' sans-serif !important
+
+        h1, h2, h3, h4, h5
+            & a
+                display none
+
+            &:hover a
+                display inline
 
         code
             color #222

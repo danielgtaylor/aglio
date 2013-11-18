@@ -68,11 +68,19 @@ mixin Examples(examples)
 mixin ResourceGroup(resourceGroup, getButtonClass)
     .panel.panel-default
         .panel-heading
-            h3(id="resource-group-#{slug(resourceGroup.name)}")= resourceGroup.name
+            h3(id="#{slug(resourceGroup.name)}")
+                = resourceGroup.name
+                | &nbsp;
+                a(href="##{slug(resourceGroup.name)}")
+                    i.fa.fa-link
         .panel-body
             != markdown(resourceGroup.description)
             each resource in resourceGroup.resources
-                h4(id="resource-#{slug(resource.name)}")= resource.name
+                h4(id="#{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                    = resource.name
+                    | &nbsp;
+                    a(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                        i.fa.fa-link
                 != markdown(resource.description)
                 each action in resource.actions
                     case action.method
@@ -93,7 +101,7 @@ mixin ResourceGroup(resourceGroup, getButtonClass)
                                 when 'PATCH': - var btnClass = 'btn-warning'
                                 when 'DELETE': - var btnClass = 'btn-danger'
                                 default: - var btnClass = 'btn-default'
-                            span.btn.btn-xs(class=btnClass)= action.method
+                            a.btn.btn-xs(class=btnClass, href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")= action.method
                             | &nbsp;
                             code= resource.uriTemplate
                         .panel-body!= markdown(action.description)

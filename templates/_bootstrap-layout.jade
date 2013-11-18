@@ -9,7 +9,7 @@ html
             link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css")
         link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css")
         block styles
-            link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway Dots")
+            link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200")
             style.
                 /* Highlight.js Theme */
                 .tomorrow-comment,pre .comment,pre .title{color:#8e908c}.tomorrow-red,pre .attribute,pre .css .class,pre .css .id,pre .css .pseudo,pre .html .doctype,pre .regexp,pre .ruby .constant,pre .tag,pre .variable,pre .xml .doctype,pre .xml .pi,pre .xml .tag .title{color:#c82829}.tomorrow-orange,pre .built_in,pre .constant,pre .literal,pre .number,pre .params,pre .preprocessor{color:#f5871f}.tomorrow-yellow,pre .class,pre .css .rules .attribute,pre .ruby .class .title{color:#eab700}.tomorrow-green,pre .header,pre .inheritance,pre .ruby .symbol,pre .string,pre .value,pre .xml .cdata{color:#718c00}.tomorrow-aqua,pre .css .hexcolor{color:#3e999f}.tomorrow-blue,pre .coffeescript .title,pre .function,pre .javascript .title,pre .perl .sub,pre .python .decorator,pre .python .title,pre .ruby .function .title,pre .ruby .title .keyword{color:#4271ae}.tomorrow-purple,pre .javascript .function,pre .keyword{color:#8959a8}pre code{display:block;background:#fff;color:#4d4d4c;font-family:Menlo,Monaco,Consolas,monospace;line-height:1.5;border:1px solid #ccc;padding:10px}
@@ -18,7 +18,14 @@ html
                     font-family 'Roboto' sans-serif !important
 
                 h1, h2, h3, .aglio
-                    font-family 'Raleway Dots' sans-serif !important
+                    font-family 'Raleway' sans-serif !important
+
+                h1, h2, h3, h4, h5
+                    & a
+                        display none
+
+                    &:hover a
+                        display inline
 
                 code
                     color #444
@@ -74,13 +81,13 @@ html
                 nav.col-md-3(style="margin-top: 38px;")
                     each resourceGroup in api.resourceGroups
                         .list-group
-                            a.list-group-item(href="#resource-group-#{slug(resourceGroup.name)}")
+                            a.list-group-item(href="##{slug(resourceGroup.name)}")
                                 i.fa.fa-folder-open
                                 | &nbsp;
                                 = resourceGroup.name || 'Resource Group'
                             each resource in resourceGroup.resources
                                 if resource.actions.length != 1
-                                    a.list-group-item(href="#resource-#{slug(resource.name)}", style="padding-left: 32px;")
+                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}", style="padding-left: 32px;")
                                         i.fa.fa-list
                                         | &nbsp;
                                         = resource.name || 'Resource'
@@ -90,7 +97,7 @@ html
                                             | &nbsp;
                                             = action.name || action.method + ' ' + resource.uriTemplate
                                 else
-                                    a.list-group-item(href="#resource-#{slug(resource.name)}", style="padding-left: 32px;")
+                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}", style="padding-left: 32px;")
                                         - var action = resource.actions[0]
                                         +Icon(action.method)
                                         | &nbsp;
