@@ -133,6 +133,9 @@ grunt test
 
 # Generate an HTML test coverage report
 grunt coverage
+
+# Render examples
+grunt examples
 ```
 
 Custom Themes

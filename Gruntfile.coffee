@@ -1,3 +1,5 @@
+async = require 'async'
+
 module.exports = (grunt) ->
     grunt.initConfig
         pkg: grunt.file.readJSON 'package.json'
@@ -45,8 +47,24 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-coffee'
     grunt.loadNpmTasks 'grunt-mocha-cov'
 
+    grunt.registerTask 'gen-examples', 'Generate an example for each theme', ->
+        done = @async()
+
+        aglio = require './lib/main'
+
+        render = (template, done) ->
+            console.log "Generating examples/#{template}.html"
+            aglio.renderFile 'example.md', "examples/#{template}.html", template, (err) ->
+                if err then return done(err)
+                done()
+
+        aglio.getTemplates (err, templates) ->
+            async.each templates, render, done
+
+
     grunt.registerTask 'compile', ['coffeelint', 'coffee']
     grunt.registerTask 'test', ['compile', 'mochacov:test']
     grunt.registerTask 'coverage', ['compile', 'mochacov:html']
     grunt.registerTask 'coveralls', ['compile', 'mochacov:reportcoverage']
+    grunt.registerTask 'examples', ['compile', 'gen-examples']
     grunt.registerTask 'default', ['compile']

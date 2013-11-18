@@ -48,6 +48,7 @@
     "grunt": "~0.4.1",
     "grunt-mocha-cov": "0.0.7",
     "grunt-coffeelint": "0.0.7",
-    "sinon": "~1.7.3"
+    "sinon": "~1.7.3",
+    "async": "~0.2.9"
   }
 }
