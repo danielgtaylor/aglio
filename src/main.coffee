@@ -10,7 +10,7 @@ root = path.dirname __dirname
 
 # A function to create ID-safe slugs
 slug = (value) ->
-    value.toLowerCase().replace /[ \t\n]/, '-'
+    value.toLowerCase().replace /[ \t\n]/g, '-'
 
 # A function to highlight snippets of code. lang is optional and
 # if given, is used to set the code language. If lang is no-highlight
