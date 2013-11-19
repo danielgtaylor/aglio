@@ -71,12 +71,38 @@ Then, convert some API Blueprint to HTML:
 ```javascript
 var aglio = require('aglio');
 
+# Render a blueprint with a template by name
 var blueprint = '# Some API Blueprint string';
+var template = 'default';
 
-aglio.render(blueprint, 'default', function (err, html) {
-    if (err) console.log(err);
+aglio.render(blueprint, template, function (err, html) {
+    if (err) return console.log(err);
 
     console.log(html);
+});
+
+# Render a blueprint with a custom template file
+var customTemplate = '/path/to/my-template.jade';
+aglio.render(blueprint, customTemplate, function (err, html) {
+    if (err) return console.log(err);
+
+    console.log(html);
+});
+
+
+# Pass custom locals along to the template, for example
+# the following gives templates access to lodash and async
+var options = {
+    template: '/path/to/my-template.jade',
+    locals: {
+        _: require('lodash'),
+        async: require('async')
+    }
+};
+aglio.render(blueprint, options, function (err, html) {
+   if (err) return console.log(err);
+
+   console.log(html);
 });
 ```
 
@@ -94,20 +120,32 @@ aglio.getTemplates(function (err, names) {
 });
 ```
 
-#### aglio.render (blueprint, template, callback)
-Render an API Blueprint string with the given template and pass the generated HTML to the callback.
+#### aglio.render (blueprint, options, callback)
+Render an API Blueprint string and pass the generated HTML to the callback. The `options` can either be an object of options or a simple template name or file path string. Available options are:
+
+| Option   | Description                                   |
+| -------- | --------------------------------------------- |
+| locals   | Extra locals to pass to templates             |
+| template | Template name or path to custom template file |
 
 ```javascript
 var blueprint = '...';
-alio.render(blueprint, 'default', function (err, html) {
+var options = {
+    template: 'default',
+    locals: {
+        myVariable: 125
+    }
+};
+
+alio.render(blueprint, options, function (err, html) {
     if (err) return console.log(err);
 
     console.log(html);
 });
 ```
 
-#### aglio.renderFile (inputFile, outputFile, template, callback)
-Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths.
+#### aglio.renderFile (inputFile, outputFile, options, callback)
+Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths. The options behaves the same as above for `aglio.render`.
 
 ```javascript
 aglio.renderFile('/tmp/input.md', '/tmp/output.html', 'default', function (err) {

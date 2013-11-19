@@ -31,7 +31,7 @@ describe 'API Blueprint Renderer', ->
             done()
 
     it 'Should render blank string', (done) ->
-        aglio.render '', 'default', (err, html) ->
+        aglio.render '', template: 'default', locals: {foo: 1}, (err, html) ->
             if err then return done(err)
 
             assert html

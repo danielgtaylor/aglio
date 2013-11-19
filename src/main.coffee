@@ -40,9 +40,15 @@ exports.getTemplates = (done) ->
         done null, (f for f in files when f[0] isnt '_').map (item) -> item.replace /\.jade$/, ''
 
 # Render an API Blueprint string using a given template
-exports.render = (input, template, done) ->
+exports.render = (input, options, done) ->
     protagonist.parse input, (err, res) ->
         if err then return done(err)
+
+        if typeof options is 'string' or options instanceof String
+            options =
+                template: options
+
+        options.template ?= 'default'
 
         locals =
             api: res.ast
@@ -51,10 +57,13 @@ exports.render = (input, template, done) ->
             markdown: marked
             slug: slug
 
-        if fs.existsSync template
-            templatePath = template
+        for key, value of options.locals or {}
+            locals[key] = value
+
+        if fs.existsSync options.template
+            templatePath = options.template
         else
-            templatePath = path.join root, 'templates', "#{template}.jade"
+            templatePath = path.join root, 'templates', "#{options.template}.jade"
 
         jade.renderFile templatePath, locals, (err, html) ->
             if err then return done(err)
@@ -62,11 +71,11 @@ exports.render = (input, template, done) ->
             done null, html
 
 # Render from/to files
-exports.renderFile = (inputFile, outputFile, template, done) ->
+exports.renderFile = (inputFile, outputFile, options, done) ->
     fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
         if err then return done(err)
 
-        exports.render input, template, (err, html) ->
+        exports.render input, options, (err, html) ->
             if err then return done(err)
 
             if outputFile isnt '-'
