@@ -69,19 +69,21 @@ mixin ResourceGroup(resourceGroup, getButtonClass)
     .panel.panel-default
         .panel-heading
             h3(id="#{slug(resourceGroup.name)}")
-                = resourceGroup.name
+                = resourceGroup.name || 'Resource Group'
                 | &nbsp;
                 a(href="##{slug(resourceGroup.name)}")
                     i.fa.fa-link
         .panel-body
-            != markdown(resourceGroup.description)
+            if resourceGroup.description
+                != markdown(resourceGroup.description)
             each resource in resourceGroup.resources
                 h4(id="#{slug(resourceGroup.name)}-#{slug(resource.name)}")
-                    = resource.name
+                    = resource.name || 'Resources'
                     | &nbsp;
                     a(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}")
                         i.fa.fa-link
-                != markdown(resource.description)
+                if resource.description
+                    != markdown(resource.description)
                 each action in resource.actions
                     case action.method
                         when 'POST': - var panelClass = 'panel-success'
@@ -104,7 +106,8 @@ mixin ResourceGroup(resourceGroup, getButtonClass)
                             a.btn.btn-xs(class=btnClass, href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")= action.method
                             | &nbsp;
                             code= resource.uriTemplate
-                        .panel-body!= markdown(action.description)
+                        if action.description
+                            .panel-body!= markdown(action.description)
 
                         - var params = Object.keys(action.parameters).length ? action.parameters : resource.parameters
                         if Object.keys(params).length

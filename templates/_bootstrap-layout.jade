@@ -70,6 +70,9 @@ html
                     text-overflow ellipsis
                     overflow hidden
 
+                    &.heading
+                        background-color #f5f5f5
+
                 .list-group-item.collapse
                     display none
     body
@@ -78,26 +81,24 @@ html
             | &nbsp;Back to top
         .container
             .row
-                nav.col-md-3(style="margin-top: 38px;")
+                nav#nav.col-md-3.collapse.hidden-sm.hidden-xs(style="margin-top: 38px;")
                     each resourceGroup in api.resourceGroups
                         .list-group
-                            a.list-group-item(href="##{slug(resourceGroup.name)}")
-                                i.fa.fa-folder-open
-                                | &nbsp;
+                            a.list-group-item.heading(href="##{slug(resourceGroup.name)}")
                                 = resourceGroup.name || 'Resource Group'
                             each resource in resourceGroup.resources
                                 if resource.actions.length != 1
-                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}", style="padding-left: 32px;")
-                                        i.fa.fa-list
+                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                                        i.fa.fa-bars
                                         | &nbsp;
                                         = resource.name || 'Resource'
                                     each action in resource.actions
-                                        a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 48px")
+                                        a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 32px")
                                             +Icon(action.method)
                                             | &nbsp;
                                             = action.name || action.method + ' ' + resource.uriTemplate
                                 else
-                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}", style="padding-left: 32px;")
+                                    a.list-group-item(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}")
                                         - var action = resource.actions[0]
                                         +Icon(action.method)
                                         | &nbsp;
@@ -109,7 +110,7 @@ html
                 .col-md-9
                     header
                         .page-header
-                            h1#top= api.name
+                            h1#top= api.name || 'API Documentation'
                 
                     .description!= markdown(api.description)
 
