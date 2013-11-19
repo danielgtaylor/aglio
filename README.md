@@ -25,6 +25,7 @@ Example output is generated from the [example API Blueprint](https://raw.github.
  * [Default theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default.html)
  * [Flatly theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/flatly.html)
  * [Slate theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html)
+ * [Cyborg theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/cyborg.html)
 
 Installation & Usage
 ====================

@@ -1,0 +1,78 @@
+extends _bootstrap-layout
+
+block bootstrap-theme
+    link(rel="stylesheet", href="http://netdna.bootstrapcdn.com/bootswatch/3.0.1/cyborg/bootstrap.min.css")
+
+block styles
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200")
+    style.
+        /* Highlight.js Theme */
+        pre{background:#1a1a1a;border:1px solid rgba(255, 255, 255, 0.1)}
+        pre code{display:block;padding:.5em;background:#1a1a1a}pre .ini .title,pre .nginx .title,pre .profile .header *{color:#fff}pre .comment,pre .css .rules,pre .diff,pre .doctype,pre .javadoc,pre .pi,pre .preprocessor,pre .preprocessor .title,pre .profile .summary,pre .shebang,pre .tag,pre .template_comment,pre .tex .special{color:#444}pre .clojure .attribute,pre .coffeescript .attribute,pre .diff .change,pre .ini .value,pre .regexp,pre .smalltalk .char,pre .string,pre .symbol,pre .xml .attribute,pre .xml .value{color:#fc3}pre .addition,pre .number{color:#0c6}pre .built_in,pre .css .funtion,pre .django .variable,pre .flow,pre .go .constant,pre .go .typename,pre .hexcolor,pre .important,pre .inheritance,pre .ini .keyword,pre .literal,pre .lua .title,pre .mel .variable,pre .parser3 .variable,pre .perl .variable,pre .php .variable,pre .smalltalk .method,pre .vhdl .typename{color:#32AAEE}pre .clojure .built_in,pre .css .attr_selector,pre .css .class,pre .css .id,pre .css .pseudo,pre .css .tag,pre .keyword,pre .lisp .title,pre .request,pre .status,pre .tag .title,pre .tex .command,pre .winutils{color:#64a}pre .apache .tag,pre .avrasm .label,pre .bash .variable,pre .css .keyword,pre .deletion,pre .envvar,pre .go .built_in,pre .lisp .keyword,pre .lua .built_in,pre .nginx .variable,pre .objectivec .class .id,pre .parent,pre .rsl .built_in,pre .ruby .constant,pre .smalltalk .class,pre .tail,pre .template_tag,pre .tex .formula,pre .tex .formula *,pre .title,pre .vala .constant,pre .vbscript .built_in{color:#b16}pre .apache .tag,pre .ini .title,pre .parser3 .title,pre .phpdoc,pre .profile .header,pre .yardoctag{font-weight:700}pre .coffeescript .javascript,pre .javascript .xml,pre .tex .formula,pre .xml .cdata,pre .xml .css,pre .xml .javascript,pre .xml .vbscript{opacity:.6}pre .container,pre .css,pre .css .attribute,pre .css .value,pre .diff .chunk,pre .erlang *,pre .erlang_repl *,pre .haskell *,pre .javascript,pre .lisp .number,pre .lisp .string,pre .subst,pre .tail .params,pre .xml,pre code{color:#aaa}
+    :stylus
+        body, h4, h5
+            font-family 'Roboto' sans-serif !important
+
+        h1, h2, h3, .aglio
+            font-family 'Raleway' sans-serif !important
+
+        h1, h2, h3, h4, h5
+            & a
+                display none
+
+            &:hover a
+                display inline
+
+        code
+            color #222
+            background-color #aaa
+            font-family 'Inconsolata' monospace !important
+
+        a[data-target]
+            cursor pointer
+
+        h4
+            font-size 100%
+            font-weight bold
+            text-transform uppercase
+
+        .back-to-top
+            position fixed
+            z-index 1
+            bottom 0px
+            right 24px
+            padding 4px 8px
+            color #aaa
+            background-color #1a1a1a
+            text-decoration none !important
+            border-top 1px solid rgba(0, 0, 0, 0.1)
+            border-left 1px solid rgba(0, 0, 0, 0.1)
+            border-right 1px solid rgba(0, 0, 0, 0.1)
+            border-top-left-radius 3px
+            border-top-right-radius 3px
+
+        .panel
+            overflow hidden
+
+        .panel-heading
+            code
+                color white
+                background-color transparent
+            h3
+                margin-top 10px
+                margin-bottom 10px
+
+        a.list-group-item
+            white-space nowrap
+            text-overflow ellipsis
+            overflow hidden
+
+            &.heading
+                background-color #3c3c3c
+
+        .list-group-item.collapse
+            display none
+
+block content
+    each resourceGroup in api.resourceGroups
+        +ResourceGroup(resourceGroup, 'info')
