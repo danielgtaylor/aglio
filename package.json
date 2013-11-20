@@ -38,7 +38,7 @@
     "jade": "~0.35.0",
     "marked": "~0.2.10",
     "optimist": "~0.6.0",
-    "protagonist": "~0.5.4",
+    "protagonist": "~0.5.5",
     "highlight.js": "~7.4.0",
     "moment": "~2.4.0",
     "stylus": "~0.40.2"
