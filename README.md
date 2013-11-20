@@ -22,10 +22,10 @@ Example Output
 --------------
 Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.md).
 
- * [Default theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default.html)
- * [Flatly theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/flatly.html)
- * [Slate theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html)
- * [Cyborg theme](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/cyborg.html)
+ * Default theme: [Single Page](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default.html) or [Multiple Pages](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/default-multi.html)
+ * Flatly theme: [Single Page](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/flatly.html) or [Multiple Pages](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/flatly-multi.html)
+ * Slate theme: [Single Page](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate.html) or [Multiple Pages](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/slate-multi.html)
+ * Cyborg theme: [Single Page](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/cyborg.html) or [Multiple Pages](http://htmlpreview.github.io/?https://github.com/danielgtaylor/aglio/blob/master/examples/cyborg-multi.html)
 
 Installation & Usage
 ====================

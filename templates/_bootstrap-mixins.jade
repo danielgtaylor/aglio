@@ -1,5 +1,35 @@
 //- Common mixins that templates can share
 
+mixin Nav(multipage)
+    nav#nav.col-md-3.collapse.hidden-sm.hidden-xs(style="margin-top: 38px;")
+        if multipage
+            .list-group
+                a.list-group-item.heading(href="#") Home
+        each resourceGroup in api.resourceGroups
+            .list-group
+                a.list-group-item.heading(href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
+                    = resourceGroup.name || 'Resource Group'
+                each resource in resourceGroup.resources
+                    if resource.actions.length != 1
+                        a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                            i.fa.fa-bars
+                            | &nbsp;
+                            = resource.name || 'Resource'
+                        each action in resource.actions
+                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 32px")
+                                +Icon(action.method)
+                                | &nbsp;
+                                = action.name || action.method + ' ' + resource.uriTemplate
+                    else
+                        a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                            - var action = resource.actions[0]
+                            +Icon(action.method)
+                            | &nbsp;
+                            = resource.name || action.name || action.method + ' ' + resource.uriTemplate
+        if api.metadata && api.metadata.HOST
+            p(style="text-align: center")
+                a(href=api.metadata.HOST.value)= api.metadata.HOST.value
+
 mixin Parameters(params)
     ul.list-group
         li.list-group-item.bg-default: strong Parameters
@@ -65,13 +95,13 @@ mixin Examples(examples)
             each response in example.responses
                 +RequestResponse('Response', response)
                         
-mixin ResourceGroup(resourceGroup, getButtonClass)
+mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
     .panel.panel-default
         .panel-heading
             h3(id="#{slug(resourceGroup.name)}")
                 = resourceGroup.name || 'Resource Group'
                 | &nbsp;
-                a(href="##{slug(resourceGroup.name)}")
+                a(href="##{multipage ? 'page:' : ''}#{slug(resourceGroup.name)}")
                     i.fa.fa-link
         .panel-body
             if resourceGroup.description
@@ -80,7 +110,7 @@ mixin ResourceGroup(resourceGroup, getButtonClass)
                 h4(id="#{slug(resourceGroup.name)}-#{slug(resource.name)}")
                     = resource.name || 'Resources'
                     | &nbsp;
-                    a(href="##{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                    a(href="##{(multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : '')}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
                         i.fa.fa-link
                 if resource.description
                     != markdown(resource.description)
@@ -103,7 +133,7 @@ mixin ResourceGroup(resourceGroup, getButtonClass)
                                 when 'PATCH': - var btnClass = 'btn-warning'
                                 when 'DELETE': - var btnClass = 'btn-danger'
                                 default: - var btnClass = 'btn-default'
-                            a.btn.btn-xs(class=btnClass, href="##{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")= action.method
+                            a.btn.btn-xs(class=btnClass, href="##{(multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : '')}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")= action.method
                             | &nbsp;
                             code= resource.uriTemplate
                         if action.description
@@ -114,6 +144,23 @@ mixin ResourceGroup(resourceGroup, getButtonClass)
                             +Parameters(params)
                         if action.examples
                             +Examples(action.examples)
+
+mixin Paginate(resourceGroups, index)
+    if index < resourceGroups.length - 1
+        a.btn.btn-default.pull-right(href="#page:#{slug(resourceGroups[index + 1].name)}")
+            | Next&nbsp;
+            i.fa.fa-arrow-circle-right
+
+    if index > 0
+        a.btn.btn-default(href="#page:#{slug(resourceGroups[index - 1].name)}")
+            i.fa.fa-arrow-circle-left
+            |  Previous
+    else
+        a.btn.btn-default(href="#")
+            i.fa.fa-arrow-circle-left
+            |  Previous
+    .clearfix
+    hr
 
 mixin Icon(method)
     case method
@@ -129,3 +176,55 @@ mixin Icon(method)
             i.fa.fa-warning
         default
             i.fa.fa-dot-circle-o
+
+mixin Content(getButtonClass, multipage)
+    div(data-bind=multipage ? "visible: page() == 'home'" : undefined)
+        header
+            .page-header
+                h1#top= api.name || 'API Documentation'
+    
+        .description!= markdown(api.description)
+
+        if multipage
+            a.btn.btn-default.pull-right(href="#page:#{slug(api.resourceGroups[0].name)}")
+                | Next&nbsp;
+                i.fa.fa-arrow-circle-right
+            .clearfix
+            hr
+
+    each resourceGroup, index in api.resourceGroups
+        div(data-bind=multipage ? "visible: page() == '#{slug(resourceGroup.name)}', style: {marginTop: page() == '#{slug(resourceGroup.name)}' ? '38px' : ''}" : undefined)
+            +ResourceGroup(resourceGroup, getButtonClass, multipage)
+
+            if multipage
+                +Paginate(api.resourceGroups, index)
+
+mixin Multipage()
+    //- Multi-page support through Knockout.js
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.0.0/knockout-min.js")
+    :coffee
+        class App
+            constructor: ->
+                @page = ko.observable 'home'
+
+        window.app = new App()
+
+        window.onhashchange = ->
+            vars = {}
+            for v in location.hash.substr(1).split(',')
+                parts = v.split ':'
+                vars[parts[0]] = parts[1]
+
+            # Set the page
+            window.app.page vars.page or 'home'
+
+            # Scroll to a header if Set
+            if vars.header
+                $("##{vars.header}")[0].scrollIntoView true
+            else
+                window.scrollTo 0, 0
+
+        ko.applyBindings window.app
+
+        # Load the correct page
+        window.onhashchange()

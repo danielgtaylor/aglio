@@ -56,7 +56,7 @@ block styles
 
         .panel-heading
             code
-                color #97000e
+                color black
                 background-color transparent
             h3
                 margin-top 10px
@@ -74,5 +74,4 @@ block styles
             display none
 
 block content
-    each resourceGroup in api.resourceGroups
-        +ResourceGroup(resourceGroup, 'info')
+    +Content('info', false)

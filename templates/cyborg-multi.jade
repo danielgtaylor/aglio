@@ -1,0 +1,13 @@
+extends cyborg
+
+block nav
+    +Nav(true)
+
+block content
+    +Content('info', true)
+
+block scripts
+    :coffee
+            $('table').addClass 'table'
+
+    +Multipage()
