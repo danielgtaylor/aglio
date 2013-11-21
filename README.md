@@ -5,7 +5,7 @@
 Introduction
 ============
 
-An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple themes and outputs static HTML that can be served by any web host. Currently supported is API Blueprint format 1A.
+An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple themes and outputs static HTML that can be served by any web host. API Blueprint is a Markdown-based document format that lets you write API descriptions and documentation in a simple and straightforward way. Currently supported is API Blueprint format 1A.
 
 Features
 --------
