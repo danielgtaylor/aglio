@@ -40,7 +40,7 @@
     "marked": "~0.2.10",
     "optimist": "~0.6.0",
     "protagonist": "~0.5.5",
-    "highlight.js": "~7.4.0",
+    "highlight.js": "~7.5.0",
     "moment": "~2.4.0",
     "stylus": "~0.40.2"
   },
