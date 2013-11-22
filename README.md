@@ -71,7 +71,7 @@ Then, convert some API Blueprint to HTML:
 ```javascript
 var aglio = require('aglio');
 
-# Render a blueprint with a template by name
+// Render a blueprint with a template by name
 var blueprint = '# Some API Blueprint string';
 var template = 'default';
 
@@ -81,7 +81,7 @@ aglio.render(blueprint, template, function (err, html) {
     console.log(html);
 });
 
-# Render a blueprint with a custom template file
+// Render a blueprint with a custom template file
 var customTemplate = '/path/to/my-template.jade';
 aglio.render(blueprint, customTemplate, function (err, html) {
     if (err) return console.log(err);
@@ -90,8 +90,8 @@ aglio.render(blueprint, customTemplate, function (err, html) {
 });
 
 
-# Pass custom locals along to the template, for example
-# the following gives templates access to lodash and async
+// Pass custom locals along to the template, for example
+// the following gives templates access to lodash and async
 var options = {
     template: '/path/to/my-template.jade',
     locals: {
