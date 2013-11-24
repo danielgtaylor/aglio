@@ -15,6 +15,7 @@ Features
  * Multiple templates/themes
  * Support for custom templates written in [Jade](http://jade-lang.com/)
  * Commandline executable `aglio -i api.md -o api.html`
+ * Preview server `aglio -i api.md --server`
  * Node.js library `require('aglio')`
  * Excellent test coverage
 
