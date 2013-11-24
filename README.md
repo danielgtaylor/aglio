@@ -39,7 +39,7 @@ Install aglio via NPM. You need Node.js installed and you may need to use `sudo`
 npm install -g aglio
 ```
 
-Then, start generating HTML:
+Then, start generating HTML. Note that the built-in templates use scheme-relative URLs, so the resulting output files must be opened via `http:` or `https:`. Just opening the local file from the browser will result in a failure to load stylesheets and scripts. The `-s` option described below can help you with this.
 
 ```bash
 # Default template
@@ -53,6 +53,9 @@ aglio -t slate -i input.md -o output.html
 
 # Custom template
 aglio -t /path/to/template.jade -i input.md -o output.html
+
+# Run a preview server on http://localhost:3000/
+aglio -i input.md -s
 
 # Print output to terminal (useful for piping)
 algio -i input.md -o -

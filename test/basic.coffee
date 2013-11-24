@@ -2,6 +2,7 @@ aglio = require '../lib/main'
 assert = require 'assert'
 bin = require '../lib/bin'
 fs = require 'fs'
+http = require 'http'
 jade = require 'jade'
 path = require 'path'
 protagonist = require 'protagonist'
@@ -58,7 +59,7 @@ describe 'API Blueprint Renderer', ->
     it 'Should render from/to files', (done) ->
         src = path.join root, 'example.md'
         dest = path.join root, 'example.html'
-        aglio.renderFile src, dest, 'default', done
+        aglio.renderFile src, dest, {}, done
 
     it 'Should render to stdout', (done) ->
         sinon.stub console, 'log'
@@ -139,9 +140,44 @@ describe 'Executable', ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
             callback()
 
+        bin.run {}, (err) ->
+            assert err
+
         bin.run i: path.join(root, 'example.md'), o: '-', ->
             aglio.renderFile.restore()
             done()
+
+    it 'Should start a preview server', (done) ->
+        sinon.stub aglio, 'render', (i, t, callback) ->
+            callback null, 'foo'
+
+        sinon.stub http, 'createServer', (handler) ->
+            listen: ->
+                # Simulate requests
+                req =
+                    url: '/favicon.ico'
+                res =
+                    end: (data) ->
+                        assert not data
+                handler req, res
+
+                req =
+                    url: '/'
+                res =
+                    writeHead: (status, headers) -> false
+                    end: (data) ->
+                        aglio.render.restore()
+                        done()
+                handler req, res
+
+        sinon.stub console, 'log'
+
+        bin.run s: true, (err) ->
+            assert err
+
+        bin.run i: path.join(root, 'example.md'), s: true, ->
+            http.createServer.restore()
+            console.log.restore()
 
     it 'Should handle errors', (done) ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
