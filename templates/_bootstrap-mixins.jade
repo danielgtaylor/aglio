@@ -63,7 +63,7 @@ mixin Parameters(params)
 
 mixin RequestResponse(title, request)
     - var id = Math.round(Math.random() * 1000000)
-    - var content = Object.keys(request.headers).length || request.body
+    - var content = Object.keys(request.headers).length || request.body || request.schema
     li.list-group-item
         strong
             = title
@@ -85,6 +85,10 @@ mixin RequestResponse(title, request)
                 h5 Body
                 pre
                     code!= highlight(request.body)
+            if request.schema
+                h5 Schema
+                pre
+                    code!= highlight(request.schema)
 
 
 mixin Examples(examples)

@@ -228,6 +228,28 @@ A list of users
             }
         ]
 
+    + Schema
+
+        {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "joined": {
+                        "type": "string",
+                        "pattern": "\d{4}-\d{2}-\d{2}"
+                    }
+                }
+            }
+        }
+
 ### Get users [GET]
 Get a list of users. Example:
 
