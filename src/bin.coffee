@@ -7,7 +7,7 @@ parser = require('optimist')
     .options('o', alias: 'output', describe: 'Output file')
     .options('t', alias: 'template', describe: 'Template name or file', default: 'default')
     .options('s', alias: 'server', describe: 'Start a local preview server')
-    .options('p', alias: 'port', describe: 'Port for local preview server', default: '3000')
+    .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
 
 exports.run = (argv=parser.argv, done=->) ->
