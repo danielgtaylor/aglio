@@ -7,6 +7,7 @@ parser = require('optimist')
     .options('o', alias: 'output', describe: 'Output file')
     .options('t', alias: 'template', describe: 'Template name or file', default: 'default')
     .options('s', alias: 'server', describe: 'Start a local preview server')
+    .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
 
 exports.run = (argv=parser.argv, done=->) ->
@@ -35,8 +36,8 @@ exports.run = (argv=parser.argv, done=->) ->
                 res.writeHead 200,
                     'Content-Type': 'text/html'
                 res.end err or html
-        ).listen 3000, '127.0.0.1'
-        console.log 'Server started on http://localhost:3000/'
+        ).listen argv.p, '127.0.0.1'
+        console.log "Server started on http://localhost:#{argv.p}/"
         done()
     else
         # Render API Blueprint, requires input/output files
