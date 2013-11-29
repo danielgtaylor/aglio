@@ -41,18 +41,18 @@ Note list description
 
     + Body
 
-        [
-            {
-                "id": 1,
-                "title": "Grocery list",
-                "body": "Buy milk"
-            },
-            {
-                "id": 2,
-                "title": "TODO",
-                "body": "Fix garage door"
-            }
-        ]
+            [
+                {
+                    "id": 1,
+                    "title": "Grocery list",
+                    "body": "Buy milk"
+                },
+                {
+                    "id": 2,
+                    "title": "TODO",
+                    "body": "Fix garage door"
+                }
+            ]
 
 ### Get Notes [GET]
 Get a list of notes.
@@ -72,10 +72,10 @@ Create a new note
 
     + Body
 
-        {
-            "title": "My new note",
-            "body": "..."
-        }
+            {
+                "title": "My new note",
+                "body": "..."
+            }
 
 + Response 201
 
@@ -87,9 +87,9 @@ Create a new note
 
     + Body
 
-        {
-            "error": "Invalid title"
-        }
+            {
+                "error": "Invalid title"
+            }
 
 ## Note [/notes/{id}]
 Note description
@@ -108,11 +108,11 @@ Note description
 
     + Body
 
-        {
-            "id": 1,
-            "title": "Grocery list",
-            "body": "Buy milk"
-        }
+            {
+                "id": 1,
+                "title": "Grocery list",
+                "body": "Buy milk"
+            }
 
 ### Get Note [GET]
 Get a single note.
@@ -131,9 +131,9 @@ Get a single note.
 
     + Body
 
-        {
-            "error": "Note not found"
-        }
+            {
+                "error": "Note not found"
+            }
 
 ### Update a Note [PUT]
 Update a single note
@@ -146,9 +146,9 @@ Update a single note
 
     + Body
 
-        {
-            "title": "Grocery List (Safeway)"
-        }
+            {
+                "title": "Grocery List (Safeway)"
+            }
 
 + Response 200
 
@@ -164,9 +164,9 @@ Update a single note
 
     + Body
 
-        {
-            "error": "Note not found"
-        }
+            {
+                "error": "Note not found"
+            }
 
 ### Delete a Note [DELETE]
 Delete a single note
@@ -183,9 +183,9 @@ Delete a single note
 
     + Body
 
-        {
-            "error": "Note not found"
-        }
+            {
+                "error": "Note not found"
+            }
 
 # Group Users
 Group description
@@ -215,40 +215,40 @@ A list of users
 
     + Body
 
-        [
-            {
-                "name": "alice",
-                "image": "http://foo.com/alice.jpg",
-                "joined": "2013-11-01"
-            },
-            {
-                "name": "bob",
-                "image": "http://foo.com/bob.jpg",
-                "joined": "2013-11-02"
-            }
-        ]
+            [
+                {
+                    "name": "alice",
+                    "image": "http://foo.com/alice.jpg",
+                    "joined": "2013-11-01"
+                },
+                {
+                    "name": "bob",
+                    "image": "http://foo.com/bob.jpg",
+                    "joined": "2013-11-02"
+                }
+            ]
 
     + Schema
 
-        {
-            "type": "array",
-            "maxItems": 50,
-            "items": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "image": {
-                        "type": "string"
-                    },
-                    "joined": {
-                        "type": "string",
-                        "pattern": "\d{4}-\d{2}-\d{2}"
+            {
+                "type": "array",
+                "maxItems": 50,
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "image": {
+                            "type": "string"
+                        },
+                        "joined": {
+                            "type": "string",
+                            "pattern": "\d{4}-\d{2}-\d{2}"
+                        }
                     }
                 }
             }
-        }
 
 ### Get users [GET]
 Get a list of users. Example:
