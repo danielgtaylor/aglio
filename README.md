@@ -79,16 +79,18 @@ var aglio = require('aglio');
 var blueprint = '# Some API Blueprint string';
 var template = 'default';
 
-aglio.render(blueprint, template, function (err, html) {
+aglio.render(blueprint, template, function (err, html, warnings) {
     if (err) return console.log(err);
+    if (warnings) console.log(warnings);
 
     console.log(html);
 });
 
 // Render a blueprint with a custom template file
 var customTemplate = '/path/to/my-template.jade';
-aglio.render(blueprint, customTemplate, function (err, html) {
+aglio.render(blueprint, customTemplate, function (err, html, warnings) {
     if (err) return console.log(err);
+    if (warnings) console.log(warnings);
 
     console.log(html);
 });
@@ -103,8 +105,9 @@ var options = {
         async: require('async')
     }
 };
-aglio.render(blueprint, options, function (err, html) {
+aglio.render(blueprint, options, function (err, html, warnings) {
    if (err) return console.log(err);
+   if (warnings) console.log(warnings);
 
    console.log(html);
 });
@@ -141,7 +144,7 @@ var options = {
     }
 };
 
-alio.render(blueprint, options, function (err, html) {
+alio.render(blueprint, options, function (err, html, warnings) {
     if (err) return console.log(err);
 
     console.log(html);
@@ -152,8 +155,9 @@ alio.render(blueprint, options, function (err, html) {
 Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths. The options behaves the same as above for `aglio.render`.
 
 ```javascript
-aglio.renderFile('/tmp/input.md', '/tmp/output.html', 'default', function (err) {
+aglio.renderFile('/tmp/input.md', '/tmp/output.html', 'default', function (err, warnings) {
     if (err) return console.log(err);
+    if (warnings) console.log(warnings);
 })
 ```
 

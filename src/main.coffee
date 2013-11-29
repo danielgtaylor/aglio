@@ -42,7 +42,9 @@ exports.getTemplates = (done) ->
 # Render an API Blueprint string using a given template
 exports.render = (input, options, done) ->
     protagonist.parse input, (err, res) ->
-        if err then return done(err)
+        if err
+            err.input = input
+            return done(err)
 
         if typeof options is 'string' or options instanceof String
             options =
@@ -68,18 +70,21 @@ exports.render = (input, options, done) ->
         jade.renderFile templatePath, locals, (err, html) ->
             if err then return done(err)
 
-            done null, html
+            done null, html, res.warnings
 
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
     fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
         if err then return done(err)
 
-        exports.render input, options, (err, html) ->
+        exports.render input, options, (err, html, warnings) ->
             if err then return done(err)
 
+            if warnings then warnings.input = input
+
             if outputFile isnt '-'
-                fs.writeFile outputFile, html, done
+                fs.writeFile outputFile, html, (err) ->
+                    done err, warnings
             else
                 console.log html
-                done()
+                done null, warnings

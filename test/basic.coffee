@@ -138,7 +138,20 @@ describe 'Executable', ->
 
     it 'Should render a file', (done) ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
-            callback()
+            warnings = [
+                {
+                    code: 1
+                    message: 'Test message'
+                    location: [
+                        {
+                            index: 0
+                            length: 1
+                        }
+                    ]
+                }
+            ]
+            warnings.input = 'test'
+            callback null, warnings
 
         bin.run {}, (err) ->
             assert err

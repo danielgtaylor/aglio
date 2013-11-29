@@ -42,7 +42,8 @@
     "protagonist": "~0.5.5",
     "highlight.js": "~7.5.0",
     "moment": "~2.4.0",
-    "stylus": "~0.40.2"
+    "stylus": "~0.40.2",
+    "cli-color": "~0.2.3"
   },
   "devDependencies": {
     "grunt-contrib-coffee": "~0.7.0",
