@@ -137,6 +137,8 @@ describe 'Executable', ->
             done()
 
     it 'Should render a file', (done) ->
+        sinon.stub console, 'error'
+
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
             warnings = [
                 {
@@ -157,6 +159,7 @@ describe 'Executable', ->
             assert err
 
         bin.run i: path.join(root, 'example.md'), o: '-', ->
+            console.error.restore()
             aglio.renderFile.restore()
             done()
 
@@ -184,8 +187,10 @@ describe 'Executable', ->
                 handler req, res
 
         sinon.stub console, 'log'
+        sinon.stub console, 'error'
 
         bin.run s: true, (err) ->
+            console.error.restore()
             assert err
 
         bin.run i: path.join(root, 'example.md'), s: true, ->
@@ -196,12 +201,12 @@ describe 'Executable', ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
             callback 'error'
 
-        sinon.stub console, 'log'
+        sinon.stub console, 'error'
 
         bin.run i: path.join(root, 'example.md'), o: '-', ->
-            assert console.log.called
+            assert console.error.called
 
-            console.log.restore()
+            console.error.restore()
             aglio.renderFile.restore()
 
             done()

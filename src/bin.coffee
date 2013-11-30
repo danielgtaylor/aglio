@@ -24,14 +24,14 @@ getLineNo = (input, err) ->
 logWarnings = (warnings) ->
     for warning in warnings or []
         lineNo = getLineNo(warnings.input, warning) or 0
-        console.log cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
+        console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
 
 exports.run = (argv=parser.argv, done=->) ->
     if argv.l
         # List available templates
         aglio.getTemplates (err, names) ->
             if err
-                console.log err
+                console.error err
                 return done err
 
             console.log 'Templates:\n' + names.join('\n')
@@ -66,9 +66,9 @@ exports.run = (argv=parser.argv, done=->) ->
             if err
                 lineNo = getLineNo err.input, err
                 if lineNo
-                    console.log cErr(">> Line #{lineNo}:") + " #{err.message} (error code #{err.code})"
+                    console.error cErr(">> Line #{lineNo}:") + " #{err.message} (error code #{err.code})"
                 else
-                    console.log cErr('>>') + " #{JSON.stringify(err)}"
+                    console.error cErr('>>') + " #{JSON.stringify(err)}"
                 return done err
 
             logWarnings warnings
