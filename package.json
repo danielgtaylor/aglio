@@ -1,6 +1,6 @@
 {
   "name": "aglio",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "An API Blueprint renderer with theme support",
   "main": "lib/main.js",
   "bin": {
@@ -42,7 +42,7 @@
     "protagonist": "~0.5.5",
     "highlight.js": "~7.5.0",
     "moment": "~2.4.0",
-    "stylus": "~0.40.2",
+    "stylus": "~0.41.0",
     "cli-color": "~0.2.3"
   },
   "devDependencies": {
