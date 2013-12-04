@@ -41,7 +41,14 @@ exports.getTemplates = (done) ->
 
 # Render an API Blueprint string using a given template
 exports.render = (input, options, done) ->
-    protagonist.parse input, (err, res) ->
+    # Protagonist does not support \r ot \t in the input, so
+    # try to intelligently massage the input so that it works.
+    # This is required to process files created on Windows.
+    filteredInput = input
+        .replace(/\r\n?/g, '\n')
+        .replace(/\t/g, '    ')
+
+    protagonist.parse filteredInput, (err, res) ->
         if err
             err.input = input
             return done(err)

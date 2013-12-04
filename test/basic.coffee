@@ -47,6 +47,10 @@ describe 'API Blueprint Renderer', ->
 
             done()
 
+    it 'Should render mixed line endings and tabs properly', (done) ->
+        temp = '# GET /message\r\n+ Response 200 (text/plain)\r\r\t\tHello!\n'
+        aglio.render temp, 'default', done
+
     it 'Should render a custom template by filename', (done) ->
         template = path.join(root, 'templates', 'default.jade')
         aglio.render '# Blueprint', template, (err, html) ->
