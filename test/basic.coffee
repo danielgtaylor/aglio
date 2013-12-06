@@ -60,6 +60,17 @@ describe 'API Blueprint Renderer', ->
 
             done()
 
+    it 'Should return warnings with filtered input', (done) ->
+        temp = '# GET /message\r\n+ Response 200 (text/plain)\r\r\t\tHello!\n'
+        filteredTemp = temp.replace(/\r\n?/g, '\n').replace(/\t/g, '    ')
+
+        aglio.render temp, 'default', (err, html, warnings) ->
+            if err then return done(err)
+
+            assert.equal filteredTemp, warnings.input
+
+            done()
+
     it 'Should render from/to files', (done) ->
         src = path.join root, 'example.md'
         dest = path.join root, 'example.html'
@@ -203,7 +214,13 @@ describe 'Executable', ->
 
     it 'Should handle errors', (done) ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
-            callback 'error'
+            callback
+                code: 1
+                message: 'foo'
+                input: 'foo bar baz'
+                location: [
+                    { index: 1, length: 1 }
+                ]
 
         sinon.stub console, 'error'
 

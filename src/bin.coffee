@@ -65,7 +65,7 @@ exports.run = (argv=parser.argv, done=->) ->
         aglio.renderFile argv.i, argv.o, argv.t, (err, warnings) ->
             if err
                 lineNo = getLineNo err.input, err
-                if lineNo
+                if lineNo?
                     console.error cErr(">> Line #{lineNo}:") + " #{err.message} (error code #{err.code})"
                 else
                     console.error cErr('>>') + " #{JSON.stringify(err)}"

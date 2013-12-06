@@ -50,7 +50,7 @@ exports.render = (input, options, done) ->
 
     protagonist.parse filteredInput, (err, res) ->
         if err
-            err.input = input
+            err.input = filteredInput
             return done(err)
 
         if typeof options is 'string' or options instanceof String
@@ -77,6 +77,10 @@ exports.render = (input, options, done) ->
         jade.renderFile templatePath, locals, (err, html) ->
             if err then return done(err)
 
+            # Add filtered input to warnings since we have no
+            # error to return
+            res.warnings.input = filteredInput
+
             done null, html, res.warnings
 
 # Render from/to files
@@ -86,8 +90,6 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
 
         exports.render input, options, (err, html, warnings) ->
             if err then return done(err)
-
-            if warnings then warnings.input = input
 
             if outputFile isnt '-'
                 fs.writeFile outputFile, html, (err) ->
