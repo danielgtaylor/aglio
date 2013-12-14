@@ -3,10 +3,12 @@ clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
 parser = require('optimist')
-    .usage('Usage: $0 [-l -t template] -i infile [-o outfile -s]')
+    .usage('Usage: $0 [-l -t template --no-filter --no-condense] -i infile [-o outfile -s]')
     .options('i', alias: 'input', describe: 'Input file')
     .options('o', alias: 'output', describe: 'Output file')
     .options('t', alias: 'template', describe: 'Template name or file', default: 'default')
+    .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
+    .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
     .options('s', alias: 'server', describe: 'Start a local preview server')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
@@ -47,8 +49,13 @@ exports.run = (argv=parser.argv, done=->) ->
 
             console.log "Rendering #{argv.i}"
 
+            options =
+                template: argv.t
+                filterInput: argv.f
+                condenseNav: argv.c
+
             blueprint = fs.readFileSync argv.i, 'utf-8'
-            aglio.render blueprint, argv.t, (err, html, warnings) ->
+            aglio.render blueprint, options, (err, html, warnings) ->
                 logWarnings warnings
                 res.writeHead 200,
                     'Content-Type': 'text/html'
@@ -62,7 +69,12 @@ exports.run = (argv=parser.argv, done=->) ->
             parser.showHelp()
             return done 'Invalid arguments'
 
-        aglio.renderFile argv.i, argv.o, argv.t, (err, warnings) ->
+        options =
+            template: argv.t
+            filterInput: argv.f
+            condenseNav: argv.c
+
+        aglio.renderFile argv.i, argv.o, options, (err, warnings) ->
             if err
                 lineNo = getLineNo err.input, err
                 if lineNo?

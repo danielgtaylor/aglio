@@ -41,26 +41,32 @@ exports.getTemplates = (done) ->
 
 # Render an API Blueprint string using a given template
 exports.render = (input, options, done) ->
+    # Support a template name as the options argument
+    if typeof options is 'string' or options instanceof String
+        options =
+            template: options
+
+    # Defaults
+    options.template ?= 'default'
+    options.filterInput ?= true
+    options.condenseNav ?= true
+
     # Protagonist does not support \r ot \t in the input, so
     # try to intelligently massage the input so that it works.
     # This is required to process files created on Windows.
-    filteredInput = input
-        .replace(/\r\n?/g, '\n')
-        .replace(/\t/g, '    ')
+    filteredInput = if not options.filterInput then input else
+        input
+            .replace(/\r\n?/g, '\n')
+            .replace(/\t/g, '    ')
 
     protagonist.parse filteredInput, (err, res) ->
         if err
             err.input = filteredInput
             return done(err)
 
-        if typeof options is 'string' or options instanceof String
-            options =
-                template: options
-
-        options.template ?= 'default'
-
         locals =
             api: res.ast
+            condenseNav: options.condenseNav
             date: moment
             highlight: highlight
             markdown: marked

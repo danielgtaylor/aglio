@@ -60,6 +60,9 @@ aglio -i input.md -s
 
 # Print output to terminal (useful for piping)
 algio -i input.md -o -
+
+# Disable condensing navigation links
+aglio -i input.md --no-condense -o output.html
 ```
 
 Node.js Library
@@ -130,10 +133,12 @@ aglio.getTemplates(function (err, names) {
 #### aglio.render (blueprint, options, callback)
 Render an API Blueprint string and pass the generated HTML to the callback. The `options` can either be an object of options or a simple template name or file path string. Available options are:
 
-| Option   | Description                                   |
-| -------- | --------------------------------------------- |
-| locals   | Extra locals to pass to templates             |
-| template | Template name or path to custom template file |
+| Option      | Type   | Default | Description                                  |
+| ----------- | ------ | ------- | -------------------------------------------- |
+| condenseNav | bool   | `true`  | Condense navigation links                    |
+| filterInput | bool   | `true`  | Filter `\r` and `\t` from the input          |
+| locals      | object | `{}`    | Extra locals to pass to templates            |
+| template    | string |         |Template name or path to custom template file |
 
 ```javascript
 var blueprint = '...';

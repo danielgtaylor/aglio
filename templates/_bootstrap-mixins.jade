@@ -10,7 +10,7 @@ mixin Nav(multipage)
                 a.list-group-item.heading(href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
                     = resourceGroup.name || 'Resource Group'
                 each resource in resourceGroup.resources
-                    if resource.actions.length != 1
+                    if !condenseNav || (resource.actions.length != 1)
                         a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
                             i.fa.fa-bars
                             | &nbsp;
