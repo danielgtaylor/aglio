@@ -39,7 +39,7 @@
     "jade": "~0.35.0",
     "marked": "~0.2.10",
     "optimist": "~0.6.0",
-    "protagonist": "~0.5.6",
+    "protagonist": "~0.6.0",
     "highlight.js": "~7.5.0",
     "moment": "~2.4.0",
     "stylus": "~0.41.0",
@@ -48,8 +48,8 @@
   "devDependencies": {
     "grunt-contrib-coffee": "~0.7.0",
     "grunt": "~0.4.1",
-    "grunt-mocha-cov": "0.0.7",
-    "grunt-coffeelint": "0.0.7",
+    "grunt-mocha-cov": "0.1.1",
+    "grunt-coffeelint": "0.0.8",
     "sinon": "~1.7.3",
     "async": "~0.2.9"
   }
