@@ -1,34 +1,35 @@
 //- Common mixins that templates can share
 
 mixin Nav(multipage)
-    nav#nav.col-md-3.collapse.hidden-sm.hidden-xs(style="margin-top: 38px;")
-        if multipage
-            .list-group
-                a.list-group-item.heading(href="#") Home
-        each resourceGroup in api.resourceGroups
-            .list-group
-                a.list-group-item.heading(href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
-                    = resourceGroup.name || 'Resource Group'
-                each resource in resourceGroup.resources
-                    if !condenseNav || (resource.actions.length != 1)
-                        a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
-                            i.fa.fa-bars
-                            | &nbsp;
-                            = resource.name || 'Resource'
-                        each action in resource.actions
-                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 32px")
+    div.col-md-3
+        nav#nav.collapse.hidden-sm.hidden-xs.affix.nav
+            if multipage
+                .list-group
+                    a.list-group-item.heading(href="#") Home
+            each resourceGroup in api.resourceGroups
+                .list-group
+                    a.list-group-item.heading(href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
+                        = resourceGroup.name || 'Resource Group'
+                    each resource in resourceGroup.resources
+                        if !condenseNav || (resource.actions.length != 1)
+                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                                i.fa.fa-bars
+                                | &nbsp;
+                                = resource.name || 'Resource'
+                            each action in resource.actions
+                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 32px")
+                                    +Icon(action.method)
+                                    | &nbsp;
+                                    = action.name || action.method + ' ' + resource.uriTemplate
+                        else
+                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                                - var action = resource.actions[0]
                                 +Icon(action.method)
                                 | &nbsp;
-                                = action.name || action.method + ' ' + resource.uriTemplate
-                    else
-                        a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
-                            - var action = resource.actions[0]
-                            +Icon(action.method)
-                            | &nbsp;
-                            = resource.name || action.name || action.method + ' ' + resource.uriTemplate
-        if api.metadata && api.metadata.HOST
-            p(style="text-align: center")
-                a(href=api.metadata.HOST.value)= api.metadata.HOST.value
+                                = resource.name || action.name || action.method + ' ' + resource.uriTemplate
+            if api.metadata && api.metadata.HOST
+                p(style="text-align: center")
+                    a(href=api.metadata.HOST.value)= api.metadata.HOST.value
 
 mixin Parameters(params)
     ul.list-group
