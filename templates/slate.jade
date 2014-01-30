@@ -9,69 +9,70 @@ block styles
         /* Highlight.js Theme */
         pre{background:#272b30;border:1px solid rgba(255, 255, 255, 0.2)}
         pre code{display:block;padding:.5em;background:#272b30}pre .tag,pre code{color:#f8f8f2}pre .change,pre .clojure .built_in,pre .flow,pre .function,pre .keyword,pre .lisp .title,pre .literal,pre .nginx .title,pre .tex .special,pre .winutils{color:#66d9ef}pre .params,pre .variable{color:#fd9720}pre .constant{color:#66d9ef}pre .class .title,pre .css .class,pre .title{color:#a6e22e}pre .attribute,pre .css .tag,pre .symbol,pre .symbol .string,pre .tag .title,pre .value{color:#f92672}pre .number,pre .preprocessor,pre .regexp{color:#ae81ff}pre .addition,pre .apache .cbracket,pre .apache .tag,pre .attr_selector,pre .built_in,pre .css .id,pre .django .filter .argument,pre .django .template_tag,pre .django .variable,pre .envvar,pre .haskell .type,pre .prompt,pre .pseudo,pre .ruby .class .parent,pre .smalltalk .array,pre .smalltalk .class,pre .smalltalk .localvars,pre .sql .aggregate,pre .stream,pre .string,pre .subst,pre .tag .value,pre .tex .command{color:#e6db74}pre .apache .sqbracket,pre .comment,pre .deletion,pre .doctype,pre .java .annotation,pre .javadoc,pre .pi,pre .python .decorator,pre .shebang,pre .template_comment,pre .tex .formula{color:#75715e}pre .coffeescript .javascript,pre .javascript .xml,pre .tex .formula,pre .xml .cdata,pre .xml .css,pre .xml .javascript,pre .xml .vbscript{opacity:.5}
-    :stylus
-        body, h4, h5
-            font-family 'Roboto' sans-serif !important
+    style
+        :stylus
+            body, h4, h5
+                font-family 'Roboto' sans-serif !important
 
-        h1, h2, h3, .aglio
-            font-family 'Raleway' sans-serif !important
+            h1, h2, h3, .aglio
+                font-family 'Raleway' sans-serif !important
 
-        h1, h2, h3, h4, h5
-            & a
-                display none
+            h1, h2, h3, h4, h5
+                & a
+                    display none
 
-            &:hover a
-                display inline
+                &:hover a
+                    display inline
 
-        code
-            color #222
-            background-color #aaa
-            font-family 'Inconsolata' monospace !important
-
-        a[data-target]
-            cursor pointer
-
-        h4
-            font-size 100%
-            font-weight bold
-            text-transform uppercase
-
-        .back-to-top
-            position fixed
-            z-index 1
-            bottom 0px
-            right 24px
-            padding 4px 8px
-            color #aaa
-            background-color #171b20
-            text-decoration none !important
-            border-top 1px solid rgba(0, 0, 0, 0.1)
-            border-left 1px solid rgba(0, 0, 0, 0.1)
-            border-right 1px solid rgba(0, 0, 0, 0.1)
-            border-top-left-radius 3px
-            border-top-right-radius 3px
-
-        .panel
-            overflow hidden
-
-        .panel-heading
             code
-                color black
-                background-color transparent
-            h3
-                margin-top 10px
-                margin-bottom 10px
+                color #222
+                background-color #aaa
+                font-family 'Inconsolata' monospace !important
 
-        a.list-group-item
-            white-space nowrap
-            text-overflow ellipsis
-            overflow hidden
+            a[data-target]
+                cursor pointer
 
-            &.heading
-                background-color #3e444c
+            h4
+                font-size 100%
+                font-weight bold
+                text-transform uppercase
 
-        .list-group-item.collapse
-            display none
+            .back-to-top
+                position fixed
+                z-index 1
+                bottom 0px
+                right 24px
+                padding 4px 8px
+                color #aaa
+                background-color #171b20
+                text-decoration none !important
+                border-top 1px solid rgba(0, 0, 0, 0.1)
+                border-left 1px solid rgba(0, 0, 0, 0.1)
+                border-right 1px solid rgba(0, 0, 0, 0.1)
+                border-top-left-radius 3px
+                border-top-right-radius 3px
+
+            .panel
+                overflow hidden
+
+            .panel-heading
+                code
+                    color black
+                    background-color transparent
+                h3
+                    margin-top 10px
+                    margin-bottom 10px
+
+            a.list-group-item
+                white-space nowrap
+                text-overflow ellipsis
+                overflow hidden
+
+                &.heading
+                    background-color #3e444c
+
+            .list-group-item.collapse
+                display none
 
 block content
     +Content('info', false)

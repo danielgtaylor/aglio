@@ -206,29 +206,30 @@ mixin Content(getButtonClass, multipage)
 mixin Multipage()
     //- Multi-page support through Knockout.js
     script(src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.0.0/knockout-min.js")
-    :coffee
-        class App
-            constructor: ->
-                @page = ko.observable 'home'
+    script
+        :coffee
+            class App
+                constructor: ->
+                    @page = ko.observable 'home'
 
-        window.app = new App()
+            window.app = new App()
 
-        window.onhashchange = ->
-            vars = {}
-            for v in location.hash.substr(1).split(',')
-                parts = v.split ':'
-                vars[parts[0]] = parts[1]
+            window.onhashchange = ->
+                vars = {}
+                for v in location.hash.substr(1).split(',')
+                    parts = v.split ':'
+                    vars[parts[0]] = parts[1]
 
-            # Set the page
-            window.app.page vars.page or 'home'
+                # Set the page
+                window.app.page vars.page or 'home'
 
-            # Scroll to a header if Set
-            if vars.header
-                $("##{vars.header}")[0].scrollIntoView true
-            else
-                window.scrollTo 0, 0
+                # Scroll to a header if Set
+                if vars.header
+                    $("##{vars.header}")[0].scrollIntoView true
+                else
+                    window.scrollTo 0, 0
 
-        ko.applyBindings window.app
+            ko.applyBindings window.app
 
-        # Load the correct page
-        window.onhashchange()
+            # Load the correct page
+            window.onhashchange()

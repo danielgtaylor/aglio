@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>API Title</title><link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.0.1/flatly/bootstrap.min.css"><link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200"><style>/* Highlight.js Theme */
-pre code{display:block;padding:.5em;color:#333;background:#f8f8ff}pre .comment,pre .diff .header,pre .javadoc,pre .template_comment{color:#998;font-style:italic}pre .css .rule .keyword,pre .javascript .title,pre .keyword,pre .nginx .title,pre .request,pre .status,pre .subst,pre .winutils{color:#333;font-weight:700}pre .hexcolor,pre .number,pre .ruby .constant{color:#099}pre .phpdoc,pre .string,pre .tag .value,pre .tex .formula{color:#d14}pre .coffeescript .params,pre .id,pre .scss .preprocessor,pre .title{color:#900;font-weight:700}pre .clojure .title,pre .javascript .title,pre .lisp .title,pre .subst{font-weight:400}pre .class .title,pre .haskell .type,pre .tex .command,pre .vhdl .literal{color:#458;font-weight:700}pre .django .tag .keyword,pre .rules .property,pre .tag,pre .tag .title{color:navy;font-weight:400}pre .attribute,pre .lisp .body,pre .variable{color:teal}pre .regexp{color:#009926}pre .class{color:#458;font-weight:700}pre .lisp .keyword,pre .prompt,pre .ruby .symbol .string,pre .symbol,pre .tex .special{color:#990073}pre .built_in,pre .clojure .built_in,pre .lisp .title{color:#0086b3}pre .cdata,pre .doctype,pre .pi,pre .preprocessor,pre .shebang{color:#999;font-weight:700}pre .deletion{background:#fdd}pre .addition{background:#dfd}pre .diff .change{background:#0086b3}pre .chunk{color:#aaa}pre {background:#f8f8ff}</style><style type="text/css">body,
+pre code{display:block;padding:.5em;color:#333;background:#f8f8ff}pre .comment,pre .diff .header,pre .javadoc,pre .template_comment{color:#998;font-style:italic}pre .css .rule .keyword,pre .javascript .title,pre .keyword,pre .nginx .title,pre .request,pre .status,pre .subst,pre .winutils{color:#333;font-weight:700}pre .hexcolor,pre .number,pre .ruby .constant{color:#099}pre .phpdoc,pre .string,pre .tag .value,pre .tex .formula{color:#d14}pre .coffeescript .params,pre .id,pre .scss .preprocessor,pre .title{color:#900;font-weight:700}pre .clojure .title,pre .javascript .title,pre .lisp .title,pre .subst{font-weight:400}pre .class .title,pre .haskell .type,pre .tex .command,pre .vhdl .literal{color:#458;font-weight:700}pre .django .tag .keyword,pre .rules .property,pre .tag,pre .tag .title{color:navy;font-weight:400}pre .attribute,pre .lisp .body,pre .variable{color:teal}pre .regexp{color:#009926}pre .class{color:#458;font-weight:700}pre .lisp .keyword,pre .prompt,pre .ruby .symbol .string,pre .symbol,pre .tex .special{color:#990073}pre .built_in,pre .clojure .built_in,pre .lisp .title{color:#0086b3}pre .cdata,pre .doctype,pre .pi,pre .preprocessor,pre .shebang{color:#999;font-weight:700}pre .deletion{background:#fdd}pre .addition{background:#dfd}pre .diff .change{background:#0086b3}pre .chunk{color:#aaa}pre {background:#f8f8ff}</style><style>body,
 h4,
 h5 {
   font-family: 'Roboto' sans-serif !important;
@@ -80,9 +80,11 @@ a.list-group-item.heading {
 <p>“A quote from another time and place”</p>
 </blockquote>
 <p>Another paragraph. Code sample:</p>
-<pre><code class="lang-http"><span class="attribute">Authorization</span>: <span class="string">bearer 5262d64b892e8d4341000001</span></code></pre>
+<pre><code class="lang-http"><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">bearer 5262d64b892e8d4341000001</span>
+</code></pre>
 <p>And some code with no highlighting:</p>
-<pre><code class="lang-no-highlight">Foo bar baz</code></pre>
+<pre><code class="lang-no-highlight">Foo bar baz
+</code></pre>
 </div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="notes">Notes&nbsp;<a href="#notes"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Group description (also with <em>Markdown</em>)</p>
 <h4 id="notes-note-list">Note List&nbsp;<a href="#notes-note-list"><i class="fa fa-link"></i></a></h4><p>Note list description</p>
 <ul>
@@ -91,91 +93,92 @@ a.list-group-item.heading {
 <li>Markdown</li>
 </ul>
 <section id="notes-note-list-get" class="panel panel-info"><div class="panel-heading"><span style="text-transform: lowercase" class="pull-right">Get Notes</span><a href="#notes-note-list-get" class="btn btn-xs btn-info">GET</a>&nbsp;<code>/notes</code></div><div class="panel-body"><p>Get a list of notes.</p>
-</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#592554" class="pull-right">Toggle</a></li><li id="592554" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br><span class="attribute">X-Request-ID</span>: <span class="string">f72fc914</span><br><span class="attribute">X-Response-Time</span>: <span class="string">4ms</span><br></code></pre><h5>Body</h5><pre><code>[
+</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#707345" class="pull-right">Toggle</a></li><li id="707345" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span><br></code></pre><h5>Body</h5><pre><code>[
     {
-        "<span class="attribute">id</span>": <span class="value"><span class="number">1</span></span>,
-        "<span class="attribute">title</span>": <span class="value"><span class="string">"Grocery list"</span></span>,
-        "<span class="attribute">body</span>": <span class="value"><span class="string">"Buy milk"</span>
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+        "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Grocery list"</span></span>,
+        "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"Buy milk"</span>
     </span>},
     {
-        "<span class="attribute">id</span>": <span class="value"><span class="number">2</span></span>,
-        "<span class="attribute">title</span>": <span class="value"><span class="string">"TODO"</span></span>,
-        "<span class="attribute">body</span>": <span class="value"><span class="string">"Fix garage door"</span>
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+        "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"TODO"</span></span>,
+        "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"Fix garage door"</span>
     </span>}
 ]
 </code></pre></li></ul></section><section id="notes-note-list-post" class="panel panel-success"><div class="panel-heading"><span style="text-transform: lowercase" class="pull-right">Create New Note</span><a href="#notes-note-list-post" class="btn btn-xs btn-success">POST</a>&nbsp;<code>/notes</code></div><div class="panel-body"><p>Create a new note</p>
-</div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#487970" class="pull-right">Toggle</a></li><li id="487970" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">applicatoin/json</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">title</span>": <span class="value"><span class="string">"My new note"</span></span>,
-    "<span class="attribute">body</span>": <span class="value"><span class="string">"..."</span>
+</div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#410112" class="pull-right">Toggle</a></li><li id="410112" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">applicatoin/json</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"My new note"</span></span>,
+    "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"..."</span>
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>400</code></strong><a data-toggle="collapse" data-target="#212078" class="pull-right">Toggle</a></li><li id="212078" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">applicatoin/json</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">error</span>": <span class="value"><span class="string">"Invalid title"</span>
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>400</code></strong><a data-toggle="collapse" data-target="#993874" class="pull-right">Toggle</a></li><li id="993874" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">applicatoin/json</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Invalid title"</span>
 </span>}
 </code></pre></li></ul></section><h4 id="notes-note">Note&nbsp;<a href="#notes-note"><i class="fa fa-link"></i></a></h4><p>Note description</p>
 <section id="notes-note-get" class="panel panel-info"><div class="panel-heading"><span style="text-transform: lowercase" class="pull-right">Get Note</span><a href="#notes-note-get" class="btn btn-xs btn-info">GET</a>&nbsp;<code>/notes/{id}</code></div><div class="panel-body"><p>Get a single note.</p>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>68a5sdf67</span></span><p>The note ID</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#696507" class="pull-right">Toggle</a></li><li id="696507" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br><span class="attribute">X-Request-ID</span>: <span class="string">f72fc914</span><br><span class="attribute">X-Response-Time</span>: <span class="string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">id</span>": <span class="value"><span class="number">1</span></span>,
-    "<span class="attribute">title</span>": <span class="value"><span class="string">"Grocery list"</span></span>,
-    "<span class="attribute">body</span>": <span class="value"><span class="string">"Buy milk"</span>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#552028" class="pull-right">Toggle</a></li><li id="552028" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Grocery list"</span></span>,
+    "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"Buy milk"</span>
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong><a data-toggle="collapse" data-target="#334468" class="pull-right">Toggle</a></li><li id="334468" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br><span class="attribute">X-Request-ID</span>: <span class="string">f72fc914</span><br><span class="attribute">X-Response-Time</span>: <span class="string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">error</span>": <span class="value"><span class="string">"Note not found"</span>
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong><a data-toggle="collapse" data-target="#717948" class="pull-right">Toggle</a></li><li id="717948" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Note not found"</span>
 </span>}
 </code></pre></li></ul></section><section id="notes-note-put" class="panel panel-warning"><div class="panel-heading"><span style="text-transform: lowercase" class="pull-right">Update a Note</span><a href="#notes-note-put" class="btn btn-xs btn-warning">PUT</a>&nbsp;<code>/notes/{id}</code></div><div class="panel-body"><p>Update a single note</p>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>68a5sdf67</span></span><p>The note ID</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#344813" class="pull-right">Toggle</a></li><li id="344813" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">title</span>": <span class="value"><span class="string">"Grocery List (Safeway)"</span>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#897959" class="pull-right">Toggle</a></li><li id="897959" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Grocery List (Safeway)"</span>
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#425890" class="pull-right">Toggle</a></li><li id="425890" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br><span class="attribute">X-Request-ID</span>: <span class="string">f72fc914</span><br><span class="attribute">X-Response-Time</span>: <span class="string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">id</span>": <span class="value"><span class="number">1</span></span>,
-    "<span class="attribute">title</span>": <span class="value"><span class="string">"Grocery list"</span></span>,
-    "<span class="attribute">body</span>": <span class="value"><span class="string">"Buy milk"</span>
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#397477" class="pull-right">Toggle</a></li><li id="397477" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Grocery list"</span></span>,
+    "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"Buy milk"</span>
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong><a data-toggle="collapse" data-target="#331940" class="pull-right">Toggle</a></li><li id="331940" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br><span class="attribute">X-Request-ID</span>: <span class="string">f72fc914</span><br><span class="attribute">X-Response-Time</span>: <span class="string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">error</span>": <span class="value"><span class="string">"Note not found"</span>
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong><a data-toggle="collapse" data-target="#828217" class="pull-right">Toggle</a></li><li id="828217" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Note not found"</span>
 </span>}
 </code></pre></li></ul></section><section id="notes-note-delete" class="panel panel-danger"><div class="panel-heading"><span style="text-transform: lowercase" class="pull-right">Delete a Note</span><a href="#notes-note-delete" class="btn btn-xs btn-danger">DELETE</a>&nbsp;<code>/notes/{id}</code></div><div class="panel-body"><p>Delete a single note</p>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>68a5sdf67</span></span><p>The note ID</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong><a data-toggle="collapse" data-target="#660753" class="pull-right">Toggle</a></li><li id="660753" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br><span class="attribute">X-Request-ID</span>: <span class="string">f72fc914</span><br><span class="attribute">X-Response-Time</span>: <span class="string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
-    "<span class="attribute">error</span>": <span class="value"><span class="string">"Note not found"</span>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>404</code></strong><a data-toggle="collapse" data-target="#698893" class="pull-right">Toggle</a></li><li id="698893" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Note not found"</span>
 </span>}
 </code></pre></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="users">Users&nbsp;<a href="#users"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Group description</p>
 <h4 id="users-user-list">User List&nbsp;<a href="#users-user-list"><i class="fa fa-link"></i></a></h4><p>A list of users</p>
 <section id="users-user-list-get" class="panel panel-info"><div class="panel-heading"><span style="text-transform: lowercase" class="pull-right">Get users</span><a href="#users-user-list-get" class="btn btn-xs btn-info">GET</a>&nbsp;<code>/users{?name,joinedBefore,joinedAfter,sort,limit}</code></div><div class="panel-body"><p>Get a list of users. Example:</p>
-<pre><code class="lang-no-highlight">https://api.mywebsite.com/users?sort=joined&amp;limit=5</code></pre>
+<pre><code class="lang-no-highlight">https://api.mywebsite.com/users?sort=joined&amp;limit=5
+</code></pre>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>name</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>alice</span></span><p>Search for a user by name</p>
 </dd><dt>joinedBefore</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>2011-01-01</span></span><p>Search by join date</p>
 </dd><dt>joinedAfter</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>2011-01-01</span></span><p>Search by join date</p>
 </dd><dt>sort</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>name</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>joined</span></span><p>Which field to sort by</p>
 <p><strong>Choices:&nbsp;</strong><code>name</code>, <code>joined</code>, <code>-joined</code></p></dd><dt>limit</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>10</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>25</span></span><p>The maximum number of users to return, up to <code>50</code></p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#405013" class="pull-right">Toggle</a></li><li id="405013" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="attribute">Content-Type</span>: <span class="string">application/json</span><br></code></pre><h5>Body</h5><pre><code>[
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#388219" class="pull-right">Toggle</a></li><li id="388219" class="list-group-item collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>[
     {
-        "<span class="attribute">name</span>": <span class="value"><span class="string">"alice"</span></span>,
-        "<span class="attribute">image</span>": <span class="value"><span class="string">"http://foo.com/alice.jpg"</span></span>,
-        "<span class="attribute">joined</span>": <span class="value"><span class="string">"2013-11-01"</span>
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"alice"</span></span>,
+        "<span class="hljs-attribute">image</span>": <span class="hljs-value"><span class="hljs-string">"http://foo.com/alice.jpg"</span></span>,
+        "<span class="hljs-attribute">joined</span>": <span class="hljs-value"><span class="hljs-string">"2013-11-01"</span>
     </span>},
     {
-        "<span class="attribute">name</span>": <span class="value"><span class="string">"bob"</span></span>,
-        "<span class="attribute">image</span>": <span class="value"><span class="string">"http://foo.com/bob.jpg"</span></span>,
-        "<span class="attribute">joined</span>": <span class="value"><span class="string">"2013-11-02"</span>
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"bob"</span></span>,
+        "<span class="hljs-attribute">image</span>": <span class="hljs-value"><span class="hljs-string">"http://foo.com/bob.jpg"</span></span>,
+        "<span class="hljs-attribute">joined</span>": <span class="hljs-value"><span class="hljs-string">"2013-11-02"</span>
     </span>}
 ]
 </code></pre><h5>Schema</h5><pre><code>{
-    "<span class="attribute">type</span>": <span class="value"><span class="string">"array"</span></span>,
-    "<span class="attribute">maxItems</span>": <span class="value"><span class="number">50</span></span>,
-    "<span class="attribute">items</span>": <span class="value">{
-        "<span class="attribute">type</span>": <span class="value"><span class="string">"object"</span></span>,
-        "<span class="attribute">properties</span>": <span class="value">{
-            "<span class="attribute">name</span>": <span class="value">{
-                "<span class="attribute">type</span>": <span class="value"><span class="string">"string"</span>
+    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
+    "<span class="hljs-attribute">maxItems</span>": <span class="hljs-value"><span class="hljs-number">50</span></span>,
+    "<span class="hljs-attribute">items</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+        "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
             </span>}</span>,
-            "<span class="attribute">image</span>": <span class="value">{
-                "<span class="attribute">type</span>": <span class="value"><span class="string">"string"</span>
+            "<span class="hljs-attribute">image</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
             </span>}</span>,
-            "<span class="attribute">joined</span>": <span class="value">{
-                "<span class="attribute">type</span>": <span class="value"><span class="string">"string"</span></span>,
-                "<span class="attribute">pattern</span>": <span class="value"><span class="string">"\d{4}-\d{2}-\d{2}"</span>
+            "<span class="hljs-attribute">joined</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+                "<span class="hljs-attribute">pattern</span>": <span class="hljs-value"><span class="hljs-string">"\d{4}-\d{2}-\d{2}"</span>
             </span>}
         </span>}
     </span>}
@@ -183,17 +186,15 @@ a.list-group-item.heading {
 </code></pre></li></ul></section></div></div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="tags">Tags&nbsp;<a href="#tags"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>Get or set tags on notes</p>
 <h4 id="tags-">Resources&nbsp;<a href="#tags-"><i class="fa fa-link"></i></a></h4><section id="tags--get" class="panel panel-info"><div class="panel-heading"><a href="#tags--get" class="btn btn-xs btn-info">GET</a>&nbsp;<code>/tags</code></div><div class="panel-body"><p>Get a list of bars</p>
 </div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section><h4 id="tags-get-one-tag">Get one tag&nbsp;<a href="#tags-get-one-tag"><i class="fa fa-link"></i></a></h4><p>Get a single tag</p>
-<section id="tags-get-one-tag-get" class="panel panel-info"><div class="panel-heading"><a href="#tags-get-one-tag-get" class="btn btn-xs btn-info">GET</a>&nbsp;<code>/tags/{id}</code></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by <a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a> on 25 Nov 2013</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+<section id="tags-get-one-tag-get" class="panel panel-info"><div class="panel-heading"><a href="#tags-get-one-tag-get" class="btn btn-xs btn-info">GET</a>&nbsp;<code>/tags/{id}</code></div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by <a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a> on 30 Jan 2014</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
-</div></body><script src="//code.jquery.com/jquery-1.10.1.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script><script type="text/javascript">
-(function() {
+</div></body><script src="//code.jquery.com/jquery-1.10.1.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {
     document.getElementById('localFile').style.display = 'block';
   }
 
 }).call(this);
-</script><script type="text/javascript">
-(function() {
+</script><script>(function() {
   $('table').addClass('table');
 
 }).call(this);
