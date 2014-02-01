@@ -68,7 +68,7 @@ Create a new note
 
     + Headers
 
-            Content-Type: applicatoin/json
+            Content-Type: application/json
 
     + Body
 
@@ -83,7 +83,7 @@ Create a new note
 
     + Headers
 
-            Content-Type: applicatoin/json
+            Content-Type: application/json
 
     + Body
 
