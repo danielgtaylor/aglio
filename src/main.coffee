@@ -94,7 +94,7 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
     fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
         if err then return done(err)
 
-        exports.render input, options, (err, html, warnings) ->
+        exports.render input.toString(), options, (err, html, warnings) ->
             if err then return done(err)
 
             if outputFile isnt '-'
