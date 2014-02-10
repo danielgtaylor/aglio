@@ -60,7 +60,7 @@ exports.run = (argv=parser.argv, done=->) ->
                 res.writeHead 200,
                     'Content-Type': 'text/html'
                 res.end err or html
-        ).listen argv.p, '127.0.0.1'
+        ).listen argv.p, '0.0.0.0'
         console.log "Server started on http://localhost:#{argv.p}/"
         done()
     else
