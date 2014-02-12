@@ -10,6 +10,7 @@ parser = require('optimist')
     .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
     .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
     .options('s', alias: 'server', describe: 'Start a local preview server')
+    .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
 
@@ -60,8 +61,8 @@ exports.run = (argv=parser.argv, done=->) ->
                 res.writeHead 200,
                     'Content-Type': 'text/html'
                 res.end err or html
-        ).listen argv.p, '127.0.0.1'
-        console.log "Server started on http://localhost:#{argv.p}/"
+        ).listen argv.p, argv.h
+        console.log "Server started on http://#{argv.h}:#{argv.p}/"
         done()
     else
         # Render API Blueprint, requires input/output files
