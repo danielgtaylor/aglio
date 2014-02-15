@@ -1,6 +1,6 @@
 {
   "name": "aglio",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "description": "An API Blueprint renderer with theme support",
   "main": "lib/main.js",
   "bin": {
@@ -39,18 +39,18 @@
     "jade": "~1.1.5",
     "marked": "~0.3.0",
     "optimist": "~0.6.0",
-    "protagonist": "~0.6.1",
+    "protagonist": "~0.7.0",
     "highlight.js": "~8.0.0",
     "moment": "~2.5.1",
     "stylus": "~0.42.2",
     "cli-color": "~0.2.3"
   },
   "devDependencies": {
-    "grunt-contrib-coffee": "~0.9.0",
+    "grunt-contrib-coffee": "~0.10.0",
     "grunt": "~0.4.1",
     "grunt-mocha-cov": "~0.2.0",
     "grunt-coffeelint": "0.0.8",
-    "sinon": "~1.7.3",
+    "sinon": "~1.8.2",
     "async": "~0.2.9"
   }
 }
