@@ -76,6 +76,7 @@ mixin RequestResponse(title, request)
     if content
         li.list-group-item.collapse(id=id)
             if Object.keys(request.headers).length
+                .description!= markdown(request.description)
                 h5 Headers
                 pre
                     code
