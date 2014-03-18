@@ -131,7 +131,8 @@ mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
                     section.panel(class=panelClass, id="#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")
                         .panel-heading
                             if action.name
-                                span.pull-right(style="text-transform: lowercase")= action.name
+                                div(style="float:right")
+                                    span(style="text-transform: lowercase")= action.name
                             case action.method
                                 when 'POST': - var btnClass = 'btn-success'
                                 when 'GET': - var btnClass = 'btn-' + getButtonClass
@@ -139,9 +140,10 @@ mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
                                 when 'PATCH': - var btnClass = 'btn-warning'
                                 when 'DELETE': - var btnClass = 'btn-danger'
                                 default: - var btnClass = 'btn-default'
-                            a.btn.btn-xs(class=btnClass, href="##{(multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : '')}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")= action.method
-                            | &nbsp;
-                            code= resource.uriTemplate
+                            div(style="float:left")
+                                a.btn.btn-xs(class=btnClass, href="##{(multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : '')}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")= action.method
+                            div(style="overflow:hidden")
+                                code= resource.uriTemplate
                         if action.description
                             .panel-body!= markdown(action.description)
 
