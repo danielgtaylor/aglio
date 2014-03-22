@@ -63,7 +63,7 @@ mixin Parameters(params)
                                 != '<code>' + param.values.join('</code>, <code>') + '</code>'
 
 mixin RequestResponse(title, request)
-    - var id = Math.round(Math.random() * 1000000)
+    - var id = hash(title.toString() + request.name.toString() + request.headers.toString() + request.body.toString() + request.schema.toString())
     - var content = Object.keys(request.headers).length || request.body || request.schema
     li.list-group-item
         strong

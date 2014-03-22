@@ -1,3 +1,4 @@
+crypto = require 'crypto'
 fs = require 'fs'
 hljs = require 'highlight.js'
 jade = require 'jade'
@@ -33,7 +34,7 @@ marked.setOptions
 exports.getTemplates = (done) ->
     fs.readdir path.join(root, 'templates'), (err, files) ->
         if err then return done(err)
-        
+
         # Return template names without the extension, and exclude items
         # that start with an underscore, which allows component reuse
         # among built-in templates.
@@ -71,6 +72,8 @@ exports.render = (input, options, done) ->
             highlight: highlight
             markdown: marked
             slug: slug
+            hash: (value) ->
+                crypto.createHash('md5').update(value.toString()).digest('hex')
 
         for key, value of options.locals or {}
             locals[key] = value
