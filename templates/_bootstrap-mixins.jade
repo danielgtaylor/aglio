@@ -2,7 +2,7 @@
 
 mixin Nav(multipage)
     div.col-md-3
-        nav#nav.collapse.hidden-sm.hidden-xs.affix.nav
+        nav#nav.hidden-sm.hidden-xs.affix.nav
             if multipage
                 .list-group
                     a.list-group-item.heading(href="#") Home
@@ -74,7 +74,7 @@ mixin RequestResponse(title, request)
         if content
             a.pull-right(data-toggle="collapse", data-target="##{id}") Toggle
     if content
-        li.list-group-item.collapse(id=id)
+        li.list-group-item.panel-collapse.collapse(id=id)
             if Object.keys(request.headers).length
                 .description!= markdown(request.description)
                 h5 Headers
@@ -100,7 +100,7 @@ mixin Examples(examples)
                 +RequestResponse('Request', request)
             each response in example.responses
                 +RequestResponse('Response', response)
-                        
+
 mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
     .panel.panel-default
         .panel-heading
@@ -190,7 +190,7 @@ mixin Content(getButtonClass, multipage)
         header
             .page-header
                 h1#top= api.name || 'API Documentation'
-    
+
         .description!= markdown(api.description)
 
         if multipage

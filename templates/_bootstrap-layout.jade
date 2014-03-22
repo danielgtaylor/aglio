@@ -7,8 +7,8 @@ html
         meta(charset="utf-8")
         title= api.name || 'API Documentation'
         block bootstrap-theme
-            link(rel="stylesheet", href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css")
-        link(rel="stylesheet", href="//netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css")
+            link(rel="stylesheet", href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css")
+        link(rel="stylesheet", href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css")
         block styles
             link(rel="stylesheet", href="//fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200")
             style.
@@ -83,6 +83,9 @@ html
                     .list-group-item.collapse
                         display none
 
+                    .list-group-item.collapse.in
+                        display block
+
                     #nav
                         margin-top 38px
                         min-width 255px
@@ -118,8 +121,8 @@ html
             This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 
-    script(src="//code.jquery.com/jquery-1.10.1.min.js")
-    script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js")
+    script(src="//code.jquery.com/jquery-1.11.0.min.js")
+    script(src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")
     script
         :coffee
             # Show a warning when viewed as a local file, which will break the
