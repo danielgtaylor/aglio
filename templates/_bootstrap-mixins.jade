@@ -27,18 +27,18 @@ mixin Nav(multipage)
                                 +Icon(action.method)
                                 | &nbsp;
                                 = resource.name || action.name || action.method + ' ' + resource.uriTemplate
-            if api.metadata && api.metadata.HOST
-                p(style="text-align: center")
-                    a(href=api.metadata.HOST.value)= api.metadata.HOST.value
+            each meta in api.metadata
+                if meta.name == 'HOST'
+                    p(style="text-align: center")
+                        a(href=meta.value)= meta.value
 
 mixin Parameters(params)
     ul.list-group
         li.list-group-item.bg-default: strong Parameters
         li.list-group-item
             dl.dl-horizontal
-                each name in Object.keys(params)
-                    - var param = params[name]
-                    dt= name
+                each param in params
+                    dt= param.name
                     dd
                         code= param.type
                         | &nbsp;
@@ -60,7 +60,9 @@ mixin Parameters(params)
                         if param.values.length
                             p
                                 strong Choices:&nbsp;
-                                != '<code>' + param.values.join('</code>, <code>') + '</code>'
+                                each value in param.values
+                                    code= value.value
+                                    | &nbsp;
 
 mixin RequestResponse(title, request, resourceGroup, resource, action)
     - var id = hash(resourceGroup.name.toString() + resource.name.toString() + action.name.toString() + action.method.toString() + title.toString() + request.name.toString() + request.headers.toString() + request.body.toString() + request.schema.toString())
@@ -80,8 +82,8 @@ mixin RequestResponse(title, request, resourceGroup, resource, action)
                 h5 Headers
                 pre
                     code
-                        each name in Object.keys(request.headers)
-                            != highlight(name + ': ' + request.headers[name].value, 'http')
+                        each item in request.headers
+                            != highlight(item.name + ': ' + item.value, 'http')
                             br
             if request.body
                 h5 Body
@@ -147,8 +149,8 @@ mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
                         if action.description
                             .panel-body!= markdown(action.description)
 
-                        - var params = Object.keys(action.parameters).length ? action.parameters : resource.parameters
-                        if Object.keys(params).length
+                        - var params = action.parameters.length ? action.parameters : resource.parameters
+                        if params.length
                             +Parameters(params)
                         if action.examples
                             +Examples(resourceGroup, resource, action)

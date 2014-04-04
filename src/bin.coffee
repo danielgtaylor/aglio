@@ -58,9 +58,10 @@ exports.run = (argv=parser.argv, done=->) ->
             blueprint = fs.readFileSync argv.i, 'utf-8'
             aglio.render blueprint, options, (err, html, warnings) ->
                 logWarnings warnings
+                if err then console.error err
                 res.writeHead 200,
                     'Content-Type': 'text/html'
-                res.end err or html
+                res.end if err then err.toString() else html
         ).listen argv.p, argv.h
         console.log "Server started on http://#{argv.h}:#{argv.p}/"
         done()
