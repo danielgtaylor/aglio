@@ -1,6 +1,6 @@
 {
   "name": "aglio",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "An API Blueprint renderer with theme support",
   "main": "lib/main.js",
   "bin": {
