@@ -43,7 +43,9 @@
     "highlight.js": "~8.0.0",
     "moment": "~2.6.0",
     "stylus": "~0.43.1",
-    "cli-color": "~0.2.3"
+    "cli-color": "~0.2.3",
+    "tiny-lr": "~0.0.7",
+    "node-watch": "~0.3.4"
   },
   "devDependencies": {
     "grunt-contrib-coffee": "~0.10.0",

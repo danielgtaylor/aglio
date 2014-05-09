@@ -2,6 +2,8 @@ aglio = require './main'
 clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
+lr = require('tiny-lr')()
+watch = require 'node-watch'
 parser = require('optimist')
     .usage('Usage: $0 [-l -t template --no-filter --no-condense] -i infile [-o outfile -s]')
     .options('i', alias: 'input', describe: 'Input file')
@@ -10,6 +12,7 @@ parser = require('optimist')
     .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
     .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
     .options('s', alias: 'server', describe: 'Start a local preview server')
+    .options('r', alias: 'reload', describe: 'Start a local LiveReload server on port 35729')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
@@ -64,6 +67,12 @@ exports.run = (argv=parser.argv, done=->) ->
                 res.end if err then err.toString() else html
         ).listen argv.p, argv.h
         console.log "Server started on http://#{argv.h}:#{argv.p}/"
+        if argv.r
+            lr.listen 35729
+            console.log "LiverReload server started on port 35729"
+            watch argv.i, (filename) ->
+                lr.changed {body:{files:["/"]}}
+        
         done()
     else
         # Render API Blueprint, requires input/output files
