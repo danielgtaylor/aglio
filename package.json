@@ -2,7 +2,7 @@
   "name": "aglio",
   "version": "1.14.0",
   "description": "An API Blueprint renderer with theme support",
-  "main": "lib/main.js",
+  "main": "src/main.coffee",
   "bin": {
     "aglio": "./bin/aglio.js"
   },
