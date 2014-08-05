@@ -61,8 +61,9 @@ html
 
                     .panel-heading
                         code
+                            margin-left 3px
                             color #c7254e
-                            background-color transparent
+                            background-color rgba(255,255,255,0.7)
                             white-space pre-wrap
                             white-space -moz-pre-wrap
                             white-space -pre-wrap
@@ -72,12 +73,41 @@ html
                             margin-top 10px
                             margin-bottom 10px
 
+                    .list-group
+                        margin-bottom 2px
+                    
+                    a.list-group-item:hover
+                        background-color #F8F8F8
+                        border-left 2px solid #555
+                        padding-left 15px
+                    
+                    .indent
+                        display block
+                        text-indent: 16px;
+                    
+                    .list-group-item
+                        padding-left 16px
+                        .toggle
+                            .open
+                                display block
+                            .closed
+                                display none
+                    
+                    .list-group-item.collapsed
+                        .toggle
+                            .open
+                                display none
+                            .closed
+                                display block
+
                     a.list-group-item
+                        font-size 13px
                         white-space nowrap
                         text-overflow ellipsis
                         overflow hidden
 
                         &.heading
+                            font-size 15px
                             background-color #f5f5f5
 
                     .list-group-item.collapse
@@ -86,9 +116,24 @@ html
                     .list-group-item.collapse.in
                         display block
 
+                    .list-group-item
+                        a
+                            span.closed
+                                display none
+                            span.open
+                                display block
+                    
+                    .list-group-item
+                        a.collapsed
+                            span.closed
+                                display block
+                            span.open
+                                display none
+
                     #nav
+                        width: inherit
                         margin-top 38px
-                        max-width 255px
+                        min-width 255px
                         top 0
                         bottom 0
                         padding-right 12px
@@ -103,12 +148,12 @@ html
         a.text-muted.back-to-top(href='#top')
             i.fa.fa-toggle-up
             | &nbsp;Back to top
-        .container
+        .container-fluid
             .row
                 block nav
                     +Nav(false)
 
-                .col-md-9
+                .col-md-8
                     block content
                         +Content('primary', false)
 
