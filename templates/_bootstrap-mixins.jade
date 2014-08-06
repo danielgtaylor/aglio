@@ -1,6 +1,6 @@
 //- Common mixins that templates can share
 
-mixin Nav(multipage)
+mixin Nav(multipage, collapsible)
     div.col-md-4
         nav#nav.hidden-sm.hidden-xs.affix.nav
             if multipage
@@ -8,13 +8,13 @@ mixin Nav(multipage)
                     a.list-group-item.heading(href="#") Home
             each resourceGroup in api.resourceGroups
                 .list-group
-                    a.list-group-item.heading.collapsed(data-toggle="collapse", data-target="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu", href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
-                        if resourceGroup.resources.length
+                    a.list-group-item.heading.collapsed(data-toggle="#{(collapsible ? 'collapse' : '')}", data-target="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu", href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
+                        if collapsible && resourceGroup.resources.length
                             span.toggle.pull-right
                                 span.open.fa.fa-angle-down
                                 span.closed.fa.fa-angle-right
                         = resourceGroup.name || 'Resource Group'
-                    div.collapse(id="#{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu")
+                    div(class=collapsible ? 'collapse' : '', id="#{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu")
                         each resource in resourceGroup.resources
                             if !condenseNav || (resource.actions.length != 1)
                                 a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
