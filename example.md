@@ -261,7 +261,7 @@ https://api.mywebsite.com/users?sort=joined&limit=5
 
     [User List][]
 
-# Group Tags
+# Group Tags and Tagging Long Title
 Get or set tags on notes
 
 ## GET /tags
