@@ -58,8 +58,9 @@ block styles
 
             .panel-heading
                 code
+                    margin-left 3px
                     color black
-                    background-color transparent
+                    background-color rgba(255,255,255,0.7)
                     white-space pre-wrap
                     white-space -moz-pre-wrap
                     white-space -pre-wrap
@@ -69,13 +70,49 @@ block styles
                     margin-top 10px
                     margin-bottom 10px
 
+            .list-group
+                margin-bottom 2px
+            
+            a.list-group-item:hover
+                background-color #F8F8F8
+                border-left 2px solid #555
+                padding-left 15px
+            
+            .indent
+                display block
+                text-indent: 16px;
+            
+            .list-group-item
+                padding-left 16px
+                .toggle
+                    .open
+                        display block
+                    .closed
+                        display none
+            
+            .list-group-item.collapsed
+                .toggle
+                    .open
+                        display none
+                    .closed
+                        display block
+
+            a.list-group-item:hover
+                background-color #4B5159
+                border-left-color #c8c8c8
+
             a.list-group-item
+                font-size 13px
                 white-space nowrap
                 text-overflow ellipsis
                 overflow hidden
 
                 &.heading
+                    font-size 15px
                     background-color #3e444c
+                    
+                    &:hover
+                        background-color #4B5159
 
             .list-group-item.collapse
                 display none
@@ -83,7 +120,22 @@ block styles
             .list-group-item.collapse.in
                 display block
 
+            .list-group-item
+                a
+                    span.closed
+                        display none
+                    span.open
+                        display block
+            
+            .list-group-item
+                a.collapsed
+                    span.closed
+                        display block
+                    span.open
+                        display none
+
             #nav
+                width: inherit
                 margin-top 38px
                 min-width 255px
                 top 0

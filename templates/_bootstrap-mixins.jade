@@ -1,6 +1,6 @@
 //- Common mixins that templates can share
 
-mixin Nav(multipage)
+mixin Nav(multipage, collapsible)
     div.col-md-3
         nav#nav.hidden-sm.hidden-xs.affix.nav
             if multipage
@@ -8,25 +8,27 @@ mixin Nav(multipage)
                     a.list-group-item.heading(href="#") Home
             each resourceGroup in api.resourceGroups
                 .list-group
-                    a.list-group-item.heading(href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
+                    a.list-group-item.heading.collapsed(data-toggle="#{(collapsible ? 'collapse' : '')}", data-target="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu", href="##{(multipage ? 'page:' : '') + slug(resourceGroup.name)}")
+                        if collapsible && resourceGroup.resources.length
+                            span.toggle.pull-right
+                                span.open.fa.fa-angle-down
+                                span.closed.fa.fa-angle-right
                         = resourceGroup.name || 'Resource Group'
-                    each resource in resourceGroup.resources
-                        if !condenseNav || (resource.actions.length != 1)
-                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
-                                i.fa.fa-bars
-                                | &nbsp;
-                                = resource.name || 'Resource'
-                            each action in resource.actions
-                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="padding-left: 32px")
+                    div(class=collapsible ? 'collapse' : '', id="#{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu")
+                        each resource in resourceGroup.resources
+                            if !condenseNav || (resource.actions.length != 1)
+                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
+                                    = resource.name || 'Resource'
+                                each action in resource.actions
+                                    a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
+                                        +Icon(action.method)
+                                        span.indent
+                                            = action.name || action.method + ' ' + resource.uriTemplate
+                            else
+                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
+                                    - var action = resource.actions[0]
                                     +Icon(action.method)
-                                    | &nbsp;
-                                    = action.name || action.method + ' ' + resource.uriTemplate
-                        else
-                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
-                                - var action = resource.actions[0]
-                                +Icon(action.method)
-                                | &nbsp;
-                                = resource.name || action.name || action.method + ' ' + resource.uriTemplate
+                                    = resource.name || action.name || action.method + ' ' + resource.uriTemplate
             each meta in api.metadata
                 if meta.name == 'HOST'
                     p(style="text-align: center")
@@ -74,7 +76,9 @@ mixin RequestResponse(title, request, resourceGroup, resource, action)
                 | &nbsp;&nbsp;
                 code= request.name
         if content
-            a.pull-right(data-toggle="collapse", data-target="##{id}") Toggle
+            a.pull-right.collapsed(data-toggle="collapse", data-target="##{id}")
+                span.closed Show
+                span.open Hide
     if content
         li.list-group-item.panel-collapse.collapse(id=id)
             if Object.keys(request.headers).length
@@ -175,17 +179,23 @@ mixin Paginate(resourceGroups, index)
 mixin Icon(method)
     case method
         when 'GET'
-            i.fa.fa-arrow-circle-down
+            span.badge.alert-info
+                i.fa.fa-arrow-down
         when 'POST'
-            i.fa.fa-plus-square
+            span.badge.alert-success
+                i.fa.fa-plus
         when 'PUT'
-            i.fa.fa-pencil
+            span.badge.alert-warning
+                i.fa.fa-pencil
         when 'PATCH'
-            i.fa.fa-pencil
+            span.badge.alert-warning
+                i.fa.fa-pencil
         when 'DELETE'
-            i.fa.fa-warning
+            span.badge.alert-danger
+                i.fa.fa-times
         default
-            i.fa.fa-dot-circle-o
+            span.badge
+                i.fa.fa-dot-circle-o
 
 mixin Content(getButtonClass, multipage)
     div(data-bind=multipage ? "visible: page() == 'home'" : undefined)

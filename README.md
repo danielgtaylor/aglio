@@ -63,6 +63,9 @@ algio -i input.md -o -
 
 # Disable condensing navigation links
 aglio -i input.md --no-condense -o output.html
+
+# Render full-width page instead of fixed max width
+aglio -i input.md --full-width -o output.html
 ```
 
 Node.js Library

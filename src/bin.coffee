@@ -9,6 +9,7 @@ parser = require('optimist')
     .options('t', alias: 'template', describe: 'Template name or file', default: 'default')
     .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
     .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
+    .options('w', alias: 'full-width', boolean: true, describe: 'Use full window width', default: false)
     .options('s', alias: 'server', describe: 'Start a local preview server')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
@@ -54,6 +55,7 @@ exports.run = (argv=parser.argv, done=->) ->
                 template: argv.t
                 filterInput: argv.f
                 condenseNav: argv.c
+                fullWidth: argv.w
 
             blueprint = fs.readFileSync argv.i, 'utf-8'
             aglio.render blueprint, options, (err, html, warnings) ->
@@ -75,6 +77,7 @@ exports.run = (argv=parser.argv, done=->) ->
             template: argv.t
             filterInput: argv.f
             condenseNav: argv.c
+            fullWidth: argv.w
 
         aglio.renderFile argv.i, argv.o, options, (err, warnings) ->
             if err

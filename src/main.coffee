@@ -51,6 +51,7 @@ exports.render = (input, options, done) ->
     options.template ?= 'default'
     options.filterInput ?= true
     options.condenseNav ?= true
+    options.fullWidth ?= false
 
     # Protagonist does not support \r ot \t in the input, so
     # try to intelligently massage the input so that it works.
@@ -68,6 +69,7 @@ exports.render = (input, options, done) ->
         locals =
             api: res.ast
             condenseNav: options.condenseNav
+            fullWidth: options.fullWidth
             date: moment
             highlight: highlight
             markdown: marked
