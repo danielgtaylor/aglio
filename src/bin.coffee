@@ -3,7 +3,11 @@ clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
 parser = require('yargs')
-    .usage('Usage: $0 [-l -t template --no-filter --no-condense] -i infile [-o outfile -s]')
+    .usage('Usage: $0 [options] -i infile [-o outfile -s]')
+    .example('$0 -i example.md -o output.html', 'Render to HTML')
+    .example('$0 -i example.md -s', 'Start preview server')
+    .example('$0 -t flatly -i example.md -s', 'Custom template')
+    .example('$0 --no-condense -i example.md -s', 'Disable options')
     .options('i', alias: 'input', describe: 'Input file')
     .options('o', alias: 'output', describe: 'Output file')
     .options('t', alias: 'template', describe: 'Template name or file', default: 'default')
@@ -14,6 +18,7 @@ parser = require('yargs')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
+    .strict()
 
 # Console color settings for error/warnings
 cErr = clc.white.bgRed
