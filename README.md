@@ -1,6 +1,6 @@
 ![aglio](https://raw.github.com/danielgtaylor/aglio/master/aglio.png)
 
-[![Dependency Status](https://david-dm.org/danielgtaylor/aglio.png)](https://david-dm.org/danielgtaylor/aglio) [![Build Status](https://travis-ci.org/danielgtaylor/aglio.png?branch=master)](https://travis-ci.org/danielgtaylor/aglio) [![Coverage Status](https://coveralls.io/repos/danielgtaylor/aglio/badge.png)](https://coveralls.io/r/danielgtaylor/aglio) [![NPM version](https://badge.fury.io/js/aglio.png)](http://badge.fury.io/js/aglio)
+[![Dependency Status](http://img.shields.io/david/danielgtaylor/aglio.svg?style=flat)](https://david-dm.org/danielgtaylor/aglio) [![Build Status](http://img.shields.io/travis/danielgtaylor/aglio.svg?style=flat)](https://travis-ci.org/danielgtaylor/aglio) [![Coverage Status](http://img.shields.io/coveralls/danielgtaylor/aglio.svg?style=flat)](https://coveralls.io/r/danielgtaylor/aglio) [![NPM version](http://img.shields.io/npm/v/aglio.svg?style=flat)](https://www.npmjs.org/package/aglio) [![License](http://img.shields.io/npm/l/aglio.svg?style=flat)](https://www.npmjs.org/package/aglio)
 
 Introduction
 ============
