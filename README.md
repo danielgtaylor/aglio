@@ -197,14 +197,16 @@ Custom Themes
 -------------
 Themes are written using Jade, with support for Coffeescript and Stylus via filters. The output of aglio is a single HTML file, but custom themes can make use of Jade's extend and include directives, which allow you to split a theme among multiple files (the built-in themes do this). The locals available to themes look like the following:
 
-| Name      | Description                                              |
-| --------- | -------------------------------------------------------- |
-| api       | The API AST from Protagonist                             |
-| date      | Date and time handling from Moment.js                    |
-| highlight | A function (`code`, `lang`) to highlight a piece of code |
-| markdown  | A function to convert Markdown strings to HTML           |
-| slug      | A function to convert a string to a slug usable as an ID |
-| hash      | A function to return an hash (currently MD5)             |
+| Name        | Description                                              |
+| ----------- | -------------------------------------------------------- |
+| api         | The API AST from Protagonist                             |
+| condenseNav | If true, you should condense the nav if possible         |
+| date        | Date and time handling from Moment.js                    |
+| fullWidth   | If true, you should consume the entire page width        |
+| highlight   | A function (`code`, `lang`) to highlight a piece of code |
+| markdown    | A function to convert Markdown strings to HTML           |
+| slug        | A function to convert a string to a slug usable as an ID |
+| hash        | A function to return an hash (currently MD5)             |
 
 The default themes in the `templates` directory provide a fairly complete example of how to use the above locals. Remember, you can use any functionality available in Jade, Javascript, Coffeescript, CSS, and Stylus. Even though only one HTML page is generated, you can for example do client-side routing with Backbone, Sammy or Davis and get multiple pages on the client.
 
