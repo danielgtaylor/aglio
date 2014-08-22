@@ -68,9 +68,6 @@ h4 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.list-group {
-  margin-bottom: 2px;
-}
 a.list-group-item:hover {
   background-color: #f8f8f8;
   border-left: 2px solid #555;
@@ -140,9 +137,9 @@ a.list-group-item.heading:hover {
   padding-bottom: 12px;
   overflow-y: auto;
 }
-@media (max-width: 1199px) {
+@media( max-width: 1199px) {
   #nav {
-    min-width: 212px;
+    max-width: 212px;
   }
 }
 </style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a data-toggle="" data-target="#notes-menu" href="#notes" class="list-group-item heading collapsed">Notes</a><div id="notes-menu"><a href="#notes-note-list" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item">Note List</a><a href="#notes-note-list-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">Get Notes</span></a><a href="#notes-note-list-post" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-success"><i class="fa fa-plus"></i></span><span class="indent">Create New Note</span></a><a href="#notes-note" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item">Note</a><a href="#notes-note-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">Get Note</span></a><a href="#notes-note-put" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-warning"><i class="fa fa-pencil"></i></span><span class="indent">Update a Note</span></a><a href="#notes-note-delete" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-danger"><i class="fa fa-times"></i></span><span class="indent">Delete a Note</span></a></div></div><div class="list-group"><a data-toggle="" data-target="#users-menu" href="#users" class="list-group-item heading collapsed">Users</a><div id="users-menu"><a href="#users-user-list" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>User List</a></div></div><div class="list-group"><a data-toggle="" data-target="#tags-and-tagging-long-title-menu" href="#tags-and-tagging-long-title" class="list-group-item heading collapsed">Tags and Tagging Long Title</a><div id="tags-and-tagging-long-title-menu"><a href="#tags-and-tagging-long-title-" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>GET /tags</a><a href="#tags-and-tagging-long-title-get-one-tag" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Get one tag</a></div></div><p style="text-align: center"><a href="https://api.mywebsite.com">https://api.mywebsite.com</a></p></nav></div><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">API Title</h1></div></header><div class="description"><p><a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> <strong>formatted</strong> description.</p>
