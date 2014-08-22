@@ -1,7 +1,7 @@
 //- Common mixins that templates can share
 
 mixin Nav(multipage, collapsible)
-    div.col-md-4
+    div.col-md-3
         nav#nav.hidden-sm.hidden-xs.affix.nav
             if multipage
                 .list-group
@@ -17,15 +17,15 @@ mixin Nav(multipage, collapsible)
                     div(class=collapsible ? 'collapse' : '', id="#{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu")
                         each resource in resourceGroup.resources
                             if !condenseNav || (resource.actions.length != 1)
-                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
                                     = resource.name || 'Resource'
                                 each action in resource.actions
-                                    a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")
+                                    a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
                                         +Icon(action.method)
                                         span.indent
                                             = action.name || action.method + ' ' + resource.uriTemplate
                             else
-                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
+                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
                                     - var action = resource.actions[0]
                                     +Icon(action.method)
                                     = resource.name || action.name || action.method + ' ' + resource.uriTemplate
