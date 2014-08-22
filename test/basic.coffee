@@ -76,6 +76,19 @@ describe 'API Blueprint Renderer', ->
         dest = path.join root, 'example.html'
         aglio.renderFile src, dest, {}, done
 
+    it 'Should render from stdin', (done) ->
+        sinon.stub process.stdin, 'read', -> '# Hello\n'
+
+        setTimeout -> process.stdin.emit 'readable', 1
+
+        aglio.renderFile '-', 'output.html', 'default', (err) ->
+            if err then return done(err)
+
+            assert process.stdin.read.called
+            process.stdin.read.restore()
+
+            done()
+
     it 'Should render to stdout', (done) ->
         sinon.stub console, 'log'
 
