@@ -2,7 +2,7 @@ aglio = require './main'
 clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
-parser = require('optimist')
+parser = require('yargs')
     .usage('Usage: $0 [-l -t template --no-filter --no-condense] -i infile [-o outfile -s]')
     .options('i', alias: 'input', describe: 'Input file')
     .options('o', alias: 'output', describe: 'Output file')
