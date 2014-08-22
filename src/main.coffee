@@ -96,10 +96,8 @@ exports.render = (input, options, done) ->
 
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
-    fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
-        if err then return done(err)
-
-        exports.render input.toString(), options, (err, html, warnings) ->
+    render = (input) ->
+        exports.render input, options, (err, html, warnings) ->
             if err then return done(err)
 
             if outputFile isnt '-'
@@ -108,3 +106,12 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
             else
                 console.log html
                 done null, warnings
+
+    if inputFile isnt '-'
+        fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
+            if err then return done(err)
+            render input.toString()
+    else
+        process.stdin.setEncoding 'utf-8'
+        process.stdin.on 'readable', ->
+            render process.stdin.read()
