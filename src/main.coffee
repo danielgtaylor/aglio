@@ -114,4 +114,6 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
     else
         process.stdin.setEncoding 'utf-8'
         process.stdin.on 'readable', ->
-            render process.stdin.read()
+            chunk = process.stdin.read()
+            if chunk?
+                render chunk
