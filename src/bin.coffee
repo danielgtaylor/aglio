@@ -15,7 +15,7 @@ parser = require('yargs')
     .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
     .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
     .options('w', alias: 'full-width', boolean: true, describe: 'Use full window width', default: false)
-    .options('s', alias: 'server', describe: 'Start a local preview server')
+    .options('s', alias: 'server', describe: 'Start a local live preview server')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
@@ -58,7 +58,6 @@ exports.run = (argv=parser.argv, done=->) ->
                     else
                         _html = html
                         cb and cb(null, _html)
-    getHtml()
     if argv.l
         # List available templates
         aglio.getTemplates (err, names) ->
@@ -74,6 +73,7 @@ exports.run = (argv=parser.argv, done=->) ->
             parser.showHelp()
             return done 'Invalid arguments'
 
+        getHtml()
         server = http.createServer((req, res) ->
             if req.url isnt '/' then return res.end()
 
