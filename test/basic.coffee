@@ -191,7 +191,7 @@ describe 'Executable', ->
             aglio.renderFile.restore()
             done()
 
-    it 'Should start a preview server', (done) ->
+    it 'Should start a live preview server', (done) ->
         sinon.stub aglio, 'render', (i, t, callback) ->
             callback null, 'foo'
 
@@ -216,6 +216,7 @@ describe 'Executable', ->
                         setTimeout ->
                             fs.writeFileSync 'example.md', file, 'utf8'
                             setTimeout ->
+                                console.log.restore()
                                 done()
                             , 500
                         , 500
@@ -230,7 +231,6 @@ describe 'Executable', ->
 
         bin.run i: path.join(root, 'example.md'), s: true, p: 3000, h: 'localhost', ->
             http.createServer.restore()
-            console.log.restore()
 
     it 'Should handle errors', (done) ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
