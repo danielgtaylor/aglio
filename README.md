@@ -15,7 +15,7 @@ Features
  * Multiple templates/themes
  * Support for custom templates written in [Jade](http://jade-lang.com/)
  * Commandline executable `aglio -i api.md -o api.html`
- * Preview server `aglio -i api.md --server`
+ * Live preview server `aglio -i api.md --server`
  * Node.js library `require('aglio')`
  * Excellent test coverage
 
@@ -55,7 +55,7 @@ aglio -t slate -i input.md -o output.html
 # Custom template
 aglio -t /path/to/template.jade -i input.md -o output.html
 
-# Run a preview server on http://localhost:3000/
+# Run a live preview server on http://localhost:3000/
 aglio -i input.md -s
 
 # Print output to terminal (useful for piping)

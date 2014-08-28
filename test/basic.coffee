@@ -191,12 +191,12 @@ describe 'Executable', ->
             aglio.renderFile.restore()
             done()
 
-    it 'Should start a preview server', (done) ->
+    it 'Should start a live preview server', (done) ->
         sinon.stub aglio, 'render', (i, t, callback) ->
             callback null, 'foo'
 
         sinon.stub http, 'createServer', (handler) ->
-            listen: ->
+            listen: (port, host, cb) ->
                 # Simulate requests
                 req =
                     url: '/favicon.ico'
@@ -211,7 +211,15 @@ describe 'Executable', ->
                     writeHead: (status, headers) -> false
                     end: (data) ->
                         aglio.render.restore()
-                        done()
+                        cb()
+                        file = fs.readFileSync 'example.md', 'utf8'
+                        setTimeout ->
+                            fs.writeFileSync 'example.md', file, 'utf8'
+                            setTimeout ->
+                                console.log.restore()
+                                done()
+                            , 500
+                        , 500
                 handler req, res
 
         sinon.stub console, 'log'
@@ -221,9 +229,8 @@ describe 'Executable', ->
             console.error.restore()
             assert err
 
-        bin.run i: path.join(root, 'example.md'), s: true, ->
+        bin.run i: path.join(root, 'example.md'), s: true, p: 3000, h: 'localhost', ->
             http.createServer.restore()
-            console.log.restore()
 
     it 'Should handle errors', (done) ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->

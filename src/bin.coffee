@@ -2,6 +2,7 @@ aglio = require './main'
 clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
+chokidar = require 'chokidar'
 parser = require('yargs')
     .usage('Usage: $0 [options] -i infile [-o outfile -s]')
     .example('$0 -i example.md -o output.html', 'Render to HTML')
@@ -14,7 +15,7 @@ parser = require('yargs')
     .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
     .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
     .options('w', alias: 'full-width', boolean: true, describe: 'Use full window width', default: false)
-    .options('s', alias: 'server', describe: 'Start a local preview server')
+    .options('s', alias: 'server', describe: 'Start a local live preview server')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
@@ -36,6 +37,27 @@ logWarnings = (warnings) ->
         console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
 
 exports.run = (argv=parser.argv, done=->) ->
+    _html = null
+    getHtml = (cb) ->
+        if _html
+            cb and cb(null, _html)
+        else
+            options =
+                template: argv.t
+                filterInput: argv.f
+                condenseNav: argv.c
+                fullWidth: argv.w
+
+            fs.readFile argv.i, "utf-8", (err, blueprint) ->
+                console.log "Rendering " + argv.i
+                aglio.render blueprint, options, (err, html, warnings) ->
+                    logWarnings warnings
+                    if err
+                        console.error err
+                        cb and cb(err)
+                    else
+                        _html = html
+                        cb and cb(null, _html)
     if argv.l
         # List available templates
         aglio.getTemplates (err, names) ->
@@ -51,26 +73,36 @@ exports.run = (argv=parser.argv, done=->) ->
             parser.showHelp()
             return done 'Invalid arguments'
 
-        http.createServer((req, res) ->
+        getHtml()
+        server = http.createServer((req, res) ->
             if req.url isnt '/' then return res.end()
 
-            console.log "Rendering #{argv.i}"
-
-            options =
-                template: argv.t
-                filterInput: argv.f
-                condenseNav: argv.c
-                fullWidth: argv.w
-
-            blueprint = fs.readFileSync argv.i, 'utf-8'
-            aglio.render blueprint, options, (err, html, warnings) ->
-                logWarnings warnings
-                if err then console.error err
+            getHtml (err, html) ->
                 res.writeHead 200,
-                    'Content-Type': 'text/html'
-                res.end if err then err.toString() else html
-        ).listen argv.p, argv.h
-        console.log "Server started on http://#{argv.h}:#{argv.p}/"
+                    "Content-Type": "text/html"
+
+                res.end (if err then err.toString() else html)
+
+        ).listen argv.p, argv.h, ->
+            console.log "Server started on http://#{argv.h}:#{argv.p}/"
+
+        io = require("socket.io")(server)
+        io.on "connection", () ->
+            console.log "Socket connected"
+
+        watcher = chokidar.watch(argv.i,
+            persistent: false
+        )
+        watcher.on "change", (path) ->
+            console.log "Updated " + path
+            _html = null
+            getHtml (err, html) ->
+                unless err
+                    console.log "Refresh web page in browser"
+                    re = /<body>[\s\S]*<\/body>/i
+                    html = html.match(re)[0]
+                    io.emit "refresh", html
+
         done()
     else
         # Render API Blueprint, requires input/output files
