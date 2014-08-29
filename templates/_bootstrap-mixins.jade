@@ -64,7 +64,7 @@ mixin Parameters(params)
                                 strong Choices:&nbsp;
                                 each value in param.values
                                     code= value.value
-                                    | &nbsp;
+                                    = ' '
 
 mixin RequestResponse(title, request, resourceGroup, resource, action)
     - var id = hash(resourceGroup.name.toString() + resource.name.toString() + action.name.toString() + action.method.toString() + title.toString() + request.name.toString() + request.headers.toString() + request.body.toString() + request.schema.toString())

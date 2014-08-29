@@ -58,7 +58,7 @@ Note list description
 Get a list of notes.
 
 + Response 200
-    
+
     [Note List][]
 
 ### Create New Note [POST]
@@ -204,6 +204,12 @@ A list of users
             + `name`
             + `joined`
             + `-joined`
+            + `age`
+            + `-age`
+            + `location`
+            + `-location`
+            + `plan`
+            + `-plan`
 
     + limit = `10` (optional, integer, `25`) ... The maximum number of users to return, up to `50`
 
