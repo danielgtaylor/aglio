@@ -16,7 +16,7 @@ describe 'API Blueprint Renderer', ->
     it 'Should get a list of templates', (done) ->
         aglio.getTemplates (err, templates) ->
             if err then return done(err)
-            
+
             assert templates.length
             done()
 
@@ -81,7 +81,7 @@ describe 'API Blueprint Renderer', ->
 
         setTimeout -> process.stdin.emit 'readable', 1
 
-        aglio.renderFile '-', 'output.html', 'default', (err) ->
+        aglio.renderFile '-', 'example.html', 'default', (err) ->
             if err then return done(err)
 
             assert process.stdin.read.called
