@@ -31,7 +31,7 @@ mixin Nav(multipage, collapsible)
                                     = resource.name || action.name || action.method + ' ' + resource.uriTemplate
             each meta in api.metadata
                 if meta.name == 'HOST'
-                    p(style="text-align: center")
+                    p(style="text-align: center; width: 270px; word-wrap: break-all;")
                         a(href=meta.value)= meta.value
 
 mixin Parameters(params)
