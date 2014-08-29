@@ -168,7 +168,8 @@ html
 
     script(src="//code.jquery.com/jquery-1.11.0.min.js")
     script(src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")
-    script(src="/socket.io/socket.io.js")
+    if livePreview
+        script(src="/socket.io/socket.io.js")
     script
         :coffee
             # Show a warning when viewed as a local file, which will break the
@@ -179,6 +180,10 @@ html
         script
             :coffee
                 $('table').addClass 'table'
-                socket = io()
-                socket.on "refresh", (msg) ->
-                    $(document.body).html(msg)
+
+        if livePreview
+            script
+                :coffee
+                    socket = io()
+                    socket.on "refresh", (msg) ->
+                        $(document.body).html(msg)

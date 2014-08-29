@@ -47,6 +47,8 @@ exports.run = (argv=parser.argv, done=->) ->
                 filterInput: argv.f
                 condenseNav: argv.c
                 fullWidth: argv.w
+                locals:
+                    livePreview: true
 
             fs.readFile argv.i, "utf-8", (err, blueprint) ->
                 console.log "Rendering " + argv.i
