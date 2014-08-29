@@ -192,6 +192,8 @@ describe 'Executable', ->
             done()
 
     it 'Should start a live preview server', (done) ->
+        @timeout 5000
+
         sinon.stub aglio, 'render', (i, t, callback) ->
             callback null, 'foo'
 
