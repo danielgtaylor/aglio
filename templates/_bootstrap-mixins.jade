@@ -14,21 +14,22 @@ mixin Nav(multipage, collapsible)
                                 span.open.fa.fa-angle-down
                                 span.closed.fa.fa-angle-right
                         = resourceGroup.name || 'Resource Group'
-                    div(class=collapsible ? 'collapse' : '', id="#{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu")
-                        each resource in resourceGroup.resources
-                            if !condenseNav || (resource.actions.length != 1)
-                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
-                                    = resource.name || 'Resource'
-                                each action in resource.actions
-                                    a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
-                                        +Icon(action.method)
-                                        span.indent
-                                            = action.name || action.method + ' ' + resource.uriTemplate
-                            else
-                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
-                                    - var action = resource.actions[0]
+                    each resource, index in resourceGroup.resources
+                        if index = 0
+                            div(class=collapsible ? 'collapse' : '', id="#{(multipage ? 'page:' : '') + slug(resourceGroup.name)}-menu")
+                        if !condenseNav || (resource.actions.length != 1)
+                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
+                                = resource.name || 'Resource'
+                            each action in resource.actions
+                                a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
                                     +Icon(action.method)
-                                    = resource.name || action.name || action.method + ' ' + resource.uriTemplate
+                                    span.indent
+                                        = action.name || action.method + ' ' + resource.uriTemplate
+                        else
+                            a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
+                                - var action = resource.actions[0]
+                                +Icon(action.method)
+                                = resource.name || action.name || action.method + ' ' + resource.uriTemplate
             each meta in api.metadata
                 if meta.name == 'HOST'
                     p(style="text-align: center; word-wrap: break-word;")
