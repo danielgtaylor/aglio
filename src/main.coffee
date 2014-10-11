@@ -8,7 +8,7 @@ path = require 'path'
 protagonist = require 'protagonist'
 _ = require("lodash")
 
-resolveActionUris = (resourceGroups) ->
+exports.resolveActionUris = (resourceGroups) ->
     parameterReducer = (res, p) ->
         res.push p.name
         res
@@ -114,7 +114,7 @@ exports.render = (input, options, done) ->
             err.input = filteredInput
             return done(err)
 
-        resolveActionUris res.ast.resourceGroups
+        exports.resolveActionUris res.ast.resourceGroups
 
         locals =
             api: res.ast
