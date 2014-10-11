@@ -6,6 +6,54 @@ marked = require 'marked'
 moment = require 'moment'
 path = require 'path'
 protagonist = require 'protagonist'
+_ = require("lodash")
+
+resolveActionUris = (resourceGroups) ->
+    parameterReducer = (res, p) ->
+        res.push p.name
+        res
+    _.forEach resourceGroups, (rg) ->
+        _.forEach rg.resources, (r) ->
+            templateUri = r.uriTemplate
+            _.forEach r.actions, (a) ->
+                parameterValidator = (b) ->
+                    parameters.indexOf(b) is - 1
+                parameters = _.reduce(a.parameters, parameterReducer, [])
+                parameterBlocks = []
+                lastIndex = 0
+                index = 0
+                while (index = templateUri.indexOf("{", index)) isnt - 1
+                    parameterBlocks.push templateUri.substring(lastIndex, index)
+                    block = {}
+                    closeIndex = templateUri.indexOf("}", index)
+                    block.querySet = templateUri.indexOf("{?", index) is index
+                    lastIndex = closeIndex + 1
+                    index++
+                    index++ if block.querySet
+                    parameterSet = templateUri.substring(index, closeIndex)
+                    block.parameters = parameterSet.split(",")
+                    _.remove block.parameters, parameterValidator
+                    parameterBlocks.push block if block.parameters.length
+                parameterBlocks.push templateUri.substring(lastIndex, templateUri.length)
+                u = _.reduce(parameterBlocks, (uri, v) ->
+                    if typeof v is "string"
+                        uri.push v
+                    else
+                        segment = ["{"]
+                        segment.push "?" if v.querySet
+                        segment.push v.parameters.join()
+                        segment.push "}"
+                        uri.push segment.join("")
+                    uri
+                , [])
+                a.uriTemplate = u.join("")
+                return
+
+            return
+
+        return
+
+    return
 
 root = path.dirname __dirname
 
@@ -65,6 +113,8 @@ exports.render = (input, options, done) ->
         if err
             err.input = filteredInput
             return done(err)
+
+        resolveActionUris res.ast.resourceGroups
 
         locals =
             api: res.ast

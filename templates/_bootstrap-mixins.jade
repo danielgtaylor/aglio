@@ -23,12 +23,12 @@ mixin Nav(multipage, collapsible)
                                     a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
                                         +Icon(action.method)
                                         span.indent
-                                            = action.name || action.method + ' ' + resource.uriTemplate
+                                            = action.name || action.method + ' ' + action.uriTemplate
                             else
                                 a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
                                     - var action = resource.actions[0]
                                     +Icon(action.method)
-                                    = resource.name || action.name || action.method + ' ' + resource.uriTemplate
+                                    = resource.name || action.name || action.method + ' ' + action.uriTemplate
             each meta in api.metadata
                 if meta.name == 'HOST'
                     p(style="text-align: center; word-wrap: break-word;")
@@ -149,7 +149,7 @@ mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
                             div(style="float:left")
                                 a.btn.btn-xs(class=btnClass, href="##{(multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : '')}#{slug(resourceGroup.name)}-#{slug(resource.name)}-#{slug(action.method)}")= action.method
                             div(style="overflow:hidden")
-                                code= resource.uriTemplate
+                                code= action.uriTemplate
                         if action.description
                             .panel-body!= markdown(action.description)
 
