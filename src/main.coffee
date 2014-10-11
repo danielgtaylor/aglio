@@ -27,6 +27,8 @@ exports.resolveActionUris = (resourceGroups) ->
                     block = {}
                     closeIndex = templateUri.indexOf("}", index)
                     block.querySet = templateUri.indexOf("{?", index) is index
+                    block.formSet = templateUri.indexOf("{&", index) is index
+                    block.reservedSet = templateUri.indexOf("{+", index) is index
                     lastIndex = closeIndex + 1
                     index++
                     index++ if block.querySet
@@ -41,6 +43,8 @@ exports.resolveActionUris = (resourceGroups) ->
                     else
                         segment = ["{"]
                         segment.push "?" if v.querySet
+                        segment.push "&" if v.formSet
+                        segment.push "+" if v.reservedSet
                         segment.push v.parameters.join()
                         segment.push "}"
                         uri.push segment.join("")
