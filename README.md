@@ -59,7 +59,7 @@ aglio -t /path/to/template.jade -i input.md -o output.html
 aglio -i input.md -s
 
 # Print output to terminal (useful for piping)
-algio -i input.md -o -
+aglio -i input.md -o -
 
 # Disable condensing navigation links
 aglio -i input.md --no-condense -o output.html
