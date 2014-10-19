@@ -68,7 +68,7 @@ mixin Parameters(params)
 
 mixin RequestResponse(title, request, resourceGroup, resource, action)
     - var id = hash(resourceGroup.name.toString() + resource.name.toString() + action.name.toString() + action.method.toString() + title.toString() + request.name.toString() + request.headers.toString() + request.body.toString() + request.schema.toString())
-    - var content = Object.keys(request.headers).length || request.body || request.schema
+    - var content = request.description || Object.keys(request.headers).length || request.body || request.schema
     li.list-group-item
         strong
             = title
@@ -81,8 +81,10 @@ mixin RequestResponse(title, request, resourceGroup, resource, action)
                 span.open Hide
     if content
         li.list-group-item.panel-collapse.collapse(id=id)
-            if Object.keys(request.headers).length
+            if request.description
                 .description!= markdown(request.description)
+
+            if Object.keys(request.headers).length
                 h5 Headers
                 pre
                     code
