@@ -54,6 +54,7 @@
     "grunt-coffeelint": "0.0.13",
     "grunt-contrib-coffee": "~0.12.0",
     "grunt-mocha-cov": "^0.3.0",
-    "sinon": "^1.10.3"
+    "sinon": "^1.10.3",
+    "lodash": "^2.4.1"
   }
 }

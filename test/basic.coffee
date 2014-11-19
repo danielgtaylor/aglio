@@ -156,6 +156,35 @@ describe 'API Blueprint Renderer', ->
 
             done()
 
+    it 'Should parse action uris', (done) ->
+        mock = [resources: [
+            {
+                uriTemplate: "/api/resource/{id}{?constraint,skip}"
+                actions: [
+                    {
+                        parameters: [
+                            name: 'id'
+                        ]
+                    }
+                    {
+                        parameters: [
+                            {
+                                name: 'constraint'
+                            }
+                            {
+                                name: 'skip'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]]
+
+        aglio.resolveActionUris mock
+        assert mock[0].resources[0].actions[0].uriTemplate == '/api/resource/{id}'
+        assert mock[0].resources[0].actions[1].uriTemplate == '/api/resource/{?constraint,skip}'
+        done()
+
 describe 'Executable', ->
     it 'Should list templates', (done) ->
         sinon.stub console, 'log'
