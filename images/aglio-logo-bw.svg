@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg4013"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="aglio.svg">
+  <defs
+     id="defs4015">
+    <linearGradient
+       id="linearGradient5091">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop5093" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop5095" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4933">
+      <stop
+         style="stop-color:#634e33;stop-opacity:1;"
+         offset="0"
+         id="stop4935" />
+      <stop
+         style="stop-color:#cebbcc;stop-opacity:1;"
+         offset="1"
+         id="stop4937" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4925">
+      <stop
+         style="stop-color:#24141f;stop-opacity:1;"
+         offset="0"
+         id="stop4927" />
+      <stop
+         style="stop-color:#220d1c;stop-opacity:0;"
+         offset="1"
+         id="stop4929" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4925"
+       id="radialGradient4931"
+       cx="448.54556"
+       cy="556.83398"
+       fx="448.54556"
+       fy="556.83398"
+       r="29.35124"
+       gradientTransform="matrix(0.87832058,1.0221033,-0.83868738,0.72070638,530.15983,-82.939755)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5091"
+       id="linearGradient5688"
+       gradientUnits="userSpaceOnUse"
+       x1="403.53342"
+       y1="503.96017"
+       x2="379.49759"
+       y2="481.73682" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4710">
+      <path
+         style="fill:#fb0000;fill-opacity:1;stroke:none"
+         d="m 400.15873,812.68675 c 7.61237,3.45865 19.13813,7.19323 31.33486,4.3925 12.5707,-2.88661 21.52104,-10.42986 28.9933,-20.94273 2.77394,-3.9027 0.0155,-8.28296 -1.71918,-11.38215 3.59501,3.12561 5.05022,4.99131 10.22408,3.80076 9.49121,-2.18401 17.78991,-6.71526 22.60587,-15.41752 4.85314,-8.76943 3.03046,-19.13988 3.03046,-28.78935 0,-2.10953 -1.42446,-3.51577 -3.03046,-5.55584 2.18991,-0.25024 4.67422,-1.27585 5.55584,-4.04061 3.07954,-9.65742 4.90382,-20.45102 2.52538,-30.30457 -2.56775,-10.6378 -10.23818,-19.42877 -16.66751,-28.28427 -2.59635,-3.5761 -6.28963,-6.35047 -10.10153,-8.5863 -13.77082,-8.07712 -12.00796,-22.18955 -42.4264,-22.22336 -21.16091,-0.0235 -29.51403,8.06836 -39.8704,17.22861 -1.13496,1.00389 -0.11786,4.6236 -0.53571,6.50998 -1.2205,-1.43411 -5.36099,-3.96693 -8.08122,-3.03046 -8.35404,2.87598 -16.4304,7.44061 -22.72843,13.63706 -4.56202,4.48844 -6.18512,11.24027 -8.5863,17.17259 -0.50534,1.24848 1.03969,3.18439 0,4.04061 -2.34291,1.92945 -6.66908,0.67752 -8.58629,3.03046 -5.85685,7.18795 -11.11548,15.32116 -13.63706,24.24366 -2.01512,7.13042 -0.58081,14.89366 0.50507,22.22336 0.30117,2.03289 3.53554,2.99568 3.53554,5.05076 0,6.17443 -5.08043,12.20471 -3.53554,18.18275 2.56545,9.92718 7.08992,20.43432 15.15229,26.76904 9.54632,7.50068 22.29053,10.68051 34.34519,12.12183 4.5628,0.54555 9.54591,-4.24944 12.12183,-6.56599 1.52479,2.56309 7.84216,5.93127 9.57632,6.71918 z"
+         id="path4712"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ssscssscsssssscssssssssssscs"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-logo-big.png"
+         inkscape:export-xdpi="172.61057"
+         inkscape:export-ydpi="172.61057" />
+    </clipPath>
+    <filter
+       inkscape:collect="always"
+       id="filter4924"
+       x="-0.20809354"
+       width="1.416187"
+       y="-0.22832853"
+       height="1.4566571"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="13.624172"
+         id="feGaussianBlur4926" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="27.694232"
+     inkscape:cy="31.664648"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1114"
+     inkscape:window-height="669"
+     inkscape:window-x="58"
+     inkscape:window-y="13"
+     inkscape:window-maximized="0"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     showborder="true" />
+  <metadata
+     id="metadata4018">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-988.36218)">
+    <g
+       id="g4327"
+       transform="matrix(0.3571628,0,0,0.3571628,-113.95567,837.49108)">
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 418.03147,545.87296 c 2.42506,8.4587 8.44267,15.69522 15.92944,22.26529 7.48678,6.57007 21.59548,16.48179 28.56524,15.26456 7.83465,-1.90143 11.11261,-17.42055 9.19105,-21.34422 -3.28541,-6.25126 -21.46182,-7.16577 -25.72885,-11.74843 -4.26704,-4.58266 -0.31716,-14.59007 -4.10347,-20.1967 -3.78631,-5.60662 -13.49774,-13.15387 -22.2631,-9.61064 -8.76536,3.54324 -4.01537,16.91144 -1.59031,25.37014 z"
+         id="path5676"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="zzcczzzz" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 394.44444,593.40104 c 7.61237,3.45865 19.13813,7.19323 31.33486,4.3925 12.5707,-2.88661 21.52104,-10.42986 28.9933,-20.94273 2.77394,-3.9027 0.0155,-8.28296 -1.71918,-11.38215 3.59501,3.12561 5.05022,4.99131 10.22408,3.80076 9.49121,-2.18401 17.78991,-6.71526 22.60587,-15.41752 4.85314,-8.76943 3.03046,-19.13988 3.03046,-28.78935 0,-2.10953 -1.42446,-3.51577 -3.03046,-5.55584 2.18991,-0.25024 4.67422,-1.27585 5.55584,-4.04061 3.07954,-9.65742 4.90382,-20.45102 2.52538,-30.30457 -2.56775,-10.6378 -10.23818,-19.42877 -16.66751,-28.28427 -2.59635,-3.5761 -6.28963,-6.35047 -10.10153,-8.5863 -13.77082,-8.07712 -12.00796,-22.18955 -42.4264,-22.22336 -21.16091,-0.0235 -29.51403,8.06836 -39.8704,17.22861 -1.13496,1.00389 -0.11786,4.6236 -0.53571,6.50998 -1.2205,-1.43411 -5.36099,-3.96693 -8.08122,-3.03046 -8.35404,2.87598 -16.4304,7.44061 -22.72843,13.63706 -4.56202,4.48844 -6.18512,11.24027 -8.5863,17.17259 -0.50534,1.24848 1.03969,3.18439 0,4.04061 -2.34291,1.92945 -6.66908,0.67752 -8.58629,3.03046 -5.85685,7.18795 -11.11548,15.32116 -13.63706,24.24366 -2.01512,7.13042 -0.58081,14.89366 0.50507,22.22336 0.30117,2.03289 3.53554,2.99568 3.53554,5.05076 0,6.17443 -5.08043,12.20471 -3.53554,18.18275 2.56545,9.92718 7.08992,20.43432 15.15229,26.76904 9.54632,7.50068 22.29053,10.68051 34.34519,12.12183 4.5628,0.54555 9.54591,-4.24944 12.12183,-6.56599 1.52479,2.56309 7.84216,5.93127 9.57632,6.71918 z"
+         id="path5680"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ssscssscsssssscssssssssssscs" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         id="path5682"
+         sodipodi:cx="383.35291"
+         sodipodi:cy="492.9902"
+         sodipodi:rx="20.708128"
+         sodipodi:ry="28.031733"
+         d="m 404.06103,492.9902 c 0,15.4815 -9.27134,28.03174 -20.70812,28.03174 -11.43679,0 -20.70813,-12.55024 -20.70813,-28.03174 0,-15.48149 9.27134,-28.03173 20.70813,-28.03173 11.43678,0 20.70812,12.55024 20.70812,28.03173 z"
+         transform="matrix(0.72154802,0.6923644,-0.6923644,0.72154802,450.59962,-132.18641)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 375.27167,516.98133 c 0,0 -10.3884,35.40179 -9.59645,48.48733 0.79195,13.08554 8.01994,27.42205 8.01994,27.42205 l 5.95894,-1.21411 5.51886,-7.79433 c 0,0 -10.86925,-13.17895 -12.93175,-24.97961 -2.0625,-11.80066 3.03046,-41.92133 3.03046,-41.92133 z"
+         id="path5690"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="czccczc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 410.62701,522.0321 c 0,0 19.7593,29.47979 27.27412,36.87056 7.51482,7.39077 18.309,8.5863 18.309,8.5863 l -5.17701,-9.59645 c 0,0 -9.03346,-4.93799 -15.65737,-11.36421 -6.62391,-6.42622 -24.74874,-24.4962 -24.74874,-24.4962 z"
+         id="path5692"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="czcczc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 415.62701,491.72752 c 0,0 15.57176,4.54589 24.7995,7.57614 9.22774,3.03025 18.1431,7.31736 25.50635,10.35407 7.36325,3.03671 19.98114,10.94209 19.98114,10.94209 0,0 2.62933,-0.0581 4.23573,-3.41358 1.6064,-3.3555 -1.64906,-8.22485 -1.64906,-8.22485 -2.5594,-1.76451 -27.37851,-9.08683 -34.68964,-11.42549 -7.31113,-2.33866 -16.76697,-3.89056 -23.99112,-4.79823 -7.22415,-0.90767 -14.1929,-1.01015 -14.1929,-1.01015 z"
+         id="path5694"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="czzczczzc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 383.60543,463.69579 2.25118,-10.14858 c 0,0 -3.38861,-5.59095 -4.77656,-6.2664 -1.38795,-0.67545 -4.29315,-1.01016 -4.29315,-1.01016 0,0 0.81063,9.73574 2.27284,12.62691 1.4622,2.89118 4.54569,4.79823 4.54569,4.79823 z"
+         id="path5696"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cczczc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 362.39223,486.67676 c 0,0 -8.37165,-0.64666 -11.36422,-1.51523 -2.99257,-0.86857 -6.56599,-3.03046 -6.56599,-3.03046 0,0 0.75761,-1.60734 0.75761,-2.27284 0,-0.6655 -0.50507,-1.51523 -0.50507,-1.51523 0,0 3.53693,-1.10771 7.07107,-0.25254 3.53414,0.85517 10.6066,8.5863 10.6066,8.5863 z"
+         id="path5698"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="czczczc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 328.80465,531.88108 c 0,0 1.76366,-6.40436 4.54569,-9.84898 2.78203,-3.44462 7.48745,-8.27664 11.86929,-11.11168 4.38184,-2.83504 13.8896,-5.80838 13.8896,-5.80838 0,0 -6.8864,4.72905 -10.85914,7.82868 -3.97274,3.09963 -9.53543,7.84129 -12.87944,10.85914 -3.34401,3.01785 -6.566,8.08122 -6.566,8.08122 z"
+         id="path5700"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="czzczzc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 419.64286,452.00504 c 0,0 16.98068,-12.85831 23.57143,-14.64286 6.59075,-1.78455 13.21428,0.35714 13.21428,0.35714 l 5.35715,6.78572 c 0,0 -9.10506,-3.30839 -16.42858,-2.5 -7.32352,0.80839 -25.71428,10 -25.71428,10 z"
+         id="path5702"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="czcczc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,340.31136,465.31132)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5704"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,350.48993,462.98989)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5706"
+         style="fill:#000000;fill-opacity:0.31739131;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,353.1685,462.90061)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5708"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,355.57922,465.84703)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5710"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,360.75779,461.91846)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5712"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,356.47207,459.41846)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5714"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,364.4185,453.97203)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5716"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,370.93636,452.72203)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5718"
+         style="fill:#000000;fill-opacity:0.31739131;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,368.07922,451.11489)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5720"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,337.98993,466.47203)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5722"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,340.48993,467.90061)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5724"
+         style="fill:#000000;fill-opacity:0.31739131;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,332.90065,462.18632)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5726"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,329.86494,455.66846)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5728"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,333.77566,447.63274)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5730"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,329.04351,453.16846)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5732"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5734"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.08629815,0,0,0.08629815,335.82923,459.50774)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5736"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.08629815,0,0,0.08629815,334.57923,455.31131)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,336.09709,445.93631)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5738"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,333.32923,439.06131)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5740"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,340.65065,435.04345)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5742"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,341.81137,428.43631)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5744"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,348.23994,427.54345)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5746"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,339.7578,437.98988)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5748"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,337.16851,443.16845)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5750"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,347.43637,430.13274)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5752"
+         style="fill:#000000;fill-opacity:0.31739131;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,372.16851,436.56131)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5754"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,371.09708,444.59703)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5756"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,375.56137,433.16845)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5758"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,370.82922,425.22203)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5760"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,353.77566,422.27559)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5762"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,368.59709,426.47202)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5764"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,362.8828,421.65059)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5766"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,361.72209,423.70416)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5768"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.08629815,0,0,0.08629815,360.20423,421.65058)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5770"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5772"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.11229472,0,0,0.11229472,333.44269,454.33692)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.11229472,0,0,0.11229472,321.92483,440.31906)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5774"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,322.11933,434.82895)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5776"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5778"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.14349061,0,0,0.14349061,308.90504,416.79324)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,313.28004,421.79324)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5780"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5782"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.14349061,0,0,0.14349061,317.65504,402.41824)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,314.53004,410.36467)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5784"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,323.01219,398.04324)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5786"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,352.2979,416.25752)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5788"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,353.36933,407.32895)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5790"
+         style="fill:#000000;fill-opacity:0.14782607;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,350.24433,398.66823)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5792"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         id="path5794"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.14349061,0,0,0.14349061,335.15503,393.31109)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5796"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.14349061,0,0,0.14349061,330.45309,436.84926)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5798"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.14349061,0,0,0.14349061,337.90296,429.39938)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.14349061,0,0,0.14349061,345.98418,425.10623)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5800"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.17988581,0,0,0.17988581,300.40663,415.37366)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5802"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         id="path5804"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,312.40219,418.27785)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5806"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,296.33076,410.77785)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.31739131;stroke:none"
+         id="path5808"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,294.8129,402.11714)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         id="path5810"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,297.3129,394.97428)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.31739131;stroke:none"
+         id="path5812"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,301.06291,387.47428)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5814"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,335.61648,400.95642)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         id="path5816"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,337.58076,392.92071)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.31739131;stroke:none"
+         id="path5818"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,336.15219,384.34927)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5820"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,307.93791,383.635)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         id="path5822"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,314.63434,376.67071)" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.17988581,0,0,0.17988581,330.34862,375.86714)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5824"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         transform="matrix(0.17988581,0,0,0.17988581,321.11476,414.99486)"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         sodipodi:ry="12.142858"
+         sodipodi:rx="12.142858"
+         sodipodi:cy="512.00507"
+         sodipodi:cx="383.21429"
+         id="path5826"
+         style="fill:#000000;fill-opacity:0.2695656;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="202.99692"
+         inkscape:export-xdpi="202.99692"
+         inkscape:export-filename="/Users/taylordt/Desktop/aglio-bw.png"
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:0.15217393;stroke:none"
+         id="path5828"
+         sodipodi:cx="383.21429"
+         sodipodi:cy="512.00507"
+         sodipodi:rx="12.142858"
+         sodipodi:ry="12.142858"
+         d="m 395.35715,512.00507 c 0,6.70631 -5.43654,12.14285 -12.14286,12.14285 -6.70631,0 -12.14285,-5.43654 -12.14285,-12.14285 0,-6.70632 5.43654,-12.14286 12.14285,-12.14286 6.70632,0 12.14286,5.43654 12.14286,12.14286 z"
+         transform="matrix(0.17988581,0,0,0.17988581,328.43836,409.94409)" />
+    </g>
+  </g>
+</svg>
