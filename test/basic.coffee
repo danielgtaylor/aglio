@@ -20,7 +20,7 @@ describe 'API Blueprint Renderer', ->
             assert templates.length
             done()
 
-    it 'Should get a list of templates', (done) ->
+    it 'Should handle template list error', (done) ->
         sinon.stub fs, 'readdir', (name, callback) ->
             callback 'error'
 
@@ -30,6 +30,25 @@ describe 'API Blueprint Renderer', ->
             fs.readdir.restore()
 
             done()
+
+    it 'Should get a list of included files', ->
+        sinon.stub fs, 'readFileSync', -> 'I am a test file'
+
+        input = '''
+            # Title
+            <!-- include(test1.md) -->
+            Some content...
+            <!-- include(test2.md) -->
+            More content...
+        '''
+
+        paths = aglio.collectPathsSync input, '.'
+
+        fs.readFileSync.restore()
+
+        assert.equal paths.length, 2
+        assert 'test1.md' in paths
+        assert 'test2.md' in paths
 
     it 'Should render blank string', (done) ->
         aglio.render '', template: 'default', locals: {foo: 1}, (err, html) ->
@@ -44,6 +63,9 @@ describe 'API Blueprint Renderer', ->
             if err then return done(err)
 
             assert html
+
+            # Ensure include works
+            assert html.indexOf 'This is content that was included'
 
             done()
 

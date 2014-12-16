@@ -1,8 +1,9 @@
 aglio = require './main'
+chokidar = require 'chokidar'
 clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
-chokidar = require 'chokidar'
+path = require 'path'
 parser = require('yargs')
     .usage('Usage: $0 [options] -i infile [-o outfile -s]')
     .example('$0 -i example.md -o output.html', 'Render to HTML')
@@ -47,6 +48,7 @@ exports.run = (argv=parser.argv, done=->) ->
                 filterInput: argv.f
                 condenseNav: argv.c
                 fullWidth: argv.w
+                includePath: path.dirname argv.i
                 locals:
                     livePreview: true
 
@@ -92,6 +94,7 @@ exports.run = (argv=parser.argv, done=->) ->
         io.on "connection", () ->
             console.log "Socket connected"
 
+        # TODO: Watch included files?
         watcher = chokidar.watch(argv.i,
             persistent: false
         )

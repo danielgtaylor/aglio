@@ -21,6 +21,8 @@ And some code with no highlighting:
 Foo bar baz
 ```
 
+<!-- include(example-include.md) -->
+
 # Group Notes
 Group description (also with *Markdown*)
 
@@ -236,25 +238,7 @@ A list of users
 
     + Schema
 
-            {
-                "type": "array",
-                "maxItems": 50,
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "image": {
-                            "type": "string"
-                        },
-                        "joined": {
-                            "type": "string",
-                            "pattern": "\d{4}-\d{2}-\d{2}"
-                        }
-                    }
-                }
-            }
+            <!-- include(example-schema.json) -->
 
 ### Get users [GET]
 Get a list of users. Example:

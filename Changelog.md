@@ -1,5 +1,7 @@
 # Unreleased
 * New logo
+* Add support for [including files]
+  (https://github.com/danielgtaylor/aglio#including-files)
 
 # 1.16.2 - 2014-11-18
 * Update dependencies (chokidar, marked, protagonist, stylus)

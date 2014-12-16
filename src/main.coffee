@@ -7,7 +7,8 @@ moment = require 'moment'
 path = require 'path'
 protagonist = require 'protagonist'
 
-root = path.dirname __dirname
+INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
+ROOT = path.dirname __dirname
 
 # A function to create ID-safe slugs
 slug = (value) ->
@@ -25,6 +26,23 @@ highlight = (code, lang) ->
     else
         hljs.highlightAuto(code).value
 
+# Replace the include directive with the contents of the included
+# file in the input.
+includeReplace = (includePath, match, spaces, filename) ->
+    fullPath = path.join includePath, filename
+    lines = fs.readFileSync(fullPath, 'utf-8').replace(/\r\n?/g, '\n').split('\n')
+    content = spaces + lines.join "\n#{spaces}"
+
+    # The content can itself include other files, so check those
+    # as well! Beware of circular includes!
+    includeDirective path.dirname(fullPath), content
+
+# Handle the include directive, which inserts the contents of one
+# file into another. We find the directive using a regular expression
+# and replace it using the method above.
+includeDirective = (includePath, input) ->
+    input.replace INCLUDE, includeReplace.bind(this, includePath)
+
 # Setup marked with code highlighting and smartypants
 marked.setOptions
     highlight: highlight
@@ -32,13 +50,25 @@ marked.setOptions
 
 # Get a list of available internal templates
 exports.getTemplates = (done) ->
-    fs.readdir path.join(root, 'templates'), (err, files) ->
+    fs.readdir path.join(ROOT, 'templates'), (err, files) ->
         if err then return done(err)
 
         # Return template names without the extension, and exclude items
         # that start with an underscore, which allows component reuse
         # among built-in templates.
         done null, (f for f in files when f[0] isnt '_').map (item) -> item.replace /\.jade$/, ''
+
+# Get a list of all paths from included files. This *excludes* the
+# input path itself.
+exports.collectPathsSync = (input, includePath) ->
+    paths = []
+    input.replace INCLUDE, (match, spaces, filename) ->
+        fullPath = path.join(includePath, filename)
+        paths.push fullPath
+
+        content = fs.readFileSync fullPath, 'utf-8'
+        paths = paths.concat exports.collectPathsSync(content, path.dirname(fullPath))
+    paths
 
 # Render an API Blueprint string using a given template
 exports.render = (input, options, done) ->
@@ -52,6 +82,10 @@ exports.render = (input, options, done) ->
     options.filterInput ?= true
     options.condenseNav ?= true
     options.fullWidth ?= false
+    options.includePath ?= process.cwd()
+
+    # Handle custom directive(s)
+    input = includeDirective options.includePath, input
 
     # Protagonist does not support \r ot \t in the input, so
     # try to intelligently massage the input so that it works.
@@ -83,7 +117,7 @@ exports.render = (input, options, done) ->
         if fs.existsSync options.template
             templatePath = options.template
         else
-            templatePath = path.join root, 'templates', "#{options.template}.jade"
+            templatePath = path.join ROOT, 'templates', "#{options.template}.jade"
 
         jade.renderFile templatePath, locals, (err, html) ->
             if err then return done(err)
@@ -108,6 +142,7 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
                 done null, warnings
 
     if inputFile isnt '-'
+        options.includePath ?= path.dirname inputFile
         fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
             if err then return done(err)
             render input.toString()

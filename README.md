@@ -14,6 +14,7 @@ Features
  * Asyncronous processing
  * Multiple templates/themes
  * Support for custom templates written in [Jade](http://jade-lang.com/)
+ * Include other documents in your blueprint
  * Commandline executable `aglio -i api.md -o api.html`
  * Live preview server `aglio -i api.md --server`
  * Node.js library `require('aglio')`
@@ -27,6 +28,17 @@ Example output is generated from the [example API Blueprint](https://raw.github.
  * Flatly theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly-collapsible.html)
  * Slate theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/slate.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/slate-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/slate-collapsible.html)
  * Cyborg theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/cyborg.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/cyborg-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/cyborg-collapsible.html)
+
+Including Files
+---------------
+It is possible to include other files in your blueprint by using a special include directive with a path to the included file relative to the current file's directory. Included files can be written in API Blueprint, Markdown or HTML (or JSON for response examples). Included files can include other files, so be careful of circular references.
+
+```markdown
+<!-- include(filename.md) -->
+```
+
+For tools that do not support this include directive it will just render out as an HTML comment. API Blueprint may support its own mechanism of including files in the future, and this syntax was chosen to not interfere with the [external documents proposal](https://github.com/apiaryio/api-blueprint/issues/20) while allowing `aglio` users to include documents today.
+
 
 Installation & Usage
 ====================
@@ -133,15 +145,19 @@ aglio.getTemplates(function (err, names) {
 });
 ```
 
+#### aglio.collectPathsSync (blueprint, includePath)
+Get a list of paths 
+
 #### aglio.render (blueprint, options, callback)
 Render an API Blueprint string and pass the generated HTML to the callback. The `options` can either be an object of options or a simple template name or file path string. Available options are:
 
-| Option      | Type   | Default | Description                                  |
-| ----------- | ------ | ------- | -------------------------------------------- |
-| condenseNav | bool   | `true`  | Condense navigation links                    |
-| filterInput | bool   | `true`  | Filter `\r` and `\t` from the input          |
-| locals      | object | `{}`    | Extra locals to pass to templates            |
-| template    | string |         |Template name or path to custom template file |
+| Option      | Type   | Default       | Description                                  |
+| ----------- | ------ | ------------- | -------------------------------------------- |
+| condenseNav | bool   | `true`        | Condense navigation links                     |
+| filterInput | bool   | `true`        | Filter `\r` and `\t` from the input           |
+| locals      | object | `{}`          | Extra locals to pass to templates             |
+| template    | string |               | Template name or path to custom template file |
+| includePath | string | process.cwd() | Base directory for relative includes.         |
 
 ```javascript
 var blueprint = '...';
