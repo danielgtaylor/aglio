@@ -1,4 +1,4 @@
-# Unreleased
+# 1.17.1 - 2014-12-16
 * Switch to [Remarkable](https://github.com/jonschlinkert/remarkable)
   Markdown parser, which is faster and supports the new CommonMark
   specification. [GFM](https://help.github.com/articles/github-flavored-markdown/)
