@@ -94,8 +94,9 @@ exports.run = (argv=parser.argv, done=->) ->
         io.on "connection", () ->
             console.log "Socket connected"
 
-        # TODO: Watch included files?
-        watcher = chokidar.watch argv.i
+        paths = aglio.collectPathsSync fs.readFileSync(argv.i, 'utf-8'), path.dirname(argv.i)
+
+        watcher = chokidar.watch [argv.i].concat(paths)
         watcher.on "change", (path) ->
             console.log "Updated " + path
             _html = null

@@ -146,7 +146,12 @@ aglio.getTemplates(function (err, names) {
 ```
 
 #### aglio.collectPathsSync (blueprint, includePath)
-Get a list of paths 
+Get a list of paths that are included in the blueprint. This list can be watched for changes to do things like live reload. The blueprint's own path is not included.
+
+```javascript
+var blueprint = '# GET /foo\n<-- include(example.json -->\n';
+var watchPaths = aglio.collectPathsSync(blueprint, process.cwd())
+```
 
 #### aglio.render (blueprint, options, callback)
 Render an API Blueprint string and pass the generated HTML to the callback. The `options` can either be an object of options or a simple template name or file path string. Available options are:
