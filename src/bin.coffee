@@ -95,9 +95,7 @@ exports.run = (argv=parser.argv, done=->) ->
             console.log "Socket connected"
 
         # TODO: Watch included files?
-        watcher = chokidar.watch(argv.i,
-            persistent: false
-        )
+        watcher = chokidar.watch argv.i
         watcher.on "change", (path) ->
             console.log "Updated " + path
             _html = null

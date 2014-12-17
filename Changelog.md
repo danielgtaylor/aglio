@@ -1,4 +1,6 @@
 # Unreleased
+* Fix live reload no longer working with some configurations
+  ([#74](https://github.com/danielgtaylor/aglio/issues/74))
 * Switch to [Remarkable](https://github.com/jonschlinkert/remarkable)
   Markdown parser, which is faster and supports the new CommonMark
   specification. [GFM](https://help.github.com/articles/github-flavored-markdown/)
