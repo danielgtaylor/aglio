@@ -28,7 +28,7 @@ mixin Nav(multipage, collapsible)
                                 a.list-group-item(href="##{multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : ''}#{slug(resourceGroup.name)}-#{slug(resource.name)}", style="border-top-left-radius: 0; border-top-right-radius: 0")
                                     - var action = resource.actions[0]
                                     +Icon(action.method)
-                                    = resource.name || action.name || action.method + ' ' + resource.uriTemplate
+                                    = action.name || resource.name || action.method + ' ' + resource.uriTemplate
             each meta in api.metadata
                 if meta.name == 'HOST'
                     p(style="text-align: center; word-wrap: break-word;")
