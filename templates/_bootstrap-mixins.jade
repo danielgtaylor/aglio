@@ -122,7 +122,7 @@ mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
                 != markdown(resourceGroup.description)
             each resource in resourceGroup.resources
                 h4(id="#{slug(resourceGroup.name)}-#{slug(resource.name)}")
-                    = resource.name || 'Resources'
+                    = resource.actions[0] != null ? resource.actions[0].name : resource.name || 'Resources'
                     | &nbsp;
                     a(href="##{(multipage ? 'page:' + slug(resourceGroup.name) + ',header:' : '')}#{slug(resourceGroup.name)}-#{slug(resource.name)}")
                         i.fa.fa-link
