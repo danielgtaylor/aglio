@@ -10,6 +10,8 @@ Remarkable = require 'remarkable'
 # The root directory of this project
 ROOT = path.dirname __dirname
 
+cache = {}
+
 # A function to create ID-safe slugs
 slug = (value='') -> value.toLowerCase().replace /[ \t\n]/g, '-'
 
@@ -124,7 +126,17 @@ exports.render = (input, options, done) ->
       locals[key] = value
 
     templatePath = path.join ROOT, 'templates', 'index.jade'
+    options =
+      filename: templatePath
+      self: true
+      compileDebug: true
+    renderer = if cache[templatePath] then cache[templatePath] else
+      console.time 'compile'
+      fn = jade.compileFile templatePath, options
+      console.timeEnd 'compile'
+      cache[templatePath] = fn
+      fn
     console.time 'template'
-    html = jade.renderFile templatePath, locals
+    html = renderer locals
     console.timeEnd 'template'
     done err, html

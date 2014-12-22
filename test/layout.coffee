@@ -74,10 +74,11 @@ describe 'Layout', ->
               values: []
             ]
             examples: [
-              name: 'An example'
-              description: 'I am *an* example'
+              name: ''
+              description: ''
               requests: [
-                headers: {}
+                name: '200'
+                headers: []
                 body: '{"error": true}'
                 schema: ''
               ]
@@ -96,7 +97,5 @@ describe 'Layout', ->
       assert.include html, 'Param <em>description</em>'
       assert.include html, 'bool'
       assert.include html, 'required'
-      assert.include html, 'An example'
-      assert.include html, 'I am <em>an</em> example'
       assert.include html, 'true'
       done()
