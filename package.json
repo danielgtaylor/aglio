@@ -1,0 +1,49 @@
+{
+  "name": "aglio-theme-olio",
+  "version": "0.0.1",
+  "description": "Default theme for the Aglio API Blueprint renderer",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "coffeelint src/*.coffee && coffee -o lib -c src",
+    "precoverage": "npm run build",
+    "coverage": "istanbul cover _mocha -- --compilers coffee:coffee-script/register -R spec",
+    "precoveralls": "npm run coverage",
+    "coveralls": "coveralls <coverage/lcov.info",
+    "pretest": "npm run build",
+    "test": "mocha --compilers coffee:coffee-script/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielgtaylor/aglio-theme-olio"
+  },
+  "keywords": [
+    "api",
+    "blueprint",
+    "protagonist",
+    "snowcrash",
+    "html",
+    "parse",
+    "markdown"
+  ],
+  "author": "Daniel G. Taylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danielgtaylor/aglio-theme-olio/issues"
+  },
+  "homepage": "https://github.com/danielgtaylor/aglio-theme-olio",
+  "dependencies": {
+    "highlight.js": "^8.4.0",
+    "jade": "^1.8.2",
+    "moment": "^2.8.4",
+    "remarkable": "^1.5.0",
+    "stylus": "^0.49.3"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "coffee-script": "^1.8.0",
+    "coffeelint": "^1.7.1",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.5",
+    "mocha": "^2.0.1"
+  }
+}
