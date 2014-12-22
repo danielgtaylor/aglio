@@ -32,15 +32,16 @@
   },
   "homepage": "https://github.com/danielgtaylor/aglio-theme-olio",
   "dependencies": {
+    "coffee-script": "^1.8.0",
     "highlight.js": "^8.4.0",
     "jade": "^1.8.2",
+    "less": "^2.1.2",
     "moment": "^2.8.4",
     "remarkable": "^1.5.0",
     "stylus": "^0.49.3"
   },
   "devDependencies": {
     "chai": "^1.10.0",
-    "coffee-script": "^1.8.0",
     "coffeelint": "^1.7.1",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.5",
