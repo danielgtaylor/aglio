@@ -1,30 +1,9 @@
-crypto = require 'crypto'
 fs = require 'fs'
-hljs = require 'highlight.js'
-jade = require 'jade'
-moment = require 'moment'
 path = require 'path'
 protagonist = require 'protagonist'
-Remarkable = require 'remarkable'
 
 INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
 ROOT = path.dirname __dirname
-
-# A function to create ID-safe slugs
-slug = (value) ->
-    value.toLowerCase().replace /[ \t\n]/g, '-'
-
-# A function to highlight snippets of code. lang is optional and
-# if given, is used to set the code language. If lang is no-highlight
-# then no highlighting is performed.
-highlight = (code, lang) ->
-    if lang
-        if lang is 'no-highlight'
-            code
-        else
-            hljs.highlight(lang, code).value
-    else
-        hljs.highlightAuto(code).value
 
 # Replace the include directive with the contents of the included
 # file in the input.
@@ -43,22 +22,9 @@ includeReplace = (includePath, match, spaces, filename) ->
 includeDirective = (includePath, input) ->
     input.replace INCLUDE, includeReplace.bind(this, includePath)
 
-# Setup marked with code highlighting and smartypants
-md = new Remarkable 'full',
-    html: true
-    linkify: true
-    typographer: true
-    highlight: highlight
-
-# Get a list of available internal templates
+# Get a list of available internal legacy templates
 exports.getTemplates = (done) ->
-    fs.readdir path.join(ROOT, 'templates'), (err, files) ->
-        if err then return done(err)
-
-        # Return template names without the extension, and exclude items
-        # that start with an underscore, which allows component reuse
-        # among built-in templates.
-        done null, (f for f in files when f[0] isnt '_').map (item) -> item.replace /\.jade$/, ''
+    done null, ['cyborg', 'default', 'flatly', 'slate']
 
 # Get a list of all paths from included files. This *excludes* the
 # input path itself.
@@ -71,6 +37,11 @@ exports.collectPathsSync = (input, includePath) ->
         content = fs.readFileSync fullPath, 'utf-8'
         paths = paths.concat exports.collectPathsSync(content, path.dirname(fullPath))
     paths
+
+# Get the theme module for a given theme name
+exports.getTheme = (name) ->
+    name = 'olio' if name is 'default'
+    require "aglio-theme-#{name}"
 
 # Render an API Blueprint string using a given template
 exports.render = (input, options, done) ->
@@ -97,32 +68,18 @@ exports.render = (input, options, done) ->
             .replace(/\r\n?/g, '\n')
             .replace(/\t/g, '    ')
 
+    console.time 'parse'
     protagonist.parse filteredInput, (err, res) ->
         if err
             err.input = filteredInput
             return done(err)
+        console.timeEnd 'parse'
 
-        locals =
-            api: res.ast
-            condenseNav: options.condenseNav
-            fullWidth: options.fullWidth
-            date: moment
-            highlight: highlight
-            markdown: (content) -> md.render content
-            slug: slug
-            hash: (value) ->
-                crypto.createHash('md5').update(value.toString()).digest('hex')
-
-        for key, value of options.locals or {}
-            locals[key] = value
-
-        if fs.existsSync options.template
-            templatePath = options.template
-        else
-            templatePath = path.join ROOT, 'templates', "#{options.template}.jade"
-
-        jade.renderFile templatePath, locals, (err, html) ->
+        theme = exports.getTheme 'default'
+        console.time 'render'
+        theme.render res.ast, (err, html) ->
             if err then return done(err)
+            console.timeEnd 'render'
 
             # Add filtered input to warnings since we have no
             # error to return
