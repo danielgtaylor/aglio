@@ -51,3 +51,10 @@ describe 'Library', ->
       theme.render {}, layout: '/bad/path.jade', (err, html) ->
         assert.ok err
         done()
+
+    it 'Should benchmark', (done) ->
+      old = process.env.BENCHMARK
+      process.env.BENCHMARK = true
+      theme.render {}, (err, html) ->
+        process.env.BENCHMARK = old
+        done err

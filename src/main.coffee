@@ -12,6 +12,11 @@ ROOT = path.dirname __dirname
 
 cache = {}
 
+# Utility for benchmarking
+benchmark =
+  start: (message) -> if process.env.BENCHMARK then console.time message
+  end: (message) -> if process.env.BENCHMARK then console.timeEnd message
+
 # A function to create ID-safe slugs
 slug = (value='') -> value.toLowerCase().replace /[ \t\n]/g, '-'
 
@@ -19,13 +24,13 @@ slug = (value='') -> value.toLowerCase().replace /[ \t\n]/g, '-'
 # if given, is used to set the code language. If lang is no-highlight
 # then no highlighting is performed.
 highlight = (code, lang, subset) ->
-  console.time "highlight #{lang}"
+  benchmark.start "highlight #{lang}"
   response = switch lang
     when 'no-highlight' then code
     when undefined, null, ''
       hljs.highlightAuto(code, subset).value
     else hljs.highlight(lang, code).value
-  console.timeEnd "highlight #{lang}"
+  benchmark.end "highlight #{lang}"
   return response
 
 # Setup marked with code highlighting and smartypants
@@ -107,10 +112,10 @@ exports.render = (input, options, done) ->
   options.colors ?= 'default'
   options.layout ?= path.join ROOT, 'templates', 'index.jade'
 
-  console.time 'css'
+  benchmark.start 'css'
   getCss options.colors, options.style, (err, lessOutput) ->
     if err then return done(err)
-    console.timeEnd 'css'
+    benchmark.end 'css'
 
     locals =
       api: input
@@ -135,14 +140,14 @@ exports.render = (input, options, done) ->
     if cache[options.layout]
       renderer = cache[options.layout]
     else
-      console.time 'compile'
+      benchmark.start 'compile'
       try fn = jade.compileFile options.layout, compileOptions
       catch err then return done err
-      console.timeEnd 'compile'
+      benchmark.end 'compile'
       renderer = cache[options.layout] = fn
 
-    console.time 'template'
+    benchmark.start 'template'
     try html = renderer locals
     catch err then return done err
-    console.timeEnd 'template'
+    benchmark.end 'template'
     done err, html
