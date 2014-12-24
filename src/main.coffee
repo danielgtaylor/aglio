@@ -36,8 +36,6 @@ md = new Remarkable 'full',
   highlight: highlight
 
 getColors = (name, done) ->
-  name ?= 'default'
-
   # First check to see if this is a built-in style
   fullPath = path.join ROOT, 'styles', "colors-#{name}.less"
   fs.exists fullPath, (exists) ->
@@ -46,7 +44,7 @@ getColors = (name, done) ->
       # the default color scheme and the custom colors file.
       fs.exists name, (exists) ->
         if not exists then return done new Error "File #{name} not found!"
-        
+
         defaults = path.join ROOT, 'styles', 'colors-default.less'
         fs.readFile defaults, 'utf-8', (err, defaultData) ->
           if err then return done err
@@ -77,8 +75,11 @@ getCss = (colors, style, done) ->
             style = "#{colorData}\n#{defaultData}\n#{customData}"
             less.render style, done
         else
-          style = "#{colorData}\n#{defaultData}"
-          less.render style, done
+          if style
+            return done new Error "File #{style} not found!"
+          else
+            style = "#{colorData}\n#{defaultData}"
+            less.render style, done
 
 # Get the theme's configuration, used by Aglio to present available
 # options and confirm that the input blueprint is a supported
@@ -104,6 +105,7 @@ exports.render = (input, options, done) ->
     options = {}
 
   options.colors ?= 'default'
+  options.layout ?= path.join ROOT, 'templates', 'index.jade'
 
   console.time 'css'
   getCss options.colors, options.style, (err, css) ->
@@ -125,18 +127,22 @@ exports.render = (input, options, done) ->
     for key, value of options.locals or {}
       locals[key] = value
 
-    templatePath = path.join ROOT, 'templates', 'index.jade'
-    options =
-      filename: templatePath
+    compileOptions =
+      filename: options.layout
       self: true
-      compileDebug: true
-    renderer = if cache[templatePath] then cache[templatePath] else
+      compileDebug: false
+
+    if cache[options.layout]
+      renderer = cache[options.layout]
+    else
       console.time 'compile'
-      fn = jade.compileFile templatePath, options
+      try fn = jade.compileFile options.layout, compileOptions
+      catch err then return done err
       console.timeEnd 'compile'
-      cache[templatePath] = fn
-      fn
+      renderer = cache[options.layout] = fn
+
     console.time 'template'
-    html = renderer locals
+    try html = renderer locals
+    catch err then return done err
     console.timeEnd 'template'
     done err, html

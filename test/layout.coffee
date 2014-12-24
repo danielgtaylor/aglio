@@ -8,9 +8,18 @@ describe 'Layout', ->
       description: 'I am a [test](http://test.com/) API.'
 
     theme.render ast, (err, html) ->
-      if err then return done(err)
+      if err then return done err
       assert.include html, 'Test API'
       assert.include html, 'I am a <a href="http://test.com/">test</a> API.'
+      done()
+
+  it 'Should render custom code in markdown', (done) ->
+    ast =
+      description: 'Test\n\n```coffee\na = 1\n```\n'
+
+    theme.render ast, (err, html) ->
+      if err then return done err
+      assert.include html, 'a = <span class="hljs-number">1</span>'
       done()
 
   it 'Should include API hostname', (done) ->
@@ -20,7 +29,7 @@ describe 'Layout', ->
       ]
 
     theme.render ast, (err, html) ->
-      if err then return done(err)
+      if err then return done err
       assert.include html, 'http://foo.com/'
       done()
 
@@ -33,7 +42,7 @@ describe 'Layout', ->
       ]
 
     theme.render ast, (err, html) ->
-      if err then return done(err)
+      if err then return done err
       assert.include html, 'Frobs'
       assert.include html, 'A list of <em>Frobs</em>'
       done()
@@ -50,7 +59,7 @@ describe 'Layout', ->
       ]
 
     theme.render ast, (err, html) ->
-      if err then return done(err)
+      if err then return done err
       assert.include html, 'Test Resource'
       assert.include html, 'Test <em>description</em>'
       done()
@@ -89,7 +98,7 @@ describe 'Layout', ->
       ]
 
     theme.render ast, (err, html) ->
-      if err then return done(err)
+      if err then return done err
       assert.include html, 'Test Action'
       assert.include html, 'Test <em>description</em>'
       assert.include html, 'GET'
