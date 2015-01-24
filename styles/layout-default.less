@@ -1,4 +1,403 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200);
+
+/* Page-wide variables */
+@padding: 12px;
+@border-radius: 6px;
+
+@base-font: 'Roboto' Helvetica sans-serif;
+@title-font: 'Raleway' Helvetica sans-serif;
+@code-font: 'Inconsolata' monospace;
+
+/* Element styles */
 body {
   color: @text-color;
   background: @background-color;
+  font-family: @base-font;
+  font-size: 14px;
+  line-height: 1.42;
+}
+
+header {
+    border-bottom: 1px solid @group-background-color;
+    margin-bottom: @padding;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: @padding 0;
+}
+
+h1 {
+    font-family: @title-font;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+h2 {
+    font-family: @title-font;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 100%;
+    text-transform: uppercase;
+}
+
+h5 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+a {
+    color: @link-color;
+    text-decoration: none;
+}
+
+li {
+    p {
+        margin: 0;
+    }
+}
+
+dl {
+    dt {
+        float: left;
+        width: 160px;
+        clear: left;
+        text-align: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 700;
+    }
+
+    dd {
+        margin-left: 180px;
+    }
+}
+
+blockquote {
+    font-size: 17.5px;
+    padding: 10px 20px;
+    margin: @padding 0;
+    border-left: 5px solid @quote-border-color;
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+pre {
+    background-color: @code-block-background-color;
+    padding: @padding;
+    border: 1px solid @code-block-border-color;
+    border-radius: @border-radius;
+
+    code {
+        background-color: transparent;
+        border: none;
+    }
+}
+
+code {
+    color: @inline-code-text-color;
+    background-color: @inline-code-background-color;
+    font-family: @code-font;
+    padding: 1px 4px;
+    border: 1px solid @code-block-border-color;
+    border-radius: 3px;
+}
+
+nav {
+    position: fixed;
+    top: @padding * 2;
+    bottom: 0;
+    overflow-y: auto;
+    width: 240px;
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        a {
+            display: block;
+            color: @text-color;
+            padding: @padding / 2 @padding;
+            border-top: 1px solid @group-border-color;
+            border-left: 2px solid transparent;
+
+            &:hover {
+                border-left: 2px solid @text-color;
+            }
+        }
+
+        /* Spacing for first level items */
+        & > li {
+            margin: 0 -@padding;
+
+            &:first-child {
+                margin-top: -@padding;
+            }
+
+            &:last-child {
+                margin-bottom: -@padding * 2;
+            }
+        }
+
+        /* Adjust spacing for nested lists */
+        ul {
+            a {
+                padding-left: @padding * 2;
+            }
+
+            li {
+                margin: 0;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    /* Remove the top border from the first item in each group */
+    & > div > ul > li:first-child > a {
+        border-top: none;
+    }
+}
+
+/* Generic classes */
+.preload * {
+    transition: none !important;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.collapse-button {
+    float: right;
+
+    .close {
+        display: none;
+        color: @link-color;
+        cursor: pointer;
+    }
+
+    .open {
+        color: @link-color;
+        cursor: pointer;
+    }
+
+    &.show {
+        .close {
+            display: inline;
+        }
+
+        .open {
+            display: none;
+        }
+    }
+}
+
+.collapse-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Layout classes */
+.container {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row {
+    .content {
+        margin-left: 240 + (@padding * 2);
+        width: 640px;
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+@media (max-width: 1000px) {
+    nav {
+        width: 200px;
+    }
+
+    .container {
+        max-width: 780px;
+    }
+
+    .row {
+        .content {
+            margin-left: 200 + (@padding * 2);
+            width: 480px;
+        }
+    }
+}
+
+@media (max-width: 720px) {
+    nav {
+        display: none;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .row {
+        .content {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+}
+
+/* Context-specific and API color classes */
+.back-to-top {
+    position: fixed;
+    z-index: 1;
+    bottom: 0px;
+    right: 24px;
+    padding: 4px 8px;
+    color: @text-color;
+    background-color: @group-background-color;
+    text-decoration: none !important;
+    border-top: 1px solid @group-border-color;
+    border-left: 1px solid @group-border-color;
+    border-right: 1px solid @group-border-color;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.resource-group {
+    padding: @padding;
+    margin-bottom: @padding;
+    border: 1px solid @group-border-color;
+    border-radius: @border-radius;
+
+    h2, .heading {
+        padding: @padding;
+        margin: -@padding -@padding @padding -@padding;
+        background-color: @group-background-color;
+        border-bottom: 1px solid @group-border-color;
+        border-top-left-radius: @border-radius;
+        border-top-right-radius: @border-radius;
+    }
+}
+
+.action {
+    margin-bottom: @padding;
+    padding: @padding;
+    border: 1px solid transparent;
+    border-radius: @border-radius;
+
+    h4 {
+        padding: @padding;
+        margin: -@padding -@padding @padding -@padding;
+        border-bottom: 1px solid transparent;
+        border-top-left-radius: @border-radius;
+        border-top-right-radius: @border-radius;
+
+        .name {
+            float: right;
+            opacity: 0.45;
+        }
+
+        .method {
+            padding: @padding / 2 @padding;
+            margin-right: @padding;
+            border-radius: 3px;
+
+            &.get {
+                color: contrast(@get-color);
+                background-color: @get-color;
+            }
+
+            &.put {
+                color: contrast(@put-color);
+                background-color: @put-color;
+            }
+
+            &.post {
+                color: contrast(@post-color);
+                background-color: @post-color;
+            }
+
+            &.delete {
+                color: contrast(@delete-color);
+                background-color: @delete-color;
+            }
+        }
+    }
+
+    .title {
+        border-bottom: 1px solid @group-background-color;
+        margin: 0 -@padding;
+        padding: @padding;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &.get {
+        border-color: @get-border-color;
+
+        h4 {
+            color: @get-text-color;
+            background: @get-background-color;
+            border-bottom-color: @get-border-color;
+        }
+    }
+
+    &.post {
+        border-color: @post-border-color;
+
+        h4 {
+            color: @post-text-color;
+            background: @post-background-color;
+            border-bottom-color: @post-border-color;
+        }
+    }
+
+    &.put {
+        border-color: @put-border-color;
+
+        h4 {
+            color: @put-text-color;
+            background: @put-background-color;
+            border-bottom-color: @put-border-color;
+        }
+    }
+
+    &.delete {
+        border-color: @delete-border-color;
+
+        h4 {
+            color: @delete-text-color;
+            background: @delete-background-color;
+            border-bottom-color: @delete-border-color;
+        }
+    }
 }

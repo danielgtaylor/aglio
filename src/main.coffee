@@ -79,7 +79,7 @@ getCss = (colors, style, done) ->
             return done new Error "File #{style} not found!"
           else
             style = "#{colorData}\n#{defaultData}"
-            less.render style, done
+            less.render style, compress: true, done
 
 # Get the theme's configuration, used by Aglio to present available
 # options and confirm that the input blueprint is a supported
@@ -108,14 +108,14 @@ exports.render = (input, options, done) ->
   options.layout ?= path.join ROOT, 'templates', 'index.jade'
 
   console.time 'css'
-  getCss options.colors, options.style, (err, css) ->
+  getCss options.colors, options.style, (err, lessOutput) ->
     if err then return done(err)
     console.timeEnd 'css'
 
     locals =
       api: input
       condenseNav: options.condenseNav
-      css: css
+      css: lessOutput.css
       fullWidth: options.fullWidth
       date: moment
       hash: (value) ->

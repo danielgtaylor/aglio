@@ -1,2 +1,54 @@
+/* Basic page-wide colors */
 @background-color: white;
 @text-color: black;
+
+@link-color: #428bca;
+
+/* HTTP method-specific colors */
+@group-background-color: contrast(@background-color,
+                                  darken(@background-color, 5%),
+                                  lighten(@background-color, 5%));
+@group-border-color: contrast(@background-color,
+                              darken(@background-color, 15%),
+                              lighten(@background-color, 15%));
+@group-text-color: contrast(@group-background-color);
+
+/* HTTP GET */
+@get-color: darken(@link-color, 6.5%);
+@get-background-color: #d9edf7;
+@get-text-color: contrast(@get-background-color);
+@get-border-color: darken(spin(@get-background-color, -10), 7%);
+
+/* HTTP PUT */
+@put-color: #f0ad4e;
+@put-background-color: #fcf8e3;
+@put-text-color: contrast(@put-background-color);
+@put-border-color: darken(spin(@put-background-color, -10), 5%);
+
+/* HTTP POST */
+@post-color: #5cb85c;
+@post-background-color: #dff0d8;
+@post-text-color: contrast(@post-background-color);
+@post-border-color: darken(spin(@post-background-color, -10), 5%);
+
+/* HTTP DELETE */
+@delete-color: #d9534f;
+@delete-background-color: #f2dede;
+@delete-text-color: contrast(@delete-background-color);
+@delete-border-color: darken(spin(@delete-background-color, -10), 5%);
+
+/* Code colors */
+@inline-code-background-color: #ddd;
+@inline-code-text-color: #444;
+
+@code-block-background-color: #f5f5f5;
+@code-block-border-color: contrast(@code-block-background-color,
+                                   darken(@code-block-background-color, 15%),
+                                   lighten(@code-block-background-color, 15%));
+
+@quote-border-color: contrast(@code-block-background-color,
+                              darken(@code-block-background-color, 5%),
+                              lighten(@code-block-background-color, 5%));
+
+/* Highlight.js Theme Tomorrow */
+.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}
