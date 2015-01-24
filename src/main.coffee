@@ -40,51 +40,43 @@ md = new Remarkable 'full',
   typographer: true
   highlight: highlight
 
-getColors = (name, done) ->
-  # First check to see if this is a built-in style
-  fullPath = path.join ROOT, 'styles', "colors-#{name}.less"
-  fs.exists fullPath, (exists) ->
-    if exists then fs.readFile fullPath, 'utf-8', done else
-      # This is not a built-in color set, so instead we load
-      # the default color scheme and the custom colors file.
-      fs.exists name, (exists) ->
-        if not exists then return done new Error "File #{name} not found!"
-
-        defaults = path.join ROOT, 'styles', 'colors-default.less'
-        fs.readFile defaults, 'utf-8', (err, defaultData) ->
-          if err then return done err
-
-          fs.readFile name, 'utf-8', (err, customData) ->
-            if err then return done err
-
-            done null, "#{defaultData}\n#{customData}"
-
 getCss = (colors, style, done) ->
-  # If colors is one of ['default', 'cyborg', 'flatly', 'slate']
-  # then load them as the defaults. If not, then load the
-  # 'defaults' colors, load the custom colors and merge the two.
-  # Next, load the default style. If there is a custom style
-  # defined, then load that and append it as well. Once finished,
-  # render out the CSS.
-  getColors colors, (err, colorData) ->
-    if err then return done(err)
+  # Get the CSS for the given colors and style. This method caches
+  # its output, so subsequent calls will be extremely fast but will
+  # not reload potentially changed data from disk.
+  # The CSS is generated via a dummy LESS file with imports to the
+  # default colors, any custom override colors, and the given
+  # layout style. Both colors and style support special values,
+  # for example `flatly` might load `styles/colors-flatly.less`.
+  # See the `styles` directory for available options.
+  key = "css-#{colors}-#{style}"
+  if cache[key] then return done null, cache[key]
 
-    defaultStylePath = path.join ROOT, 'styles', 'layout-default.less'
-    fs.readFile defaultStylePath, 'utf-8', (err, defaultData) ->
-      if err then return done(err)
+  defaultColorPath = path.join ROOT, 'styles', 'colors-default.less'
 
-      fs.exists style or '', (exists) ->
-        if exists
-          fs.readFile style, 'utf-8', (err, customData) ->
-            if err then return done err
-            style = "#{colorData}\n#{defaultData}\n#{customData}"
-            less.render style, done
-        else
-          if style
-            return done new Error "File #{style} not found!"
-          else
-            style = "#{colorData}\n#{defaultData}"
-            less.render style, compress: true, done
+  tmp = "@import \"#{defaultColorPath}\";\n"
+
+  if colors isnt 'default'
+    customColorPath = path.join ROOT, 'styles', "colors-#{colors}.less"
+    if not fs.existsSync customColorPath
+      customColorPath = colors
+      if not fs.existsSync customColorPath
+        return done new Error "#{customColorPath} does not exist!"
+    tmp += "@import \"#{customColorPath}\";\n"
+
+  stylePath = path.join ROOT, 'styles', "layout-#{style}.less"
+  if not fs.existsSync stylePath
+    stylePath = style
+    if not fs.existsSync stylePath
+      return done new Error "#{stylePath} does not exist!"
+  tmp += "@import \"#{stylePath}\";\n"
+
+  benchmark.start 'less-compile'
+  less.render tmp, compress: true, (err, css) ->
+    benchmark.end 'less-compile'
+    unless err then cache[key] = css
+    done err, css
+  return
 
 # Get the theme's configuration, used by Aglio to present available
 # options and confirm that the input blueprint is a supported
@@ -110,6 +102,7 @@ exports.render = (input, options, done) ->
     options = {}
 
   options.colors ?= 'default'
+  options.style ?= 'default'
   options.layout ?= path.join ROOT, 'templates', 'index.jade'
 
   benchmark.start 'css'
@@ -150,4 +143,4 @@ exports.render = (input, options, done) ->
     try html = renderer locals
     catch err then return done err
     benchmark.end 'template'
-    done err, html
+    done null, html
