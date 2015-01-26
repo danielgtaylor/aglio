@@ -3,6 +3,7 @@
 /* Page-wide variables */
 @padding: 12px;
 @border-radius: 6px;
+@font-size: 14px;
 
 @base-font: 'Roboto' Helvetica sans-serif;
 @title-font: 'Raleway' Helvetica sans-serif;
@@ -13,7 +14,7 @@ body {
   color: @text-color;
   background: @background-color;
   font-family: @base-font;
-  font-size: 14px;
+  font-size: @font-size;
   line-height: 1.42;
 }
 
@@ -125,8 +126,10 @@ nav {
 
         a {
             display: block;
+            font-size: 13 * @font-size / 14;
             color: @text-color;
-            padding: @padding / 2 @padding;
+            opacity: 0.7;
+            padding: (2 * @padding / 3) @padding;
             border-top: 1px solid @group-border-color;
             border-left: 2px solid transparent;
 
@@ -185,6 +188,33 @@ nav {
 
 .pull-right {
     float: right;
+}
+
+.badge {
+    display: inline-block;
+    float: right;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    color: @group-text-color;
+    background-color: @group-background-color;
+    border-radius: 10px;
+
+    &.get {
+      background-color: @get-background-color;
+    }
+
+    &.put {
+      background-color: @put-background-color;
+    }
+
+    &.post {
+      background-color: @post-background-color;
+    }
+
+    &.delete {
+      background-color: @delete-background-color;
+    }
 }
 
 .collapse-button {

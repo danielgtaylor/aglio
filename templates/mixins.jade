@@ -1,4 +1,19 @@
 
+mixin Badge(method)
+    case method
+        when 'GET'
+            span.badge.get: i.fa.fa-arrow-down
+        when 'POST'
+            span.badge.post: i.fa.fa-plus
+        when 'PUT'
+            span.badge.put: i.fa.fa-pencil
+        when 'PATCH'
+            span.badge.patch: i.fa.fa-pencil
+        when 'DELETE'
+            span.badge.delete: i.fa.fa-times
+        default
+            span.badge: i.fa.fa-dot-circle-o
+
 mixin Nav(multipage)
     //- Draw a navigation bar, which includes links to individual
     //- resources and actions.
@@ -10,7 +25,9 @@ mixin Nav(multipage)
                     li
                         a(href="#")= resource.name
                         ul: each action in resource.actions || []
-                            li: a(href="#")= action.name || action.method + ' ' + resource.uriTemplate
+                            li: a(href="#")
+                              = action.name || action.method + ' ' + resource.uriTemplate
+                              +Badge(action.method)
         each meta in self.api.metadata || {}
             if meta.name == 'HOST'
                 p(style="text-align: center; word-wrap: break-word;")
