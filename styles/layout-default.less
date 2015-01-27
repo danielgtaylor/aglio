@@ -120,6 +120,17 @@ nav {
     overflow-y: auto;
     width: 240px;
 
+    .heading a {
+      display: block;
+      color: @text-color;
+      opacity: 0.7;
+      border-left: 2px solid transparent;
+
+      &:hover {
+        border-left: 2px solid @text-color;
+      }
+    }
+
     ul {
         list-style-type: none;
         padding-left: 0;
@@ -326,7 +337,7 @@ nav {
     border: 1px solid @group-border-color;
     border-radius: @border-radius;
 
-    h2, .heading {
+    h2, .heading a {
         padding: @padding;
         margin: -@padding -@padding @padding -@padding;
         background-color: @group-background-color;

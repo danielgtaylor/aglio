@@ -20,12 +20,12 @@ mixin Nav(multipage)
     nav
         each resourceGroup in self.api.resourceGroups || []
             .resource-group
-                .heading= resourceGroup.name
+                .heading: a(href="#" + self.slug(resourceGroup.name))= resourceGroup.name
                 ul: each resource in resourceGroup.resources || []
                     li
-                        a(href="#")= resource.name
+                        a(href="#" + self.slug("#{resourceGroup.name}-#{resource.name}"))= resource.name
                         ul: each action in resource.actions || []
-                            li: a(href="#")
+                            li: a(href="#" + self.slug("#{resourceGroup.name}-#{resource.name}-#{action.method}"))
                               = action.name || action.method + ' ' + resource.uriTemplate
                               +Badge(action.method)
         each meta in self.api.metadata || {}
@@ -122,19 +122,19 @@ mixin Content(getButtonClass, multipage)
     //- Loop through and display information about all the resource
     //- groups, resources, and actions.
     each resourceGroup in self.api.resourceGroups || []
-        section.resource-group
+        section.resource-group(id=self.slug("#{resourceGroup.name}"))
             h2= resourceGroup.name
             if resourceGroup.description
                 != self.markdown(resourceGroup.description)
 
             each resource in resourceGroup.resources || []
-                .resource
+                .resource(id=self.slug("#{resourceGroup.name}-#{resource.name}"))
                     h3= resource.name
                     if resource.description
                         != self.markdown(resource.description)
 
                     each action in resource.actions || []
-                        .action(class="#{action.method.toLowerCase()}")
+                        .action(class="#{action.method.toLowerCase()}", id=self.slug("#{resourceGroup.name}-#{resource.name}-#{action.method}"))
                             h4
                                 .name= action.name
                                 a.method(class="#{action.method.toLowerCase()}", href="#")
