@@ -20,12 +20,12 @@ mixin Nav(multipage)
     nav
         each resourceGroup in self.api.resourceGroups || []
             .resource-group
-                .heading: a(href="#" + self.slug(resourceGroup.name))= resourceGroup.name
+                .heading: a(href=self.sluglink(resourceGroup.name))= resourceGroup.name
                 ul: each resource in resourceGroup.resources || []
                     li
-                        a(href="#" + self.slug("#{resourceGroup.name}-#{resource.name}"))= resource.name
+                        a(href=self.sluglink("#{resourceGroup.name}-#{resource.name}"))= resource.name
                         ul: each action in resource.actions || []
-                            li: a(href="#" + self.slug("#{resourceGroup.name}-#{resource.name}-#{action.method}"))
+                            li: a(href=self.sluglink("#{resourceGroup.name}-#{resource.name}-#{action.method}"))
                               = action.name || action.method + ' ' + resource.uriTemplate
                               +Badge(action.method)
         each meta in self.api.metadata || {}
@@ -122,14 +122,16 @@ mixin Content(getButtonClass, multipage)
     //- Loop through and display information about all the resource
     //- groups, resources, and actions.
     each resourceGroup in self.api.resourceGroups || []
-        section.resource-group(id=self.slug("#{resourceGroup.name}"))
+        section.resource-group(id=self.slug(resourceGroup.name))
             h2= resourceGroup.name
+                a.permalink(href=self.sluglink(resourceGroup.name)): i.fa.fa-link
             if resourceGroup.description
                 != self.markdown(resourceGroup.description)
 
             each resource in resourceGroup.resources || []
                 .resource(id=self.slug("#{resourceGroup.name}-#{resource.name}"))
                     h3= resource.name
+                        a.permalink(href=self.sluglink("#{resourceGroup.name}-#{resource.name}")): i.fa.fa-link
                     if resource.description
                         != self.markdown(resource.description)
 

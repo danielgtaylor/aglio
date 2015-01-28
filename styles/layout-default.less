@@ -25,6 +25,16 @@ header {
 
 h1, h2, h3, h4, h5 {
     margin: @padding 0;
+
+    & .permalink {
+        margin-left: @padding / 2;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+    }
+
+    &:hover .permalink {
+        opacity: 1;
+    }
 }
 
 h1 {

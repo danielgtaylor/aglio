@@ -20,6 +20,9 @@ benchmark =
 # A function to create ID-safe slugs
 slug = (value='') -> value.toLowerCase().replace /[ \t\n]/g, '-'
 
+# A function to create slug links
+sluglink = (value='') -> "##{slug(value)}"
+
 # A function to highlight snippets of code. lang is optional and
 # if given, is used to set the code language. If lang is no-highlight
 # then no highlighting is performed.
@@ -121,6 +124,7 @@ exports.render = (input, options, done) ->
       highlight: highlight
       markdown: (content) -> md.render content
       slug: slug
+      sluglink: sluglink
 
     for key, value of options.locals or {}
       locals[key] = value
