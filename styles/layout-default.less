@@ -221,6 +221,7 @@ nav {
     color: @group-text-color;
     background-color: @group-background-color;
     border-radius: 10px;
+    margin-top: -2px;
 
     &.get {
       color: contrast(@get-background-color,
@@ -344,7 +345,7 @@ nav {
     bottom: 0px;
     right: 24px;
     padding: 4px 8px;
-    color: @text-color;
+    color: fadeout(@text-color, 50%);
     background-color: @group-background-color;
     text-decoration: none !important;
     border-top: 1px solid @group-border-color;

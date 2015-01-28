@@ -20,9 +20,6 @@ benchmark =
 # A function to create ID-safe slugs
 slug = (value='') -> value.toLowerCase().replace /[ \t\n]/g, '-'
 
-# A function to create slug links
-sluglink = (value='') -> "##{slug(value)}"
-
 # A function to highlight snippets of code. lang is optional and
 # if given, is used to set the code language. If lang is no-highlight
 # then no highlighting is performed.
@@ -81,6 +78,44 @@ getCss = (colors, style, done) ->
     done err, css
   return
 
+decorate = (api) ->
+  # Decorate an API Blueprint AST with various pieces of information that
+  # will be useful for the theme. Anything that would significantly
+  # complicate the Jade template should probably live here instead!
+  for resourceGroup in api.resourceGroups or []
+    # Element ID and link
+    resourceGroup.elementId = slug resourceGroup.name
+    resourceGroup.elementLink = "##{resourceGroup.elementId}"
+
+    for resource in resourceGroup.resources or []
+      # Element ID and link
+      resource.elementId = slug "#{resourceGroup.name}-#{resource.name}"
+      resource.elementLink = "##{resource.elementId}"
+
+      for action in resource.actions or []
+        # Element ID and link
+        action.elementId = slug(
+          "#{resourceGroup.name}-#{resource.name}-#{action.method}")
+        action.elementLink = "##{action.elementId}"
+
+        # Lowercase HTTP method name
+        action.methodLower = action.method.toLowerCase()
+
+        # Parameters may be defined on the action or on the
+        # parent resource.
+        if not action.parameters or not action.parameters.length
+          action.parameters = resource.parameters
+
+        # Examples have a content section only if they have a
+        # description, headers, body, or schema.
+        for example in action.examples or []
+          for name in ['requests', 'responses']
+            for item in example[name] or []
+              item.hasContent = item.description or \
+                                Object.keys(item.headers).length or \
+                                item.body or \
+                                item.schema
+
 # Get the theme's configuration, used by Aglio to present available
 # options and confirm that the input blueprint is a supported
 # version.
@@ -105,13 +140,18 @@ exports.render = (input, options, done) ->
     options = {}
 
   options.colors ?= 'default'
+  options.condenseNav ?= true
   options.style ?= 'default'
   options.layout ?= path.join ROOT, 'templates', 'index.jade'
 
-  benchmark.start 'css'
+  benchmark.start 'decorate'
+  decorate input
+  benchmark.end 'decorate'
+
+  benchmark.start 'css-total'
   getCss options.colors, options.style, (err, lessOutput) ->
     if err then return done(err)
-    benchmark.end 'css'
+    benchmark.end 'css-total'
 
     locals =
       api: input
@@ -124,7 +164,6 @@ exports.render = (input, options, done) ->
       highlight: highlight
       markdown: (content) -> md.render content
       slug: slug
-      sluglink: sluglink
 
     for key, value of options.locals or {}
       locals[key] = value
@@ -137,14 +176,14 @@ exports.render = (input, options, done) ->
     if cache[options.layout]
       renderer = cache[options.layout]
     else
-      benchmark.start 'compile'
+      benchmark.start 'jade-compile'
       try fn = jade.compileFile options.layout, compileOptions
       catch err then return done err
-      benchmark.end 'compile'
+      benchmark.end 'jade-compile'
       renderer = cache[options.layout] = fn
 
-    benchmark.start 'template'
+    benchmark.start 'call-template'
     try html = renderer locals
     catch err then return done err
-    benchmark.end 'template'
+    benchmark.end 'call-template'
     done null, html

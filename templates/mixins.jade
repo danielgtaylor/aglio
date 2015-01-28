@@ -1,5 +1,6 @@
 
 mixin Badge(method)
+    //- Draw a badge for a given HTTP method
     case method
         when 'GET'
             span.badge.get: i.fa.fa-arrow-down
@@ -14,20 +15,27 @@ mixin Badge(method)
         default
             span.badge: i.fa.fa-dot-circle-o
 
-mixin Nav(multipage)
+mixin Nav()
     //- Draw a navigation bar, which includes links to individual
     //- resources and actions.
     nav
         each resourceGroup in self.api.resourceGroups || []
             .resource-group
-                .heading: a(href=self.sluglink(resourceGroup.name))= resourceGroup.name
+                .heading: a(href=resourceGroup.elementLink)= resourceGroup.name
                 ul: each resource in resourceGroup.resources || []
                     li
-                        a(href=self.sluglink("#{resourceGroup.name}-#{resource.name}"))= resource.name
-                        ul: each action in resource.actions || []
-                            li: a(href=self.sluglink("#{resourceGroup.name}-#{resource.name}-#{action.method}"))
-                              = action.name || action.method + ' ' + resource.uriTemplate
-                              +Badge(action.method)
+                        if !self.condenseNav || (resource.actions.length != 1)
+                            a(href=resource.elementLink)= resource.name || 'Resource'
+                            ul: each action in resource.actions || []
+                                li: a(href=action.elementLink)
+                                  = action.name || action.method + ' ' + resource.uriTemplate
+                                  +Badge(action.method)
+                        else
+                            - var action = resource.actions[0]
+                            a(href=action.elementLink)
+                                = resource.name || action.name || action.method + ' ' + resource.uriTemplate
+                                +Badge(action.method)
+        //- Link to the API hostname, e.g. api.yourcompany.com
         each meta in self.api.metadata || {}
             if meta.name == 'HOST'
                 p(style="text-align: center; word-wrap: break-word;")
@@ -70,39 +78,35 @@ mixin Parameters(params)
                             = ' '
 
 mixin RequestResponse(title, request, resourceGroup, resource, action)
-    - var id = self.hash(resourceGroup.name.toString() + resource.name.toString() + action.name.toString() + action.method.toString() + title.toString() + request.name.toString() + request.headers.toString() + request.body.toString() + request.schema.toString())
-    - var content = request.description || Object.keys(request.headers).length || request.body || request.schema
     .title
         strong
             = title
             if request.name
                 | &nbsp;&nbsp;
                 code= request.name
-        if content
+        if request.hasContent
             .collapse-button
                 span.close Hide
                 span.open Show
-    if content
-        .collapse-content(id=id)
-            .inner
-                if request.description
-                    .description!= self.markdown(request.description)
+    if request.hasContent
+        .collapse-content: .inner
+            if request.description
+                .description!= self.markdown(request.description)
 
-                if Object.keys(request.headers).length
-                    h5 Headers
-                    pre
-                        code
-                            each item in request.headers
-                                != self.highlight(item.name + ': ' + item.value, 'http')
-                                br
-                if request.body
-                    h5 Body
-                    pre
-                        code!= self.highlight(request.body, null, ['json', 'yaml', 'xml', 'javascript'])
-                if request.schema
-                    h5 Schema
-                    pre
-                        code!= self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
+            if Object.keys(request.headers).length
+                h5 Headers
+                pre: code
+                    each item in request.headers
+                        != self.highlight(item.name + ': ' + item.value, 'http')
+                        br
+            if request.body
+                h5 Body
+                pre: code
+                    != self.highlight(request.body, null, ['json', 'yaml', 'xml', 'javascript'])
+            if request.schema
+                h5 Schema
+                pre: code
+                    != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
 
 mixin Examples(resourceGroup, resource, action)
     each example in action.examples
@@ -111,7 +115,7 @@ mixin Examples(resourceGroup, resource, action)
         each response in example.responses
             +RequestResponse('Response', response, resourceGroup, resource, action)
 
-mixin Content(getButtonClass, multipage)
+mixin Content()
     //- Page header and API description
     header
         h1#top= self.api.name || 'API Documentation'
@@ -122,33 +126,32 @@ mixin Content(getButtonClass, multipage)
     //- Loop through and display information about all the resource
     //- groups, resources, and actions.
     each resourceGroup in self.api.resourceGroups || []
-        section.resource-group(id=self.slug(resourceGroup.name))
+        section.resource-group(id=resourceGroup.elementId)
             h2= resourceGroup.name
-                a.permalink(href=self.sluglink(resourceGroup.name)): i.fa.fa-link
+                a.permalink(href=resourceGroup.elementLink): i.fa.fa-link
             if resourceGroup.description
                 != self.markdown(resourceGroup.description)
 
             each resource in resourceGroup.resources || []
-                .resource(id=self.slug("#{resourceGroup.name}-#{resource.name}"))
-                    h3= resource.name
-                        a.permalink(href=self.sluglink("#{resourceGroup.name}-#{resource.name}")): i.fa.fa-link
+                .resource(id=resource.elementId)
+                    h3= resource.name || 'Resource'
+                        a.permalink(href=resource.elementLink): i.fa.fa-link
                     if resource.description
                         != self.markdown(resource.description)
 
                     each action in resource.actions || []
-                        .action(class="#{action.method.toLowerCase()}", id=self.slug("#{resourceGroup.name}-#{resource.name}-#{action.method}"))
+                        .action(class=action.methodLower, id=action.elementId)
                             h4
                                 .name= action.name
-                                a.method(class="#{action.method.toLowerCase()}", href="#")
+                                a.method(class=action.methodLower, href="#")
                                     = action.method
                                 code.uri= resource.uriTemplate
                             if action.description
                                 != self.markdown(action.description)
 
-                            //- A list of sub-sections for parameters, requests, and
-                            //- responses.
-                            - var params = action.parameters.length ? action.parameters : resource.parameters
-                            if params.length
-                                +Parameters(params)
+                            //- A list of sub-sections for parameters, requests
+                            //- and responses.
+                            if action.parameters.length
+                                +Parameters(action.parameters)
                             if action.examples
                                 +Examples(resourceGroup, resource, action)

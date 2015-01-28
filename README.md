@@ -19,4 +19,4 @@ Olio is designed from the ground up to be both **fast** and **extensible** while
 * Jade to produce HTML
 * Highlight.js to highlight code snippets
 
-For backward compatibility, Jade templates can continue to use inline Stylus and CoffeeScript.\
+For backward compatibility, Jade templates can continue to use inline Stylus and CoffeeScript.
