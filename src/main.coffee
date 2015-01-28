@@ -3,9 +3,9 @@ fs = require 'fs'
 hljs = require 'highlight.js'
 jade = require 'jade'
 less = require 'less'
+markdownIt = require 'markdown-it'
 moment = require 'moment'
 path = require 'path'
-Remarkable = require 'remarkable'
 
 # The root directory of this project
 ROOT = path.dirname __dirname
@@ -34,11 +34,28 @@ highlight = (code, lang, subset) ->
   return response
 
 # Setup marked with code highlighting and smartypants
-md = new Remarkable 'full',
+md = markdownIt 'default',
   html: true
   linkify: true
   typographer: true
   highlight: highlight
+
+# Auto-link headers
+md.renderer.rules.heading_open = (tokens, idx) ->
+  id = ''
+  if tokens[idx + 1].type is 'inline'
+    id = " id=\"header-#{slug tokens[idx + 1].content}\""
+
+  "<h#{tokens[idx].hLevel}#{id}>"
+
+md.renderer.rules.heading_close = (tokens, idx) ->
+  link = ''
+  if tokens[idx - 1].type is 'inline'
+    name = slug "#{tokens[idx - 1].content}"
+    link = "<a class=\"permalink\" href=\"#header-#{name}\">"
+    link += '<i class="fa fa-link"></i></a>'
+
+  "#{link}</h#{tokens[idx].hLevel}>\n"
 
 getCss = (colors, style, done) ->
   # Get the CSS for the given colors and style. This method caches

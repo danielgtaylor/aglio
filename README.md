@@ -15,7 +15,7 @@ Theme engines for Aglio are described in more detail in the [Aglio documentation
 Olio is designed from the ground up to be both **fast** and **extensible** while maintaining backward compatibility with the original Aglio theme. It uses the following technologies:
 
 * Less to produce CSS
-* Remarked to render Markdown
+* Markdown-it to render Markdown
 * Jade to produce HTML
 * Highlight.js to highlight code snippets
 
