@@ -213,18 +213,30 @@ nav {
     border-radius: 10px;
 
     &.get {
+      color: contrast(@get-background-color,
+                      lighten(@get-color, 25%),
+                      darken(@get-color, 25%));
       background-color: @get-background-color;
     }
 
     &.put {
+      color: contrast(@put-background-color,
+                      lighten(@put-color, 25%),
+                      darken(@put-color, 25%));
       background-color: @put-background-color;
     }
 
     &.post {
+      color: contrast(@post-background-color,
+                      lighten(@post-color, 25%),
+                      darken(@post-color, 25%));
       background-color: @post-background-color;
     }
 
     &.delete {
+      color: contrast(@delete-background-color,
+                      lighten(@delete-color, 25%),
+                      darken(@delete-color, 25%));
       background-color: @delete-background-color;
     }
 }
