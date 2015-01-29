@@ -388,6 +388,10 @@ nav {
         border-bottom: 1px solid @group-border-color;
         border-top-left-radius: @border-radius;
         border-top-right-radius: @border-radius;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 
@@ -404,9 +408,13 @@ nav {
         border-top-left-radius: @border-radius;
         border-top-right-radius: @border-radius;
 
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
         .name {
             float: right;
-            opacity: 0.45;
+            font-weight: normal;
         }
 
         .method {
@@ -450,7 +458,7 @@ nav {
         border-color: @get-border-color;
 
         h4 {
-            color: @get-text-color;
+            color: @get-color;
             background: @get-background-color;
             border-bottom-color: @get-border-color;
         }
@@ -460,7 +468,7 @@ nav {
         border-color: @post-border-color;
 
         h4 {
-            color: @post-text-color;
+            color: @post-color;
             background: @post-background-color;
             border-bottom-color: @post-border-color;
         }
@@ -470,7 +478,7 @@ nav {
         border-color: @put-border-color;
 
         h4 {
-            color: @put-text-color;
+            color: @put-color;
             background: @put-background-color;
             border-bottom-color: @put-border-color;
         }
@@ -480,7 +488,7 @@ nav {
         border-color: @delete-border-color;
 
         h4 {
-            color: @delete-text-color;
+            color: @delete-color;
             background: @delete-background-color;
             border-bottom-color: @delete-border-color;
         }
