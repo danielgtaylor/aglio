@@ -128,7 +128,6 @@ nav {
     top: @padding * 2;
     bottom: 0;
     overflow-y: auto;
-    width: 240px;
 
     .heading a {
       display: block;
@@ -284,16 +283,20 @@ nav {
 }
 
 /* Layout classes */
+nav {
+    width: 220px;
+}
+
 .container {
-    max-width: 960px;
+    max-width: 940px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .row {
     .content {
-        margin-left: 240 + (@padding * 2);
-        width: 640px;
+        margin-left: 220px + (@padding * 2);
+        width: 720px - (@padding * 2);
     }
 
     &:after {
@@ -303,37 +306,54 @@ nav {
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
     nav {
-        width: 200px;
+        width: 220px;
     }
 
     .container {
-        max-width: 780px;
+        max-width: 770px;
     }
 
     .row {
         .content {
-            margin-left: 200 + (@padding * 2);
-            width: 480px;
+            margin-left: 220px + (@padding * 2);
+            width: 550px - (@padding * 2);
         }
     }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 992px) {
+    nav {
+        width: 170px;
+    }
+
+    .container {
+        max-width: 720px;
+    }
+
+    .row {
+        .content {
+            margin-left: 170px + (@padding * 2);
+            width: 550px - (@padding * 2);
+        }
+    }
+}
+
+@media (max-width: 768px) {
     nav {
         display: none;
     }
 
     .container {
-        width: 100%;
+        width: 95%;
         max-width: none;
     }
 
     .row {
         .content {
             margin-left: 0;
-            width: 100%;
+            width: 95%;
         }
     }
 }
