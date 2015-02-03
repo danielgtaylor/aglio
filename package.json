@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/danielgtaylor/aglio-theme-olio"
+    "url": "https://github.com/danielgtaylor/aglio"
   },
   "keywords": [
     "api",
@@ -29,9 +29,9 @@
   "author": "Daniel G. Taylor",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danielgtaylor/aglio-theme-olio/issues"
+    "url": "https://github.com/danielgtaylor/aglio/issues"
   },
-  "homepage": "https://github.com/danielgtaylor/aglio-theme-olio",
+  "homepage": "https://github.com/danielgtaylor/aglio/tree/olio-theme",
   "dependencies": {
     "coffee-script": "^1.8.0",
     "highlight.js": "^8.4.0",
