@@ -10,7 +10,8 @@
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls <coverage/lcov.info",
     "pretest": "npm run build",
-    "test": "mocha --compilers coffee:coffee-script/register"
+    "test": "mocha --compilers coffee:coffee-script/register",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
