@@ -150,7 +150,7 @@ exports.getConfig = ->
     {name: 'style', description: 'Custom style overrides'}
   ]
 
-# Render the blueprint with the given options using Jade and Stylus
+# Render the blueprint with the given options using Jade and LESS
 exports.render = (input, options, done) ->
   if not done?
     done = options
