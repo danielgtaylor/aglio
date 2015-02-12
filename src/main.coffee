@@ -141,9 +141,9 @@ exports.getConfig = ->
   options: [
     {name: 'colors', description: 'Color scheme name or path to custom style',
     default: 'default'},
-    {name: 'condenseNav', description: 'Condense navigation links',
+    {name: 'condense-nav', description: 'Condense navigation links',
     boolean: true, default: true},
-    {name: 'fullWidth', description: 'Use full window width',
+    {name: 'full-width', description: 'Use full window width',
     boolean: true, default: false},
     {name: 'layout', description: 'Layout name or path to custom layout',
     default: 'default'},
