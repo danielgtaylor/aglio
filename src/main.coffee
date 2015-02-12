@@ -77,7 +77,7 @@ exports.render = (input, options, done) ->
 
         theme = exports.getTheme 'default'
         console.time 'render'
-        theme.render res.ast, (err, html) ->
+        theme.render res.ast, options, (err, html) ->
             if err then return done(err)
             console.timeEnd 'render'
 
