@@ -32,23 +32,23 @@ describe 'Library', ->
         done err
 
     it 'Should accept custom colors', (done) ->
-      theme.render {}, colors: 'styles/colors-default.less', done
+      theme.render {}, themeColors: 'styles/colors-default.less', done
 
     it 'Should error on missing colors', (done) ->
-      theme.render {}, colors: '/bad/path.less', (err, html) ->
+      theme.render {}, themeColors: '/bad/path.less', (err, html) ->
         assert.ok err
         done()
 
     it 'Should accept a custom style', (done) ->
-      theme.render {}, style: 'styles/layout-default.less', done
+      theme.render {}, themeStyle: 'styles/layout-default.less', done
 
     it 'Should error on missing style', (done) ->
-      theme.render {}, style: '/bad/style.less', (err, html) ->
+      theme.render {}, themeStyle: '/bad/style.less', (err, html) ->
         assert.ok err
         done()
 
     it 'Should error on missing layout', (done) ->
-      theme.render {}, layout: '/bad/path.jade', (err, html) ->
+      theme.render {}, themeLayout: '/bad/path.jade', (err, html) ->
         assert.ok err
         done()
 

@@ -291,18 +291,31 @@ nav {
     max-width: 940px;
     margin-left: auto;
     margin-right: auto;
+
+    .row {
+        .content {
+            margin-left: 220px + (@padding * 2);
+            width: 720px - (@padding * 2);
+        }
+
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+    }
 }
 
-.row {
-    .content {
-        margin-left: 220px + (@padding * 2);
-        width: 720px - (@padding * 2);
+.container-fluid {
+    nav {
+        width: 22%;
     }
 
-    &:after {
-        content: '';
-        display: block;
-        clear: both;
+    .row {
+        .content {
+            margin-left: 24%;
+            width: 76%;
+        }
     }
 }
 
@@ -313,12 +326,12 @@ nav {
 
     .container {
         max-width: 770px;
-    }
 
-    .row {
-        .content {
-            margin-left: 220px + (@padding * 2);
-            width: 550px - (@padding * 2);
+        .row {
+            .content {
+                margin-left: 220px + (@padding * 2);
+                width: 550px - (@padding * 2);
+            }
         }
     }
 }
@@ -330,12 +343,12 @@ nav {
 
     .container {
         max-width: 720px;
-    }
 
-    .row {
-        .content {
-            margin-left: 170px + (@padding * 2);
-            width: 550px - (@padding * 2);
+        .row {
+            .content {
+                margin-left: 170px + (@padding * 2);
+                width: 550px - (@padding * 2);
+            }
         }
     }
 }
@@ -350,9 +363,10 @@ nav {
         max-width: none;
     }
 
-    .row {
+    .container .row, .container-fluid .row {
         .content {
-            margin-left: 0;
+            margin-left: auto;
+            margin-right: auto;
             width: 95%;
         }
     }

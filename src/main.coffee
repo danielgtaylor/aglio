@@ -156,25 +156,31 @@ exports.render = (input, options, done) ->
     done = options
     options = {}
 
-  options.colors ?= 'default'
-  options.condenseNav ?= true
-  options.style ?= 'default'
-  options.layout ?= path.join ROOT, 'templates', 'index.jade'
+  # This is purely for backward-compatibility
+  options.themeCondenseNav ?= options.condenseNav
+  options.themeFullWidth ?= options.fullWidth
+
+  # Setup defaults
+  options.themeColors ?= 'default'
+  options.themeStyle ?= 'default'
+  options.themeLayout ?= path.join ROOT, 'templates', 'index.jade'
+  options.themeCondenseNav ?= true
+  options.themeFullWidth ?= false
 
   benchmark.start 'decorate'
   decorate input
   benchmark.end 'decorate'
 
   benchmark.start 'css-total'
-  getCss options.colors, options.style, (err, lessOutput) ->
+  getCss options.themeColors, options.themeStyle, (err, lessOutput) ->
     if err then return done(err)
     benchmark.end 'css-total'
 
     locals =
       api: input
-      condenseNav: options.condenseNav
+      condenseNav: options.themeCondenseNav
       css: lessOutput.css
-      fullWidth: options.fullWidth
+      fullWidth: options.themeFullWidth
       date: moment
       hash: (value) ->
         crypto.createHash('md5').update(value.toString()).digest('hex')
@@ -186,18 +192,18 @@ exports.render = (input, options, done) ->
       locals[key] = value
 
     compileOptions =
-      filename: options.layout
+      filename: options.themeLayout
       self: true
       compileDebug: false
 
-    if cache[options.layout]
-      renderer = cache[options.layout]
+    if cache[options.themeLayout]
+      renderer = cache[options.themeLayout]
     else
       benchmark.start 'jade-compile'
-      try fn = jade.compileFile options.layout, compileOptions
+      try fn = jade.compileFile options.themeLayout, compileOptions
       catch err then return done err
       benchmark.end 'jade-compile'
-      renderer = cache[options.layout] = fn
+      renderer = cache[options.themeLayout] = fn
 
     benchmark.start 'call-template'
     try html = renderer locals
