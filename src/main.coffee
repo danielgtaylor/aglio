@@ -40,7 +40,7 @@ exports.collectPathsSync = (input, includePath) ->
 
 # Get the theme module for a given theme name
 exports.getTheme = (name) ->
-    name = 'olio' if name is 'default'
+    name = 'olio' if name in ['cyborg', 'default', 'flatly', 'slate']
     require "aglio-theme-#{name}"
 
 # Render an API Blueprint string using a given template
