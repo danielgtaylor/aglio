@@ -5,6 +5,11 @@ protagonist = require 'protagonist'
 INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
 ROOT = path.dirname __dirname
 
+# Utility for benchmarking
+benchmark =
+  start: (message) -> if process.env.BENCHMARK then console.time message
+  end: (message) -> if process.env.BENCHMARK then console.timeEnd message
+
 # Replace the include directive with the contents of the included
 # file in the input.
 includeReplace = (includePath, match, spaces, filename) ->
@@ -65,18 +70,18 @@ exports.render = (input, options, done) ->
             .replace(/\r\n?/g, '\n')
             .replace(/\t/g, '    ')
 
-    console.time 'parse'
+    benchmark.start 'parse'
     protagonist.parse filteredInput, (err, res) ->
         if err
             err.input = filteredInput
             return done(err)
-        console.timeEnd 'parse'
+        benchmark.end 'parse'
 
         theme = exports.getTheme options.template
-        console.time 'render'
+        benchmark.start 'render-total'
         theme.render res.ast, options, (err, html) ->
             if err then return done(err)
-            console.timeEnd 'render'
+            benchmark.end 'render-total'
 
             # Add filtered input to warnings since we have no
             # error to return
