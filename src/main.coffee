@@ -52,9 +52,6 @@ exports.render = (input, options, done) ->
 
     # Defaults
     options.template ?= 'default'
-    options.filterInput ?= true
-    options.condenseNav ?= true
-    options.fullWidth ?= false
     options.includePath ?= process.cwd()
 
     # Handle custom directive(s)

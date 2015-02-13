@@ -62,6 +62,13 @@ exports.run = (argv=parser.argv, done=->) ->
                     else
                         _html = html
                         cb and cb(null, _html)
+
+    # Add theme options to the help output
+    theme = aglio.getTheme(argv.t)
+    config = theme.getConfig()
+    for entry in config.options
+        parser.options("theme-#{entry.name}", entry)
+
     if argv.l
         # List available templates
         aglio.getTemplates (err, names) ->
@@ -114,13 +121,7 @@ exports.run = (argv=parser.argv, done=->) ->
             parser.showHelp()
             return done 'Invalid arguments'
 
-        options =
-            template: argv.t
-            filterInput: argv.f
-            condenseNav: argv.c
-            fullWidth: argv.w
-
-        aglio.renderFile argv.i, argv.o, options, (err, warnings) ->
+        aglio.renderFile argv.i, argv.o, argv, (err, warnings) ->
             if err
                 lineNo = getLineNo err.input, err
                 if lineNo?
