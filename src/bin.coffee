@@ -20,7 +20,6 @@ parser = require('yargs')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
-    .strict()
 
 # Console color settings for error/warnings
 cErr = clc.white.bgRed
