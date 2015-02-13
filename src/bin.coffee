@@ -42,18 +42,9 @@ exports.run = (argv=parser.argv, done=->) ->
         if _html
             cb and cb(null, _html)
         else
-            options =
-                template: argv.t
-                filterInput: argv.f
-                condenseNav: argv.c
-                fullWidth: argv.w
-                includePath: path.dirname argv.i
-                locals:
-                    livePreview: true
-
             fs.readFile argv.i, "utf-8", (err, blueprint) ->
                 console.log "Rendering " + argv.i
-                aglio.render blueprint, options, (err, html, warnings) ->
+                aglio.render blueprint, argv, (err, html, warnings) ->
                     logWarnings warnings
                     if err
                         console.error err
@@ -86,6 +77,9 @@ exports.run = (argv=parser.argv, done=->) ->
             parser.showHelp()
             return done 'Invalid arguments'
 
+        argv.locals =
+            livePreview: true
+
         getHtml()
         server = http.createServer((req, res) ->
             if req.url isnt '/' then return res.end()
@@ -112,7 +106,7 @@ exports.run = (argv=parser.argv, done=->) ->
             getHtml (err, html) ->
                 unless err
                     console.log "Refresh web page in browser"
-                    re = /<body>[\s\S]*<\/body>/i
+                    re = /<body.*?>[^]*<\/body>/gi
                     html = html.match(re)[0]
                     io.emit "refresh", html
 
