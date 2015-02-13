@@ -27,3 +27,9 @@ html
             | &nbsp;on #{self.date().format('DD MMM YYYY')}
 
         script: include scripts.js
+
+        if self.livePreview
+            script(src="/socket.io/socket.io.js")
+            script.
+                var socket = io();
+                socket.on('refresh', function (msg) { document.body.innerHTML = msg; })
