@@ -12,7 +12,7 @@ parser = require('yargs')
     .example('$0 --no-condense -i example.md -s', 'Disable options')
     .options('i', alias: 'input', describe: 'Input file')
     .options('o', alias: 'output', describe: 'Output file')
-    .options('t', alias: 'template', describe: 'Template name or file', default: 'default')
+    .options('t', alias: 'theme', describe: 'Theme name or layout file', default: 'default')
     .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
     .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
     .options('w', alias: 'full-width', boolean: true, describe: 'Use full window width', default: false)
@@ -61,6 +61,9 @@ exports.run = (argv=parser.argv, done=->) ->
                     else
                         _html = html
                         cb and cb(null, _html)
+
+    # The option used to be called `template`
+    if argv.template then argv.theme = argv.template
 
     # Add theme options to the help output
     theme = aglio.getTheme(argv.t)
