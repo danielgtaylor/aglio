@@ -27,10 +27,6 @@ includeReplace = (includePath, match, spaces, filename) ->
 includeDirective = (includePath, input) ->
     input.replace INCLUDE, includeReplace.bind(this, includePath)
 
-# Get a list of available internal legacy templates
-exports.getTemplates = (done) ->
-    done null, ['cyborg', 'default', 'flatly', 'slate']
-
 # Get a list of all paths from included files. This *excludes* the
 # input path itself.
 exports.collectPathsSync = (input, includePath) ->
@@ -45,7 +41,7 @@ exports.collectPathsSync = (input, includePath) ->
 
 # Get the theme module for a given theme name
 exports.getTheme = (name) ->
-    name = 'olio' if name in ['cyborg', 'default', 'flatly', 'slate']
+    name = 'olio' if not name or name in ['cyborg', 'default', 'flatly', 'slate']
     require "aglio-theme-#{name}"
 
 # Render an API Blueprint string using a given template
@@ -56,8 +52,9 @@ exports.render = (input, options, done) ->
             theme: options
 
     # Defaults
-    options.theme ?= 'default'
+    options.filterInput ?= true
     options.includePath ?= process.cwd()
+    options.theme ?= 'default'
 
     # For backward compatibility
     if options.template then options.theme = options.template
@@ -65,6 +62,10 @@ exports.render = (input, options, done) ->
     if fs.existsSync options.theme
         console.log "Setting theme to olio and layout to #{options.theme}"
         options.themeLayout = options.theme
+        options.theme = 'olio'
+    else if options.theme in ['cyborg', 'flatly', 'slate']
+        console.log "Setting theme to olio and colors to #{options.theme}"
+        options.themeColors = options.theme
         options.theme = 'olio'
 
     # Handle custom directive(s)
@@ -80,10 +81,10 @@ exports.render = (input, options, done) ->
 
     benchmark.start 'parse'
     protagonist.parse filteredInput, (err, res) ->
+        benchmark.end 'parse'
         if err
             err.input = filteredInput
             return done(err)
-        benchmark.end 'parse'
 
         try
             theme = exports.getTheme options.theme
@@ -92,8 +93,8 @@ exports.render = (input, options, done) ->
 
         benchmark.start 'render-total'
         theme.render res.ast, options, (err, html) ->
-            if err then return done(err)
             benchmark.end 'render-total'
+            if err then return done(err)
 
             # Add filtered input to warnings since we have no
             # error to return

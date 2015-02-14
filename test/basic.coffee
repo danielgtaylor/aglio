@@ -13,23 +13,10 @@ root = path.dirname(__dirname)
 blueprint = fs.readFileSync path.join(root, 'example.md'), 'utf-8'
 
 describe 'API Blueprint Renderer', ->
-    it 'Should get a list of templates', (done) ->
-        aglio.getTemplates (err, templates) ->
-            if err then return done(err)
+    it 'Should load the default theme', ->
+        theme = aglio.getTheme 'default'
 
-            assert templates.length
-            done()
-
-    it 'Should handle template list error', (done) ->
-        sinon.stub fs, 'readdir', (name, callback) ->
-            callback 'error'
-
-        aglio.getTemplates (err, templates) ->
-            assert err
-
-            fs.readdir.restore()
-
-            done()
+        assert.ok theme
 
     it 'Should get a list of included files', ->
         sinon.stub fs, 'readFileSync', -> 'I am a test file'
@@ -74,7 +61,7 @@ describe 'API Blueprint Renderer', ->
         aglio.render temp, 'default', done
 
     it 'Should render a custom template by filename', (done) ->
-        template = path.join(root, 'templates', 'default.jade')
+        template = path.join(root, 'test', 'test.jade')
         aglio.render '# Blueprint', template, (err, html) ->
             if err then return done(err)
 
@@ -115,7 +102,9 @@ describe 'API Blueprint Renderer', ->
         sinon.stub console, 'log'
 
         aglio.renderFile path.join(root, 'example.md'), '-', 'default', (err) ->
-            if err then return done(err)
+            if err
+                console.log.restore()
+                return done(err)
 
             assert console.log.called
             console.log.restore()
@@ -179,13 +168,6 @@ describe 'API Blueprint Renderer', ->
             done()
 
 describe 'Executable', ->
-    it 'Should list templates', (done) ->
-        sinon.stub console, 'log'
-
-        bin.run l: true, ->
-            console.log.restore()
-            done()
-
     it 'Should render a file', (done) ->
         sinon.stub console, 'error'
 
@@ -221,6 +203,7 @@ describe 'Executable', ->
 
         sinon.stub http, 'createServer', (handler) ->
             listen: (port, host, cb) ->
+                console.log 'calling listen'
                 # Simulate requests
                 req =
                     url: '/favicon.ico'
@@ -253,8 +236,9 @@ describe 'Executable', ->
             console.error.restore()
             assert err
 
-        bin.run i: path.join(root, 'example.md'), s: true, p: 3000, h: 'localhost', ->
-            http.createServer.restore()
+            bin.run i: path.join(root, 'example.md'), s: true, p: 3000, h: 'localhost', (err) ->
+                assert.equal err, null
+                http.createServer.restore()
 
     it 'Should handle errors', (done) ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->

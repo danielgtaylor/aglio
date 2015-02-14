@@ -19,7 +19,6 @@ parser = require('yargs')
     .options('s', alias: 'server', describe: 'Start a local live preview server')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
-    .options('l', alias: 'list', describe: 'List templates')
     .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
 # Console color settings for error/warnings
@@ -67,17 +66,7 @@ exports.run = (argv=parser.argv, done=->) ->
     for entry in config.options
         parser.options("theme-#{entry.name}", entry)
 
-    if argv.l
-        # List available templates
-        aglio.getTemplates (err, names) ->
-            if err
-                console.error err
-                return done err
-
-            console.log 'Templates:\n' + names.join('\n')
-
-            done()
-    else if argv.s
+    if argv.s
         if not argv.i
             parser.showHelp()
             return done 'Invalid arguments'
