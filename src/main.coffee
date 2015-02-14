@@ -53,11 +53,19 @@ exports.render = (input, options, done) ->
     # Support a template name as the options argument
     if typeof options is 'string' or options instanceof String
         options =
-            template: options
+            theme: options
 
     # Defaults
-    options.template ?= 'default'
+    options.theme ?= 'default'
     options.includePath ?= process.cwd()
+
+    # For backward compatibility
+    if options.template then options.theme = options.template
+
+    if fs.existsSync options.theme
+        console.log "Setting theme to olio and layout to #{options.theme}"
+        options.themeLayout = options.theme
+        options.theme = 'olio'
 
     # Handle custom directive(s)
     input = includeDirective options.includePath, input
@@ -77,7 +85,11 @@ exports.render = (input, options, done) ->
             return done(err)
         benchmark.end 'parse'
 
-        theme = exports.getTheme options.template
+        try
+            theme = exports.getTheme options.theme
+        catch err
+            return done(err)
+
         benchmark.start 'render-total'
         theme.render res.ast, options, (err, html) ->
             if err then return done(err)

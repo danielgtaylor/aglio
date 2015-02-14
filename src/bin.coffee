@@ -58,7 +58,11 @@ exports.run = (argv=parser.argv, done=->) ->
     if argv.template then argv.theme = argv.template
 
     # Add theme options to the help output
-    theme = aglio.getTheme(argv.t)
+    try
+        theme = aglio.getTheme(argv.theme)
+    catch err
+        return done(err)
+
     config = theme.getConfig()
     for entry in config.options
         parser.options("theme-#{entry.name}", entry)
