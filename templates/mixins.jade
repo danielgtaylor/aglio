@@ -143,7 +143,7 @@ mixin Content()
                         .action(class=action.methodLower, id=action.elementId)
                             h4
                                 .name= action.name
-                                a.method(class=action.methodLower, href="#")
+                                a.method(class=action.methodLower, href=action.elementLink)
                                     = action.method
                                 code.uri= resource.uriTemplate
                             if action.description
