@@ -1,5 +1,5 @@
 function toggleCollapse(event) {
-    var button = event.srcElement.parentNode;
+    var button = event.target.parentNode;
     var content = button.parentNode.nextSibling;
     var inner = content.children[0];
 
@@ -21,7 +21,7 @@ for (var i = 0; i < buttons.length; i++) {
 
     // Show by default? Then toggle now.
     if (buttons[i].className.indexOf('show') !== -1) {
-        toggleCollapse({srcElement: buttons[i].children[0]});
+        toggleCollapse({target: buttons[i].children[0]});
     }
 }
 
