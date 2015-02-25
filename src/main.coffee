@@ -91,6 +91,13 @@ exports.render = (input, options, done) ->
         catch err
             return done(err)
 
+        # Setup default options if needed
+        for option in theme.getConfig().options or []
+            # Convert `foo-bar` into `themeFooBar`
+            words = (f[0].toUpperCase() + f.slice(1) for f in option.name.split('-'))
+            name = "theme#{words.join('')}"
+            options[name] ?= option.default
+
         benchmark.start 'render-total'
         theme.render res.ast, options, (err, html) ->
             benchmark.end 'render-total'
