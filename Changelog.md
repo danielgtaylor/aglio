@@ -1,3 +1,8 @@
+# 1.18.0 - 2015-03-31
+* Upgrade to [Protagonist] 0.19.0, which adds support for Node.js 0.12.x
+  and iojs 1.x.
+  ([#77](https://github.com/danielgtaylor/aglio/issues/77))
+
 # 1.17.1 - 2014-12-16
 * Switch to [Remarkable](https://github.com/jonschlinkert/remarkable)
   Markdown parser, which is faster and supports the new CommonMark
