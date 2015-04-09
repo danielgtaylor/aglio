@@ -35,7 +35,7 @@
     "markdown"
   ],
   "dependencies": {
-    "chokidar": "~0.12.4",
+    "chokidar": "~1.0.0",
     "cli-color": "~0.3.2",
     "coffee-script": "^1.8.0",
     "highlight.js": "^8.2.0",
