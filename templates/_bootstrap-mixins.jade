@@ -108,6 +108,29 @@ mixin Examples(resourceGroup, resource, action)
                 +RequestResponse('Request', request, resourceGroup, resource, action)
             each response in example.responses
                 +RequestResponse('Response', response, resourceGroup, resource, action)
+                
+mixin DataStructure(dataStructure)
+    section.panel.panel-info
+        .panel-heading
+            h5.panel-title
+                if dataStructure.name.literal
+                    = dataStructure.name.literal
+                | &nbsp;Attributes
+        .panel-body
+            dl.dl-horizontal
+                each section in dataStructure.sections
+                    each member in section.content
+                        if member.class == 'property'
+                            dt= member.content.name ? member.content.name.literal : ''
+                            dd
+                                if member.content.valueDefinition.typeDefinition.typeSpecification.name
+                                    code= member.content.valueDefinition.typeDefinition.typeSpecification.name
+                                    | &nbsp;
+                                if member.content.valueDefinition.values.length
+                                    span.text-muted.example
+                                        strong Example:&nbsp;
+                                        = member.content.valueDefinition.values[0].literal
+                                p!= markdown(member.content.description)
 
 mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
     .panel.panel-default
@@ -128,6 +151,9 @@ mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
                         i.fa.fa-link
                 if resource.description
                     != markdown(resource.description)
+                each data in resource.content
+                    if data.element == 'dataStructure'
+                        +DataStructure(data)
                 each action in resource.actions
                     case action.method
                         when 'POST': - var panelClass = 'panel-success'
