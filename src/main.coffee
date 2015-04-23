@@ -163,9 +163,13 @@ exports.render = (input, options, done) ->
   # Setup defaults
   options.themeColors ?= 'default'
   options.themeStyle ?= 'default'
-  options.themeLayout ?= path.join ROOT, 'templates', 'index.jade'
+  options.themeLayout ?= 'default'
   options.themeCondenseNav ?= true
   options.themeFullWidth ?= false
+
+  # Transform built-in layout names to paths
+  if options.themeLayout is 'default'
+    options.themeLayout = path.join ROOT, 'templates', 'index.jade'
 
   benchmark.start 'decorate'
   decorate input
