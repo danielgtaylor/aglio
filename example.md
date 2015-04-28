@@ -202,7 +202,7 @@ A list of users
     + joinedAfter: `2011-01-01` (string, optional, ) - Search by join date
     + sort: `joined` (string, optional) - Which field to sort by
         + Default: `name`
-        + Values
+        + Members
             + `name`
             + `joined`
             + `-joined`
