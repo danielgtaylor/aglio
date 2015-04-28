@@ -98,7 +98,7 @@ Note description
 
 + Parameters
 
-    + id (required, string, `68a5sdf67`) ... The note ID
+    + id: `68a5sdf67` (required, string) - The note ID
 
 + Model
 
