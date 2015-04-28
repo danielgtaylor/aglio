@@ -130,7 +130,10 @@ mixin DataStructure(dataStructure)
                                     span.text-muted.example
                                         strong Example:&nbsp;
                                         = member.content.valueDefinition.values[0].literal
-                                p!= markdown(member.content.description)
+                                if member.content.description
+                                    != markdown(member.content.description)
+                                else
+                                    p
 
 mixin ResourceGroup(resourceGroup, getButtonClass, multipage)
     .panel.panel-default
