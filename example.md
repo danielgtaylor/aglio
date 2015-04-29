@@ -98,7 +98,7 @@ Note description
 
 + Parameters
 
-    + id (required, string, `68a5sdf67`) ... The note ID
+    + id: `68a5sdf67` (required, string) - The note ID
 
 + Model
 
@@ -197,12 +197,12 @@ A list of users
 
 + Parameters
 
-    + name (optional, string, `alice`) ... Search for a user by name
-    + joinedBefore (optional, string, `2011-01-01`) ... Search by join date
-    + joinedAfter (optional, string, `2011-01-01`) ... Search by join date
-    + sort = `name` (optional, string, `joined`) ... Which field to sort by
-
-        + Values
+    + name: `alice` (string, optional) - Search for a user by name
+    + joinedBefore: `2011-01-01` (string, optional) - Search by join date
+    + joinedAfter: `2011-01-01` (string, optional, ) - Search by join date
+    + sort: `joined` (string, optional) - Which field to sort by
+        + Default: `name`
+        + Members
             + `name`
             + `joined`
             + `-joined`
@@ -212,8 +212,8 @@ A list of users
             + `-location`
             + `plan`
             + `-plan`
-
-    + limit = `10` (optional, integer, `25`) ... The maximum number of users to return, up to `50`
+    + limit: `25` (integer, optional) - The maximum number of users to return, up to `50`
+      + Default: `10`
 
 + Model
 
