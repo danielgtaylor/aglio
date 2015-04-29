@@ -212,9 +212,9 @@ A list of users
             + `-location`
             + `plan`
             + `-plan`
-    + limit: `25` (integer, optional) ... The maximum number of users to return, up to `50`
+    + limit: `25` (integer, optional) - The maximum number of users to return, up to `50`
       + Default: `10`
-    
+
 + Model
 
     + Headers
