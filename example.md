@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://api.mywebsite.com
+HOST: https://api.example.com
 
 # API Title
 [Markdown](http://daringfireball.net/projects/markdown/syntax) **formatted** description.
@@ -226,12 +226,12 @@ A list of users
             [
                 {
                     "name": "alice",
-                    "image": "http://foo.com/alice.jpg",
+                    "image": "http://example.com/alice.jpg",
                     "joined": "2013-11-01"
                 },
                 {
                     "name": "bob",
-                    "image": "http://foo.com/bob.jpg",
+                    "image": "http://example.com/bob.jpg",
                     "joined": "2013-11-02"
                 }
             ]
@@ -244,7 +244,7 @@ A list of users
 Get a list of users. Example:
 
 ```no-highlight
-https://api.mywebsite.com/users?sort=joined&limit=5
+https://api.example.com/users?sort=joined&limit=5
 ```
 
 + Response 200
