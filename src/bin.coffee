@@ -4,6 +4,7 @@ clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
 path = require 'path'
+serveStatic = require 'serve-static'
 parser = require('yargs')
     .usage('Usage: $0 [options] -i infile [-o outfile -s]')
     .example('$0 -i example.apib -o output.html', 'Render to HTML')
@@ -81,7 +82,9 @@ exports.run = (argv=parser.argv, done=->) ->
 
         getHtml()
         server = http.createServer((req, res) ->
-            if req.url isnt '/' then return res.end()
+            if req.url isnt '/'
+                serve = serveStatic(path.dirname(argv.i))
+                return serve(req, res, () -> res.end())
 
             getHtml (err, html) ->
                 res.writeHead 200,
