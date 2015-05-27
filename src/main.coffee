@@ -1,6 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-protagonist = require 'protagonist'
+Drafter = require 'drafter'
 
 INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
 ROOT = path.dirname __dirname
@@ -80,7 +80,8 @@ exports.render = (input, options, done) ->
             .replace(/\t/g, '    ')
 
     benchmark.start 'parse'
-    protagonist.parse filteredInput, (err, res) ->
+    drafter = new Drafter()
+    drafter.make filteredInput, (err, res) ->
         benchmark.end 'parse'
         if err
             err.input = filteredInput

@@ -5,7 +5,7 @@ fs = require 'fs'
 http = require 'http'
 jade = require 'jade'
 path = require 'path'
-protagonist = require 'protagonist'
+drafter = require 'drafter'
 sinon = require 'sinon'
 
 root = path.dirname(__dirname)
@@ -123,14 +123,14 @@ describe 'API Blueprint Renderer', ->
 
             done()
 
-    it 'Should error on protagonist failure', (done) ->
-        sinon.stub protagonist, 'parse', (content, callback) ->
+    it 'Should error on drafter failure', (done) ->
+        sinon.stub drafter.prototype, 'make', (content, callback) ->
             callback 'error'
 
         aglio.render blueprint, 'default', (err, html) ->
             assert err
 
-            protagonist.parse.restore()
+            drafter.prototype.make.restore()
 
             done()
 
