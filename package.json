@@ -39,7 +39,7 @@
     "less": "^2.1.2",
     "markdown-it": "^3.0.4",
     "moment": "^2.8.4",
-    "stylus": "^0.50.0"
+    "stylus": "^0.51.1"
   },
   "devDependencies": {
     "chai": "^2.1.0",
