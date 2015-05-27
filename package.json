@@ -39,6 +39,7 @@
     "chokidar": "~0.12.4",
     "cli-color": "~0.3.2",
     "drafter": "^0.2.7",
+    "socket.io": "^1.3.5",
     "yargs": "^3.0.2"
   },
   "devDependencies": {
