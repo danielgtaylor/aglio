@@ -411,7 +411,8 @@ nav {
 
 .action {
     margin-bottom: @padding;
-    padding: @padding;
+    padding: @padding @padding 0 @padding;
+    overflow: hidden;
     border: 1px solid transparent;
     border-radius: @border-radius;
 
@@ -460,12 +461,8 @@ nav {
 
     .title {
         border-bottom: 1px solid @group-background-color;
-        margin: 0 -@padding;
+        margin: 0 -@padding -1px -@padding;
         padding: @padding;
-
-        &:last-child {
-            border-bottom: none;
-        }
     }
 
     &.get {
