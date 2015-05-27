@@ -133,6 +133,13 @@ decorate = (api) ->
                                 item.body or \
                                 item.schema
 
+              # If possible, make the body/schema pretty
+              try
+                item.body = JSON.stringify(JSON.parse(item.body), null, 2)
+                item.schema = JSON.stringify(JSON.parse(item.schema), null, 2)
+              catch err
+                false
+
 # Get the theme's configuration, used by Aglio to present available
 # options and confirm that the input blueprint is a supported
 # version.

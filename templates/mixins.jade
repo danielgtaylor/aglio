@@ -98,6 +98,7 @@ mixin RequestResponse(title, request, resourceGroup, resource, action)
                 pre: code
                     each item in request.headers
                         != self.highlight(item.name + ': ' + item.value, 'http')
+                        br
                 div(style="height: 1px;")
             if request.body
                 h5 Body
