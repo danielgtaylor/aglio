@@ -1,6 +1,6 @@
 {
   "name": "aglio-theme-olio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Default theme for the Aglio API Blueprint renderer",
   "main": "lib/main.js",
   "scripts": {
