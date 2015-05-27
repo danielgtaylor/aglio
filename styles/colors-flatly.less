@@ -2,40 +2,40 @@
 @background-color: white;
 @text-color: black;
 
-@link-color: #428bca;
+@link-color: #18bc9c;
 
 /* HTTP method-specific colors */
 @group-background-color: contrast(@background-color,
-                                  darken(@background-color, 5%),
-                                  lighten(@background-color, 5%));
+                                  darken(@background-color, 7%),
+                                  lighten(@background-color, 7%));
 @group-border-color: contrast(@background-color,
-                              darken(@background-color, 15%),
-                              lighten(@background-color, 15%));
+                              darken(@background-color, 7%),
+                              lighten(@background-color, 7%));
 @group-text-color: contrast(@group-background-color);
 
 /* HTTP GET */
-@get-color: darken(@link-color, 6.5%);
-@get-background-color: #d9edf7;
+@get-color: white;
+@get-background-color: #3498db;
 @get-text-color: contrast(@get-background-color);
-@get-border-color: darken(spin(@get-background-color, -10), 7%);
+@get-border-color: @get-background-color;
 
 /* HTTP PUT */
-@put-color: #f0ad4e;
-@put-background-color: #fcf8e3;
+@put-color: white;
+@put-background-color: #f39c12;
 @put-text-color: contrast(@put-background-color);
-@put-border-color: darken(spin(@put-background-color, -10), 5%);
+@put-border-color: @put-background-color;
 
 /* HTTP POST */
-@post-color: #5cb85c;
-@post-background-color: #dff0d8;
+@post-color: white;
+@post-background-color: #18bc9c;
 @post-text-color: contrast(@post-background-color);
-@post-border-color: darken(spin(@post-background-color, -10), 5%);
+@post-border-color: @post-background-color;
 
 /* HTTP DELETE */
-@delete-color: #d9534f;
-@delete-background-color: #f2dede;
+@delete-color: white;
+@delete-background-color: #e74c3c;
 @delete-text-color: contrast(@delete-background-color);
-@delete-border-color: darken(spin(@delete-background-color, -10), 5%);
+@delete-border-color: @delete-background-color;
 
 /* Code colors */
 @inline-code-background-color: #ddd;
@@ -46,9 +46,9 @@
                                    darken(@code-block-background-color, 15%),
                                    lighten(@code-block-background-color, 15%));
 
-@title-code-background-color: @inline-code-background-color;
+@title-code-background-color: rgba(255, 255, 255, 0.7);
 @title-code-text-color: @inline-code-text-color;
-@title-code-border-color: @code-block-border-color;
+@title-code-border-color: transparent;
 
 @quote-border-color: contrast(@code-block-background-color,
                               darken(@code-block-background-color, 5%),

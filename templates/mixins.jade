@@ -71,7 +71,7 @@ mixin Parameters(params)
                         span= param.example
                 != self.markdown(param.description)
                 if param.values.length
-                    p
+                    p.choices
                         strong Choices:&nbsp;
                         each value in param.values
                             code= value.value

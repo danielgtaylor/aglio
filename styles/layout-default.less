@@ -61,6 +61,10 @@ h5 {
 
 p {
     margin: 0 0 10px;
+
+    &.choices {
+      line-height: 1.6;
+    }
 }
 
 a {
@@ -224,28 +228,28 @@ nav {
 
     &.get {
       color: contrast(@get-background-color,
-                      lighten(@get-color, 25%),
+                      lighten(@get-color, 30%),
                       darken(@get-color, 25%));
       background-color: @get-background-color;
     }
 
     &.put {
       color: contrast(@put-background-color,
-                      lighten(@put-color, 25%),
+                      lighten(@put-color, 30%),
                       darken(@put-color, 25%));
       background-color: @put-background-color;
     }
 
     &.post {
       color: contrast(@post-background-color,
-                      lighten(@post-color, 25%),
+                      lighten(@post-color, 30%),
                       darken(@post-color, 25%));
       background-color: @post-background-color;
     }
 
     &.delete {
       color: contrast(@delete-background-color,
-                      lighten(@delete-color, 25%),
+                      lighten(@delete-color, 30%),
                       darken(@delete-color, 25%));
       background-color: @delete-background-color;
     }
@@ -456,6 +460,12 @@ nav {
                 color: contrast(@delete-color);
                 background-color: @delete-color;
             }
+        }
+
+        code {
+            color: @title-code-text-color;
+            background-color: @title-code-background-color;
+            border-color: @title-code-border-color;
         }
     }
 
