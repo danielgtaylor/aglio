@@ -13,13 +13,13 @@ An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple the
  * Multiple templates/themes
  * Support for custom colors, templates, and theme engines
  * Include other documents in your blueprint
- * Commandline executable `aglio -i api.md -o api.html`
- * Live-reloading preview server `aglio -i api.md --server`
+ * Commandline executable `aglio -i service.apib -o api.html`
+ * Live-reloading preview server `aglio -i service.apib --server`
  * Node.js library `require('aglio')`
  * Excellent test coverage
 
 ## Example Output
-Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.md).
+Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.apib).
 
  * Default theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default-collapsible.html)
  * Flatly theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly-collapsible.html)
@@ -50,28 +50,28 @@ Then, start generating HTML.
 
 ```bash
 # Default theme
-aglio -i input.md -o output.html
+aglio -i input.apib -o output.html
 
 # Built-in color scheme
-aglio --theme-colors slate -i input.md -o output.html
+aglio --theme-colors slate -i input.apib -o output.html
 
 # Custom layout template
-aglio --theme-layout /path/to/template.jade -i input.md -o output.html
+aglio --theme-layout /path/to/template.jade -i input.apib -o output.html
 
 # Custom theme engine
-aglio -t my-engine -i input.md -o output.html
+aglio -t my-engine -i input.apib -o output.html
 
 # Run a live preview server on http://localhost:3000/
-aglio -i input.md -s
+aglio -i input.apib -s
 
 # Print output to terminal (useful for piping)
-aglio -i input.md -o -
+aglio -i input.apib -o -
 
 # Disable condensing navigation links
-aglio --no-theme-condense -i input.md -o output.html
+aglio --no-theme-condense -i input.apib -o output.html
 
 # Render full-width page instead of fixed max width
-aglio --theme-full-width -i input.md -o output.html
+aglio --theme-full-width -i input.apib -o output.html
 ```
 
 ## Node.js Library
@@ -174,7 +174,7 @@ alio.render(blueprint, options, function (err, html, warnings) {
 Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths. The options behaves the same as above for `aglio.render`.
 
 ```javascript
-aglio.renderFile('/tmp/input.md', '/tmp/output.html', 'default', function (err, warnings) {
+aglio.renderFile('/tmp/input.apib', '/tmp/output.html', 'default', function (err, warnings) {
     if (err) return console.log(err);
     if (warnings) console.log(warnings);
 });
@@ -211,7 +211,7 @@ Aglio's default theme provides a way to easily override colors, fonts, padding, 
 
 ```bash
 # Use my custom colors
-aglio --theme-colors /path/to/my-colors.less -i input.md -o output.html
+aglio --theme-colors /path/to/my-colors.less -i input.apib -o output.html
 ```
 
 The `my-colors.less` file might contain a custom HTTP PUT color specification:
@@ -271,7 +271,7 @@ While Aglio ships with a default theme, you have the option of installing and us
 npm install -g aglio-theme-<NAME>
 
 # Render using a custom theme engine
-aglio -t <NAME> -i input.md -o output.html
+aglio -t <NAME> -i input.apib -o output.html
 
 # Get a list of all options for a theme
 aglio -t <NAME> --help
@@ -326,11 +326,11 @@ Example use:
 npm install -g aglio-theme-hello
 
 # Render some output!
-aglio -t hello -i example.md -o -
+aglio -t hello -i example.apib -o -
 => 'Hello, world!'
 
 # Pass in the custom theme option!
-aglio -t hello --theme-name Daniel -i example.md -o -
+aglio -t hello --theme-name Daniel -i example.apib -o -
 => 'Hello, Daniel!'
 ```
 

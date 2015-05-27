@@ -9,7 +9,7 @@ sinon = require 'sinon'
 
 root = path.dirname(__dirname)
 
-blueprint = fs.readFileSync path.join(root, 'example.md'), 'utf-8'
+blueprint = fs.readFileSync path.join(root, 'example.apib'), 'utf-8'
 
 describe 'API Blueprint Renderer', ->
     it 'Should load the default theme', ->
@@ -80,7 +80,7 @@ describe 'API Blueprint Renderer', ->
             done()
 
     it 'Should render from/to files', (done) ->
-        src = path.join root, 'example.md'
+        src = path.join root, 'example.apib'
         dest = path.join root, 'example.html'
         aglio.renderFile src, dest, {}, done
 
@@ -100,7 +100,7 @@ describe 'API Blueprint Renderer', ->
     it 'Should render to stdout', (done) ->
         sinon.stub console, 'log'
 
-        aglio.renderFile path.join(root, 'example.md'), '-', 'default', (err) ->
+        aglio.renderFile path.join(root, 'example.apib'), '-', 'default', (err) ->
             if err
                 console.log.restore()
                 return done(err)
@@ -159,7 +159,7 @@ describe 'API Blueprint Renderer', ->
         sinon.stub aglio, 'render', (content, template, callback) ->
             callback 'error'
 
-        aglio.renderFile path.join(root, 'example.md'), 'bar', 'default', (err, html) ->
+        aglio.renderFile path.join(root, 'example.apib'), 'bar', 'default', (err, html) ->
             assert err
 
             aglio.render.restore()
@@ -189,7 +189,7 @@ describe 'Executable', ->
         bin.run {}, (err) ->
             assert err
 
-        bin.run i: path.join(root, 'example.md'), o: '-', ->
+        bin.run i: path.join(root, 'example.apib'), o: '-', ->
             console.error.restore()
             aglio.renderFile.restore()
             done()
@@ -218,9 +218,9 @@ describe 'Executable', ->
                     end: (data) ->
                         aglio.render.restore()
                         cb()
-                        file = fs.readFileSync 'example.md', 'utf8'
+                        file = fs.readFileSync 'example.apib', 'utf8'
                         setTimeout ->
-                            fs.writeFileSync 'example.md', file, 'utf8'
+                            fs.writeFileSync 'example.apib', file, 'utf8'
                             setTimeout ->
                                 console.log.restore()
                                 done()
@@ -235,7 +235,7 @@ describe 'Executable', ->
             console.error.restore()
             assert err
 
-            bin.run i: path.join(root, 'example.md'), s: true, p: 3000, h: 'localhost', (err) ->
+            bin.run i: path.join(root, 'example.apib'), s: true, p: 3000, h: 'localhost', (err) ->
                 assert.equal err, null
                 http.createServer.restore()
 
@@ -251,7 +251,7 @@ describe 'Executable', ->
 
         sinon.stub console, 'error'
 
-        bin.run i: path.join(root, 'example.md'), o: '-', ->
+        bin.run i: path.join(root, 'example.apib'), o: '-', ->
             assert console.error.called
 
             console.error.restore()

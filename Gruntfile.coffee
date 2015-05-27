@@ -54,7 +54,7 @@ module.exports = (grunt) ->
 
         render = (template, done) ->
             console.log "Generating examples/#{template}.html"
-            aglio.renderFile 'example.md', "examples/#{template}.html", template, (err) ->
+            aglio.renderFile 'example.apib', "examples/#{template}.html", template, (err) ->
                 if err then return done(err)
                 done()
 
