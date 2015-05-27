@@ -23,6 +23,15 @@ Foo bar baz
 
 <!-- include(example-include.md) -->
 
+# Data Structures
+
+## NoteData
++ id: 1 (required, number) - Unique identifier
++ title: Grocery list (required) - Single line description
++ body: Buy milk - Full description of the note which supports Markdown.
+
+## NoteList (array[NoteData])
+
 # Group Notes
 Group description (also with *Markdown*)
 
@@ -33,44 +42,22 @@ Note list description
 + More
 + Markdown
 
-+ Model
-
-    + Headers
-
-            Content-Type: application/json
-            X-Request-ID: f72fc914
-            X-Response-Time: 4ms
-
-    + Body
-
-            [
-                {
-                    "id": 1,
-                    "title": "Grocery list",
-                    "body": "Buy milk"
-                },
-                {
-                    "id": 2,
-                    "title": "TODO",
-                    "body": "Fix garage door"
-                }
-            ]
-
 ### Get Notes [GET]
 Get a list of notes.
 
-+ Response 200
++ Response 200 (application/json)
 
-    [Note List][]
+    + Headers
+
+            X-Request-ID: f72fc914
+            X-Response-Time: 4ms
+
+    + Attributes (NoteList)
 
 ### Create New Note [POST]
 Create a new note
 
-+ Request
-
-    + Headers
-
-            Content-Type: application/json
++ Request (application/json)
 
     + Body
 
@@ -81,11 +68,7 @@ Create a new note
 
 + Response 201
 
-+ Response 400
-
-    + Headers
-
-            Content-Type: application/json
++ Response 400 (application/json)
 
     + Body
 
@@ -100,34 +83,22 @@ Note description
 
     + id (required, string, `68a5sdf67`) ... The note ID
 
-+ Model
-
-    + Headers
-
-            Content-Type: application/json
-            X-Request-ID: f72fc914
-            X-Response-Time: 4ms
-
-    + Body
-
-            {
-                "id": 1,
-                "title": "Grocery list",
-                "body": "Buy milk"
-            }
-
 ### Get Note [GET]
 Get a single note.
 
-+ Response 200
-
-    [Note][]
-
-+ Response 404
++ Response 200 (applicatoin/json)
 
     + Headers
 
-            Content-Type: application/json
+            X-Request-ID: f72fc914
+            X-Response-Time: 4ms
+
+    + Attributes (NoteData)
+
++ Response 404 (application/json)
+
+    + Headers
+
             X-Request-ID: f72fc914
             X-Response-Time: 4ms
 
@@ -140,11 +111,7 @@ Get a single note.
 ### Update a Note [PUT]
 Update a single note
 
-+ Request
-
-    + Headers
-
-            Content-Type: application/json
++ Request (application/json)
 
     + Body
 
@@ -152,15 +119,19 @@ Update a single note
                 "title": "Grocery List (Safeway)"
             }
 
-+ Response 200
-
-    [Note][]
-
-+ Response 404
++ Response 200 (application/json)
 
     + Headers
 
-            Content-Type: application/json
+            X-Request-ID: f72fc914
+            X-Response-Time: 4ms
+
+    + Attributes (NoteData)
+
++ Response 404 (application/json)
+
+    + Headers
+
             X-Request-ID: f72fc914
             X-Response-Time: 4ms
 
@@ -175,11 +146,10 @@ Delete a single note
 
 + Response 204
 
-+ Response 404
++ Response 404 (application/json)
 
     + Headers
 
-            Content-Type: application/json
             X-Request-ID: f72fc914
             X-Response-Time: 4ms
 
@@ -215,11 +185,14 @@ A list of users
 
     + limit = `10` (optional, integer, `25`) ... The maximum number of users to return, up to `50`
 
-+ Model
+### Get users [GET]
+Get a list of users. Example:
 
-    + Headers
+```no-highlight
+https://api.mywebsite.com/users?sort=joined&limit=5
+```
 
-            Content-Type: application/json
++ Response 200 (application/json)
 
     + Body
 
@@ -240,24 +213,15 @@ A list of users
 
             <!-- include(example-schema.json) -->
 
-### Get users [GET]
-Get a list of users. Example:
-
-```no-highlight
-https://api.mywebsite.com/users?sort=joined&limit=5
-```
-
-+ Response 200
-
-    [User List][]
-
 # Group Tags and Tagging Long Title
 Get or set tags on notes
 
 ## GET /tags
 Get a list of bars
 
-+ Response 200
++ Response 200 (application/json)
+
+        ['tag1', 'tag2', 'tag3']
 
 ## Get one tag [/tags/{id}]
 Get a single tag
