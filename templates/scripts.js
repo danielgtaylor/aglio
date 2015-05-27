@@ -3,6 +3,11 @@ function toggleCollapse(event) {
     var content = button.parentNode.nextSibling;
     var inner = content.children[0];
 
+    if (button.className.indexOf('collapse-button') === -1) {
+      // Clicked without hitting the right element?
+      return;
+    }
+
     if (content.style.maxHeight && content.style.maxHeight !== '0px') {
         // Currently showing, so let's hide it
         button.className = 'collapse-button';
