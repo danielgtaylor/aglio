@@ -19,6 +19,7 @@ parser = require('yargs')
     .options('s', alias: 'server', describe: 'Start a local live preview server')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
+    .options('v', alias: 'version', describe: 'Display version number', default: false)
     .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
 # Console color settings for error/warnings
@@ -52,6 +53,10 @@ exports.run = (argv=parser.argv, done=->) ->
                     else
                         _html = html
                         cb and cb(null, _html)
+
+    if argv.version
+        console.log("aglio #{require('../package.json').version}")
+        return done()
 
     # The option used to be called `template`
     if argv.template then argv.theme = argv.template
