@@ -32,4 +32,4 @@ html
             script(src="/socket.io/socket.io.js")
             script.
                 var socket = io();
-                socket.on('refresh', function (msg) { document.body.innerHTML = msg; })
+                socket.on('refresh', refresh);

@@ -19,16 +19,31 @@ function toggleCollapse(event) {
     }
 }
 
-// Make collapse buttons clickable
-var buttons = document.querySelectorAll('.collapse-button');
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = toggleCollapse;
+function refresh(body) {
+    document.querySelector('body').className = 'preload';
+    document.body.innerHTML = body;
 
-    // Show by default? Then toggle now.
-    if (buttons[i].className.indexOf('show') !== -1) {
-        toggleCollapse({target: buttons[i].children[0]});
+    // Re-initialize the page
+    init();
+
+    document.querySelector('body').className = '';
+}
+
+function init() {
+    // Make collapse buttons clickable
+    var buttons = document.querySelectorAll('.collapse-button');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = toggleCollapse;
+
+        // Show by default? Then toggle now.
+        if (buttons[i].className.indexOf('show') !== -1) {
+            toggleCollapse({target: buttons[i].children[0]});
+        }
     }
 }
+
+// Initial call to set up buttons
+init();
 
 window.onload = function () {
     // Remove the `preload` class to enable animations
