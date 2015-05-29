@@ -92,9 +92,19 @@ exports.run = (argv=parser.argv, done=->) ->
         ).listen argv.p, argv.h, ->
             console.log "Server started on http://#{argv.h}:#{argv.p}/"
 
+        sendHtml = (socket) ->
+            getHtml (err, html) ->
+                unless err
+                    console.log "Refresh web page in browser"
+                    re = /<body.*?>[^]*<\/body>/gi
+                    html = html.match(re)[0]
+                    socket.emit "refresh", html
+
         io = require("socket.io")(server)
-        io.on "connection", () ->
+        io.on "connection", (socket) ->
             console.log "Socket connected"
+            socket.on 'request-refresh', ->
+                sendHtml socket
 
         paths = aglio.collectPathsSync fs.readFileSync(argv.i, 'utf-8'), path.dirname(argv.i)
 
@@ -102,12 +112,7 @@ exports.run = (argv=parser.argv, done=->) ->
         watcher.on "change", (path) ->
             console.log "Updated " + path
             _html = null
-            getHtml (err, html) ->
-                unless err
-                    console.log "Refresh web page in browser"
-                    re = /<body.*?>[^]*<\/body>/gi
-                    html = html.match(re)[0]
-                    io.emit "refresh", html
+            sendHtml io
 
         done()
     else
