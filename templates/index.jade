@@ -33,3 +33,6 @@ html
             script.
                 var socket = io();
                 socket.on('refresh', refresh);
+                socket.on('reconnect', function () {
+                    socket.emit('request-refresh');
+                });
