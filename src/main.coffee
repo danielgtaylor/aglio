@@ -135,8 +135,10 @@ decorate = (api) ->
 
               # If possible, make the body/schema pretty
               try
-                item.body = JSON.stringify(JSON.parse(item.body), null, 2)
-                item.schema = JSON.stringify(JSON.parse(item.schema), null, 2)
+                if item.body
+                  item.body = JSON.stringify(JSON.parse(item.body), null, 2)
+                if item.schema
+                  item.schema = JSON.stringify(JSON.parse(item.schema), null, 2)
               catch err
                 false
 
