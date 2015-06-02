@@ -23,38 +23,43 @@ describe 'Library', ->
       assert.ok option.description
 
   describe 'Render', ->
-    it 'Should not require options', (done) ->
-      theme.render {}, (err, html) ->
-        done err
+    it 'Should not require options', ->
+      theme.render {}
 
-    it 'Should accept options', (done) ->
-      theme.render {}, {}, (err, html) ->
-        done err
+    it 'Should accept options', ->
+      theme.render {}, {}
 
-    it 'Should accept custom colors', (done) ->
-      theme.render {}, themeColors: 'styles/colors-default.less', done
+    it 'Should accept custom colors', ->
+      theme.render {}, themeColors: 'default'
 
-    it 'Should error on missing colors', (done) ->
-      theme.render {}, themeColors: '/bad/path.less', (err, html) ->
-        assert.ok err
-        done()
+    it 'Should error on missing colors', ->
+      assert.throws ->
+        theme.render {}, themeColors: 'ugly-colors'
 
-    it 'Should accept a custom style', (done) ->
-      theme.render {}, themeStyle: 'styles/layout-default.less', done
+    it 'Should accept a custom style', ->
+      theme.render {}, themeStyle: 'default'
 
-    it 'Should error on missing style', (done) ->
-      theme.render {}, themeStyle: '/bad/style.less', (err, html) ->
-        assert.ok err
-        done()
+    it 'Should error on missing style', ->
+      assert.throws ->
+        theme.render {}, themeStyle: 'ugly-style'
 
-    it 'Should error on missing layout', (done) ->
-      theme.render {}, themeLayout: '/bad/path.jade', (err, html) ->
-        assert.ok err
-        done()
+    it 'Should error on missing layout', ->
+      assert.throws ->
+        theme.render {}, themeLayout: '/bad/path.jade'
 
-    it 'Should benchmark', (done) ->
-      old = process.env.BENCHMARK
+    it 'Should benchmark', ->
+      err = null
+      count = 0
+      oldEnv = process.env.BENCHMARK
+      oldWrite = process.stdout.write
       process.env.BENCHMARK = true
-      theme.render {}, (err, html) ->
-        process.env.BENCHMARK = old
-        done err
+      process.stdout.write = -> count++
+      try
+        theme.render {}
+        assert.ok count > 0, 'It printed something'
+      catch _err
+        err = _err
+      finally
+        process.stdout.write = oldWrite
+        process.env.BENCHMARK = oldEnv
+      if err then throw err
