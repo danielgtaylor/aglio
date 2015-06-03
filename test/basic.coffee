@@ -108,6 +108,7 @@ describe 'API Blueprint Renderer', ->
 
             assert process.stdin.read.called
             process.stdin.read.restore()
+            process.stdin.removeAllListeners()
 
             done()
 
@@ -122,11 +123,43 @@ describe 'API Blueprint Renderer', ->
 
             done()
 
+    it 'Should compile from/to files', (done) ->
+        src = path.join root, 'example.md'
+        dest = path.join root, 'example-compiled.md'
+        aglio.compileFile src, dest, done
+
+    it 'Should compile from stdin', (done) ->
+        sinon.stub process.stdin, 'read', -> '# Hello\n'
+
+        setTimeout -> process.stdin.emit 'readable', 1
+
+        aglio.compileFile '-', 'example-compiled.md', (err) ->
+            if err then return done(err)
+
+            assert process.stdin.read.called
+            process.stdin.read.restore()
+            process.stdin.removeAllListeners()
+
+            done()
+
+    it 'Should compile to stdout', (done) ->
+        sinon.stub console, 'log'
+
+        aglio.compileFile path.join(root, 'example.md'), '-', (err) ->
+            if err then return done(err)
+
+            assert console.log.called
+            console.log.restore()
+
+            done()
+
     it 'Should error on missing input file', (done) ->
         aglio.renderFile 'missing', 'output.html', 'default', (err, html) ->
             assert err
 
-            done()
+            aglio.compileFile 'missing', 'output.md', (err) ->
+                assert err
+                done()
 
     it 'Should error on bad template', (done) ->
         aglio.render blueprint, 'bad', (err, html) ->
@@ -211,6 +244,14 @@ describe 'Executable', ->
         bin.run i: path.join(root, 'example.md'), o: '-', ->
             console.error.restore()
             aglio.renderFile.restore()
+            done()
+
+    it 'Should compile a file', (done) ->
+        sinon.stub aglio, 'compileFile', (i, o, callback) ->
+            callback null
+
+        bin.run c: 1, i: path.join(root, 'example.md'), o: '-', ->
+            aglio.compileFile.restore()
             done()
 
     it 'Should start a live preview server', (done) ->
