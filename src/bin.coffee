@@ -21,6 +21,7 @@ parser = require('yargs')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
+    .options('c', alias: 'compile', describe: 'Compile the markdown file')
     .strict()
 
 # Console color settings for error/warnings
@@ -112,7 +113,7 @@ exports.run = (argv=parser.argv, done=->) ->
 
         done()
     else
-        # Render API Blueprint, requires input/output files
+        # Render or Compile API Blueprint, requires input/output files
         if not argv.i or not argv.o
             parser.showHelp()
             return done 'Invalid arguments'
@@ -123,15 +124,23 @@ exports.run = (argv=parser.argv, done=->) ->
             condenseNav: argv.c
             fullWidth: argv.w
 
-        aglio.renderFile argv.i, argv.o, options, (err, warnings) ->
-            if err
-                lineNo = getLineNo err.input, err
-                if lineNo?
-                    console.error cErr(">> Line #{lineNo}:") + " #{err.message} (error code #{err.code})"
-                else
+        if argv.c or argv.o.match /\.md$/
+            aglio.compileFile argv.i, argv.o, (err) ->
+                if (err)
                     console.error cErr('>>') + " #{JSON.stringify(err)}"
-                return done err
 
-            logWarnings warnings
+                done()
 
-            done()
+        else
+            aglio.renderFile argv.i, argv.o, options, (err, warnings) ->
+                if err
+                    lineNo = getLineNo err.input, err
+                    if lineNo?
+                        console.error cErr(">> Line #{lineNo}:") + " #{err.message} (error code #{err.code})"
+                    else
+                        console.error cErr('>>') + " #{JSON.stringify(err)}"
+                    return done err
+
+                logWarnings warnings
+
+                done()

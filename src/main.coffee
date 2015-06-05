@@ -154,3 +154,27 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
             chunk = process.stdin.read()
             if chunk?
                 render chunk
+
+# Compile markdown from/to files
+exports.compileFile = (inputFile, outputFile, done) ->
+    compile = (input) ->
+        compiled = includeDirective path.dirname(inputFile), input
+
+        if outputFile isnt '-'
+            fs.writeFile outputFile, compiled, (err) ->
+                done err
+        else
+            console.log compiled
+            done null
+
+    if inputFile isnt '-'
+        fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
+            if err then return done(err)
+            compile input.toString()
+    else
+        process.stdin.setEncoding 'utf-8'
+        process.stdin.on 'readable', ->
+            chunk = process.stdin.read()
+            if chunk?
+                compile chunk
+
