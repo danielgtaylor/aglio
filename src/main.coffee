@@ -72,8 +72,7 @@ exports.collectPathsSync = (input, includePath) ->
         paths = paths.concat exports.collectPathsSync(content, path.dirname(fullPath))
     paths
 
-# Render an API Blueprint string using a given template
-exports.render = (input, options, done) ->
+parseOptions = (input, options) ->
     # Support a template name as the options argument
     if typeof options is 'string' or options instanceof String
         options =
@@ -97,38 +96,68 @@ exports.render = (input, options, done) ->
             .replace(/\r\n?/g, '\n')
             .replace(/\t/g, '    ')
 
-    protagonist.parse filteredInput, (err, res) ->
+    { input: filteredInput, options: options }
+
+assembleLocals = (ast, options) ->
+    locals =
+        api: ast
+        condenseNav: options.condenseNav
+        fullWidth: options.fullWidth
+        date: moment
+        highlight: highlight
+        markdown: (content) -> md.render content
+        slug: slug
+        hash: (value) ->
+            crypto.createHash('md5').update(value.toString()).digest('hex')
+
+    for key, value of options.locals or {}
+        locals[key] = value
+
+    locals
+
+exports.renderSync = (input, options) ->
+    { input, options } = parseOptions input, options
+
+    try
+        res = protagonist.parseSync input
+    catch err
+        err.input = input
+        throw err
+
+    locals = assembleLocals res.ast, options
+
+    if fs.existsSync options.template
+        templatePath = options.template
+    else
+        templatePath = path.join ROOT, 'templates', "#{options.template}.jade"
+
+    jade.renderFile templatePath, locals
+
+# Render an API Blueprint string using a given template
+exports.render = (input, options, done) ->
+    { input, options } = parseOptions input, options
+
+    protagonist.parse input, (err, res) ->
         if err
-            err.input = filteredInput
+            err.input = input
             return done(err)
 
-        locals =
-            api: res.ast
-            condenseNav: options.condenseNav
-            fullWidth: options.fullWidth
-            date: moment
-            highlight: highlight
-            markdown: (content) -> md.render content
-            slug: slug
-            hash: (value) ->
-                crypto.createHash('md5').update(value.toString()).digest('hex')
+        locals = assembleLocals res.ast, options
 
-        for key, value of options.locals or {}
-            locals[key] = value
+        fs.exists options.template, (exists) ->
+            if exists
+                templatePath = options.template
+            else
+                templatePath = path.join ROOT, 'templates', "#{options.template}.jade"
 
-        if fs.existsSync options.template
-            templatePath = options.template
-        else
-            templatePath = path.join ROOT, 'templates', "#{options.template}.jade"
+            jade.renderFile templatePath, locals, (err, html) ->
+                if err then return done(err)
 
-        jade.renderFile templatePath, locals, (err, html) ->
-            if err then return done(err)
+                # Add filtered input to warnings since we have no
+                # error to return
+                res.warnings.input = input
 
-            # Add filtered input to warnings since we have no
-            # error to return
-            res.warnings.input = filteredInput
-
-            done null, html, res.warnings
+                done null, html, res.warnings
 
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
@@ -177,4 +206,3 @@ exports.compileFile = (inputFile, outputFile, done) ->
             chunk = process.stdin.read()
             if chunk?
                 compile chunk
-
