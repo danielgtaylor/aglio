@@ -66,8 +66,8 @@ mixin Parameters(params)
                                     code= value.value
                                     = ' '
 
-mixin RequestResponse(title, request, resourceGroup, resource, action)
-    - var id = hash(resourceGroup.name.toString() + resource.name.toString() + action.name.toString() + action.method.toString() + title.toString() + request.name.toString() + request.headers.toString() + request.body.toString() + request.schema.toString())
+mixin RequestResponse(title, request, resourceGroup, resource, action, index)
+    - var id = + index.toString() + '-' + hash(resourceGroup.name.toString() + resource.name.toString() + action.name.toString() + action.method.toString() + title.toString() + request.name.toString() + request.headers.toString() + request.body.toString() + request.schema.toString())
     - var content = request.description || Object.keys(request.headers).length || request.body || request.schema
     li.list-group-item
         strong
@@ -103,12 +103,12 @@ mixin RequestResponse(title, request, resourceGroup, resource, action)
 
 mixin Examples(resourceGroup, resource, action)
     ul.list-group
-        each example in action.examples
+        each example, index in action.examples
             each request in example.requests
-                +RequestResponse('Request', request, resourceGroup, resource, action)
+                +RequestResponse('Request', request, resourceGroup, resource, action, index)
             each response in example.responses
-                +RequestResponse('Response', response, resourceGroup, resource, action)
-                
+                +RequestResponse('Response', response, resourceGroup, resource, action, index)
+
 mixin DataStructure(dataStructure)
     section.panel.panel-info
         .panel-heading
