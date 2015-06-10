@@ -9,6 +9,11 @@ path = require 'path'
 
 # The root directory of this project
 ROOT = path.dirname __dirname
+CSS =
+  'default-default':
+    fs.readFileSync path.join(ROOT, 'build', 'default-default.css'), 'utf8'
+  'default-flatly':
+    fs.readFileSync path.join(ROOT, 'build', 'default-flatly.css'), 'utf8'
 
 cache = {}
 
@@ -57,43 +62,11 @@ md.renderer.rules.heading_close = (tokens, idx) ->
 
   "#{link}</h#{tokens[idx].hLevel}>\n"
 
-getCss = (colors, style, done) ->
-  # Get the CSS for the given colors and style. This method caches
-  # its output, so subsequent calls will be extremely fast but will
-  # not reload potentially changed data from disk.
-  # The CSS is generated via a dummy LESS file with imports to the
-  # default colors, any custom override colors, and the given
-  # layout style. Both colors and style support special values,
-  # for example `flatly` might load `styles/colors-flatly.less`.
-  # See the `styles` directory for available options.
-  key = "css-#{colors}-#{style}"
-  if cache[key] then return done null, cache[key]
+getCss = (colors, style) ->
+  key = "#{colors}-#{style}"
+  if CSS.hasOwnProperty(key) then return CSS[key]
 
-  defaultColorPath = path.join ROOT, 'styles', 'colors-default.less'
-
-  tmp = "@import \"#{defaultColorPath}\";\n"
-
-  if colors isnt 'default'
-    customColorPath = path.join ROOT, 'styles', "colors-#{colors}.less"
-    if not fs.existsSync customColorPath
-      customColorPath = colors
-      if not fs.existsSync customColorPath
-        return done new Error "#{customColorPath} does not exist!"
-    tmp += "@import \"#{customColorPath}\";\n"
-
-  stylePath = path.join ROOT, 'styles', "layout-#{style}.less"
-  if not fs.existsSync stylePath
-    stylePath = style
-    if not fs.existsSync stylePath
-      return done new Error "#{stylePath} does not exist!"
-  tmp += "@import \"#{stylePath}\";\n"
-
-  benchmark.start 'less-compile'
-  less.render tmp, compress: true, (err, css) ->
-    benchmark.end 'less-compile'
-    unless err then cache[key] = css
-    done err, css
-  return
+  throw new Error "Colors #{colors} style #{style} combination not available"
 
 decorate = (api) ->
   # Decorate an API Blueprint AST with various pieces of information that
@@ -160,10 +133,7 @@ exports.getConfig = ->
   ]
 
 # Render the blueprint with the given options using Jade and LESS
-exports.render = (input, options, done) ->
-  if not done?
-    done = options
-    options = {}
+exports.render = (input, options = {}) ->
 
   # This is purely for backward-compatibility
   options.themeCondenseNav ?= options.condenseNav
@@ -184,42 +154,36 @@ exports.render = (input, options, done) ->
   decorate input
   benchmark.end 'decorate'
 
-  benchmark.start 'css-total'
-  getCss options.themeColors, options.themeStyle, (err, lessOutput) ->
-    if err then return done(err)
-    benchmark.end 'css-total'
+  locals =
+    api: input
+    condenseNav: options.themeCondenseNav
+    css: getCss options.themeColors, options.themeStyle
+    fullWidth: options.themeFullWidth
+    date: moment
+    hash: (value) ->
+      crypto.createHash('md5').update(value.toString()).digest('hex')
+    highlight: highlight
+    markdown: (content) -> md.render content
+    slug: slug
 
-    locals =
-      api: input
-      condenseNav: options.themeCondenseNav
-      css: lessOutput.css
-      fullWidth: options.themeFullWidth
-      date: moment
-      hash: (value) ->
-        crypto.createHash('md5').update(value.toString()).digest('hex')
-      highlight: highlight
-      markdown: (content) -> md.render content
-      slug: slug
+  for key, value of options.locals or {}
+    locals[key] = value
 
-    for key, value of options.locals or {}
-      locals[key] = value
+  compileOptions =
+    filename: options.themeLayout
+    self: true
+    compileDebug: false
 
-    compileOptions =
-      filename: options.themeLayout
-      self: true
-      compileDebug: false
+  if cache[options.themeLayout]
+    renderer = cache[options.themeLayout]
+  else
+    benchmark.start 'jade-compile'
+    fn = jade.compileFile options.themeLayout, compileOptions
+    benchmark.end 'jade-compile'
+    renderer = cache[options.themeLayout] = fn
 
-    if cache[options.themeLayout]
-      renderer = cache[options.themeLayout]
-    else
-      benchmark.start 'jade-compile'
-      try fn = jade.compileFile options.themeLayout, compileOptions
-      catch err then return done err
-      benchmark.end 'jade-compile'
-      renderer = cache[options.themeLayout] = fn
+  benchmark.start 'call-template'
+  html = renderer locals
+  benchmark.end 'call-template'
 
-    benchmark.start 'call-template'
-    try html = renderer locals
-    catch err then return done err
-    benchmark.end 'call-template'
-    done null, html
+  return html

@@ -4,7 +4,11 @@
   "description": "Default theme for the Aglio API Blueprint renderer",
   "main": "lib/main.js",
   "scripts": {
-    "build": "coffeelint src/*.coffee && coffee -o lib -c src",
+    "build": "npm run build-coffee && npm run build-less",
+    "build-coffee": "coffeelint src/*.coffee && coffee -o lib -c src",
+    "build-less": "npm run build-less-default-default && npm run build-less-default-flatly",
+    "build-less-default-default": "cat styles/colors-default.less styles/layout-default.less | lessc -x - build/default-default.css",
+    "build-less-default-flatly": "cat styles/colors-flatly.less styles/layout-default.less | lessc -x - build/default-flatly.css",
     "precoverage": "npm run build",
     "coverage": "istanbul cover _mocha -- --compilers coffee:coffee-script/register -R spec",
     "precoveralls": "npm run coverage",
@@ -36,7 +40,6 @@
     "coffee-script": "^1.8.0",
     "highlight.js": "^8.4.0",
     "jade": "^1.8.2",
-    "less": "^2.1.2",
     "markdown-it": "^3.0.4",
     "moment": "^2.8.4",
     "stylus": "^0.51.1"
@@ -46,6 +49,7 @@
     "coffeelint": "^1.7.1",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.6",
+    "less": "^2.1.2",
     "mocha": "^2.0.1"
   }
 }
