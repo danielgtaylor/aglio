@@ -31,11 +31,11 @@ describe 'Library', ->
       theme.render {}, {}, (err, html) ->
         done err
 
-    it 'Should accept custom colors', (done) ->
-      theme.render {}, themeColors: 'styles/colors-default.less', done
+    it 'Should accept custom variables', (done) ->
+      theme.render {}, themeVariables: 'styles/variables-default.less', done
 
-    it 'Should error on missing colors', (done) ->
-      theme.render {}, themeColors: '/bad/path.less', (err, html) ->
+    it 'Should error on missing variables', (done) ->
+      theme.render {}, themeVariables: '/bad/path.less', (err, html) ->
         assert.ok err
         done()
 
@@ -47,8 +47,8 @@ describe 'Library', ->
         assert.ok err
         done()
 
-    it 'Should error on missing layout', (done) ->
-      theme.render {}, themeLayout: '/bad/path.jade', (err, html) ->
+    it 'Should error on missing template', (done) ->
+      theme.render {}, themeTemplate: '/bad/path.jade', (err, html) ->
         assert.ok err
         done()
 

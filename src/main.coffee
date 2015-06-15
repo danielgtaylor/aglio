@@ -57,26 +57,26 @@ md.renderer.rules.heading_close = (tokens, idx) ->
 
   "#{link}</h#{tokens[idx].hLevel}>\n"
 
-getCss = (colors, style, done) ->
-  # Get the CSS for the given colors and style. This method caches
+getCss = (variables, style, done) ->
+  # Get the CSS for the given variables and style. This method caches
   # its output, so subsequent calls will be extremely fast but will
   # not reload potentially changed data from disk.
   # The CSS is generated via a dummy LESS file with imports to the
-  # default colors, any custom override colors, and the given
-  # layout style. Both colors and style support special values,
-  # for example `flatly` might load `styles/colors-flatly.less`.
+  # default variables, any custom override variables, and the given
+  # layout style. Both variables and style support special values,
+  # for example `flatly` might load `styles/variables-flatly.less`.
   # See the `styles` directory for available options.
-  key = "css-#{colors}-#{style}"
+  key = "css-#{variables}-#{style}"
   if cache[key] then return done null, cache[key]
 
-  defaultColorPath = path.join ROOT, 'styles', 'colors-default.less'
+  defaultColorPath = path.join ROOT, 'styles', 'variables-default.less'
 
   tmp = "@import \"#{defaultColorPath}\";\n"
 
-  if colors isnt 'default'
-    customColorPath = path.join ROOT, 'styles', "colors-#{colors}.less"
+  if variables isnt 'default'
+    customColorPath = path.join ROOT, 'styles', "variables-#{variables}.less"
     if not fs.existsSync customColorPath
-      customColorPath = colors
+      customColorPath = variables
       if not fs.existsSync customColorPath
         return done new Error "#{customColorPath} does not exist!"
     tmp += "@import \"#{customColorPath}\";\n"
@@ -148,15 +148,17 @@ decorate = (api) ->
 exports.getConfig = ->
   formats: ['1A']
   options: [
-    {name: 'colors', description: 'Color scheme name or path to custom style',
+    {name: 'variables',
+    description: 'Color scheme name or path to custom variables',
     default: 'default'},
     {name: 'condense-nav', description: 'Condense navigation links',
     boolean: true, default: true},
     {name: 'full-width', description: 'Use full window width',
     boolean: true, default: false},
-    {name: 'layout', description: 'Layout name or path to custom layout',
+    {name: 'template', description: 'Template name or path to custom template',
     default: 'default'},
-    {name: 'style', description: 'Custom style overrides'}
+    {name: 'style',
+    description: 'Layout style name or path to custom stylesheet'}
   ]
 
 # Render the blueprint with the given options using Jade and LESS
@@ -170,22 +172,22 @@ exports.render = (input, options, done) ->
   options.themeFullWidth ?= options.fullWidth
 
   # Setup defaults
-  options.themeColors ?= 'default'
+  options.themeVariables ?= 'default'
   options.themeStyle ?= 'default'
-  options.themeLayout ?= 'default'
+  options.themeTemplate ?= 'default'
   options.themeCondenseNav ?= true
   options.themeFullWidth ?= false
 
   # Transform built-in layout names to paths
-  if options.themeLayout is 'default'
-    options.themeLayout = path.join ROOT, 'templates', 'index.jade'
+  if options.themeTemplate is 'default'
+    options.themeTemplate = path.join ROOT, 'templates', 'index.jade'
 
   benchmark.start 'decorate'
   decorate input
   benchmark.end 'decorate'
 
   benchmark.start 'css-total'
-  getCss options.themeColors, options.themeStyle, (err, lessOutput) ->
+  getCss options.themeVariables, options.themeStyle, (err, lessOutput) ->
     if err then return done(err)
     benchmark.end 'css-total'
 
@@ -205,18 +207,18 @@ exports.render = (input, options, done) ->
       locals[key] = value
 
     compileOptions =
-      filename: options.themeLayout
+      filename: options.themeTemplate
       self: true
       compileDebug: false
 
-    if cache[options.themeLayout]
-      renderer = cache[options.themeLayout]
+    if cache[options.themeTemplate]
+      renderer = cache[options.themeTemplate]
     else
       benchmark.start 'jade-compile'
-      try fn = jade.compileFile options.themeLayout, compileOptions
+      try fn = jade.compileFile options.themeTemplate, compileOptions
       catch err then return done err
       benchmark.end 'jade-compile'
-      renderer = cache[options.themeLayout] = fn
+      renderer = cache[options.themeTemplate] = fn
 
     benchmark.start 'call-template'
     try html = renderer locals
