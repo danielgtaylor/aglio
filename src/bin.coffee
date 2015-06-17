@@ -21,7 +21,7 @@ parser = require('yargs')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('v', alias: 'version', describe: 'Display version number', default: false)
-    .options('c', alias: 'compile', describe: 'Compile the markdown file')
+    .options('c', alias: 'compile', describe: 'Compile the markdown file', default: false)
     .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
 # Console color settings for error/warnings

@@ -157,4 +157,3 @@ exports.compileFile = (inputFile, outputFile, done) ->
             chunk = process.stdin.read()
             if chunk?
                 compile chunk
-
