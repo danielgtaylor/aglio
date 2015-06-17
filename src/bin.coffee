@@ -21,7 +21,7 @@ parser = require('yargs')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('l', alias: 'list', describe: 'List templates')
-    .options('c', alias: 'compile', describe: 'Compile the markdown file')
+    .options('c', alias: 'compile', describe: 'Compile the markdown file', default: false)
     .strict()
 
 # Console color settings for error/warnings
