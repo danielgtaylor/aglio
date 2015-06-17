@@ -11,7 +11,8 @@ Features
 --------
 
  * Fast parsing thanks to [Protagonist](https://github.com/apiaryio/protagonist)
- * Asyncronous processing
+ * Schema generation thanks to [Drafter](https://github.com/apiaryio/drafter.js)
+ * Asynchronous processing
  * Multiple templates/themes
  * Support for custom templates written in [Jade](http://jade-lang.com/)
  * Include other documents in your blueprint
