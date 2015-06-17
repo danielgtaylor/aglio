@@ -4,3 +4,4 @@ src
 test
 npm-debug.log
 .travis.yml
+cache

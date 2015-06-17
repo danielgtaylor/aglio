@@ -1,6 +1,6 @@
 {
   "name": "aglio-theme-olio",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Default theme for the Aglio API Blueprint renderer",
   "main": "lib/main.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "coveralls": "coveralls <coverage/lcov.info",
     "pretest": "npm run build",
     "test": "mocha --compilers coffee:coffee-script/register",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postinstall": "node scripts/setup-cache.js"
   },
   "repository": {
     "type": "git",

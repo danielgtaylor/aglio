@@ -18,7 +18,7 @@ benchmark =
   end: (message) -> if process.env.BENCHMARK then console.timeEnd message
 
 # A function to create ID-safe slugs
-slug = (value='') -> value.toLowerCase().replace /[ \t\n]/g, '-'
+slug = (value='') -> value.toLowerCase().replace /[ \t\n\\:/]/g, '-'
 
 # A function to highlight snippets of code. lang is optional and
 # if given, is used to set the code language. If lang is no-highlight
@@ -57,6 +57,33 @@ md.renderer.rules.heading_close = (tokens, idx) ->
 
   "#{link}</h#{tokens[idx].hLevel}>\n"
 
+getCached = (key, compiledPath, sources, load, done) ->
+  # Already loaded? Just return it!
+  if cache[key] then return done null, cache[key]
+
+  # Next, try to check if the compiled path exists and is newer than all of
+  # the sources. If so, load the compiled path into the in-memory cache.
+  try
+    if fs.existsSync compiledPath
+      compiledStats = fs.statSync compiledPath
+
+      for source in sources
+        sourceStats = fs.statSync source
+        if sourceStats.mtime > compiledStats.mtime
+          # There is a newer source file, so we ignore the compiled
+          # version on disk. It'll be regenerated later.
+          return done null
+
+      load compiledPath, (err, item) ->
+        if err then return done err
+
+        cache[key] = item
+        done null, cache[key]
+    else
+      done null
+  catch err
+    done err
+
 getCss = (variables, style, done) ->
   # Get the CSS for the given variables and style. This method caches
   # its output, so subsequent calls will be extremely fast but will
@@ -69,31 +96,101 @@ getCss = (variables, style, done) ->
   key = "css-#{variables}-#{style}"
   if cache[key] then return done null, cache[key]
 
+  # Not cached in memory, but maybe it's already compiled on disk?
+  compiledPath = path.join ROOT, 'cache', "#{slug variables}-#{slug style}.css"
+
   defaultColorPath = path.join ROOT, 'styles', 'variables-default.less'
+  sources = [defaultColorPath]
 
-  tmp = "@import \"#{defaultColorPath}\";\n"
-
+  customColorPath = null
   if variables isnt 'default'
     customColorPath = path.join ROOT, 'styles', "variables-#{variables}.less"
     if not fs.existsSync customColorPath
       customColorPath = variables
       if not fs.existsSync customColorPath
         return done new Error "#{customColorPath} does not exist!"
-    tmp += "@import \"#{customColorPath}\";\n"
+    sources.push customColorPath
 
   stylePath = path.join ROOT, 'styles', "layout-#{style}.less"
   if not fs.existsSync stylePath
     stylePath = style
     if not fs.existsSync stylePath
       return done new Error "#{stylePath} does not exist!"
-  tmp += "@import \"#{stylePath}\";\n"
 
-  benchmark.start 'less-compile'
-  less.render tmp, compress: true, (err, css) ->
-    benchmark.end 'less-compile'
-    unless err then cache[key] = css
-    done err, css
-  return
+  sources.push stylePath
+
+  load = (filename, loadDone) ->
+    fs.readFile filename, 'utf-8', loadDone
+
+  getCached key, compiledPath, sources, load, (err, css) ->
+    if err then return done err
+    if css then return done null, css
+
+    # Not cached, so let's create the file.
+    tmp = "@import \"#{defaultColorPath}\";\n"
+    if customColorPath
+      tmp += "@import \"#{customColorPath}\";\n"
+    tmp += "@import \"#{stylePath}\";\n"
+
+    benchmark.start 'less-compile'
+    less.render tmp, compress: true, (err, result) ->
+      if err then return done err
+
+      try
+        css = result.css
+        fs.writeFileSync compiledPath, css, 'utf-8'
+      catch writeErr
+        return done writeErr
+
+      benchmark.end 'less-compile'
+
+      cache[key] = css
+      done null, cache[key]
+
+getTemplate = (name, done) ->
+  # Get the template function for the given path. This will load and
+  # compile the template if necessary, and cache it for future use.
+  key = "template-#{name}"
+
+  # Check if it is cached in memory. If not, then we'll check the disk.
+  if cache[key] then return done null, cache[key]
+
+  # Check if it is compiled on disk and not older than the template file.
+  # If not present or outdated, then we'll need to compile it.
+  compiledPath = path.join ROOT, 'cache', "#{slug name}.js"
+
+  load = (filename, loadDone) ->
+    loadDone null, require(filename)
+
+  getCached key, compiledPath, [name], load, (err, template) ->
+    if err then return done err
+    if template then return done null, template
+
+    # We need to compile the template, then cache it. This is interesting
+    # because we are compiling to a client-side template, then adding some
+    # module-specific code to make it work here. This allows us to save time
+    # in the future by just loading the generated javascript function.
+    benchmark.start 'jade-compile'
+    compileOptions =
+      filename: name
+      name: 'compiledFunc'
+      self: true
+      compileDebug: false
+
+    try
+      compiled = """
+        var jade = require('jade/runtime');
+        #{jade.compileFileClient name, compileOptions}
+        module.exports = compiledFunc;
+      """
+    catch compileErr
+      return done compileErr
+
+    fs.writeFileSync compiledPath, compiled, 'utf-8'
+    benchmark.end 'jade-compile'
+
+    cache[key] = require(compiledPath)
+    done null, cache[key]
 
 decorate = (api) ->
   # Decorate an API Blueprint AST with various pieces of information that
@@ -187,14 +284,14 @@ exports.render = (input, options, done) ->
   benchmark.end 'decorate'
 
   benchmark.start 'css-total'
-  getCss options.themeVariables, options.themeStyle, (err, lessOutput) ->
+  getCss options.themeVariables, options.themeStyle, (err, css) ->
     if err then return done(err)
     benchmark.end 'css-total'
 
     locals =
       api: input
       condenseNav: options.themeCondenseNav
-      css: lessOutput.css
+      css: css
       fullWidth: options.themeFullWidth
       date: moment
       hash: (value) ->
@@ -206,22 +303,13 @@ exports.render = (input, options, done) ->
     for key, value of options.locals or {}
       locals[key] = value
 
-    compileOptions =
-      filename: options.themeTemplate
-      self: true
-      compileDebug: false
+    benchmark.start 'get-template'
+    getTemplate options.themeTemplate, (getTemplateErr, renderer) ->
+      if getTemplateErr then return done(getTemplateErr)
+      benchmark.end 'get-template'
 
-    if cache[options.themeTemplate]
-      renderer = cache[options.themeTemplate]
-    else
-      benchmark.start 'jade-compile'
-      try fn = jade.compileFile options.themeTemplate, compileOptions
+      benchmark.start 'call-template'
+      try html = renderer locals
       catch err then return done err
-      benchmark.end 'jade-compile'
-      renderer = cache[options.themeTemplate] = fn
-
-    benchmark.start 'call-template'
-    try html = renderer locals
-    catch err then return done err
-    benchmark.end 'call-template'
-    done null, html
+      benchmark.end 'call-template'
+      done null, html
