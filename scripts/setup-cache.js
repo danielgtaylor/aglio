@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 
-var theme = require('../lib/main');
+var theme;
 var fs = require('fs');
+
+try {
+  theme = require('../lib/main');
+} catch (err) {
+  require('coffee-script/register');
+  theme = require('../src/main');
+}
 
 if (!fs.existsSync('./cache')) {
   fs.mkdirSync('./cache');
