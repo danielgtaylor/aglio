@@ -100,15 +100,17 @@ exports.render = (input, options, done) ->
             options[name] ?= option.default
 
         benchmark.start 'render-total'
-        theme.render res.ast, options, (err, html) ->
-            benchmark.end 'render-total'
-            if err then return done(err)
+        try
+          html = theme.render res.ast, options
+        catch err
+          return done(err)
+        benchmark.end 'render-total'
 
-            # Add filtered input to warnings since we have no
-            # error to return
-            res.warnings.input = filteredInput
+        # Add filtered input to warnings since we have no
+        # error to return
+        res.warnings.input = filteredInput
 
-            done null, html, res.warnings
+        done null, html, res.warnings
 
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
