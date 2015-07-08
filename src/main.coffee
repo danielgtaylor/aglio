@@ -265,8 +265,8 @@ exports.render = (input, options, done) ->
     options = {}
 
   # This is purely for backward-compatibility
-  options.themeCondenseNav ?= options.condenseNav
-  options.themeFullWidth ?= options.fullWidth
+  if options.condenseNav then options.themeCondenseNav = options.condenseNav
+  if options.fullWidth then options.themeFullWidth = options.fullWidth
 
   # Setup defaults
   options.themeVariables ?= 'default'
