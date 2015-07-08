@@ -233,11 +233,32 @@ nav {
       background-color: @get-background-color;
     }
 
+    &.head {
+      color: contrast(@head-background-color,
+                      lighten(@head-color, 30%),
+                      darken(@head-color, 25%));
+      background-color: @head-background-color;
+    }
+
+    &.options {
+      color: contrast(@options-background-color,
+                      lighten(@options-color, 30%),
+                      darken(@options-color, 25%));
+      background-color: @options-background-color;
+    }
+
     &.put {
       color: contrast(@put-background-color,
                       lighten(@put-color, 30%),
                       darken(@put-color, 25%));
       background-color: @put-background-color;
+    }
+
+    &.patch {
+      color: contrast(@patch-background-color,
+                      lighten(@patch-color, 30%),
+                      darken(@patch-color, 25%));
+      background-color: @patch-background-color;
     }
 
     &.post {
@@ -446,9 +467,24 @@ nav {
                 background-color: @get-color;
             }
 
+            &.head {
+                color: contrast(@head-color);
+                background-color: @head-color;
+            }
+
+            &.options {
+                color: contrast(@options-color);
+                background-color: @options-color;
+            }
+
             &.put {
                 color: contrast(@put-color);
                 background-color: @put-color;
+            }
+
+            &.patch {
+                color: contrast(@patch-color);
+                background-color: @patch-color;
             }
 
             &.post {
@@ -485,6 +521,26 @@ nav {
         }
     }
 
+    &.head {
+        border-color: @head-border-color;
+
+        h4 {
+            color: @head-color;
+            background: @head-background-color;
+            border-bottom-color: @head-border-color;
+        }
+    }
+
+    &.options {
+        border-color: @options-border-color;
+
+        h4 {
+            color: @options-color;
+            background: @options-background-color;
+            border-bottom-color: @options-border-color;
+        }
+    }
+
     &.post {
         border-color: @post-border-color;
 
@@ -502,6 +558,16 @@ nav {
             color: @put-color;
             background: @put-background-color;
             border-bottom-color: @put-border-color;
+        }
+    }
+
+    &.patch {
+        border-color: @patch-border-color;
+
+        h4 {
+            color: @patch-color;
+            background: @patch-background-color;
+            border-bottom-color: @patch-border-color;
         }
     }
 

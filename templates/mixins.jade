@@ -4,6 +4,10 @@ mixin Badge(method)
     case method
         when 'GET'
             span.badge.get: i.fa.fa-arrow-down
+        when 'HEAD'
+            span.badge.head: i.fa.fa-info-circle
+        when 'OPTIONS'
+            span.badge.options: i.fa.fa-dot-circle-o
         when 'POST'
             span.badge.post: i.fa.fa-plus
         when 'PUT'
