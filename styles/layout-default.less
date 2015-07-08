@@ -133,14 +133,30 @@ nav {
     bottom: 0;
     overflow-y: auto;
 
-    .heading a {
-      display: block;
-      color: @text-color;
-      opacity: 0.7;
-      border-left: 2px solid transparent;
+    .resource-group {
+      padding: 0;
 
-      &:hover {
-        border-left: 2px solid @text-color;
+      .heading {
+        position: relative;
+
+        .chevron {
+          position: absolute;
+          top: @padding;
+          right: @padding;
+          opacity: 0.5;
+        }
+
+        a {
+          display: block;
+          color: @text-color;
+          opacity: 0.7;
+          border-left: 2px solid transparent;
+          margin: 0;
+
+          &:hover {
+            border-left: 2px solid @text-color;
+          }
+        }
       }
     }
 
@@ -164,14 +180,14 @@ nav {
 
         /* Spacing for first level items */
         & > li {
-            margin: 0 -@padding;
+            margin: 0;
 
             &:first-child {
                 margin-top: -@padding;
             }
 
             &:last-child {
-                margin-bottom: -@padding * 2;
+                margin-bottom: -@padding;
             }
         }
 
@@ -196,7 +212,7 @@ nav {
     }
 
     /* Remove the top border from the first item in each group */
-    & > div > ul > li:first-child > a {
+    & > div > div > ul > li:first-child > a {
         border-top: none;
     }
 }
@@ -432,6 +448,16 @@ nav {
         text-overflow: ellipsis;
         overflow: hidden;
     }
+}
+
+nav .resource-group{
+  .heading a {
+    margin-bottom: 0;
+  }
+
+  .collapse-content {
+    padding: 0;
+  }
 }
 
 .action {

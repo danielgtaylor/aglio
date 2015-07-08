@@ -25,20 +25,24 @@ mixin Nav()
     nav
         each resourceGroup in self.api.resourceGroups || []
             .resource-group
-                .heading: a(href=resourceGroup.elementLink)= resourceGroup.name
-                ul: each resource in resourceGroup.resources || []
-                    li
-                        if !self.condenseNav || (resource.actions.length != 1)
-                            a(href=resource.elementLink)= resource.name || 'Resource'
-                            ul: each action in resource.actions || []
-                                li: a(href=action.elementLink)
-                                  = action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+                .heading
+                  .chevron
+                    i.open.fa.fa-angle-down
+                  a(href=resourceGroup.elementLink)= resourceGroup.name
+                .collapse-content
+                  ul: each resource in resourceGroup.resources || []
+                      li
+                          if !self.condenseNav || (resource.actions.length != 1)
+                              a(href=resource.elementLink)= resource.name || 'Resource'
+                              ul: each action in resource.actions || []
+                                  li: a(href=action.elementLink)
+                                    = action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+                                    +Badge(action.method)
+                          else
+                              - var action = resource.actions[0]
+                              a(href=action.elementLink)
+                                  = resource.name || action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
                                   +Badge(action.method)
-                        else
-                            - var action = resource.actions[0]
-                            a(href=action.elementLink)
-                                = resource.name || action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
-                                +Badge(action.method)
         //- Link to the API hostname, e.g. api.yourcompany.com
         each meta in self.api.metadata || {}
             if meta.name == 'HOST'
