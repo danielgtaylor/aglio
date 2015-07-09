@@ -2,6 +2,17 @@ function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
+function getWindowDimensions() {
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.body,
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+
+  return [x, y];
+}
+
 function toggleCollapseButton(event) {
     var button = event.target.parentNode;
     var content = button.parentNode.nextSibling;
@@ -23,7 +34,7 @@ function toggleCollapseButton(event) {
     }
 }
 
-function toggleCollapseNav(event) {
+function toggleCollapseNav(event, force) {
     var heading = event.target.parentNode;
     var content = heading.nextSibling;
     var inner = content.children[0];
@@ -37,7 +48,7 @@ function toggleCollapseNav(event) {
       // Currently showing, so let's hide it, but only if this nav item
       // is already selected. This prevents newly selected items from
       // collapsing in an annoying fashion.
-      if (window.location.hash && endsWith(event.target.href, window.location.hash)) {
+      if (force || window.location.hash && endsWith(event.target.href, window.location.hash)) {
         content.style.maxHeight = '0px';
       }
     } else {
@@ -52,8 +63,45 @@ function refresh(body) {
 
     // Re-initialize the page
     init();
+    autoCollapse();
 
     document.querySelector('body').className = '';
+}
+
+function autoCollapse() {
+  var windowHeight = getWindowDimensions()[1];
+  var itemsHeight = 64; /* Account for some padding */
+  var itemsArray = Array.prototype.slice.call(
+    document.querySelectorAll('nav .resource-group .heading'));
+
+  // Get the total height of the navigation items
+  itemsArray.forEach(function (item) {
+    itemsHeight += item.parentNode.offsetHeight;
+  });
+
+  // Should we auto-collapse any nav items? Try to find the smallest item
+  // that can be collapsed to show all items on the screen. If not possible,
+  // then collapse the largest item and do it again. First, sort the items
+  // by height from smallest to largest.
+  var sortedItems = itemsArray.sort(function (a, b) {
+    return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+  })
+
+  while (sortedItems.length && itemsHeight > windowHeight) {
+    for (var i = 0; i < sortedItems.length; i++) {
+      // Will collapsing this item help?
+      var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+      if (itemsHeight - itemHeight <= windowHeight) {
+        // It will, so let's collapse it, remove its content height from
+        // our total and then remove it from our list of candidates
+        // that can be collapsed.
+        itemsHeight -= itemHeight;
+        toggleCollapseNav({target: sortedItems[i].children[0]}, true);
+        sortedItems.splice(i, 1);
+        break;
+      }
+    }
+  }
 }
 
 function init() {
@@ -68,11 +116,12 @@ function init() {
         }
     }
 
+    // Make nav items clickable to collapse/expand their content.
     var navItems = document.querySelectorAll('nav .resource-group .heading');
     for (var i = 0; i < navItems.length; i++) {
         navItems[i].onclick = toggleCollapseNav;
 
-        // TODO: Logic for auto-collapse.
+        // Show all by default
         toggleCollapseNav({target: navItems[i].children[0]});
     }
 }
@@ -81,6 +130,7 @@ function init() {
 init();
 
 window.onload = function () {
+    autoCollapse();
     // Remove the `preload` class to enable animations
     document.querySelector('body').className = '';
 };
