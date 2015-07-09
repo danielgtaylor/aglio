@@ -139,14 +139,14 @@ mixin Content()
     each resourceGroup in self.api.resourceGroups || []
         section.resource-group(id=resourceGroup.elementId)
             h2= resourceGroup.name
-                a.permalink(href=resourceGroup.elementLink): i.fa.fa-link
+                a.permalink(href=resourceGroup.elementLink): &para;
             if resourceGroup.description
                 != self.markdown(resourceGroup.description)
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)
                     h3= resource.name || 'Resource'
-                        a.permalink(href=resource.elementLink): i.fa.fa-link
+                        a.permalink(href=resource.elementLink): &para;
                     if resource.description
                         != self.markdown(resource.description)
 

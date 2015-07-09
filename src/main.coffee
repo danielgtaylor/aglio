@@ -33,29 +33,17 @@ highlight = (code, lang, subset) ->
   benchmark.end "highlight #{lang}"
   return response
 
-# Setup marked with code highlighting and smartypants
-md = markdownIt 'default',
+# Setup marked with code highlighting and smartypants. This also enables
+# automatically inserting permalinks for headers.
+md = markdownIt(
   html: true
   linkify: true
   typographer: true
   highlight: highlight
-
-# Auto-link headers
-md.renderer.rules.heading_open = (tokens, idx) ->
-  id = ''
-  if tokens[idx + 1].type is 'inline'
-    id = " id=\"header-#{slug tokens[idx + 1].content}\""
-
-  "<h#{tokens[idx].hLevel}#{id}>"
-
-md.renderer.rules.heading_close = (tokens, idx) ->
-  link = ''
-  if tokens[idx - 1].type is 'inline'
-    name = slug "#{tokens[idx - 1].content}"
-    link = "<a class=\"permalink\" href=\"#header-#{name}\">"
-    link += '<i class="fa fa-link"></i></a>'
-
-  "#{link}</h#{tokens[idx].hLevel}>\n"
+).use(require('markdown-it-anchor'),
+  slugify: (value) -> "header-#{slug(value)}"
+  permalink: true
+  permalinkClass: 'permalink')
 
 getCached = (key, compiledPath, sources, load, done) ->
   # Already loaded? Just return it!

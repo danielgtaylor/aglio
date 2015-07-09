@@ -28,8 +28,8 @@ describe 'Layout', ->
 
     theme.render ast, (err, html) ->
       if err then return done err
-      assert.include html, '<h1 id="header-custom-heading">'
-      assert.include html, '<a class="permalink" href="#header-custom-heading">'
+      assert.include html, '<h1 id="header-custom-heading"'
+      assert.include html, '<a class="permalink" href="#header-custom-heading"'
       done()
 
   it 'Should include API hostname', (done) ->
