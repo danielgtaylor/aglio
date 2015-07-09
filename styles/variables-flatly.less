@@ -19,11 +19,29 @@
 @get-text-color: contrast(@get-background-color);
 @get-border-color: @get-background-color;
 
+/* HTTP HEAD */
+@head-color: @get-color;
+@head-background-color: @get-background-color;
+@head-text-color: @get-text-color;
+@head-border-color: @get-border-color;
+
+/* HTTP OPTIONS */
+@options-color: @get-color;
+@options-background-color: @get-background-color;
+@options-text-color: @get-text-color;
+@options-border-color: @get-border-color;
+
 /* HTTP PUT */
 @put-color: white;
 @put-background-color: #f39c12;
 @put-text-color: contrast(@put-background-color);
 @put-border-color: @put-background-color;
+
+/* HTTP PATCH */
+@patch-color: @put-color;
+@patch-background-color: @put-background-color;
+@patch-text-color: @put-text-color;
+@patch-border-color: @put-border-color;
 
 /* HTTP POST */
 @post-color: white;
