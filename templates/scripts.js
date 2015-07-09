@@ -1,7 +1,13 @@
+/*
+  Determine if a string ends with another string.
+*/
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
+/*
+  Get an array [width, height] of the window.
+*/
 function getWindowDimensions() {
   var w = window,
       d = document,
@@ -13,6 +19,9 @@ function getWindowDimensions() {
   return [x, y];
 }
 
+/*
+  Collapse or show a request/response example.
+*/
 function toggleCollapseButton(event) {
     var button = event.target.parentNode;
     var content = button.parentNode.nextSibling;
@@ -34,6 +43,10 @@ function toggleCollapseButton(event) {
     }
 }
 
+/*
+  Collapse or show a navigation menu. It will not be hidden unless it
+  is currently selected or `force` has been passed.
+*/
 function toggleCollapseNav(event, force) {
     var heading = event.target.parentNode;
     var content = heading.nextSibling;
@@ -57,6 +70,10 @@ function toggleCollapseNav(event, force) {
     }
 }
 
+/*
+  Refresh the page after a live update from the server. This only
+  works in live preview mode (using the `--server` parameter).
+*/
 function refresh(body) {
     document.querySelector('body').className = 'preload';
     document.body.innerHTML = body;
@@ -68,6 +85,11 @@ function refresh(body) {
     document.querySelector('body').className = '';
 }
 
+/*
+  Determine which navigation items should be auto-collapsed to show as many
+  as possible on the screen, based on the current window height. This also
+  collapses them.
+*/
 function autoCollapse() {
   var windowHeight = getWindowDimensions()[1];
   var itemsHeight = 64; /* Account for some padding */
@@ -104,6 +126,9 @@ function autoCollapse() {
   }
 }
 
+/*
+  Initialize the interactive functionality of the page.
+*/
 function init() {
     // Make collapse buttons clickable
     var buttons = document.querySelectorAll('.collapse-button');

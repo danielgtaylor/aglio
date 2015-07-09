@@ -14,10 +14,10 @@ Theme engines for Aglio are described in more detail in the [Aglio documentation
 ## Design Philosophy
 Olio is designed from the ground up to be both **fast** and **extensible** while maintaining backward compatibility with most of the original Aglio theme. It uses the following technologies:
 
-* Less to produce CSS
-* Markdown-it to render Markdown
-* Jade to produce HTML
-* Highlight.js to highlight code snippets
+* [Less](http://lesscss.org/) to produce CSS
+* [Markdown-it](https://github.com/markdown-it/markdown-it#readme) to render Markdown
+* [Jade](http://jade-lang.com/) to produce HTML
+* [Highlight.js](https://highlightjs.org/) to highlight code snippets
 
 For backward compatibility, Jade templates can continue to use inline Stylus and CoffeeScript.
 
@@ -33,7 +33,7 @@ Name           | Description
 `template`     | Jade template to render HTML. Can be a path to your own file or one of the following presets: `default`.
 `variables`    | LESS variables that control theme colors, fonts, and spacing. Can be a path to your own file or one of the following presets: `default`, `flatly`.
 
-**Note**: When using this theme programmatically, these options are cased like you would expect in Javascript: `--full-width` becomes `options.fullWidth`.
+**Note**: When using this theme programmatically, these options are cased like you would expect in Javascript: `--full-width` becomes `options.themeFullWidth`.
 
 License
 =======
