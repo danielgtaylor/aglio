@@ -8,7 +8,7 @@ An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple the
 
 ## Features
 
- * Fast parsing thanks to [Protagonist](https://github.com/apiaryio/protagonist)
+ * Fast parsing thanks to [Drafter](https://github.com/apiaryio/drafter.js)
  * Asyncronous processing
  * Multiple templates/themes
  * Support for custom colors, templates, and theme engines
@@ -21,10 +21,10 @@ An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple the
 ## Example Output
 Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.apib).
 
- * Default theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default-collapsible.html)
- * Flatly theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly-collapsible.html)
- * Slate theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/slate.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/slate-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/slate-collapsible.html)
- * Cyborg theme: [Single Page](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/cyborg.html) or [Multiple Pages](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/cyborg-multi.html) or [Collapsible](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/cyborg-collapsible.html)
+ * [Default theme](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default.html)
+ * [Flatly theme](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly.html)
+ * [Slate theme](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/slate.html)
+ * [Cyborg theme](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/cyborg.html)
 
 ## Including Files
 It is possible to include other files in your blueprint by using a special include directive with a path to the included file relative to the current file's directory. Included files can be written in API Blueprint, Markdown or HTML (or JSON for response examples). Included files can include other files, so be careful of circular references.
@@ -53,7 +53,7 @@ Then, start generating HTML.
 aglio -i input.apib -o output.html
 
 # Built-in color scheme
-aglio --theme-colors slate -i input.apib -o output.html
+aglio --theme-variables slate -i input.apib -o output.html
 
 # Custom layout template
 aglio --theme-layout /path/to/template.jade -i input.apib -o output.html
@@ -88,9 +88,11 @@ var aglio = require('aglio');
 
 // Render a blueprint with a template by name
 var blueprint = '# Some API Blueprint string';
-var theme = 'default';
+var options = {
+  themeVariables: 'default'
+};
 
-aglio.render(blueprint, theme, function (err, html, warnings) {
+aglio.render(blueprint, options, function (err, html, warnings) {
     if (err) return console.log(err);
     if (warnings) console.log(warnings);
 
@@ -98,7 +100,10 @@ aglio.render(blueprint, theme, function (err, html, warnings) {
 });
 
 // Render a blueprint with a custom layout file
-aglio.render(blueprint, '/path/to/my-template.jade', function (err, html, warnings) {
+options = {
+  themeLayout: '/path/to/my-template.jade'
+};
+aglio.render(blueprint, options, function (err, html, warnings) {
     if (err) return console.log(err);
     if (warnings) console.log(warnings);
 
@@ -108,7 +113,7 @@ aglio.render(blueprint, '/path/to/my-template.jade', function (err, html, warnin
 
 // Pass custom locals along to the layout, for example
 // the following gives templates access to lodash and async
-var options = {
+options = {
     themeLayout: '/path/to/my-template.jade',
     locals: {
         _: require('lodash'),
@@ -147,7 +152,7 @@ In addition, the [default theme](https://github.com/danielgtaylor/aglio/tree/oli
 
 | Option           | Type   | Default   | Description                                  |
 | ---------------- | ------ | --------- | -------------------------------------------- |
-| themeColors      | string | `default` | Built-in color scheme or path to LESS or CSS |
+| themeVariables   | string | `default` | Built-in color scheme or path to LESS or CSS |
 | themeCondenseNav | bool   | `true`    | Condense navigation links                    |
 | themeFullWidth   | bool   | `false`   | Use the full page width                      |
 | themeLayout      | string |           | Layout name or path to custom layout file    |
@@ -174,7 +179,7 @@ alio.render(blueprint, options, function (err, html, warnings) {
 Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths. The options behaves the same as above for `aglio.render`.
 
 ```javascript
-aglio.renderFile('/tmp/input.apib', '/tmp/output.html', 'default', function (err, warnings) {
+aglio.renderFile('/tmp/input.apib', '/tmp/output.html', options, function (err, warnings) {
     if (err) return console.log(err);
     if (warnings) console.log(warnings);
 });
@@ -207,14 +212,14 @@ grunt examples
 Aglio is split into two components: a base that contains logic for loading API Blueprint, handling commandline arguments, etc and a theme engine that handles turning the API Blueprint AST into HTML. The default theme engine that ships with Aglio is called [olio](https://github.com/danielgtaylor/aglio/tree/olio-theme). Templates are written in Jade, with support for inline Coffeescript, LESS and Stylus via filters. The default stylesheets are written in LESS.
 
 ### Custom Colors & Style
-Aglio's default theme provides a way to easily override colors, fonts, padding, etc to match your company's style. This is done by providing your own LESS or CSS file(s) via the `--theme-colors` and `--theme-style` options. For example:
+Aglio's default theme provides a way to easily override colors, fonts, padding, etc to match your company's style. This is done by providing your own LESS or CSS file(s) via the `--theme-variables` and `--theme-style` options. For example:
 
 ```bash
 # Use my custom colors
-aglio --theme-colors /path/to/my-colors.less -i input.apib -o output.html
+aglio --theme-variables /path/to/my-colors.less -i input.apib -o output.html
 ```
 
-The `my-colors.less` file might contain a custom HTTP PUT color specification:
+The `my-variables.less` file might contain a custom HTTP PUT color specification:
 
 ```less
 /* HTTP PUT */
@@ -224,7 +229,7 @@ The `my-colors.less` file might contain a custom HTTP PUT color specification:
 @put-border-color: darken(spin(@put-background-color, -10), 5%);
 ```
 
-See the [default colors]() file for examples of which variables can be set.
+See the [default variables](https://github.com/danielgtaylor/aglio/blob/olio-theme/styles/variables-default.less) file for examples of which variables can be set.
 
 The `--theme-style` option lets you override built-in styles with your own LESS or CSS definitions. It is processed **after** the colors have been defined, so the colors are available for your use. If you wish to modify a rule from an existing built-in style then you must copy the style. The order of loading roughly follows:
 
@@ -234,14 +239,14 @@ The `--theme-style` option lets you override built-in styles with your own LESS 
 
 #### Built-in Colors
 
-* cyborg
-* default
-* flatly
-* slate
+* `cyborg`
+* `default`
+* `flatly`
+* `slate`
 
 #### Built-in Styles
 
-* default
+* `default`
 
 ### Customizing Layouts
 The `--theme-layout` option allows you to provide a custom layout that overrides the default layout. This is specified in the form of a [Jade]() template file. See the [default layout]() file for an example.
@@ -261,7 +266,7 @@ The locals available to layouts look like the following:
 
 #### Built-in Layouts
 
-* default
+* `default`
 
 ### Using Custom Themes
 While Aglio ships with a default theme, you have the option of installing and using third-party theme engines. They may use any technology and are not limited to Jade and LESS. Consult the theme's documentation to see which options are available and how to use and customize the theme. Common usage between all themes:
@@ -287,7 +292,7 @@ Returns configuration information about the theme, such as the API Blueprint for
 Render the given input API Blueprint AST with the given options. Calls `done(err, html)` when finished, either passing an error or the rendered HTML output as a string.
 
 #### Example Theme
-The following is a very simple example theme. See the [full source]() for information on how to package and publish the theme. **Note**: it only returns a very simple string instead of rending out the API Blueprint AST.
+The following is a very simple example theme. **Note**: it only returns a very simple string instead of rending out the API Blueprint AST. Normally you would invoke a template engine and output the resulting HTML that is generated.
 
 ```javascript
 // Get the theme's configuration options
