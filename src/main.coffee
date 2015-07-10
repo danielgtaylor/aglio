@@ -17,8 +17,24 @@ benchmark =
   start: (message) -> if process.env.BENCHMARK then console.time message
   end: (message) -> if process.env.BENCHMARK then console.timeEnd message
 
-# A function to create ID-safe slugs
-slug = (value='') -> value.toLowerCase().replace /[ \t\n\\:/]/g, '-'
+# A function to create ID-safe slugs. If `unique` is passed, then
+# unique slugs are returned for the same input.
+slugCache = {}
+slug = (value='', unique=false) ->
+  sluggified = value.toLowerCase().replace /[ \t\n\\:/]/g, '-'
+
+  if unique
+    while slugCache[sluggified]
+      # Already exists, so let's try to make it unique.
+      if sluggified.match /\d+$/
+        sluggified = sluggified.replace /\d+$/, (value) ->
+          parseInt(value) + 1
+      else
+        sluggified = sluggified + '-1'
+
+  slugCache[sluggified] = true
+
+  return sluggified
 
 # A function to highlight snippets of code. lang is optional and
 # if given, is used to set the code language. If lang is no-highlight
@@ -184,20 +200,24 @@ decorate = (api) ->
   # Decorate an API Blueprint AST with various pieces of information that
   # will be useful for the theme. Anything that would significantly
   # complicate the Jade template should probably live here instead!
+
+  # Reset the slug cache
+  slugCache = {}
+
   for resourceGroup in api.resourceGroups or []
     # Element ID and link
-    resourceGroup.elementId = slug resourceGroup.name
+    resourceGroup.elementId = slug resourceGroup.name, true
     resourceGroup.elementLink = "##{resourceGroup.elementId}"
 
     for resource in resourceGroup.resources or []
       # Element ID and link
-      resource.elementId = slug "#{resourceGroup.name}-#{resource.name}"
+      resource.elementId = slug "#{resourceGroup.name}-#{resource.name}", true
       resource.elementLink = "##{resource.elementId}"
 
       for action in resource.actions or []
         # Element ID and link
         action.elementId = slug(
-          "#{resourceGroup.name}-#{resource.name}-#{action.method}")
+          "#{resourceGroup.name}-#{resource.name}-#{action.method}", true)
         action.elementLink = "##{action.elementId}"
 
         # Lowercase HTTP method name
