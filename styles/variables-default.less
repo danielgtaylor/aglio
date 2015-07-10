@@ -4,10 +4,13 @@
 
 @link-color: #428bca;
 
+@heading-text-color: @text-color;
+
 /* HTTP method-specific colors */
-@group-background-color: contrast(@background-color,
-                                  darken(@background-color, 5%),
-                                  lighten(@background-color, 5%));
+@group-background-color: transparent;
+@group-title-background-color: contrast(@background-color,
+                                        darken(@background-color, 5%),
+                                        lighten(@background-color, 5%));
 @group-border-color: contrast(@background-color,
                               darken(@background-color, 15%),
                               lighten(@background-color, 15%));
@@ -17,46 +20,53 @@
 @get-color: darken(@link-color, 6.5%);
 @get-background-color: #d9edf7;
 @get-text-color: contrast(@get-background-color);
+@get-badge-text-color: darken(@get-background-color, 25%);
 @get-border-color: darken(spin(@get-background-color, -10), 7%);
 
 /* HTTP HEAD */
 @head-color: @get-color;
 @head-background-color: @get-background-color;
 @head-text-color: @get-text-color;
+@head-badge-text-color: @get-badge-text-color;
 @head-border-color: @get-border-color;
 
 /* HTTP OPTIONS */
 @options-color: @get-color;
 @options-background-color: @get-background-color;
 @options-text-color: @get-text-color;
+@options-badge-text-color: @get-badge-text-color;
 @options-border-color: @get-border-color;
 
 /* HTTP PUT */
 @put-color: #f0ad4e;
 @put-background-color: #fcf8e3;
 @put-text-color: contrast(@put-background-color);
+@put-badge-text-color: darken(@put-background-color, 25%);
 @put-border-color: darken(spin(@put-background-color, -10), 5%);
 
 /* HTTP PATCH */
 @patch-color: @put-color;
 @patch-background-color: @put-background-color;
 @patch-text-color: @put-text-color;
+@patch-badge-text-color: @put-badge-text-color;
 @patch-border-color: @put-border-color;
 
 /* HTTP POST */
 @post-color: #5cb85c;
 @post-background-color: #dff0d8;
 @post-text-color: contrast(@post-background-color);
+@post-badge-text-color: darken(@post-background-color, 25%);
 @post-border-color: darken(spin(@post-background-color, -10), 5%);
 
 /* HTTP DELETE */
 @delete-color: #d9534f;
 @delete-background-color: #f2dede;
 @delete-text-color: contrast(@delete-background-color);
+@delete-badge-text-color: darken(@delete-background-color, 25%);
 @delete-border-color: darken(spin(@delete-background-color, -10), 5%);
 
 /* Code colors */
-@inline-code-background-color: #ddd;
+@inline-code-background-color: #f5f5f5;
 @inline-code-text-color: #444;
 
 @code-block-background-color: #f5f5f5;

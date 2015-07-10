@@ -18,3 +18,5 @@ if (!fs.existsSync('./cache')) {
 // efficient but it works for now.
 theme.render({}, function () {});
 theme.render({}, {themeVariables: 'flatly'}, function () {});
+theme.render({}, {themeVariables: 'slate'}, function () {});
+theme.render({}, {themeVariables: 'cyborg'}, function () {});

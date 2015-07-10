@@ -1,0 +1,84 @@
+/* Basic page-wide colors */
+@background-color: #272b30;
+@text-color: #c8c8c8;
+
+@link-color: white;
+
+@heading-text-color: @text-color;
+
+/* HTTP method-specific colors */
+@group-background-color: transparent;
+@group-title-background-color: contrast(@background-color,
+                                        darken(@background-color, 7%),
+                                        lighten(@background-color, 7%));
+@group-border-color: black;
+@group-text-color: contrast(@group-background-color);
+
+/* HTTP GET */
+@get-background-color: #5bc0de;
+@get-color: darken(@get-background-color, 20%);
+@get-text-color: contrast(@get-background-color);
+@get-badge-text-color: white;
+@get-border-color: black;
+
+/* HTTP HEAD */
+@head-color: @get-color;
+@head-background-color: @get-background-color;
+@head-text-color: @get-text-color;
+@head-badge-text-color: @get-badge-text-color;
+@head-border-color: black;
+
+/* HTTP OPTIONS */
+@options-color: @get-color;
+@options-background-color: @get-background-color;
+@options-text-color: @get-text-color;
+@options-badge-text-color: @get-badge-text-color;
+@options-border-color: black;
+
+/* HTTP PUT */
+@put-background-color: #f89406;
+@put-color: darken(@put-background-color, 20%);
+@put-text-color: contrast(@put-background-color);
+@put-badge-text-color: white;
+@put-border-color: black;
+
+/* HTTP PATCH */
+@patch-color: @put-color;
+@patch-background-color: @put-background-color;
+@patch-text-color: @put-text-color;
+@patch-badge-text-color: @put-badge-text-color;
+@patch-border-color: black;
+
+/* HTTP POST */
+@post-background-color: #62c462;
+@post-color: darken(@post-background-color, 20%);
+@post-text-color: contrast(@post-background-color);
+@post-badge-text-color: white;
+@post-border-color: black;
+
+/* HTTP DELETE */
+@delete-background-color: #ee5f5b;
+@delete-color: darken(@delete-background-color, 20%);
+@delete-text-color: contrast(@delete-background-color);
+@delete-badge-text-color: white;
+@delete-border-color: black;
+
+/* Code colors */
+@inline-code-background-color: #373b40;
+@inline-code-text-color: #ddd;
+
+@code-block-background-color: #202529;
+@code-block-border-color: contrast(@code-block-background-color,
+                                   darken(@code-block-background-color, 15%),
+                                   lighten(@code-block-background-color, 15%));
+
+@title-code-background-color: rgba(255, 255, 255, 0.7);
+@title-code-text-color: black;
+@title-code-border-color: transparent;
+
+@quote-border-color: contrast(@code-block-background-color,
+                              darken(@code-block-background-color, 5%),
+                              lighten(@code-block-background-color, 5%));
+
+/* Highlight.js Theme Tomorrow Night Eighties */
+.hljs-comment,.hljs-title{color:#999}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#f2777a}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f99157}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#fc6}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#9c9}.css .hljs-hexcolor{color:#6cc}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#69c}.hljs-keyword,.javascript .hljs-function{color:#c9c}.hljs{display:block;background:#2d2d2d;color:#ccc;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}

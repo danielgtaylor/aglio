@@ -19,11 +19,12 @@ body {
 }
 
 header {
-    border-bottom: 1px solid @group-background-color;
+    border-bottom: 1px solid @group-title-background-color;
     margin-bottom: @padding;
 }
 
 h1, h2, h3, h4, h5 {
+    color: @heading-text-color;
     margin: @padding 0;
 
     & .permalink {
@@ -167,8 +168,7 @@ nav {
         a {
             display: block;
             font-size: 13 * @font-size / 14;
-            color: @text-color;
-            opacity: 0.7;
+            color: fade(@text-color, 70%);
             padding: (2 * @padding / 3) @padding;
             border-top: 1px solid @group-border-color;
             border-left: 2px solid transparent;
@@ -238,56 +238,42 @@ nav {
     padding: 3px 7px;
     font-size: 12px;
     color: @group-text-color;
-    background-color: @group-background-color;
+    background-color: @group-title-background-color;
     border-radius: 10px;
     margin-top: -2px;
 
     &.get {
-      color: contrast(@get-background-color,
-                      lighten(@get-color, 30%),
-                      darken(@get-color, 25%));
+      color: @get-badge-text-color;
       background-color: @get-background-color;
     }
 
     &.head {
-      color: contrast(@head-background-color,
-                      lighten(@head-color, 30%),
-                      darken(@head-color, 25%));
+      color: @head-badge-text-color;
       background-color: @head-background-color;
     }
 
     &.options {
-      color: contrast(@options-background-color,
-                      lighten(@options-color, 30%),
-                      darken(@options-color, 25%));
+      color: @options-badge-text-color;
       background-color: @options-background-color;
     }
 
     &.put {
-      color: contrast(@put-background-color,
-                      lighten(@put-color, 30%),
-                      darken(@put-color, 25%));
+      color: @put-badge-text-color;
       background-color: @put-background-color;
     }
 
     &.patch {
-      color: contrast(@patch-background-color,
-                      lighten(@patch-color, 30%),
-                      darken(@patch-color, 25%));
+      color: @patch-badge-text-color;
       background-color: @patch-background-color;
     }
 
     &.post {
-      color: contrast(@post-background-color,
-                      lighten(@post-color, 30%),
-                      darken(@post-color, 25%));
+      color: @post-badge-text-color;
       background-color: @post-background-color;
     }
 
     &.delete {
-      color: contrast(@delete-background-color,
-                      lighten(@delete-color, 30%),
-                      darken(@delete-color, 25%));
+      color: @delete-badge-text-color;
       background-color: @delete-background-color;
     }
 }
@@ -421,7 +407,7 @@ nav {
     right: 24px;
     padding: 4px 8px;
     color: fadeout(@text-color, 50%);
-    background-color: @group-background-color;
+    background-color: @group-title-background-color;
     text-decoration: none !important;
     border-top: 1px solid @group-border-color;
     border-left: 1px solid @group-border-color;
@@ -433,13 +419,14 @@ nav {
 .resource-group {
     padding: @padding;
     margin-bottom: @padding;
+    background-color: @group-background-color;
     border: 1px solid @group-border-color;
     border-radius: @border-radius;
 
     h2, .heading a {
         padding: @padding;
         margin: -@padding -@padding @padding -@padding;
-        background-color: @group-background-color;
+        background-color: @group-title-background-color;
         border-bottom: 1px solid @group-border-color;
         border-top-left-radius: @border-radius;
         border-top-right-radius: @border-radius;
