@@ -7,22 +7,22 @@ path = require 'path'
 serveStatic = require 'serve-static'
 parser = require('yargs')
     .usage('Usage: $0 [options] -i infile [-o outfile -s]')
-    .example('$0 -i example.md -o output.html', 'Render to HTML')
-    .example('$0 -i example.md -s', 'Start preview server')
-    .example('$0 -t flatly -i example.md -s', 'Custom template')
-    .example('$0 --no-condense -i example.md -s', 'Disable options')
+    .example('$0 -i example.apib -o output.html', 'Render to HTML')
+    .example('$0 -i example.apib -s', 'Start preview server')
+    .example('$0 -t flatly -i example.apib -s', 'Custom template')
+    .example('$0 --no-condense -i example.apib -s', 'Disable options')
     .options('i', alias: 'input', describe: 'Input file')
     .options('o', alias: 'output', describe: 'Output file')
-    .options('t', alias: 'template', describe: 'Template name or file', default: 'default')
+    .options('t', alias: 'theme', describe: 'Theme name or layout file', default: 'default')
     .options('f', alias: 'filter', boolean: true, describe: 'Sanitize input from Windows', default: true)
     .options('c', alias: 'condense', boolean: true, describe: 'Condense navigation links', default: true)
     .options('w', alias: 'full-width', boolean: true, describe: 'Use full window width', default: false)
     .options('s', alias: 'server', describe: 'Start a local live preview server')
     .options('h', alias: 'host', describe: 'Address to bind local preview server to', default: '127.0.0.1')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
-    .options('l', alias: 'list', describe: 'List templates')
+    .options('v', alias: 'version', describe: 'Display version number', default: false)
     .options('c', alias: 'compile', describe: 'Compile the markdown file', default: false)
-    .strict()
+    .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
 # Console color settings for error/warnings
 cErr = clc.white.bgRed
@@ -45,18 +45,9 @@ exports.run = (argv=parser.argv, done=->) ->
         if _html
             cb and cb(null, _html)
         else
-            options =
-                template: argv.t
-                filterInput: argv.f
-                condenseNav: argv.c
-                fullWidth: argv.w
-                includePath: path.dirname argv.i
-                locals:
-                    livePreview: true
-
             fs.readFile argv.i, "utf-8", (err, blueprint) ->
                 console.log "Rendering " + argv.i
-                aglio.render blueprint, options, (err, html, warnings) ->
+                aglio.render blueprint, argv, (err, html, warnings) ->
                     logWarnings warnings
                     if err
                         console.error err
@@ -64,20 +55,31 @@ exports.run = (argv=parser.argv, done=->) ->
                     else
                         _html = html
                         cb and cb(null, _html)
-    if argv.l
-        # List available templates
-        aglio.getTemplates (err, names) ->
-            if err
-                console.error err
-                return done err
 
-            console.log 'Templates:\n' + names.join('\n')
+    if argv.version
+        console.log("aglio #{require('../package.json').version}")
+        return done()
 
-            done()
-    else if argv.s
+    # The option used to be called `template`
+    if argv.template then argv.theme = argv.template
+
+    # Add theme options to the help output
+    try
+        theme = aglio.getTheme(argv.theme)
+    catch err
+        return done(err)
+
+    config = theme.getConfig()
+    for entry in config.options
+        parser.options("theme-#{entry.name}", entry)
+
+    if argv.s
         if not argv.i
             parser.showHelp()
             return done 'Invalid arguments'
+
+        argv.locals =
+            livePreview: true
 
         getHtml()
         server = http.createServer((req, res) ->
@@ -94,9 +96,19 @@ exports.run = (argv=parser.argv, done=->) ->
         ).listen argv.p, argv.h, ->
             console.log "Server started on http://#{argv.h}:#{argv.p}/"
 
+        sendHtml = (socket) ->
+            getHtml (err, html) ->
+                unless err
+                    console.log "Refresh web page in browser"
+                    re = /<body.*?>[^]*<\/body>/gi
+                    html = html.match(re)[0]
+                    socket.emit "refresh", html
+
         io = require("socket.io")(server)
-        io.on "connection", () ->
+        io.on "connection", (socket) ->
             console.log "Socket connected"
+            socket.on 'request-refresh', ->
+                sendHtml socket
 
         paths = aglio.collectPathsSync fs.readFileSync(argv.i, 'utf-8'), path.dirname(argv.i)
 
@@ -104,12 +116,7 @@ exports.run = (argv=parser.argv, done=->) ->
         watcher.on "change", (path) ->
             console.log "Updated " + path
             _html = null
-            getHtml (err, html) ->
-                unless err
-                    console.log "Refresh web page in browser"
-                    re = /<body>[\s\S]*<\/body>/i
-                    html = html.match(re)[0]
-                    io.emit "refresh", html
+            sendHtml io
 
         done()
     else
@@ -118,21 +125,14 @@ exports.run = (argv=parser.argv, done=->) ->
             parser.showHelp()
             return done 'Invalid arguments'
 
-        options =
-            template: argv.t
-            filterInput: argv.f
-            condenseNav: argv.c
-            fullWidth: argv.w
-
-        if argv.c or argv.o.match /\.md$/
+        if argv.c or argv.o.match /\.apib$/ or argv.o.match /\.md$/
             aglio.compileFile argv.i, argv.o, (err) ->
                 if (err)
                     console.error cErr('>>') + " #{JSON.stringify(err)}"
 
                 done()
-
         else
-            aglio.renderFile argv.i, argv.o, options, (err, warnings) ->
+            aglio.renderFile argv.i, argv.o, argv, (err, warnings) ->
                 if err
                     lineNo = getLineNo err.input, err
                     if lineNo?

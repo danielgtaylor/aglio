@@ -1,3 +1,17 @@
+# 2.0.0-beta3 - 2015-07-09
+* Documentation updates.
+* Update to latest default theme.
+* Server mode now serves static files if found.
+* Add ability to output compiled API Blueprint file instead of HTML.
+
+# 2.0.0-beta2 - 2015-05-29
+* Live update fixes.
+* Example fixes.
+
+# 2.0.0-beta1 - 2015-05-28
+* Implement theme engine support; depend on the default olio theme.
+* Switch to using drafter.js instead of protagonist directly.
+
 # 1.18.0 - 2015-03-31
 * Upgrade to [Protagonist] 0.19.0, which adds support for Node.js 0.12.x
   and iojs 1.x.

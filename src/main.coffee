@@ -1,30 +1,14 @@
-crypto = require 'crypto'
 fs = require 'fs'
-hljs = require 'highlight.js'
-jade = require 'jade'
-moment = require 'moment'
 path = require 'path'
-protagonist = require 'protagonist'
-Remarkable = require 'remarkable'
+Drafter = require 'drafter'
 
 INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
 ROOT = path.dirname __dirname
 
-# A function to create ID-safe slugs
-slug = (value) ->
-    value.toLowerCase().replace /[ \t\n]/g, '-'
-
-# A function to highlight snippets of code. lang is optional and
-# if given, is used to set the code language. If lang is no-highlight
-# then no highlighting is performed.
-highlight = (code, lang) ->
-    if lang
-        if lang is 'no-highlight'
-            code
-        else
-            hljs.highlight(lang, code).value
-    else
-        hljs.highlightAuto(code).value
+# Utility for benchmarking
+benchmark =
+  start: (message) -> if process.env.BENCHMARK then console.time message
+  end: (message) -> if process.env.BENCHMARK then console.timeEnd message
 
 # Replace the include directive with the contents of the included
 # file in the input.
@@ -43,23 +27,6 @@ includeReplace = (includePath, match, spaces, filename) ->
 includeDirective = (includePath, input) ->
     input.replace INCLUDE, includeReplace.bind(this, includePath)
 
-# Setup marked with code highlighting and smartypants
-md = new Remarkable 'full',
-    html: true
-    linkify: true
-    typographer: true
-    highlight: highlight
-
-# Get a list of available internal templates
-exports.getTemplates = (done) ->
-    fs.readdir path.join(ROOT, 'templates'), (err, files) ->
-        if err then return done(err)
-
-        # Return template names without the extension, and exclude items
-        # that start with an underscore, which allows component reuse
-        # among built-in templates.
-        done null, (f for f in files when f[0] isnt '_').map (item) -> item.replace /\.jade$/, ''
-
 # Get a list of all paths from included files. This *excludes* the
 # input path itself.
 exports.collectPathsSync = (input, includePath) ->
@@ -72,18 +39,34 @@ exports.collectPathsSync = (input, includePath) ->
         paths = paths.concat exports.collectPathsSync(content, path.dirname(fullPath))
     paths
 
-parseOptions = (input, options) ->
+# Get the theme module for a given theme name
+exports.getTheme = (name) ->
+    name = 'olio' if not name or name in ['cyborg', 'default', 'flatly', 'slate']
+    require "aglio-theme-#{name}"
+
+# Render an API Blueprint string using a given template
+exports.render = (input, options, done) ->
     # Support a template name as the options argument
     if typeof options is 'string' or options instanceof String
         options =
-            template: options
+            theme: options
 
     # Defaults
-    options.template ?= 'default'
     options.filterInput ?= true
-    options.condenseNav ?= true
-    options.fullWidth ?= false
     options.includePath ?= process.cwd()
+    options.theme ?= 'default'
+
+    # For backward compatibility
+    if options.template then options.theme = options.template
+
+    if fs.existsSync options.theme
+        console.log "Setting theme to olio and layout to #{options.theme}"
+        options.themeLayout = options.theme
+        options.theme = 'olio'
+    else if options.theme in ['cyborg', 'flatly', 'slate']
+        console.log "Setting theme to olio and colors to #{options.theme}"
+        options.themeColors = options.theme
+        options.theme = 'olio'
 
     # Handle custom directive(s)
     input = includeDirective options.includePath, input
@@ -96,68 +79,36 @@ parseOptions = (input, options) ->
             .replace(/\r\n?/g, '\n')
             .replace(/\t/g, '    ')
 
-    { input: filteredInput, options: options }
-
-assembleLocals = (ast, options) ->
-    locals =
-        api: ast
-        condenseNav: options.condenseNav
-        fullWidth: options.fullWidth
-        date: moment
-        highlight: highlight
-        markdown: (content) -> md.render content
-        slug: slug
-        hash: (value) ->
-            crypto.createHash('md5').update(value.toString()).digest('hex')
-
-    for key, value of options.locals or {}
-        locals[key] = value
-
-    locals
-
-exports.renderSync = (input, options) ->
-    { input, options } = parseOptions input, options
-
-    try
-        res = protagonist.parseSync input
-    catch err
-        err.input = input
-        throw err
-
-    locals = assembleLocals res.ast, options
-
-    if fs.existsSync options.template
-        templatePath = options.template
-    else
-        templatePath = path.join ROOT, 'templates', "#{options.template}.jade"
-
-    jade.renderFile templatePath, locals
-
-# Render an API Blueprint string using a given template
-exports.render = (input, options, done) ->
-    { input, options } = parseOptions input, options
-
-    protagonist.parse input, (err, res) ->
+    benchmark.start 'parse'
+    drafter = new Drafter()
+    drafter.make filteredInput, (err, res) ->
+        benchmark.end 'parse'
         if err
             err.input = input
             return done(err)
 
-        locals = assembleLocals res.ast, options
+        try
+            theme = exports.getTheme options.theme
+        catch err
+            return done(err)
 
-        fs.exists options.template, (exists) ->
-            if exists
-                templatePath = options.template
-            else
-                templatePath = path.join ROOT, 'templates', "#{options.template}.jade"
+        # Setup default options if needed
+        for option in theme.getConfig().options or []
+            # Convert `foo-bar` into `themeFooBar`
+            words = (f[0].toUpperCase() + f.slice(1) for f in option.name.split('-'))
+            name = "theme#{words.join('')}"
+            options[name] ?= option.default
 
-            jade.renderFile templatePath, locals, (err, html) ->
-                if err then return done(err)
+        benchmark.start 'render-total'
+        theme.render res.ast, options, (err, html) ->
+            benchmark.end 'render-total'
+            if err then return done(err)
 
-                # Add filtered input to warnings since we have no
-                # error to return
-                res.warnings.input = input
+            # Add filtered input to warnings since we have no
+            # error to return
+            res.warnings.input = filteredInput
 
-                done null, html, res.warnings
+            done null, html, res.warnings
 
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
