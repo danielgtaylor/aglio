@@ -1,6 +1,10 @@
 {assert} = require 'chai'
 jade = require 'jade'
+rimraf = require 'rimraf'
 theme = require '../lib/main'
+
+# Clear cache before test. This helps make sure the cache builds properly!
+rimraf.sync 'cache/*'
 
 describe 'Library', ->
   describe 'Config', ->
