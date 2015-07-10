@@ -1,6 +1,8 @@
 
-# Unreleased
+# 0.0.7 - 2015-07-10
 
+* Implement a slug cache to stop name collisions.
+* Prevent wrapping and overlapping navigation text.
 * Add `slate` and `cyborg` color schemes.
 
 # 0.0.6 - 2015-07-09
