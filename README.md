@@ -9,7 +9,7 @@ $ sudo npm install -g aglio
 $ aglio -i blueprint.apib -o MyAPI.html
 ```
 
-Theme engines for Aglio are described in more detail in the [Aglio documentation](https://github.com/danielgtaylor/aglio#theme-engines).
+Theme engines for Aglio are described in more detail in the [Aglio documentation](https://github.com/danielgtaylor/aglio#customizing-output).
 
 ## Design Philosophy
 Olio is designed from the ground up to be both **fast** and **extensible** while maintaining backward compatibility with most of the original Aglio theme. It uses the following technologies:
