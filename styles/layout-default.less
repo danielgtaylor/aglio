@@ -172,6 +172,9 @@ nav {
             padding: (2 * @padding / 3) @padding;
             border-top: 1px solid @group-border-color;
             border-left: 2px solid transparent;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
 
             &:hover {
                 border-left: 2px solid @text-color;
@@ -241,6 +244,7 @@ nav {
     background-color: @group-title-background-color;
     border-radius: 10px;
     margin-top: -2px;
+    margin-bottom: -2px;
 
     &.get {
       color: @get-badge-text-color;

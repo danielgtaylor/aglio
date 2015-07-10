@@ -36,13 +36,13 @@ mixin Nav()
                               a(href=resource.elementLink)= resource.name || 'Resource'
                               ul: each action in resource.actions || []
                                   li: a(href=action.elementLink)
-                                    = action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
                                     +Badge(action.method)
+                                    = action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
                           else
                               - var action = resource.actions[0]
                               a(href=action.elementLink)
-                                  = resource.name || action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
                                   +Badge(action.method)
+                                  = resource.name || action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
         //- Link to the API hostname, e.g. api.yourcompany.com
         each meta in self.api.metadata || {}
             if meta.name == 'HOST'
