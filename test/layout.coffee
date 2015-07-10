@@ -32,6 +32,17 @@ describe 'Layout', ->
       assert.include html, '<a class="permalink" href="#header-custom-heading"'
       done()
 
+  it 'Should generate unique header ids', (done) ->
+    ast =
+      description: '# Custom heading\n## Custom heading\n## Custom heading\n'
+
+    theme.render ast, (err, html) ->
+      if err then return done err
+      assert.include html, '"header-custom-heading"'
+      assert.include html, '"header-custom-heading-1"'
+      assert.include html, '"header-custom-heading-2"'
+      done()
+
   it 'Should include API hostname', (done) ->
     ast =
       metadata: [

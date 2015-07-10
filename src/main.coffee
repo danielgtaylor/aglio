@@ -57,7 +57,7 @@ md = markdownIt(
   typographer: true
   highlight: highlight
 ).use(require('markdown-it-anchor'),
-  slugify: (value) -> "header-#{slug(value)}"
+  slugify: (value) -> "header-#{slug(value, true)}"
   permalink: true
   permalinkClass: 'permalink')
 
