@@ -6,7 +6,7 @@
   "scripts": {
     "build": "coffeelint src/*.coffee && coffee -o lib -c src",
     "precoverage": "npm run build",
-    "coverage": "istanbul cover _mocha -- --compilers coffee:coffee-script/register -R spec",
+    "coverage": "istanbul cover -x cache/*.js _mocha -- --compilers coffee:coffee-script/register -R spec",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls <coverage/lcov.info",
     "pretest": "npm run build",
