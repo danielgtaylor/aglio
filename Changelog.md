@@ -1,5 +1,9 @@
 # Unreleased
 
+* Use action-specific name when available for resource nav items with a
+  single action. This ports over [#75](https://github.com/danielgtaylor/aglio/pull/75)
+  to the new Olio theme.
+* Fix an issue with loading large blueprints.
 * Include description headers for the API and resource groups in the navigation
   menu. This is useful for describing authentication and other items.
 
