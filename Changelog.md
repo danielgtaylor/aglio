@@ -1,14 +1,15 @@
-# Unreleased
+# 2.0.0-beta5 - 2015-07-10
 * Fix an issue with included paths when using `--server`.
+* Update to [olio theme](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md) 0.0.8.
 
 # 2.0.0-beta4 - 2015-07-10
-* Update to latest default theme.
+* Update to [olio theme](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md) 0.0.7.
 
 # 2.0.0-beta3 - 2015-07-09
 * Documentation updates.
-* Update to latest default theme.
 * Server mode now serves static files if found.
 * Add ability to output compiled API Blueprint file instead of HTML.
+* Update to [olio theme](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md) 0.0.6.
 
 # 2.0.0-beta2 - 2015-05-29
 * Live update fixes.
