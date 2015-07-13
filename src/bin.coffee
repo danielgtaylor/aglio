@@ -81,6 +81,10 @@ exports.run = (argv=parser.argv, done=->) ->
         argv.locals =
             livePreview: true
 
+        # Set where to include files from before generating HTML
+        if argv.i isnt '-'
+            argv.includePath = path.dirname(argv.i)
+
         getHtml()
         server = http.createServer((req, res) ->
             if req.url isnt '/'

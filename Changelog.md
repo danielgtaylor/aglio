@@ -1,3 +1,9 @@
+# Unreleased
+* Fix an issue with included paths when using `--server`.
+
+# 2.0.0-beta4 - 2015-07-10
+* Update to latest default theme.
+
 # 2.0.0-beta3 - 2015-07-09
 * Documentation updates.
 * Update to latest default theme.
