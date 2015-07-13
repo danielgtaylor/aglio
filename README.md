@@ -19,7 +19,7 @@ An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple the
  * Excellent test coverage
 
 ## Example Output
-Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.apib).
+Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.apib) using the default [Olio theme](https://github.com/danielgtaylor/aglio/tree/olio-theme#readme).
 
  * [Default theme](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/default.html)
  * [Flatly theme](http://htmlpreview.github.io/?https://raw.githubusercontent.com/danielgtaylor/aglio/blob/master/examples/flatly.html)
