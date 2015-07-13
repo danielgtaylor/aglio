@@ -22,6 +22,15 @@ describe 'Layout', ->
       assert.include html, 'a = <span class="hljs-number">1</span>'
       done()
 
+  it 'Should highlight unfenced code blocks', (done) ->
+    ast =
+      description: 'Test\n\n    var a = 1;\n'
+
+    theme.render ast, (err, html) ->
+      if err then return done err
+      assert.include html, '<span class="hljs-number">1</span>'
+      done()
+
   it 'Should auto-link headings in markdown', (done) ->
     ast =
       description: '# Custom Heading'

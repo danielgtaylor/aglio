@@ -306,6 +306,9 @@ exports.render = (input, options, done) ->
     permalink: true
     permalinkClass: 'permalink')
 
+  # Enable code highlighting for unfenced code blocks
+  md.renderer.rules.code_block = md.renderer.rules.fence
+
   benchmark.start 'decorate'
   decorate input, md, slugCache
   benchmark.end 'decorate'
