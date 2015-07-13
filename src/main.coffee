@@ -6,6 +6,7 @@ less = require 'less'
 markdownIt = require 'markdown-it'
 moment = require 'moment'
 path = require 'path'
+querystring = require 'querystring'
 
 # The root directory of this project
 ROOT = path.dirname __dirname
@@ -329,6 +330,7 @@ exports.render = (input, options, done) ->
       highlight: highlight
       markdown: (content) -> md.render content
       slug: slug.bind(slug, slugCache)
+      urldec: (value) -> querystring.unescape(value)
 
     for key, value of options.locals or {}
       locals[key] = value

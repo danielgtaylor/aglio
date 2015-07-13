@@ -1,5 +1,6 @@
 # Unreleased
 
+* Better support of URL-encoded parameter names.
 * Trim excess whitespace from code examples.
 * Use action-specific name when available for resource nav items with a
   single action. This ports over [#75](https://github.com/danielgtaylor/aglio/pull/75)

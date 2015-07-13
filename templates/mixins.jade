@@ -73,7 +73,7 @@ mixin Parameters(params)
             span.open Show
     .collapse-content
         dl.inner: each param in params || []
-            dt= param.name
+            dt= self.urldec(param.name)
             dd
                 code= param.type
                 | &nbsp;
@@ -170,7 +170,7 @@ mixin Content()
                                 .name= action.name
                                 a.method(class=action.methodLower, href=action.elementLink)
                                     = action.method
-                                code.uri= (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+                                code.uri= self.urldec(action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
                             if action.description
                                 != self.markdown(action.description)
 
