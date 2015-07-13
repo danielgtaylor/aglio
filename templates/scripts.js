@@ -1,3 +1,7 @@
+/* eslint-env browser */
+/* eslint quotes: [2, "single"] */
+'use strict';
+
 /*
   Determine if a string ends with another string.
 */
@@ -14,7 +18,7 @@ function getWindowDimensions() {
       e = d.documentElement,
       g = d.body,
       x = w.innerWidth || e.clientWidth || g.clientWidth,
-      y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+      y = w.innerHeight || e.clientHeight || g.clientHeight;
 
   return [x, y];
 }
@@ -107,13 +111,13 @@ function autoCollapse() {
   // by height from smallest to largest.
   var sortedItems = itemsArray.sort(function (a, b) {
     return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
-  })
+  });
 
   while (sortedItems.length && itemsHeight > windowHeight) {
     for (var i = 0; i < sortedItems.length; i++) {
       // Will collapsing this item help?
       var itemHeight = sortedItems[i].nextSibling.offsetHeight;
-      if (itemsHeight - itemHeight <= windowHeight) {
+      if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
         // It will, so let's collapse it, remove its content height from
         // our total and then remove it from our list of candidates
         // that can be collapsed.
@@ -130,9 +134,11 @@ function autoCollapse() {
   Initialize the interactive functionality of the page.
 */
 function init() {
+    var i;
+
     // Make collapse buttons clickable
     var buttons = document.querySelectorAll('.collapse-button');
-    for (var i = 0; i < buttons.length; i++) {
+    for (i = 0; i < buttons.length; i++) {
         buttons[i].onclick = toggleCollapseButton;
 
         // Show by default? Then toggle now.
@@ -143,7 +149,7 @@ function init() {
 
     // Make nav items clickable to collapse/expand their content.
     var navItems = document.querySelectorAll('nav .resource-group .heading');
-    for (var i = 0; i < navItems.length; i++) {
+    for (i = 0; i < navItems.length; i++) {
         navItems[i].onclick = toggleCollapseNav;
 
         // Show all by default
