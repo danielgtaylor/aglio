@@ -1,4 +1,4 @@
-# Unreleased
+# 0.0.8 - 2015-07-13
 
 * Better support of URL-encoded parameter names.
 * Trim excess whitespace from code examples.
