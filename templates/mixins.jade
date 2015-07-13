@@ -56,7 +56,7 @@ mixin Nav()
                               - var action = resource.actions[0]
                               a(href=action.elementLink)
                                   +Badge(action.method)
-                                  = resource.name || action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+                                  = action.name || resource.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
         //- Link to the API hostname, e.g. api.yourcompany.com
         each meta in self.api.metadata || {}
             if meta.name == 'HOST'
@@ -159,7 +159,7 @@ mixin Content()
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)
-                    h3= resource.name || 'Resource'
+                    h3= resource.actions[0] != null ? resource.actions[0].name : resource.name || 'Resource'
                         a.permalink(href=resource.elementLink): &para;
                     if resource.description
                         != self.markdown(resource.description)
