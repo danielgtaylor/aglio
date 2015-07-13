@@ -18,13 +18,13 @@ benchmark =
   end: (message) -> if process.env.BENCHMARK then console.timeEnd message
 
 # A function to create ID-safe slugs. If `unique` is passed, then
-# unique slugs are returned for the same input.
-slugCache = {}
-slug = (value='', unique=false) ->
+# unique slugs are returned for the same input. The cache is just
+# a plain object where the keys are the sluggified name.
+slug = (cache={}, value='', unique=false) ->
   sluggified = value.toLowerCase().replace /[ \t\n\\:/]/g, '-'
 
   if unique
-    while slugCache[sluggified]
+    while cache[sluggified]
       # Already exists, so let's try to make it unique.
       if sluggified.match /\d+$/
         sluggified = sluggified.replace /\d+$/, (value) ->
@@ -32,7 +32,7 @@ slug = (value='', unique=false) ->
       else
         sluggified = sluggified + '-1'
 
-  slugCache[sluggified] = true
+  cache[sluggified] = true
 
   return sluggified
 
@@ -48,18 +48,6 @@ highlight = (code, lang, subset) ->
     else hljs.highlight(lang, code).value
   benchmark.end "highlight #{lang}"
   return response
-
-# Setup marked with code highlighting and smartypants. This also enables
-# automatically inserting permalinks for headers.
-md = markdownIt(
-  html: true
-  linkify: true
-  typographer: true
-  highlight: highlight
-).use(require('markdown-it-anchor'),
-  slugify: (value) -> "header-#{slug(value, true)}"
-  permalink: true
-  permalinkClass: 'permalink')
 
 getCached = (key, compiledPath, sources, load, done) ->
   # Already loaded? Just return it!
@@ -101,7 +89,8 @@ getCss = (variables, style, done) ->
   if cache[key] then return done null, cache[key]
 
   # Not cached in memory, but maybe it's already compiled on disk?
-  compiledPath = path.join ROOT, 'cache', "#{slug variables}-#{slug style}.css"
+  compiledPath = path.join ROOT, 'cache',
+    "#{slug undefined, variables}-#{slug undefined, style}.css"
 
   defaultColorPath = path.join ROOT, 'styles', 'variables-default.less'
   sources = [defaultColorPath]
@@ -161,7 +150,7 @@ getTemplate = (name, done) ->
 
   # Check if it is compiled on disk and not older than the template file.
   # If not present or outdated, then we'll need to compile it.
-  compiledPath = path.join ROOT, 'cache', "#{slug name}.js"
+  compiledPath = path.join ROOT, 'cache', "#{slug undefined, name}.js"
 
   load = (filename, loadDone) ->
     loadDone null, require(filename)
@@ -196,27 +185,40 @@ getTemplate = (name, done) ->
     cache[key] = require(compiledPath)
     done null, cache[key]
 
-decorate = (api) ->
+decorate = (api, md, slugCache) ->
   # Decorate an API Blueprint AST with various pieces of information that
   # will be useful for the theme. Anything that would significantly
   # complicate the Jade template should probably live here instead!
 
-  # Reset the slug cache
-  slugCache = {}
+  # Use the slug caching mechanism
+  slugify = slug.bind slug, slugCache
+
+  # API overview description
+  if api.description
+    api.descriptionHtml = md.render api.description
+    api.navItems = slugCache._nav
+    slugCache._nav = []
 
   for resourceGroup in api.resourceGroups or []
     # Element ID and link
-    resourceGroup.elementId = slug resourceGroup.name, true
+    resourceGroup.elementId = slugify resourceGroup.name, true
     resourceGroup.elementLink = "##{resourceGroup.elementId}"
+
+    # Description
+    if resourceGroup.description
+      resourceGroup.descriptionHtml = md.render resourceGroup.description
+      resourceGroup.navItems = slugCache._nav
+      slugCache._nav = []
 
     for resource in resourceGroup.resources or []
       # Element ID and link
-      resource.elementId = slug "#{resourceGroup.name}-#{resource.name}", true
+      resource.elementId = slugify(
+        "#{resourceGroup.name}-#{resource.name}", true)
       resource.elementLink = "##{resource.elementId}"
 
       for action in resource.actions or []
         # Element ID and link
-        action.elementId = slug(
+        action.elementId = slugify(
           "#{resourceGroup.name}-#{resource.name}-#{action.method}", true)
         action.elementLink = "##{action.elementId}"
 
@@ -287,8 +289,25 @@ exports.render = (input, options, done) ->
   if options.themeTemplate is 'default'
     options.themeTemplate = path.join ROOT, 'templates', 'index.jade'
 
+  # Setup markdown with code highlighting and smartypants. This also enables
+  # automatically inserting permalinks for headers.
+  slugCache =
+    _nav: []
+  md = markdownIt(
+    html: true
+    linkify: true
+    typographer: true
+    highlight: highlight
+  ).use(require('markdown-it-anchor'),
+    slugify: (value) ->
+      output = "header-#{slug(slugCache, value, true)}"
+      slugCache._nav.push [value, "##{output}"]
+      return output
+    permalink: true
+    permalinkClass: 'permalink')
+
   benchmark.start 'decorate'
-  decorate input
+  decorate input, md, slugCache
   benchmark.end 'decorate'
 
   benchmark.start 'css-total'
@@ -306,7 +325,7 @@ exports.render = (input, options, done) ->
         crypto.createHash('md5').update(value.toString()).digest('hex')
       highlight: highlight
       markdown: (content) -> md.render content
-      slug: slug
+      slug: slug.bind(slug, slugCache)
 
     for key, value of options.locals or {}
       locals[key] = value

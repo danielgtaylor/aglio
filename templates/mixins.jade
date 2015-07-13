@@ -23,14 +23,28 @@ mixin Nav()
     //- Draw a navigation bar, which includes links to individual
     //- resources and actions.
     nav
+        if self.api.navItems && self.api.navItems.length
+            .resource-group
+                .heading
+                  .chevron
+                    i.open.fa.fa-angle-down
+                  a(href='#top') Overview
+                .collapse-content
+                  ul: each item in self.api.navItems
+                    li
+                      a(href=item[1])= item[0]
         each resourceGroup in self.api.resourceGroups || []
             .resource-group
                 .heading
                   .chevron
                     i.open.fa.fa-angle-down
-                  a(href=resourceGroup.elementLink)= resourceGroup.name
+                  a(href=resourceGroup.elementLink)= resourceGroup.name || 'Resource Group'
                 .collapse-content
-                  ul: each resource in resourceGroup.resources || []
+                  ul
+                    each item in resourceGroup.navItems || []
+                      li
+                        a(href=item[1])= item[0]
+                    each resource in resourceGroup.resources || []
                       li
                           if !self.condenseNav || (resource.actions.length != 1)
                               a(href=resource.elementLink)= resource.name || 'Resource'
@@ -131,17 +145,17 @@ mixin Content()
     header
         h1#top= self.api.name || 'API Documentation'
 
-    if self.api.description
-        != self.markdown(self.api.description)
+    if self.api.descriptionHtml
+        != self.api.descriptionHtml
 
     //- Loop through and display information about all the resource
     //- groups, resources, and actions.
     each resourceGroup in self.api.resourceGroups || []
         section.resource-group(id=resourceGroup.elementId)
-            h2= resourceGroup.name
+            h2.heading= resourceGroup.name || 'Resource Group'
                 a.permalink(href=resourceGroup.elementLink): &para;
-            if resourceGroup.description
-                != self.markdown(resourceGroup.description)
+            if resourceGroup.descriptionHtml
+                != resourceGroup.descriptionHtml
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)

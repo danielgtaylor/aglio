@@ -1,3 +1,7 @@
+# Unreleased
+
+* Include description headers for the API and resource groups in the navigation
+  menu. This is useful for describing authentication and other items.
 
 # 0.0.7 - 2015-07-10
 
