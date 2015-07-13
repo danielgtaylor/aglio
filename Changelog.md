@@ -1,5 +1,6 @@
 # Unreleased
 
+* Trim excess whitespace from code examples.
 * Use action-specific name when available for resource nav items with a
   single action. This ports over [#75](https://github.com/danielgtaylor/aglio/pull/75)
   to the new Olio theme.

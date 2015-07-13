@@ -47,7 +47,7 @@ highlight = (code, lang, subset) ->
       hljs.highlightAuto(code, subset).value
     else hljs.highlight(lang, code).value
   benchmark.end "highlight #{lang}"
-  return response
+  return response.trim()
 
 getCached = (key, compiledPath, sources, load, done) ->
   # Already loaded? Just return it!
