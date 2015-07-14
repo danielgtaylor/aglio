@@ -160,7 +160,7 @@ mixin Content()
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)
-                    h3= resource.actions[0] != null ? resource.actions[0].name : resource.name || 'Resource'
+                    h3= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
                         a.permalink(href=resource.elementLink): &para;
                     if resource.description
                         != self.markdown(resource.description)
