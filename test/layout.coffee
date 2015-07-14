@@ -100,6 +100,7 @@ describe 'Layout', ->
         name: 'TestGroup'
         resources: [
           name: 'TestResource'
+          uriTemplate: '/resource/{idParam}{?paramName,param2Name}'
           parameters: [
             name: 'idParam'
             description: 'Id parameter description'
@@ -136,6 +137,7 @@ describe 'Layout', ->
       assert.include html, 'Test Action'
       assert.include html, 'Test <em>description</em>'
       assert.include html, 'GET'
+      assert.include html, '/resource/{idParam}{?paramName}'
       assert.include html, 'idParam'
       assert.include html, 'Id parameter description'
       assert.include html, 'paramName'

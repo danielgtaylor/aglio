@@ -186,6 +186,45 @@ getTemplate = (name, done) ->
     cache[key] = require(compiledPath)
     done null, cache[key]
 
+modifyUriTemplate = (templateUri, parameters) ->
+  # Modify a URI template to only include the parameter names from
+  # the given parameters. For example:
+  # URI template: /pages/{id}{?verbose}
+  # Parameters contains a single `id` parameter
+  # Output: /pages/{id}
+  parameterValidator = (b) ->
+    parameters.indexOf(b) isnt -1
+  parameters = (param.name for param in parameters)
+  parameterBlocks = []
+  lastIndex = index = 0
+  while (index = templateUri.indexOf("{", index)) isnt - 1
+    parameterBlocks.push templateUri.substring(lastIndex, index)
+    block = {}
+    closeIndex = templateUri.indexOf("}", index)
+    block.querySet = templateUri.indexOf("{?", index) is index
+    block.formSet = templateUri.indexOf("{&", index) is index
+    block.reservedSet = templateUri.indexOf("{+", index) is index
+    lastIndex = closeIndex + 1
+    index++
+    index++ if block.querySet
+    parameterSet = templateUri.substring(index, closeIndex)
+    block.parameters = parameterSet.split(",").filter(parameterValidator)
+    parameterBlocks.push block if block.parameters.length
+  parameterBlocks.push templateUri.substring(lastIndex, templateUri.length)
+  parameterBlocks.reduce((uri, v) ->
+    if typeof v is "string"
+      uri.push v
+    else
+      segment = ["{"]
+      segment.push "?" if v.querySet
+      segment.push "&" if v.formSet
+      segment.push "+" if v.reservedSet
+      segment.push v.parameters.join()
+      segment.push "}"
+      uri.push segment.join("")
+    uri
+  , []).join('')
+
 decorate = (api, md, slugCache) ->
   # Decorate an API Blueprint AST with various pieces of information that
   # will be useful for the theme. Anything that would significantly
@@ -245,6 +284,11 @@ decorate = (api, md, slugCache) ->
           newParams.push param
 
         action.parameters = newParams.reverse()
+
+        # Set up the action's template URI
+        action.uriTemplate = modifyUriTemplate(
+          (action.attributes or {}).uriTemplate or resource.uriTemplate or '',
+          action.parameters)
 
         # Examples have a content section only if they have a
         # description, headers, body, or schema.
