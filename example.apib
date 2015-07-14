@@ -92,7 +92,7 @@ Create a new note
                 "error": "Invalid title"
             }
 
-## Note [/notes/{id}]
+## Note [/notes/{id}{?body}]
 Note description
 
 + Parameters
@@ -101,6 +101,10 @@ Note description
 
 ### Get Note [GET]
 Get a single note.
+
++ Parameters
+
+    + body: `false` (boolean) - Set to `false` to exclude note body content.
 
 + Response 200 (application/json)
 
