@@ -1,4 +1,4 @@
-# Unreleased
+# 0.0.9 - 2015-07-14
 
 * Compliance with spec on parameter rendering. [#58](https://github.com/danielgtaylor/aglio/issues/58)
 * Minor theme color tweaks.
