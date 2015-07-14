@@ -1,3 +1,7 @@
+# Unreleased
+
+* Fix minor styling issue on Internet Explorer 11.
+
 # 0.0.8 - 2015-07-13
 
 * Better support of URL-encoded parameter names.
