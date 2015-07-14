@@ -128,6 +128,24 @@ code {
     border-radius: 3px;
 }
 
+ul, ol {
+  padding-left: 2em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  tr:nth-child(2n) {
+    background-color: darken(@group-background-color, 3%);
+  }
+
+  th, td {
+    padding: @padding/2 @padding;
+    border: 1px solid @group-border-color;
+  }
+}
+
 nav {
     position: fixed;
     top: @padding * 2;
