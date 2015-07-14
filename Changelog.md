@@ -1,5 +1,6 @@
 # Unreleased
 
+* Minor theme color tweaks.
 * Make it possible to easily override padding and fonts.
 * Fix minor styling issue on Internet Explorer 11.
 
