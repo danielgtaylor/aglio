@@ -1,5 +1,6 @@
 # Unreleased
 
+* Make it possible to easily override padding and fonts.
 * Fix minor styling issue on Internet Explorer 11.
 
 # 0.0.8 - 2015-07-13
