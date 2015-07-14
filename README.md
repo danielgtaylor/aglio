@@ -17,6 +17,7 @@ An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple the
  * Live-reloading preview server `aglio -i service.apib --server`
  * Node.js library `require('aglio')`
  * Excellent test coverage
+ * Tested on [BrowserStack](https://www.browserstack.com/)
 
 ## Example Output
 Example output is generated from the [example API Blueprint](https://raw.github.com/danielgtaylor/aglio/master/example.apib) using the default [Olio theme](https://github.com/danielgtaylor/aglio/tree/olio-theme#readme).
