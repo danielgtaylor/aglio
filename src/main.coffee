@@ -227,9 +227,24 @@ decorate = (api, md, slugCache) ->
         action.methodLower = action.method.toLowerCase()
 
         # Parameters may be defined on the action or on the
-        # parent resource.
+        # parent resource. Resource parameters should be concatenated
+        # to the action-specific parameters if set.
         if not action.parameters or not action.parameters.length
           action.parameters = resource.parameters
+        else if resource.parameters
+          action.parameters = resource.parameters.concat(action.parameters)
+
+        # Remove any duplicates! This gives precedence to the parameters
+        # defined on the action.
+        knownParams = {}
+        newParams = []
+        reversed = (action.parameters or []).concat([]).reverse()
+        for param in reversed
+          if knownParams[param.name] then continue
+          knownParams[param.name] = true
+          newParams.push param
+
+        action.parameters = newParams.reverse()
 
         # Examples have a content section only if they have a
         # description, headers, body, or schema.

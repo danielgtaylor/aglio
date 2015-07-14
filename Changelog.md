@@ -1,5 +1,6 @@
 # Unreleased
 
+* Compliance with spec on parameter rendering. [#58](https://github.com/danielgtaylor/aglio/issues/58)
 * Minor theme color tweaks.
 * Make it possible to easily override padding and fonts.
 * Fix minor styling issue on Internet Explorer 11.

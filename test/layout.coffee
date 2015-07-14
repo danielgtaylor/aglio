@@ -100,7 +100,11 @@ describe 'Layout', ->
         name: 'TestGroup'
         resources: [
           name: 'TestResource'
-          parameters: []
+          parameters: [
+            name: 'idParam'
+            description: 'Id parameter description'
+            values: []
+          ]
           actions: [
             name: 'Test Action',
             description: 'Test *description*'
@@ -132,6 +136,8 @@ describe 'Layout', ->
       assert.include html, 'Test Action'
       assert.include html, 'Test <em>description</em>'
       assert.include html, 'GET'
+      assert.include html, 'idParam'
+      assert.include html, 'Id parameter description'
       assert.include html, 'paramName'
       assert.include html, 'Param <em>description</em>'
       assert.include html, 'bool'

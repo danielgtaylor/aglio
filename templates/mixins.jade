@@ -75,7 +75,7 @@ mixin Parameters(params)
         dl.inner: each param in params || []
             dt= self.urldec(param.name)
             dd
-                code= param.type
+                code= param.type || 'string'
                 | &nbsp;
                 if param.required
                     span.required (required)
