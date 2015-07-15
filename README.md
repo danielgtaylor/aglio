@@ -146,15 +146,16 @@ Render an API Blueprint string and pass the generated HTML to the callback. The 
 | Option      | Type   | Default       | Description                           |
 | ----------- | ------ | ------------- | ------------------------------------- |
 | filterInput | bool   | `true`        | Filter `\r` and `\t` from the input   |
+| includePath | string | process.cwd() | Base directory for relative includes  |
 | locals      | object | `{}`          | Extra locals to pass to templates     |
-| includePath | string | process.cwd() | Base directory for relative includes. |
+| theme       | string | `'default'`   | Theme name to load for rendering      |
 
 In addition, the [default theme](https://github.com/danielgtaylor/aglio/tree/olio-theme) provides the following options:
 
 | Option           | Type   | Default   | Description                                  |
 | ---------------- | ------ | --------- | -------------------------------------------- |
 | themeVariables   | string | `default` | Built-in color scheme or path to LESS or CSS |
-| themeCondenseNav | bool   | `true`    | Condense navigation links                    |
+| themeCondenseNav | bool   | `true`    | Condense single-action navigation links      |
 | themeFullWidth   | bool   | `false`   | Use the full page width                      |
 | themeLayout      | string |           | Layout name or path to custom layout file    |
 | themeStyle       | string | `default` | Built-in style name or path to LESS or CSS   |
