@@ -67,6 +67,7 @@ exports.run = (argv=parser.argv, done=->) ->
     try
         theme = aglio.getTheme(argv.theme)
     catch err
+        console.error err
         return done(err)
 
     config = theme.getConfig()
