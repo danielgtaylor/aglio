@@ -141,33 +141,11 @@ describe 'API Blueprint Renderer', ->
 
             done()
 
-    it 'Should compile from/to files', (done) ->
-        src = path.join root, 'example.apib'
-        dest = path.join root, 'example-compiled.apib'
-        aglio.compileFile src, dest, done
-
-    it 'Should compile from stdin', (done) ->
-        sinon.stub process.stdin, 'read', -> '# Hello\n'
-
-        setTimeout -> process.stdin.emit 'readable', 1
-
-        aglio.compileFile '-', 'example-compiled.apib', (err) ->
+    it 'Should support legacy theme names', (done) ->
+        aglio.render '', template: 'flatly', (err, html) ->
             if err then return done(err)
 
-            assert process.stdin.read.called
-            process.stdin.read.restore()
-            process.stdin.removeAllListeners()
-
-            done()
-
-    it 'Should compile to stdout', (done) ->
-        sinon.stub console, 'log'
-
-        aglio.compileFile path.join(root, 'example.apib'), '-', (err) ->
-            if err then return done(err)
-
-            assert console.log.called
-            console.log.restore()
+            assert html
 
             done()
 
@@ -230,6 +208,14 @@ describe 'API Blueprint Renderer', ->
             done()
 
 describe 'Executable', ->
+    it 'Should print a version', (done) ->
+        sinon.stub console, 'log'
+
+        bin.run version: true, (err) ->
+            assert console.log.args[0][0].match /aglio \d+/
+            console.log.restore()
+            done(err)
+
     it 'Should render a file', (done) ->
         sinon.stub console, 'error'
 
@@ -310,7 +296,16 @@ describe 'Executable', ->
                 assert.equal err, null
                 http.createServer.restore()
 
-    it 'Should handle errors', (done) ->
+    it 'Should handle theme load errors', (done) ->
+        sinon.stub aglio, 'getTheme', ->
+            throw new Error()
+
+        bin.run template: 'invalid', (err) ->
+            aglio.getTheme.restore()
+            assert err
+            done()
+
+    it 'Should handle rendering errors', (done) ->
         sinon.stub aglio, 'renderFile', (i, o, t, callback) ->
             callback
                 code: 1

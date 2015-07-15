@@ -11,7 +11,7 @@
     "prepublish": "grunt compile",
     "blanket": {
       "pattern": [
-        "lib"
+        "aglio/lib"
       ],
       "data-cover-never": "node_modules"
     }
