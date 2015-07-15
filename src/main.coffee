@@ -5,6 +5,11 @@ Drafter = require 'drafter'
 INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
 ROOT = path.dirname __dirname
 
+# Legacy template names
+LEGACY_TEMPLATES = [
+  'default', 'default-collapsed', 'flatly', 'flatly-collapsed', 'slate',
+  'slate-collapsed', 'cyborg', 'cyborg-collapsed']
+
 # Utility for benchmarking
 benchmark =
   start: (message) -> if process.env.BENCHMARK then console.time message
@@ -41,7 +46,7 @@ exports.collectPathsSync = (input, includePath) ->
 
 # Get the theme module for a given theme name
 exports.getTheme = (name) ->
-    name = 'olio' if not name or name in ['cyborg', 'default', 'flatly', 'slate']
+    name = 'olio' if not name or name in LEGACY_TEMPLATES
     require "aglio-theme-#{name}"
 
 # Render an API Blueprint string using a given template
@@ -63,9 +68,10 @@ exports.render = (input, options, done) ->
         console.log "Setting theme to olio and layout to #{options.theme}"
         options.themeLayout = options.theme
         options.theme = 'olio'
-    else if options.theme in ['cyborg', 'flatly', 'slate']
-        console.log "Setting theme to olio and colors to #{options.theme}"
-        options.themeColors = options.theme
+    else if options.theme isnt 'default' and options.theme in LEGACY_TEMPLATES
+        variables = options.theme.split('-')[0]
+        console.log "Setting theme to olio and variables to #{variables}"
+        options.themeVariables = variables
         options.theme = 'olio'
 
     # Handle custom directive(s)
