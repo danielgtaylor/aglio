@@ -1,6 +1,6 @@
 {
   "name": "aglio",
-  "version": "2.0.0-beta6",
+  "version": "2.0.0",
   "description": "An API Blueprint renderer with theme support",
   "main": "lib/main.js",
   "bin": {
@@ -35,7 +35,7 @@
     "markdown"
   ],
   "dependencies": {
-    "aglio-theme-olio": "^0.0.9",
+    "aglio-theme-olio": "^1.0.0",
     "chokidar": "^1.0.1",
     "cli-color": "^1.0.0",
     "drafter": "^0.2.7",

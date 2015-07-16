@@ -1,3 +1,46 @@
+# 2.0.0 - 2015-07-16
+This is a new major version of Aglio, and as such has some breaking changes.
+High-level changes in this release:
+
+* Use [Drafter.js](https://github.com/apiaryio/drafter.js) to support [MSON](https://github.com/apiaryio/mson) via generated request/response bodies and schemas.
+* Add support for [theme engines](https://github.com/danielgtaylor/aglio#using-custom-themes).
+* Use [Olio](https://github.com/danielgtaylor/aglio/tree/olio-theme#readme) as the new default theme engine.
+* API and resource group description headers are now included in the navigation bar.
+* Server mode can now serve static files, which is useful if your documentation contains images.
+* Fixes to how resource and action parameters are handled.
+
+For more detailed information, see the beta releases below.
+
+Effort was taken to prevent backward-incompatible changes. Here is a list of
+things that **will break** if you used them in 1.x.
+
+Binary:
+* It is no longer possible to list templates (`aglio -l`). You may use `npm list -g | grep aglio-theme` to list all installed theme engine packages instead. Refer to individual theme documentation for possible theme engine options.
+
+Library:
+* The `aglio.getTemplates` function has been **removed**.
+
+Templates:
+* The multi-page layouts have been **removed**. Please open an issue if you would like to see them in the new theme engine.
+* The collapsed navigation layouts have been **removed**. This is now in the default theme and handled automatically based on browser window height.
+
+The following are translated internally and will not break, but are suggested updates:
+
+Binary:
+* The `-t` option is now shorthand for `--theme` instead of `--template`.
+* The `--full-width` and `--condense-nav` parameters are now `--theme-full-width` and `--theme-condense-nav` in the default theme engine.
+
+Library:
+* Passing a string as the options to `render` and `renderFile` will still work if it is a known variant: `default`, `flatly`, `slate`, `cyborg` or one of the collapsed versions of those. If it is a path and the file exists, then it will use it as a custom `themeLayout` option. Otherwise it will set the theme engine name. :dizzy_face:
+* You should use `options.theme` instead of `options.template`.
+* You should use `options.themeVariables = 'flatly'` to set the color variation.
+* You should use `options.themeTemplate = '/path/to/layout.jade'` to set the layout template.
+
+Thank you to all the contributors and testers for helping to make this an awesome release! :beers:
+
+# 2.0.0-beta6 - 2015-07-14
+* Update to [olio theme](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md) 0.0.9.
+
 # 2.0.0-beta5 - 2015-07-10
 * Fix an issue with included paths when using `--server`.
 * Update to [olio theme](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md) 0.0.8.
@@ -51,7 +94,7 @@
   ([179ea7e](https://github.com/danielgtaylor/aglio/commit/179ea7e5bf1b37e53b2b034be11eb134a506ffcf))
 
 # 1.16.0 - 2014-08-29
-* Fix long choic lists not wrapping
+* Fix long choice lists not wrapping
   ([#35](https://github.com/danielgtaylor/aglio/pull/35))
 * Fix long hostnames not wrapping
   ([#55](https://github.com/danielgtaylor/aglio/pull/55))
