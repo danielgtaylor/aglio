@@ -57,7 +57,7 @@ aglio -i input.apib -o output.html
 aglio --theme-variables slate -i input.apib -o output.html
 
 # Custom layout template
-aglio --theme-layout /path/to/template.jade -i input.apib -o output.html
+aglio --theme-template /path/to/template.jade -i input.apib -o output.html
 
 # Custom theme engine
 aglio -t my-engine -i input.apib -o output.html
@@ -100,9 +100,9 @@ aglio.render(blueprint, options, function (err, html, warnings) {
     console.log(html);
 });
 
-// Render a blueprint with a custom layout file
+// Render a blueprint with a custom template file
 options = {
-  themeLayout: '/path/to/my-template.jade'
+  themeTemplate: '/path/to/my-template.jade'
 };
 aglio.render(blueprint, options, function (err, html, warnings) {
     if (err) return console.log(err);
@@ -112,10 +112,10 @@ aglio.render(blueprint, options, function (err, html, warnings) {
 });
 
 
-// Pass custom locals along to the layout, for example
+// Pass custom locals along to the template, for example
 // the following gives templates access to lodash and async
 options = {
-    themeLayout: '/path/to/my-template.jade',
+    themeTemplate: '/path/to/my-template.jade',
     locals: {
         _: require('lodash'),
         async: require('async')
@@ -157,14 +157,14 @@ In addition, the [default theme](https://github.com/danielgtaylor/aglio/tree/oli
 | themeVariables   | string | `default` | Built-in color scheme or path to LESS or CSS |
 | themeCondenseNav | bool   | `true`    | Condense single-action navigation links      |
 | themeFullWidth   | bool   | `false`   | Use the full page width                      |
-| themeLayout      | string |           | Layout name or path to custom layout file    |
+| themeTemplate    | string |           | Layout name or path to custom layout file    |
 | themeStyle       | string | `default` | Built-in style name or path to LESS or CSS   |
 
 
 ```javascript
 var blueprint = '...';
 var options = {
-    themeLayout: 'default',
+    themeTemplate: 'default',
     locals: {
         myVariable: 125
     }
@@ -250,10 +250,10 @@ The `--theme-style` option lets you override built-in styles with your own LESS 
 
 * `default`
 
-### Customizing Layouts
-The `--theme-layout` option allows you to provide a custom layout that overrides the default layout. This is specified in the form of a [Jade]() template file. See the [default layout]() file for an example.
+### Customizing Layout Templates
+The `--theme-template` option allows you to provide a custom layout template that overrides the default. This is specified in the form of a [Jade](http://jade-lang.com/) template file. See the [default template](https://github.com/danielgtaylor/aglio/blob/olio-theme/templates/index.jade) file for an example.
 
-The locals available to layouts look like the following:
+The locals available to templates look like the following:
 
 | Name        | Description                                              |
 | ----------- | -------------------------------------------------------- |
@@ -266,7 +266,7 @@ The locals available to layouts look like the following:
 | slug        | A function to convert a string to a slug usable as an ID |
 | hash        | A function to return an hash (currently MD5)             |
 
-#### Built-in Layouts
+#### Built-in Layout Templates
 
 * `default`
 
