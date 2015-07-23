@@ -1,3 +1,7 @@
+# Unreleased
+
+* Fix template URI font weight on some browsers.
+
 # 1.0.0 - 2015-07-16
 
 * First stable release.
