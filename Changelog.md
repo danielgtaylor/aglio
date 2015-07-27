@@ -1,4 +1,4 @@
-# Unreleased
+# 1.0.1 - 2015-07-27
 
 * Fix the display of `%`-encoded parameter and attribute choices.
 * Fix `%`-encoded value filtering in URI templates and support the `*` operator.
