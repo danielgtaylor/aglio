@@ -1,5 +1,7 @@
 # Unreleased
 
+* Fix `%`-encoded value filtering in URI templates and support the `*` operator.
+  [#134](https://github.com/danielgtaylor/aglio/issues/134)
 * Fix template URI font weight on some browsers.
 
 # 1.0.0 - 2015-07-16

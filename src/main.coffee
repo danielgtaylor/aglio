@@ -193,7 +193,8 @@ modifyUriTemplate = (templateUri, parameters) ->
   # Parameters contains a single `id` parameter
   # Output: /pages/{id}
   parameterValidator = (b) ->
-    parameters.indexOf(b) isnt -1
+    # Compare the names, removing the special `*` operator
+    parameters.indexOf(querystring.unescape b.replace(/^\*|\*$/, '')) isnt -1
   parameters = (param.name for param in parameters)
   parameterBlocks = []
   lastIndex = index = 0
