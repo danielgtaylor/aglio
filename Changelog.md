@@ -1,5 +1,6 @@
 # Unreleased
 
+* Fix the display of `%`-encoded parameter and attribute choices.
 * Fix `%`-encoded value filtering in URI templates and support the `*` operator.
   [#134](https://github.com/danielgtaylor/aglio/issues/134)
 * Fix template URI font weight on some browsers.

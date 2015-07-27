@@ -115,7 +115,9 @@ describe 'Layout', ->
               description: 'Param *description*'
               type: 'bool'
               required: true
-              values: []
+              values: [
+                {value: 'test%2Dchoice'}
+              ]
             ]
             examples: [
               name: ''
@@ -145,4 +147,5 @@ describe 'Layout', ->
       assert.include html, 'bool'
       assert.include html, 'required'
       assert.include html, 'true'
+      assert.include html, 'test-choice'
       done()
