@@ -1,3 +1,7 @@
+# 1.0.2 - 2015-07-28
+
+* Fix margin around tables to ensure adequate space. [#141](https://github.com/danielgtaylor/aglio/issues/141)
+
 # 1.0.1 - 2015-07-27
 
 * Fix the display of `%`-encoded parameter and attribute choices.
