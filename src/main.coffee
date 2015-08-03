@@ -136,18 +136,25 @@ getCss = (variables, style, done) ->
 
     benchmark.start 'less-compile'
     less.render tmp, compress: true, (err, result) ->
-      if err then return done err
+      if err then return done(msgErr 'Error processing LESS -> CSS', err)
 
       try
         css = result.css
         fs.writeFileSync compiledPath, css, 'utf-8'
       catch writeErr
-        return done writeErr
+        return done(errMsg 'Error writing cached CSS to file', writeErr)
 
       benchmark.end 'less-compile'
 
       cache[key] = css
       done null, cache[key]
+
+compileTemplate = (filename, options) ->
+  compiled = """
+    var jade = require('jade/runtime');
+    #{jade.compileFileClient filename, options}
+    module.exports = compiledFunc;
+  """
 
 getTemplate = (name, done) ->
   # Get the template function for the given path. This will load and
@@ -185,13 +192,20 @@ getTemplate = (name, done) ->
       compileDebug: false
 
     try
-      compiled = """
-        var jade = require('jade/runtime');
-        #{jade.compileFileClient name, compileOptions}
-        module.exports = compiledFunc;
-      """
+      compiled = compileTemplate name, compileOptions
     catch compileErr
-      return done compileErr
+      return done(errMsg 'Error compiling template', compileErr)
+
+    if compiled.indexOf('self.') is -1
+      # Not using self, so we probably need to recompile into compatibility
+      # mode. This is slower, but keeps things working with Jade files
+      # designed for Aglio 1.x.
+      compileOptions.self = false
+
+      try
+        compiled = compileTemplate name, compileOptions
+      catch compileErr
+        return done(errMsg 'Error compiling template', compileErr)
 
     try
       fs.writeFileSync compiledPath, compiled, 'utf-8'

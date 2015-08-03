@@ -1,5 +1,6 @@
 # Unreleased
 
+* Support for Aglio 1.x Jade templates written without using `self`.
 * Better error handling by exposing each error level via the error message.
 
 # 1.0.3 - 2015-08-03
