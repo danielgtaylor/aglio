@@ -1,3 +1,7 @@
+# Unreleased
+
+* Provide more descriptive errors.
+
 # 2.0.1 - 2015-08-03
 
 * Add backward-compatible support for the `aglio` binary to specify a custom layout via the `-t` commandline option. Example: `aglio -i input.apib -t /path/to/my.jade -o output.html`

@@ -15,6 +15,11 @@ benchmark =
   start: (message) -> if process.env.BENCHMARK then console.time message
   end: (message) -> if process.env.BENCHMARK then console.timeEnd message
 
+# Extend an error's message. Returns the modified error.
+errMsg = (message, err) ->
+    err.message = "#{message}: #{err.message}"
+    return err
+
 # Replace the include directive with the contents of the included
 # file in the input.
 includeReplace = (includePath, match, spaces, filename) ->
@@ -91,12 +96,12 @@ exports.render = (input, options, done) ->
         benchmark.end 'parse'
         if err
             err.input = input
-            return done(err)
+            return done(errMsg 'Error parsing input', err)
 
         try
             theme = exports.getTheme options.theme
         catch err
-            return done(err)
+            return done(errMsg 'Error getting theme', err)
 
         # Setup default options if needed
         for option in theme.getConfig().options or []
@@ -132,7 +137,7 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
     if inputFile isnt '-'
         options.includePath ?= path.dirname inputFile
         fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
-            if err then return done(err)
+            if err then return done(errMsg 'Error reading input', err)
             render input.toString()
     else
         process.stdin.setEncoding 'utf-8'
@@ -155,7 +160,7 @@ exports.compileFile = (inputFile, outputFile, done) ->
 
     if inputFile isnt '-'
         fs.readFile inputFile, encoding: 'utf-8', (err, input) ->
-            if err then return done(err)
+            if err then return done(errMsg 'Error writing output', err)
             compile input.toString()
     else
         process.stdin.setEncoding 'utf-8'
