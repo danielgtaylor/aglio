@@ -213,6 +213,7 @@ describe 'Executable', ->
 
         bin.run version: true, (err) ->
             assert console.log.args[0][0].match /aglio \d+/
+            assert console.log.args[1][0].match /olio \d+/
             console.log.restore()
             done(err)
 
@@ -296,11 +297,20 @@ describe 'Executable', ->
                 assert.equal err, null
                 http.createServer.restore()
 
+    it 'Should support custom Jade template shortcut', (done) ->
+        sinon.stub console, 'log'
+
+        bin.run i: path.join(root, 'example.apib'), t: 'test.jade', o: '-', (err) ->
+            console.log.restore()
+            done(err)
+
     it 'Should handle theme load errors', (done) ->
+        sinon.stub console, 'error'
         sinon.stub aglio, 'getTheme', ->
-            throw new Error()
+            throw new Error('Could not load theme')
 
         bin.run template: 'invalid', (err) ->
+            console.error.restore()
             aglio.getTheme.restore()
             assert err
             done()

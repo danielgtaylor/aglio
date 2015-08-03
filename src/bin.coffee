@@ -56,10 +56,16 @@ exports.run = (argv=parser.argv, done=->) ->
 
     if argv.version
         console.log("aglio #{require('../package.json').version}")
+        console.log("olio #{require('aglio-theme-olio/package.json').version}")
         return done()
 
     # The option used to be called `template`
     if argv.template then argv.theme = argv.template
+
+    # Backward-compatible support for -t /path/to/layout.jade
+    if fs.existsSync(argv.theme)
+        argv.themeTemplate = argv.theme
+        argv.theme = 'default'
 
     # Add theme options to the help output
     try

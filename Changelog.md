@@ -1,3 +1,8 @@
+# 2.0.1 - 2015-08-03
+
+* Add backward-compatible support for the `aglio` binary to specify a custom layout via the `-t` commandline option. Example: `aglio -i input.apib -t /path/to/my.jade -o output.html`
+* Display default theme version when using `aglio --version`.
+
 # 2.0.0 - 2015-07-16
 This is a new major version of Aglio, and as such has some breaking changes.
 High-level changes in this release:
