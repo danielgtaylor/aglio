@@ -1,3 +1,7 @@
+# Unreleased
+
+* Better error handling by exposing each error level via the error message.
+
 # 1.0.3 - 2015-08-03
 
 * Make cache directory writeable when installed via `sudo`.

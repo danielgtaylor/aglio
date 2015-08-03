@@ -18,6 +18,11 @@ benchmark =
   start: (message) -> if process.env.BENCHMARK then console.time message
   end: (message) -> if process.env.BENCHMARK then console.timeEnd message
 
+# Extend an error's message. Returns the modified error.
+errMsg = (message, err) ->
+  err.message = "#{message}: #{err.message}"
+  return err
+
 # A function to create ID-safe slugs. If `unique` is passed, then
 # unique slugs are returned for the same input. The cache is just
 # a plain object where the keys are the sluggified name.
@@ -67,11 +72,14 @@ getCached = (key, compiledPath, sources, load, done) ->
           # version on disk. It'll be regenerated later.
           return done null
 
-      load compiledPath, (err, item) ->
-        if err then return done err
+      try
+        load compiledPath, (err, item) ->
+          if err then return done(errMsg 'Error loading cached resource', err)
 
-        cache[key] = item
-        done null, cache[key]
+          cache[key] = item
+          done null, cache[key]
+      catch loadErr
+        return done(errMsg 'Error loading cached resource', loadErr)
     else
       done null
   catch err
@@ -154,6 +162,11 @@ getTemplate = (name, done) ->
   compiledPath = path.join ROOT, 'cache', "#{slug undefined, name}.js"
 
   load = (filename, loadDone) ->
+    try
+      loaded = require(filename)
+    catch loadErr
+      return loadDone(errMsg 'Unable to load template', loadErr)
+
     loadDone null, require(filename)
 
   getCached key, compiledPath, [name], load, (err, template) ->
@@ -183,7 +196,7 @@ getTemplate = (name, done) ->
     try
       fs.writeFileSync compiledPath, compiled, 'utf-8'
     catch writeErr
-      return done writeErr
+      return done(errMsg 'Error writing cached template file', writeErr)
 
     benchmark.end 'jade-compile'
 
@@ -380,7 +393,7 @@ exports.render = (input, options, done) ->
 
   benchmark.start 'css-total'
   getCss options.themeVariables, options.themeStyle, (err, css) ->
-    if err then return done(err)
+    if err then return done(errMsg 'Could not get CSS', err)
     benchmark.end 'css-total'
 
     locals =
@@ -401,11 +414,13 @@ exports.render = (input, options, done) ->
 
     benchmark.start 'get-template'
     getTemplate options.themeTemplate, (getTemplateErr, renderer) ->
-      if getTemplateErr then return done(getTemplateErr)
+      if getTemplateErr
+        return done(errMsg 'Could not get template', getTemplateErr)
       benchmark.end 'get-template'
 
       benchmark.start 'call-template'
       try html = renderer locals
-      catch err then return done err
+      catch err
+        return done(errMsg 'Error calling template during rendering', err)
       benchmark.end 'call-template'
       done null, html
