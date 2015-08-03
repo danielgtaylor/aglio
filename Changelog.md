@@ -1,5 +1,6 @@
 # Unreleased
 
+* Add a `--verbose` output option for errors that displays pretty stack traces.
 * Provide more descriptive errors.
 
 # 2.0.1 - 2015-08-03

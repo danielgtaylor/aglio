@@ -4,6 +4,7 @@ clc = require 'cli-color'
 fs = require 'fs'
 http = require 'http'
 path = require 'path'
+PrettyError = require 'pretty-error'
 serveStatic = require 'serve-static'
 parser = require('yargs')
     .usage('Usage: $0 [options] -i infile [-o outfile -s]')
@@ -20,6 +21,7 @@ parser = require('yargs')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('v', alias: 'version', describe: 'Display version number', default: false)
     .options('c', alias: 'compile', describe: 'Compile the blueprint file', default: false)
+    .options('verbose', describe: 'Show verbose information and stack traces', default: false)
     .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
 # Console color settings for error/warnings
@@ -38,6 +40,9 @@ logWarnings = (warnings) ->
         console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
 
 exports.run = (argv=parser.argv, done=->) ->
+    pe = new PrettyError()
+    pe.setMaxItems 5
+
     _html = null
     getHtml = (cb) ->
         if _html
@@ -137,7 +142,9 @@ exports.run = (argv=parser.argv, done=->) ->
         if argv.c or argv.o.match /\.apib$/ or argv.o.match /\.md$/
             aglio.compileFile argv.i, argv.o, (err) ->
                 if (err)
-                    console.error cErr('>>') + " #{JSON.stringify(err)}"
+                    console.error cErr('>>'), err
+                    if argv.verbose
+                        console.error err.stack
 
                 done()
         else
@@ -147,7 +154,11 @@ exports.run = (argv=parser.argv, done=->) ->
                     if lineNo?
                         console.error cErr(">> Line #{lineNo}:") + " #{err.message} (error code #{err.code})"
                     else
-                        console.error cErr('>>') + " #{JSON.stringify(err)}"
+                        if argv.verbose
+                            console.error pe.render(err)
+                        else
+                            console.error cErr('>>'), err
+
                     return done err
 
                 logWarnings warnings

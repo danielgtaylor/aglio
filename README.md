@@ -73,6 +73,9 @@ aglio --no-theme-condense -i input.apib -o output.html
 
 # Render full-width page instead of fixed max width
 aglio --theme-full-width -i input.apib -o output.html
+
+# Output verbose error information with stack traces
+aglio -i input.apib -o output.html --verbose
 ```
 
 ## Node.js Library
