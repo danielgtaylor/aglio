@@ -180,7 +180,11 @@ getTemplate = (name, done) ->
     catch compileErr
       return done compileErr
 
-    fs.writeFileSync compiledPath, compiled, 'utf-8'
+    try
+      fs.writeFileSync compiledPath, compiled, 'utf-8'
+    catch writeErr
+      return done writeErr
+
     benchmark.end 'jade-compile'
 
     cache[key] = require(compiledPath)

@@ -1,3 +1,8 @@
+# 1.0.3 - 2015-08-03
+
+* Make cache directory writeable when installed via `sudo`.
+  [danielgtaylor/atom-api-blueprint-preview#40](https://github.com/danielgtaylor/atom-api-blueprint-preview/issues/40)
+
 # 1.0.2 - 2015-07-28
 
 * Fix margin around tables to ensure adequate space. [#141](https://github.com/danielgtaylor/aglio/issues/141)
