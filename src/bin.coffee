@@ -39,10 +39,16 @@ logWarnings = (warnings) ->
         lineNo = getLineNo(warnings.input, warning) or 0
         console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
 
-exports.run = (argv=parser.argv, done=->) ->
-    pe = new PrettyError()
-    pe.setMaxItems 5
+# Output an error message
+logError = (err, verbose) ->
+    if verbose
+        pe = new PrettyError()
+        pe.setMaxItems 5
+        console.error pe.render(err)
+    else
+        console.error cErr('>>'), err
 
+exports.run = (argv=parser.argv, done=->) ->
     _html = null
     getHtml = (cb) ->
         if _html
@@ -53,7 +59,7 @@ exports.run = (argv=parser.argv, done=->) ->
                 aglio.render blueprint, argv, (err, html, warnings) ->
                     logWarnings warnings
                     if err
-                        console.error err
+                        logError err, argv.verbose
                         cb and cb(err)
                     else
                         _html = html
@@ -76,7 +82,8 @@ exports.run = (argv=parser.argv, done=->) ->
     try
         theme = aglio.getTheme(argv.theme)
     catch err
-        console.error err
+        err.message = "Could not load theme: #{err.message}"
+        logError err, argv.verbose
         return done(err)
 
     config = theme.getConfig()
@@ -142,9 +149,7 @@ exports.run = (argv=parser.argv, done=->) ->
         if argv.c or argv.o.match /\.apib$/ or argv.o.match /\.md$/
             aglio.compileFile argv.i, argv.o, (err) ->
                 if (err)
-                    console.error cErr('>>'), err
-                    if argv.verbose
-                        console.error err.stack
+                    logError err, argv.verbose
 
                 done()
         else
@@ -154,10 +159,7 @@ exports.run = (argv=parser.argv, done=->) ->
                     if lineNo?
                         console.error cErr(">> Line #{lineNo}:") + " #{err.message} (error code #{err.code})"
                     else
-                        if argv.verbose
-                            console.error pe.render(err)
-                        else
-                            console.error cErr('>>'), err
+                        logError err, argv.verbose
 
                     return done err
 
