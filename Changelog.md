@@ -1,5 +1,6 @@
-# Unreleased
+# 2.0.2 - 2015-08-04
 
+* Update required default theme version to support custom jade templates written for Aglio 1.x.
 * Add a `--verbose` output option for errors that displays pretty stack traces.
 * Provide more descriptive errors.
 
