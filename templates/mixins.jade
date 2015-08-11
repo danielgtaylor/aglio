@@ -32,7 +32,7 @@ mixin Nav()
                 .collapse-content
                   ul: each item in self.api.navItems
                     li
-                      a(href=item[1])= item[0]
+                      a(href=item[1])!= item[0]
         each resourceGroup in self.api.resourceGroups || []
             .resource-group
                 .heading
@@ -160,14 +160,14 @@ mixin Content()
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)
-                    h3= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                    h3.resource-heading= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
                         a.permalink(href=resource.elementLink): &para;
                     if resource.description
                         != self.markdown(resource.description)
 
                     each action in resource.actions || []
                         .action(class=action.methodLower, id=action.elementId)
-                            h4
+                            h4.action-heading
                                 .name= action.name
                                 a.method(class=action.methodLower, href=action.elementLink)
                                     = action.method

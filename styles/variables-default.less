@@ -17,6 +17,17 @@
 
 @heading-text-color: @text-color;
 
+/* Notes and warnings */
+@note-text-color: @text-color;
+@note-title-text-color: @link-color;
+@note-background-color: mix(@link-color, @background-color, 8%);
+@note-border-color: @note-title-text-color;
+
+@warning-text-color: @text-color;
+@warning-title-text-color: darken(#d9534f, 10%);
+@warning-background-color: mix(@warning-title-text-color, @background-color, 7%);
+@warning-border-color: @warning-title-text-color;
+
 /* HTTP method-specific colors */
 @group-background-color: @background-color;
 @group-title-background-color: contrast(@background-color,
@@ -49,7 +60,7 @@
 @options-border-color: @get-border-color;
 
 /* HTTP PUT */
-@put-color: #f0ad4e;
+@put-color: darken(#f0ad4e, 8%);
 @put-background-color: #fcf8e3;
 @put-text-color: contrast(@put-background-color);
 @put-badge-text-color: darken(@put-background-color, 25%);

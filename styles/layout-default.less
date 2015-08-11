@@ -138,6 +138,43 @@ table {
   }
 }
 
+.note, .warning {
+  padding: 0.3em 1em;
+  margin: 1em 0;
+  border-radius: 2px;
+  font-size: 90%;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: @title-font;
+    font-size: 135%;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0.5em 0;
+  }
+}
+
+.note {
+  color: @note-text-color;
+  background-color: @note-background-color;
+  border-left: 4px solid @note-border-color;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: @note-title-text-color;
+  }
+}
+
+.warning {
+  color: @warning-text-color;
+  background-color: @warning-background-color;
+  border-left: 4px solid @warning-border-color;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: @warning-title-text-color;
+  }
+}
+
 nav {
     position: fixed;
     top: @padding * 2;
@@ -468,7 +505,7 @@ nav .resource-group{
     border: 1px solid transparent;
     border-radius: @border-radius;
 
-    h4 {
+    h4.action-heading {
         padding: @padding;
         margin: -@padding -@padding @padding -@padding;
         border-bottom: 1px solid transparent;
@@ -546,7 +583,7 @@ nav .resource-group{
     &.get {
         border-color: @get-border-color;
 
-        h4 {
+        h4.action-heading {
             color: @get-color;
             background: @get-background-color;
             border-bottom-color: @get-border-color;
@@ -556,7 +593,7 @@ nav .resource-group{
     &.head {
         border-color: @head-border-color;
 
-        h4 {
+        h4.action-heading {
             color: @head-color;
             background: @head-background-color;
             border-bottom-color: @head-border-color;
@@ -566,7 +603,7 @@ nav .resource-group{
     &.options {
         border-color: @options-border-color;
 
-        h4 {
+        h4.action-heading {
             color: @options-color;
             background: @options-background-color;
             border-bottom-color: @options-border-color;
@@ -576,7 +613,7 @@ nav .resource-group{
     &.post {
         border-color: @post-border-color;
 
-        h4 {
+        h4.action-heading {
             color: @post-color;
             background: @post-background-color;
             border-bottom-color: @post-border-color;
@@ -586,7 +623,7 @@ nav .resource-group{
     &.put {
         border-color: @put-border-color;
 
-        h4 {
+        h4.action-heading {
             color: @put-color;
             background: @put-background-color;
             border-bottom-color: @put-border-color;
@@ -596,7 +633,7 @@ nav .resource-group{
     &.patch {
         border-color: @patch-border-color;
 
-        h4 {
+        h4.action-heading {
             color: @patch-color;
             background: @patch-background-color;
             border-bottom-color: @patch-border-color;
@@ -606,7 +643,7 @@ nav .resource-group{
     &.delete {
         border-color: @delete-border-color;
 
-        h4 {
+        h4.action-heading {
             color: @delete-color;
             background: @delete-background-color;
             border-bottom-color: @delete-border-color;

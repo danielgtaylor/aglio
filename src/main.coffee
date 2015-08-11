@@ -27,7 +27,10 @@ errMsg = (message, err) ->
 # unique slugs are returned for the same input. The cache is just
 # a plain object where the keys are the sluggified name.
 slug = (cache={}, value='', unique=false) ->
-  sluggified = value.toLowerCase().replace /[ \t\n\\:/]/g, '-'
+  sluggified = value.toLowerCase()
+                    .replace(/[ \t\n\\<>"'=:/]/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-/, '')
 
   if unique
     while cache[sluggified]
@@ -396,7 +399,11 @@ exports.render = (input, options, done) ->
       slugCache._nav.push [value, "##{output}"]
       return output
     permalink: true
-    permalinkClass: 'permalink')
+    permalinkClass: 'permalink'
+  ).use(require('markdown-it-checkbox')
+  ).use(require('markdown-it-container'), 'note'
+  ).use(require('markdown-it-container'), 'warning'
+  ).use(require('markdown-it-emoji'))
 
   # Enable code highlighting for unfenced code blocks
   md.renderer.rules.code_block = md.renderer.rules.fence

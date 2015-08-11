@@ -1,3 +1,9 @@
+# Unreleased
+
+* Fix styling of `<h4>` headings within action descriptions.
+* Update `slug` function to handle inline HTML and consecutive `-` characters.
+* Add support for informational notes and warnings, checkboxes and emoji.
+
 # 1.0.4 - 2015-08-04
 
 * Support for Aglio 1.x Jade templates written without using `self`.

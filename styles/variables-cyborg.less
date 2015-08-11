@@ -17,6 +17,17 @@
 
 @heading-text-color: white;
 
+/* Notes and warnings */
+@note-text-color: @text-color;
+@note-title-text-color: #77b300;
+@note-background-color: mix(@note-title-text-color, #111, 8%);
+@note-border-color: @note-title-text-color;
+
+@warning-text-color: @text-color;
+@warning-title-text-color: darken(#c00, 10%);
+@warning-background-color: mix(@warning-title-text-color, #111, 7%);
+@warning-border-color: @warning-title-text-color;
+
 /* HTTP method-specific colors */
 @group-background-color: #222;
 @group-title-background-color: #3c3c3c;
