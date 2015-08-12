@@ -1,3 +1,8 @@
+# 2.0.3 - 2015-08-12
+
+* Update required default theme version to [1.1.0](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md#110---2015-08-12).
+* Readme and example updates.
+
 # 2.0.2 - 2015-08-04
 
 * Update required default theme version to support custom jade templates written for Aglio 1.x.
