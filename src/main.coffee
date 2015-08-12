@@ -59,6 +59,9 @@ highlight = (code, lang, subset) ->
   return response.trim()
 
 getCached = (key, compiledPath, sources, load, done) ->
+  # Disable the template/css caching?
+  if process.env.NOCACHE then return done null
+
   # Already loaded? Just return it!
   if cache[key] then return done null, cache[key]
 
@@ -368,6 +371,9 @@ exports.render = (input, options, done) ->
   if not done?
     done = options
     options = {}
+
+  # Disable the template/css caching?
+  if process.env.NOCACHE then cache = {}
 
   # This is purely for backward-compatibility
   if options.condenseNav then options.themeCondenseNav = options.condenseNav

@@ -1,5 +1,6 @@
 # Unreleased
 
+* Add the option of disabling CSS/template caching using `NOCACHE=1` environment variable. [#148](https://github.com/danielgtaylor/aglio/issues/148)
 * Fix rendering of URI templates where some of the path components are removed. [#145](https://github.com/danielgtaylor/aglio/issues/145)
 * Fix styling of `<h4>` headings within action descriptions.
 * Update `slug` function to handle inline HTML and consecutive `-` characters.
