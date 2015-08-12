@@ -258,7 +258,7 @@ modifyUriTemplate = (templateUri, parameters) ->
       segment.push "}"
       uri.push segment.join("")
     uri
-  , []).join('')
+  , []).join('').replace(/\/+/g, '/').replace(/\/$/, '')
 
 decorate = (api, md, slugCache) ->
   # Decorate an API Blueprint AST with various pieces of information that

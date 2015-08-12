@@ -1,5 +1,6 @@
 # Unreleased
 
+* Fix rendering of URI templates where some of the path components are removed. [#145](https://github.com/danielgtaylor/aglio/issues/145)
 * Fix styling of `<h4>` headings within action descriptions.
 * Update `slug` function to handle inline HTML and consecutive `-` characters.
 * Add support for informational notes and warnings, checkboxes and emoji.
