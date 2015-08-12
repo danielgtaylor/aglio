@@ -216,6 +216,12 @@ grunt examples
 ## Customizing Output
 Aglio is split into two components: a base that contains logic for loading API Blueprint, handling commandline arguments, etc and a theme engine that handles turning the API Blueprint AST into HTML. The default theme engine that ships with Aglio is called [olio](https://github.com/danielgtaylor/aglio/tree/olio-theme). Templates are written in Jade, with support for inline Coffeescript, LESS and Stylus via filters. The default stylesheets are written in LESS.
 
+While developing customizations, you may want to disable caching using the `NOCACHE` environment variable.
+
+```bash
+NOCACHE=1 aglio -i input.apib [customization options]
+```
+
 ### Custom Colors & Style
 Aglio's default theme provides a way to easily override colors, fonts, padding, etc to match your company's style. This is done by providing your own LESS or CSS file(s) via the `--theme-variables` and `--theme-style` options. For example:
 
