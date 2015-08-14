@@ -1,4 +1,4 @@
-# Unreleased
+# 1.2.0 - 2015-08-14
 
 * Fix a minor template warning.
 * Add extra output when the `--verbose` option is passed. This now shows information about the caches used and generated.
