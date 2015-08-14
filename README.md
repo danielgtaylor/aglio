@@ -56,6 +56,9 @@ aglio -i input.apib -o output.html
 # Built-in color scheme
 aglio --theme-variables slate -i input.apib -o output.html
 
+# Customize a build-in style
+aglio --theme-style default --theme-style ./my-style.less -i input.apib -o output.html
+
 # Custom layout template
 aglio --theme-template /path/to/template.jade -i input.apib -o output.html
 
@@ -242,11 +245,13 @@ The `my-variables.less` file might contain a custom HTTP PUT color specification
 
 See the [default variables](https://github.com/danielgtaylor/aglio/blob/olio-theme/styles/variables-default.less) file for examples of which variables can be set.
 
-The `--theme-style` option lets you override built-in styles with your own LESS or CSS definitions. It is processed **after** the colors have been defined, so the colors are available for your use. If you wish to modify a rule from an existing built-in style then you must copy the style. The order of loading roughly follows:
+The `--theme-style` option lets you override built-in styles with your own LESS or CSS definitions. It is processed **after** the variables have been defined, so the variables are available for your use. If you wish to modify a rule from an existing built-in style then you must copy the style. The order of loading roughly follows:
 
-1. Default colors
-2. Built-in **or** user-supplied colors
+1. Default variables
+2. Built-in **or** user-supplied variables
 3. Built-in **or** user-supplied style
+
+Note that these options can be passed more than once, in which case they will be loaded in the order they were passed. This lets you, for example, load a variable preset like `flatly` and modify one of the colors with your own LESS file. Keep in mind that when you want to modify a built-in style you must explicitly list the style, e.g. `--theme-style default --theme-style my-style.less`.
 
 #### Built-in Colors
 

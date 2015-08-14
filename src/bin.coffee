@@ -79,6 +79,7 @@ exports.run = (argv=parser.argv, done=->) ->
         argv.theme = 'default'
 
     # Add theme options to the help output
+    if argv.verbose then console.log "Loading theme #{argv.theme}"
     try
         theme = aglio.getTheme(argv.theme)
     catch err

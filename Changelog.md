@@ -1,3 +1,8 @@
+# 2.0.4 - 2015-08-14
+
+* Show theme name before loading when given `--verbose` option.
+* Update required default theme version to [1.2.0](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md#120---2015-08-14).
+
 # 2.0.3 - 2015-08-12
 
 * Update required default theme version to [1.1.0](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md#110---2015-08-12).
