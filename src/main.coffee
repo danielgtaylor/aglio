@@ -23,6 +23,10 @@ errMsg = (message, err) ->
   err.message = "#{message}: #{err.message}"
   return err
 
+# Generate a SHA1 hash
+sha1 = (value) ->
+  crypto.createHash('sha1').update(value.toString()).digest('hex')
+
 # A function to create ID-safe slugs. If `unique` is passed, then
 # unique slugs are returned for the same input. The cache is just
 # a plain object where the keys are the sluggified name.
@@ -91,7 +95,7 @@ getCached = (key, compiledPath, sources, load, done) ->
   catch err
     done err
 
-getCss = (variables, style, done) ->
+getCss = (variables, styles, done) ->
   # Get the CSS for the given variables and style. This method caches
   # its output, so subsequent calls will be extremely fast but will
   # not reload potentially changed data from disk.
@@ -100,32 +104,39 @@ getCss = (variables, style, done) ->
   # layout style. Both variables and style support special values,
   # for example `flatly` might load `styles/variables-flatly.less`.
   # See the `styles` directory for available options.
-  key = "css-#{variables}-#{style}"
+  key = "css-#{variables}-#{styles}"
   if cache[key] then return done null, cache[key]
 
   # Not cached in memory, but maybe it's already compiled on disk?
   compiledPath = path.join ROOT, 'cache',
-    "#{slug undefined, variables}-#{slug undefined, style}.css"
+    "#{sha1 key}.css"
 
-  defaultColorPath = path.join ROOT, 'styles', 'variables-default.less'
-  sources = [defaultColorPath]
+  defaultVariablePath = path.join ROOT, 'styles', 'variables-default.less'
+  sources = [defaultVariablePath]
 
-  customColorPath = null
-  if variables isnt 'default'
-    customColorPath = path.join ROOT, 'styles', "variables-#{variables}.less"
-    if not fs.existsSync customColorPath
-      customColorPath = variables
-      if not fs.existsSync customColorPath
-        return done new Error "#{customColorPath} does not exist!"
-    sources.push customColorPath
+  if not Array.isArray(variables) then variables = [variables]
+  if not Array.isArray(styles) then styles = [styles]
 
-  stylePath = path.join ROOT, 'styles', "layout-#{style}.less"
-  if not fs.existsSync stylePath
-    stylePath = style
-    if not fs.existsSync stylePath
-      return done new Error "#{stylePath} does not exist!"
+  variablePaths = [defaultVariablePath]
+  for item in variables
+    if item isnt 'default'
+      customPath = path.join ROOT, 'styles', "variables-#{item}.less"
+      if not fs.existsSync customPath
+        customPath = item
+        if not fs.existsSync customPath
+          return done new Error "#{customPath} does not exist!"
+      variablePaths.push customPath
+      sources.push customPath
 
-  sources.push stylePath
+  stylePaths = []
+  for item in styles
+    customPath = path.join ROOT, 'styles', "layout-#{item}.less"
+    if not fs.existsSync customPath
+      customPath = item
+      if not fs.existsSync customPath
+        return done new Error "#{customPath} does not exist!"
+    stylePaths.push customPath
+    sources.push customPath
 
   load = (filename, loadDone) ->
     fs.readFile filename, 'utf-8', loadDone
@@ -135,10 +146,13 @@ getCss = (variables, style, done) ->
     if css then return done null, css
 
     # Not cached, so let's create the file.
-    tmp = "@import \"#{defaultColorPath}\";\n"
-    if customColorPath
-      tmp += "@import \"#{customColorPath}\";\n"
-    tmp += "@import \"#{stylePath}\";\n"
+    tmp = ''
+
+    for customPath in variablePaths
+      tmp += "@import \"#{customPath}\";\n"
+
+    for customPath in stylePaths
+      tmp += "@import \"#{customPath}\";\n"
 
     benchmark.start 'less-compile'
     less.render tmp, compress: true, (err, result) ->
@@ -172,7 +186,7 @@ getTemplate = (name, done) ->
 
   # Check if it is compiled on disk and not older than the template file.
   # If not present or outdated, then we'll need to compile it.
-  compiledPath = path.join ROOT, 'cache', "#{slug undefined, name}.js"
+  compiledPath = path.join ROOT, 'cache', "#{sha1 key}.js"
 
   load = (filename, loadDone) ->
     try

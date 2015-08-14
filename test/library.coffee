@@ -38,6 +38,12 @@ describe 'Library', ->
     it 'Should accept custom variables', (done) ->
       theme.render {}, themeVariables: 'styles/variables-default.less', done
 
+    it 'Should accept array of custom variables', (done) ->
+      theme.render {}, themeVariables: [
+        'styles/variables-default.less',
+        'styles/variables-flatly.less'
+      ], done
+
     it 'Should error on missing variables', (done) ->
       theme.render {}, themeVariables: '/bad/path.less', (err, html) ->
         assert.ok err
@@ -45,6 +51,12 @@ describe 'Library', ->
 
     it 'Should accept a custom style', (done) ->
       theme.render {}, themeStyle: 'styles/layout-default.less', done
+
+    it 'Should accept an array of custom styles', (done) ->
+      theme.render {}, themeStyle: [
+        'styles/layout-default.less',
+        'styles/layout-default.less'
+      ], done
 
     it 'Should error on missing style', (done) ->
       theme.render {}, themeStyle: '/bad/style.less', (err, html) ->

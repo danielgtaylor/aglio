@@ -29,9 +29,9 @@ Name           | Description
 -------------- | ------------------
 `condense-nav` | Whether to condense nagivation for resources with only a single action (default is `true`).
 `full-width`   | Whether to use the full page width or a responsive layout (default is responsive).
-`style`        | LESS or CSS to control the layout and style of the document using the variables from below. Can be a path to your own file or one of the following presets: `default`.
+`style`        | LESS or CSS to control the layout and style of the document using the variables from below. Can be a path to your own file or one of the following presets: `default`. May be an array of paths and/or presets.
 `template`     | Jade template to render HTML. Can be a path to your own file or one of the following presets: `default`.
-`variables`    | LESS variables that control theme colors, fonts, and spacing. Can be a path to your own file or one of the following presets: `default`, `flatly`, `slate`, `cyborg`.
+`variables`    | LESS variables that control theme colors, fonts, and spacing. Can be a path to your own file or one of the following presets: `default`, `flatly`, `slate`, `cyborg`. May be an array of paths and/or presets.
 
 **Note**: When using this theme programmatically, these options are cased like you would expect in Javascript: `--theme-full-width` becomes `options.themeFullWidth`.
 

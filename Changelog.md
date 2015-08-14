@@ -1,5 +1,15 @@
 # Unreleased
 
+* Accept multiple `--theme-variables` and `--theme-style` arguments. When given
+  an array, each item is added to the final stylesheet in order. This means
+  that you can do something like this now:
+
+  ```sh
+  aglio -i input.apib -o output.html --theme-variables flatly --theme-variables ./my-customizations.less
+  ```
+
+* Cached assets are now stored via their key's SHA1 hash because of filename
+  length limits.
 * Add auto-scrollbars to code blocks so that long lines can be seen. [#152](https://github.com/danielgtaylor/aglio/issues/152)
 
 # 1.1.0 - 2015-08-12
