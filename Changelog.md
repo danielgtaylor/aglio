@@ -1,3 +1,7 @@
+# Unreleased
+
+* Add auto-scrollbars to code blocks so that long lines can be seen. [#152](https://github.com/danielgtaylor/aglio/issues/152)
+
 # 1.1.0 - 2015-08-12
 
 * Add the option of disabling CSS/template caching using `NOCACHE=1` environment variable. [#148](https://github.com/danielgtaylor/aglio/issues/148)
