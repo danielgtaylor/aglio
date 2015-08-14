@@ -1,5 +1,7 @@
 # Unreleased
 
+* Fix a minor template warning.
+* Add extra output when the `--verbose` option is passed. This now shows information about the caches used and generated.
 * Accept multiple `--theme-variables` and `--theme-style` arguments. When given
   an array, each item is added to the final stylesheet in order. This means
   that you can do something like this now:

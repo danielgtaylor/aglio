@@ -154,14 +154,14 @@ mixin Content()
     each resourceGroup in self.api.resourceGroups || []
         section.resource-group(id=resourceGroup.elementId)
             h2.group-heading= resourceGroup.name || 'Resource Group'
-                a.permalink(href=resourceGroup.elementLink): &para;
+                a.permalink(href=resourceGroup.elementLink) &para;
             if resourceGroup.descriptionHtml
                 != resourceGroup.descriptionHtml
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)
                     h3.resource-heading= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
-                        a.permalink(href=resource.elementLink): &para;
+                        a.permalink(href=resource.elementLink) &para;
                     if resource.description
                         != self.markdown(resource.description)
 

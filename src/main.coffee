@@ -95,7 +95,7 @@ getCached = (key, compiledPath, sources, load, done) ->
   catch err
     done err
 
-getCss = (variables, styles, done) ->
+getCss = (variables, styles, verbose, done) ->
   # Get the CSS for the given variables and style. This method caches
   # its output, so subsequent calls will be extremely fast but will
   # not reload potentially changed data from disk.
@@ -141,11 +141,21 @@ getCss = (variables, styles, done) ->
   load = (filename, loadDone) ->
     fs.readFile filename, 'utf-8', loadDone
 
+  if verbose
+    console.log "Using variables #{variablePaths}"
+    console.log "Using styles #{stylePaths}"
+    console.log "Checking cache #{compiledPath}"
+
   getCached key, compiledPath, sources, load, (err, css) ->
     if err then return done err
-    if css then return done null, css
+    if css
+      if verbose then console.log 'Cached version loaded'
+      return done null, css
 
     # Not cached, so let's create the file.
+    if verbose
+      console.log 'Not cached or out of date. Generating CSS...'
+
     tmp = ''
 
     for customPath in variablePaths
@@ -176,7 +186,7 @@ compileTemplate = (filename, options) ->
     module.exports = compiledFunc;
   """
 
-getTemplate = (name, done) ->
+getTemplate = (name, verbose, done) ->
   # Get the template function for the given path. This will load and
   # compile the template if necessary, and cache it for future use.
   key = "template-#{name}"
@@ -196,9 +206,18 @@ getTemplate = (name, done) ->
 
     loadDone null, require(filename)
 
+  if verbose
+    console.log "Using template #{name}"
+    console.log "Checking cache #{compiledPath}"
+
   getCached key, compiledPath, [name], load, (err, template) ->
     if err then return done err
-    if template then return done null, template
+    if template
+      if verbose then console.log 'Cached version loaded'
+      return done null, template
+
+    if verbose
+      console.log 'Not cached or out of date. Generating template JS...'
 
     # We need to compile the template, then cache it. This is interesting
     # because we are compiling to a client-side template, then adding some
@@ -433,7 +452,8 @@ exports.render = (input, options, done) ->
   benchmark.end 'decorate'
 
   benchmark.start 'css-total'
-  getCss options.themeVariables, options.themeStyle, (err, css) ->
+  {themeVariables, themeStyle, verbose} = options
+  getCss themeVariables, themeStyle, verbose, (err, css) ->
     if err then return done(errMsg 'Could not get CSS', err)
     benchmark.end 'css-total'
 
@@ -454,7 +474,7 @@ exports.render = (input, options, done) ->
       locals[key] = value
 
     benchmark.start 'get-template'
-    getTemplate options.themeTemplate, (getTemplateErr, renderer) ->
+    getTemplate options.themeTemplate, verbose, (getTemplateErr, renderer) ->
       if getTemplateErr
         return done(errMsg 'Could not get template', getTemplateErr)
       benchmark.end 'get-template'
