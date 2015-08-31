@@ -1,3 +1,7 @@
+# Unreleased
+
+* Use HTTPS links for Google Web Fonts. [#147](https://github.com/danielgtaylor/aglio/pull/147)
+
 # 1.2.0 - 2015-08-14
 
 * Fix a minor template warning.
