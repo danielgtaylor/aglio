@@ -1,5 +1,6 @@
 # Unreleased
 
+* Disable the auto-escaping of headers or navigation items to allow HTML. [#159](https://github.com/danielgtaylor/aglio/issues/159) [#160](https://github.com/danielgtaylor/aglio/issues/160)
 * Use HTTPS links for Google Web Fonts. [#147](https://github.com/danielgtaylor/aglio/pull/147)
 
 # 1.2.0 - 2015-08-14

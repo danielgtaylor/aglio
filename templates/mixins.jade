@@ -38,25 +38,25 @@ mixin Nav()
                 .heading
                   .chevron
                     i.open.fa.fa-angle-down
-                  a(href=resourceGroup.elementLink)= resourceGroup.name || 'Resource Group'
+                  a(href=resourceGroup.elementLink)!= resourceGroup.name || 'Resource Group'
                 .collapse-content
                   ul
                     each item in resourceGroup.navItems || []
                       li
-                        a(href=item[1])= item[0]
+                        a(href=item[1])!= item[0]
                     each resource in resourceGroup.resources || []
                       li
                           if !self.condenseNav || (resource.actions.length != 1)
-                              a(href=resource.elementLink)= resource.name || 'Resource'
+                              a(href=resource.elementLink)!= resource.name || 'Resource'
                               ul: each action in resource.actions || []
                                   li: a(href=action.elementLink)
                                     +Badge(action.method)
-                                    = action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+                                    != action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
                           else
                               - var action = resource.actions[0]
                               a(href=action.elementLink)
                                   +Badge(action.method)
-                                  = action.name || resource.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+                                  != action.name || resource.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
         //- Link to the API hostname, e.g. api.yourcompany.com
         each meta in self.api.metadata || {}
             if meta.name == 'HOST'
@@ -144,7 +144,7 @@ mixin Examples(resourceGroup, resource, action)
 mixin Content()
     //- Page header and API description
     header
-        h1#top= self.api.name || 'API Documentation'
+        h1#top!= self.api.name || 'API Documentation'
 
     if self.api.descriptionHtml
         != self.api.descriptionHtml
@@ -153,14 +153,14 @@ mixin Content()
     //- groups, resources, and actions.
     each resourceGroup in self.api.resourceGroups || []
         section.resource-group(id=resourceGroup.elementId)
-            h2.group-heading= resourceGroup.name || 'Resource Group'
+            h2.group-heading!= resourceGroup.name || 'Resource Group'
                 a.permalink(href=resourceGroup.elementLink) &para;
             if resourceGroup.descriptionHtml
                 != resourceGroup.descriptionHtml
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)
-                    h3.resource-heading= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                    h3.resource-heading!= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
                         a.permalink(href=resource.elementLink) &para;
                     if resource.description
                         != self.markdown(resource.description)
@@ -168,7 +168,7 @@ mixin Content()
                     each action in resource.actions || []
                         .action(class=action.methodLower, id=action.elementId)
                             h4.action-heading
-                                .name= action.name
+                                .name!= action.name
                                 a.method(class=action.methodLower, href=action.elementLink)
                                     = action.method
                                 code.uri= self.urldec(action.uriTemplate)
