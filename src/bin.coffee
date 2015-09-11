@@ -21,7 +21,7 @@ parser = require('yargs')
     .options('p', alias: 'port', describe: 'Port for local preview server', default: 3000)
     .options('v', alias: 'version', describe: 'Display version number', default: false)
     .options('c', alias: 'compile', describe: 'Compile the blueprint file', default: false)
-    .options('n', alias: 'includePath', describe: 'Base directory for relative includes', default: process.cwd())
+    .options('n', alias: 'include-path', describe: 'Base directory for relative includes', default: process.cwd())
     .options('verbose', describe: 'Show verbose information and stack traces', default: false)
     .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
