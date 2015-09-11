@@ -1,3 +1,7 @@
+# 2.1.0 - 2015-09-11
+
+* Add a `--include-path` option to set the path for relative includes. [#165](https://github.com/danielgtaylor/aglio/pull/165)
+
 # 2.0.4 - 2015-08-14
 
 * Show theme name before loading when given `--verbose` option.
