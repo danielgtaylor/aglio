@@ -77,6 +77,9 @@ aglio --no-theme-condense -i input.apib -o output.html
 # Render full-width page instead of fixed max width
 aglio --theme-full-width -i input.apib -o output.html
 
+# Set an explicit file include path and read from stdin
+aglio --include-path /path/to/includes -i - -o output.html
+
 # Output verbose error information with stack traces
 aglio -i input.apib -o output.html --verbose
 ```
@@ -184,7 +187,7 @@ alio.render(blueprint, options, function (err, html, warnings) {
 ```
 
 #### aglio.renderFile (inputFile, outputFile, options, callback)
-Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths. The options behaves the same as above for `aglio.render`.
+Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths. The options behaves the same as above for `aglio.render`, except that the `options.includePath` defaults to the basename of the input filename.
 
 ```javascript
 aglio.renderFile('/tmp/input.apib', '/tmp/output.html', options, function (err, warnings) {

@@ -1,3 +1,7 @@
+# 2.1.1 - 2015-09-14
+
+* Fix the default include path behavior when outputting a file to use the basename of the input file rather than `process.cwd()`. Also updates documentation to mention this behavior and option. [#166](https://github.com/danielgtaylor/aglio/issues/166)
+
 # 2.1.0 - 2015-09-11
 
 * Add a `--include-path` option to set the path for relative includes. [#165](https://github.com/danielgtaylor/aglio/pull/165)
