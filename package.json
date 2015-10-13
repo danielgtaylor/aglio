@@ -38,8 +38,8 @@
     "aglio-theme-olio": "^1.2.0",
     "chokidar": "^1.0.1",
     "cli-color": "^1.0.0",
-    "drafter": "^0.2.7",
     "pretty-error": "^1.1.2",
+    "protagonist": "^1.0.0",
     "serve-static": "^1.9.3",
     "socket.io": "^1.3.5",
     "yargs": "^3.0.2"

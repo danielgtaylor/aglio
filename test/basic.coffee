@@ -4,7 +4,7 @@ bin = require '../lib/bin'
 fs = require 'fs'
 http = require 'http'
 path = require 'path'
-drafter = require 'drafter'
+protagonist = require 'protagonist'
 sinon = require 'sinon'
 
 root = path.dirname(__dirname)
@@ -164,13 +164,13 @@ describe 'API Blueprint Renderer', ->
             done()
 
     it 'Should error on drafter failure', (done) ->
-        sinon.stub drafter.prototype, 'make', (content, callback) ->
+        sinon.stub protagonist, 'parse', (content, options, callback) ->
             callback 'error'
 
         aglio.render blueprint, 'default', (err, html) ->
             assert err
 
-            drafter.prototype.make.restore()
+            protagonist.parse.restore()
 
             done()
 
