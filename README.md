@@ -38,7 +38,7 @@ For tools that do not support this include directive it will just render out as 
 
 
 # Installation & Usage
-There are two ways to use aglio: as an executable or as a library for Node.js.
+There are three ways to use aglio: as an executable, in a docker container or as a library for Node.js.
 
 ## Executable
 Install aglio via NPM. You need Node.js installed and you may need to use `sudo` to install globally:
@@ -83,6 +83,14 @@ aglio --include-path /path/to/includes -i - -o output.html
 # Output verbose error information with stack traces
 aglio -i input.apib -o output.html --verbose
 ```
+## With docker
+You can choose to use the provided docker fly to build yourself a repeatable and testes environement.
+To do so, go through the following steps :
+
+1. Build the image with `docker build`
+2. Run aglio inside a container with `docker run`
+  You can use the `-v` switch to dynamically mount the folder that holds your API blueprint.
+
 
 ## Node.js Library
 You can also use aglio as a library. First, install and save it as a dependency:
