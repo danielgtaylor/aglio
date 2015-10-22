@@ -8,7 +8,7 @@ An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple the
 
 ## Features
 
- * Fast parsing thanks to [Drafter](https://github.com/apiaryio/drafter.js)
+ * Fast parsing thanks to [Protagonist](https://github.com/apiaryio/protagonist)
  * Asyncronous processing
  * Multiple templates/themes
  * Support for custom colors, templates, and theme engines
@@ -83,14 +83,13 @@ aglio --include-path /path/to/includes -i - -o output.html
 # Output verbose error information with stack traces
 aglio -i input.apib -o output.html --verbose
 ```
-## With docker
-You can choose to use the provided docker fly to build yourself a repeatable and testes environement.
-To do so, go through the following steps :
 
-1. Build the image with `docker build`
-2. Run aglio inside a container with `docker run`
+## With Docker
+You can choose to use the provided `Dockerfile` to build yourself a repeatable and testable environment:
+
+1. Build the image with `docker build -t aglio .`
+2. Run aglio inside a container with `docker run -t aglio`
   You can use the `-v` switch to dynamically mount the folder that holds your API blueprint.
-
 
 ## Node.js Library
 You can also use aglio as a library. First, install and save it as a dependency:
