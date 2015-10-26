@@ -4,6 +4,7 @@ node_js:
     - "0.10"
     - "0.12"
     - "iojs-v2"
+    - "4.2"
 before_install:
     - npm install -g grunt-cli
 after_script:
