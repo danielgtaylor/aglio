@@ -187,6 +187,11 @@ compileTemplate = (filename, options) ->
   """
 
 getTemplate = (name, verbose, done) ->
+  # Check if this is a built-in template name
+  builtin = path.join(ROOT, 'templates', "#{name}.jade")
+  if not fs.existsSync(name) and fs.existsSync(builtin)
+    name = builtin
+
   # Get the template function for the given path. This will load and
   # compile the template if necessary, and cache it for future use.
   key = "template-#{name}"
