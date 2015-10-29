@@ -261,7 +261,7 @@ getTemplate = (name, verbose, done) ->
     cache[key] = require(compiledPath)
     done null, cache[key]
 
-modifyUriTemplate = (templateUri, parameters) ->
+modifyUriTemplate = (templateUri, parameters, colorize) ->
   # Modify a URI template to only include the parameter names from
   # the given parameters. For example:
   # URI template: /pages/{id}{?verbose}
@@ -269,8 +269,9 @@ modifyUriTemplate = (templateUri, parameters) ->
   # Output: /pages/{id}
   parameterValidator = (b) ->
     # Compare the names, removing the special `*` operator
-    parameters.indexOf(querystring.unescape b.replace(/^\*|\*$/, '')) isnt -1
-  parameters = (param.name for param in parameters)
+    parameterNames.indexOf(
+      querystring.unescape b.replace(/^\*|\*$/, '')) isnt -1
+  parameterNames = (param.name for param in parameters)
   parameterBlocks = []
   lastIndex = index = 0
   while (index = templateUri.indexOf("{", index)) isnt - 1
@@ -291,12 +292,23 @@ modifyUriTemplate = (templateUri, parameters) ->
     if typeof v is "string"
       uri.push v
     else
-      segment = ["{"]
+      segment = if not colorize then ["{"] else []
       segment.push "?" if v.querySet
       segment.push "&" if v.formSet
       segment.push "+" if v.reservedSet
-      segment.push v.parameters.join()
-      segment.push "}"
+      segment.push v.parameters.map((name) ->
+        if not colorize then name else
+          if v.querySet or v.formSet or v.reservedSet
+            # TODO: handle errors here?
+            param = parameters[parameterNames.indexOf(
+              querystring.unescape name.replace(/^\*|\*$/, ''))]
+            "<span class=\"hljs-attribute\">#{name}=</span>" +
+              "<span class=\"hljs-literal\">#{param.example}</span>"
+          else
+            "<span class=\"hljs-attribute\">#{name}</span>"
+        ).join(if colorize then '&' else ',')
+      if not colorize
+        segment.push "}"
       uri.push segment.join("")
     uri
   , []).join('').replace(/\/+/g, '/').replace(/\/$/, '')
@@ -314,6 +326,10 @@ decorate = (api, md, slugCache) ->
     api.descriptionHtml = md.render api.description
     api.navItems = slugCache._nav
     slugCache._nav = []
+
+  for meta in api.metadata or []
+    if meta.name is 'HOST'
+      api.host = meta.value
 
   for resourceGroup in api.resourceGroups or []
     # Element ID and link
@@ -366,11 +382,19 @@ decorate = (api, md, slugCache) ->
           (action.attributes or {}).uriTemplate or resource.uriTemplate or '',
           action.parameters)
 
+        action.colorizedUriTemplate = modifyUriTemplate(
+          (action.attributes or {}).uriTemplate or resource.uriTemplate or '',
+          action.parameters, true)
+
         # Examples have a content section only if they have a
         # description, headers, body, or schema.
+        action.hasRequest = false
         for example in action.examples or []
           for name in ['requests', 'responses']
             for item in example[name] or []
+              if name is 'requests' and not action.hasRequest
+                action.hasRequest = true
+
               item.hasContent = item.description or \
                                 Object.keys(item.headers).length or \
                                 item.body or \
