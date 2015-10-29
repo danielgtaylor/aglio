@@ -67,7 +67,7 @@ mixin Parameters(params)
     //- Draw a definition list of parameter names, types, defaults,
     //- examples and descriptions.
     .title
-        strong Parameters
+        strong URI Parameters
         .collapse-button.show
             span.close Hide
             span.open Show
@@ -99,19 +99,22 @@ mixin Parameters(params)
                             code= self.urldec(value.value)
                             = ' '
 
-mixin RequestResponse(title, request, resourceGroup, resource, action)
+mixin RequestResponse(title, request, collapse)
     .title
         strong
             = title
             if request.name
                 | &nbsp;&nbsp;
                 code= request.name
-        if request.hasContent
+        if collapse && request.hasContent
             .collapse-button
                 span.close Hide
                 span.open Show
-    if request.hasContent
-        .collapse-content: .inner
+    +RequestResponseBody(request, collapse)
+
+mixin RequestResponseBody(request, collapse, showBlank)
+    if request.hasContent || showBlank
+        div(class=collapse ? 'collapse-content' : ''): .inner
             if request.description
                 .description!= self.markdown(request.description)
 
@@ -133,13 +136,16 @@ mixin RequestResponse(title, request, resourceGroup, resource, action)
                 pre: code
                     != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
                 div(style="height: 1px;")
+            if !request.hasContent
+                .description.text-muted This response has no content.
+                div(style="height: 1px;")
 
 mixin Examples(resourceGroup, resource, action)
     each example in action.examples
         each request in example.requests
-            +RequestResponse('Request', request, resourceGroup, resource, action)
+            +RequestResponse('Request', request, true)
         each response in example.responses
-            +RequestResponse('Response', response, resourceGroup, resource, action)
+            +RequestResponse('Response', response, true)
 
 mixin Content()
     //- Page header and API description
@@ -175,9 +181,105 @@ mixin Content()
                             if action.description
                                 != self.markdown(action.description)
 
+                            h4 Example URI
+                            .definition
+                                span.method(class=action.methodLower)= action.method
+                                | &nbsp;
+                                span.uri
+                                  span.hostname= self.api.host
+                                  != action.colorizedUriTemplate
+
                             //- A list of sub-sections for parameters, requests
                             //- and responses.
                             if action.parameters.length
                                 +Parameters(action.parameters)
                             if action.examples
                                 +Examples(resourceGroup, resource, action)
+
+mixin ContentTriple()
+    .middle
+        //- Page header and API description
+        header
+            h1#top!= self.api.name || 'API Documentation'
+
+    .right
+        h5 API Endpoint
+        a(href=self.api.host)= self.api.host
+    .middle
+        if self.api.descriptionHtml
+            != self.api.descriptionHtml
+
+    //- Loop through and display information about all the resource
+    //- groups, resources, and actions.
+    each resourceGroup in self.api.resourceGroups || []
+        .middle
+            section.resource-group(id=resourceGroup.elementId)
+                h2.group-heading!= resourceGroup.name || 'Resource Group'
+                    a.permalink(href=resourceGroup.elementLink) &para;
+                if resourceGroup.descriptionHtml
+                    != resourceGroup.descriptionHtml
+
+        each resource in resourceGroup.resources || []
+            .middle
+                .resource(id=resource.elementId)
+                    h3.resource-heading!= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                        a.permalink(href=resource.elementLink) &para;
+                    if resource.description
+                        != self.markdown(resource.description)
+
+            each action in resource.actions || []
+                if action.examples
+                    .right
+                      .definition
+                          span.method(class=action.methodLower)= action.method
+                          | &nbsp;
+                          span.uri
+                            span.hostname= self.api.host
+                            != action.colorizedUriTemplate
+                      .tabs
+                          if action.hasRequest
+                              .example-names
+                                  span Requests
+                                  - var requestCount = 0
+                                  each example in action.examples
+                                      each request in example.requests
+                                          - requestCount++
+                                          span.tab-button= request.name || 'example ' + requestCount
+                              each example in action.examples
+                                  each request in example.requests
+                                      .tab
+                                          +RequestResponseBody(request, false, true)
+                                          .tabs
+                                              .example-names
+                                                  span Responses
+                                                  each response in example.responses
+                                                      span.tab-button= response.name
+                                              each response in example.responses
+                                                  .tab
+                                                      +RequestResponseBody(response, false, true)
+                          else
+                            each example in action.examples
+                                .tabs
+                                    .example-names
+                                        span Responses
+                                        each response in example.responses
+                                            span.tab-button= response.name
+                                    each response in example.responses
+                                        .tab
+                                            +RequestResponseBody(response, false, true)
+                .middle
+                    .action(class=action.methodLower, id=action.elementId)
+                        h4.action-heading
+                            .name!= action.name
+                            a.method(class=action.methodLower, href=action.elementLink)
+                                = action.method
+                            code.uri= self.urldec(action.uriTemplate)
+                        if action.description
+                            != self.markdown(action.description)
+
+                        //- A list of sub-sections for parameters, requests
+                        //- and responses.
+                        if action.parameters.length
+                            +Parameters(action.parameters)
+
+                hr.split

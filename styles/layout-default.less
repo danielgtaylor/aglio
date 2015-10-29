@@ -68,10 +68,18 @@ li {
     }
 }
 
+hr.split {
+    border: 0;
+    height: 1px;
+    width: 80%;
+    margin: @padding auto;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
 dl {
     dt {
         float: left;
-        width: 160px;
+        width: 130px;
         clear: left;
         text-align: right;
         overflow: hidden;
@@ -81,7 +89,7 @@ dl {
     }
 
     dd {
-        margin-left: 180px;
+        margin-left: 150px;
     }
 }
 
@@ -137,6 +145,10 @@ table {
     padding: @padding/2 @padding;
     border: 1px solid @group-border-color;
   }
+}
+
+.text-muted {
+  opacity: 0.5;
 }
 
 .note, .warning {
@@ -396,6 +408,160 @@ nav {
             width: 76%;
         }
     }
+
+    &.triple {
+        nav {
+            width: 16.5%;
+            padding-right: 1px;
+        }
+
+        .row .content {
+            margin-left: 18.5%;
+            width: 81.5%;
+        }
+    }
+}
+
+.middle:before, .middle:after {
+    content: '';
+    display: table;
+}
+
+.middle:after {
+    clear: both;
+}
+
+.middle {
+    width: 48%;
+}
+
+.right {
+    float: right;
+    width: 48.5%;
+
+    a {
+        color: @right-link-color;
+    }
+
+    h1, h2, h3, h4, h5, p, div {
+        color: @right-text-color;
+    }
+
+    pre {
+        background-color: @right-code-block-background-color;
+        border: 1px solid @right-code-block-border-color;
+
+        code {
+            color: @right-code-block-text-color;
+        }
+    }
+
+    .description {
+        margin-top: @padding;
+    }
+}
+
+.triple .resource-heading {
+  font-size: 125%;
+}
+
+.definition {
+  margin-top: @padding;
+  margin-bottom: @padding;
+
+  .method {
+    font-weight: bold;
+
+    &.get {
+      color: hsl(hue(@get-background-color), 60%, 45%);
+    }
+
+    &.head {
+      color: hsl(hue(@head-background-color), 60%, 45%);
+    }
+
+    &.options {
+      color: hsl(hue(@options-background-color), 60%, 45%);
+    }
+
+    &.post {
+      color: hsl(hue(@post-background-color), 60%, 45%);
+    }
+
+    &.put {
+      color: hsl(hue(@put-background-color), 60%, 45%);
+    }
+
+    &.patch {
+      color: hsl(hue(@patch-background-color), 60%, 45%);
+    }
+
+    &.delete {
+      color: hsl(hue(@delete-background-color), 60%, 45%);
+    }
+  }
+
+  .uri {
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+  .hostname {
+      opacity: 0.5;
+  }
+}
+
+.example-names {
+  background-color: @tabs-background-color;
+  padding: @padding;
+  border-radius: @border-radius;
+
+  .tab-button {
+    cursor: pointer;
+    color: @text-color;
+    border: 1px solid @tabs-border-color;
+    padding: @padding / 2;
+    margin-left: @padding;
+
+    &.active {
+      background-color: @tabs-active-background-color;
+    }
+  }
+}
+
+.right .example-names {
+  background-color: @right-tabs-background-color;
+
+  .tab-button {
+    color: @right-text-color;
+    border: 1px solid @right-tabs-border-color;
+    border-radius: @border-radius;
+
+    &.active {
+      background-color: @right-tabs-active-background-color;
+    }
+  }
+}
+
+#nav-background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 17.8%;
+    background-color: @nav-background-color;
+    border-right: 1px solid @nav-border-color;
+    z-index: -1;
+}
+
+#right-panel-background {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40.95%;
+    background-color: @right-background-color;
+    z-index: -1;
 }
 
 @media (max-width: 1200px) {
@@ -442,12 +608,16 @@ nav {
         max-width: none;
     }
 
-    .container .row, .container-fluid .row {
+    .container .row, .container-fluid .row, .container-fluid.triple .row {
         .content {
             margin-left: auto;
             margin-right: auto;
             width: 95%;
         }
+    }
+
+    #right-panel-background {
+      width: 50%;
     }
 }
 
@@ -486,6 +656,16 @@ nav {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+    }
+}
+
+.triple .content .resource-group {
+    padding: 0;
+    border: none;
+
+    h2.group-heading, .heading a {
+        margin: 0 0 @padding 0;
+        border: 1px solid @group-border-color;
     }
 }
 

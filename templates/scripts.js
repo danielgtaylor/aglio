@@ -10,6 +10,23 @@ function endsWith(str, suffix) {
 }
 
 /*
+  Get a list of direct child elements by class name.
+*/
+function childrenByClass(element, name) {
+  var filtered = [];
+
+  for (var i = 0; i < element.children.length; i++) {
+    var child = element.children[i];
+    var classNames = child.className.split(' ');
+    if (classNames.indexOf(name) !== -1) {
+      filtered.push(child);
+    }
+  }
+
+  return filtered;
+}
+
+/*
   Get an array [width, height] of the window.
 */
 function getWindowDimensions() {
@@ -44,6 +61,32 @@ function toggleCollapseButton(event) {
         // Currently hidden, so let's show it
         button.className = 'collapse-button show';
         content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
+function toggleTabButton(event) {
+    var i, index;
+    var button = event.target;
+
+    // Get index of the current button.
+    var buttons = childrenByClass(button.parentNode, 'tab-button');
+    for (i = 0; i < buttons.length; i++) {
+        if (buttons[i] === button) {
+            index = i;
+            button.className = 'tab-button active';
+        } else {
+            buttons[i].className = 'tab-button';
+        }
+    }
+
+    // Hide other tabs and show this one.
+    var tabs = childrenByClass(button.parentNode.parentNode, 'tab');
+    for (i = 0; i < tabs.length; i++) {
+        if (i === index) {
+            tabs[i].style.display = 'block';
+        } else {
+            tabs[i].style.display = 'none';
+        }
     }
 }
 
@@ -134,7 +177,7 @@ function autoCollapse() {
   Initialize the interactive functionality of the page.
 */
 function init() {
-    var i;
+    var i, j;
 
     // Make collapse buttons clickable
     var buttons = document.querySelectorAll('.collapse-button');
@@ -144,6 +187,19 @@ function init() {
         // Show by default? Then toggle now.
         if (buttons[i].className.indexOf('show') !== -1) {
             toggleCollapseButton({target: buttons[i].children[0]});
+        }
+    }
+
+    var responseCodes = document.querySelectorAll('.example-names');
+    for (i = 0; i < responseCodes.length; i++) {
+        var tabButtons = childrenByClass(responseCodes[i], 'tab-button');
+        for (j = 0; j < tabButtons.length; j++) {
+            tabButtons[j].onclick = toggleTabButton;
+
+            // Show by default?
+            if (j === 0) {
+                toggleTabButton({target: tabButtons[j]});
+            }
         }
     }
 
