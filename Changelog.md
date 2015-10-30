@@ -1,4 +1,4 @@
-# Unreleased
+# 1.3.0 - 2015-10-30
 
 * Support built-in layout templates by name using `--theme-layout name`.
 * Add a three-paned theme layout called `triple`. Use it with `--theme-layout triple`. All variable/color schemes are supported. [#161](https://github.com/danielgtaylor/aglio/issues/161)
