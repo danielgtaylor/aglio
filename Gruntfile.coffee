@@ -56,9 +56,11 @@ module.exports = (grunt) ->
             console.log "Generating examples/#{name}.html"
             aglio.renderFile 'example.apib', "examples/#{name}.html", themeVariables: name, (err) ->
                 if err then return done(err)
-                done()
+                console.log "Generating examples/#{name}-triple.html"
+                aglio.renderFile 'example.apib', "examples/#{name}-triple.html", themeVariables: name, themeTemplate: 'triple', (err) ->
+                    done(err)
 
-        async.each ['default', 'flatly', 'slate', 'cyborg'], render, done
+        async.each ['default', 'flatly', 'slate', 'cyborg', 'streak'], render, done
 
 
     grunt.registerTask 'compile', ['coffeelint', 'coffee']
