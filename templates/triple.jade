@@ -10,13 +10,14 @@ html
         style!= self.css
     body.preload
         #nav-background
-        #right-panel-background
         div.container-fluid.triple
             .row
                 block nav
                     +Nav()
 
                 .content
+                    #right-panel-background
+
                     block content
                         +ContentTriple()
 

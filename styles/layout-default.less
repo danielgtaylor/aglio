@@ -2,9 +2,7 @@
 body {
   color: @text-color;
   background: @background-color;
-  font-family: @base-font;
-  font-size: @font-size;
-  line-height: 1.42;
+  font: @base-font;
 }
 
 header {
@@ -28,15 +26,13 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-    font-family: @title-font;
+    font: @title-font;
     font-size: 36px;
-    font-weight: 500;
 }
 
 h2 {
-    font-family: @title-font;
+    font: @title-font;
     font-size: 30px;
-    font-weight: 500;
 }
 
 h3 {
@@ -71,9 +67,10 @@ li {
 hr.split {
     border: 0;
     height: 1px;
-    width: 80%;
+    width: 100%;
+    padding-left: @padding / 2;
     margin: @padding auto;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+    background-image: linear-gradient(to right, fade(@text-color, 0%) 20%, fade(@text-color, 20%) 100% - @right-panel-background-width, fade(@right-text-color, 20%) 100% - @right-panel-background-width, fade(@right-text-color, 0%) 80%);
 }
 
 dl {
@@ -113,6 +110,7 @@ pre {
     overflow: auto;
 
     code {
+        color: @code-block-text-color;
         background-color: transparent;
         padding: 0;
         border: none;
@@ -122,7 +120,7 @@ pre {
 code {
     color: @inline-code-text-color;
     background-color: @inline-code-background-color;
-    font-family: @code-font;
+    font: @code-font;
     padding: 1px 4px;
     border: 1px solid @code-block-border-color;
     border-radius: 3px;
@@ -138,12 +136,12 @@ table {
   margin-bottom: @padding;
 
   tr:nth-child(2n) {
-    background-color: darken(@group-background-color, 2%);
+    background-color: @table-row-background-color;
   }
 
   th, td {
     padding: @padding/2 @padding;
-    border: 1px solid @group-border-color;
+    border: 1px solid @table-border-color;
   }
 }
 
@@ -188,6 +186,10 @@ table {
   }
 }
 
+header {
+    margin-top: @padding * 2;
+}
+
 nav {
     position: fixed;
     top: @padding * 2;
@@ -215,7 +217,9 @@ nav {
           margin: 0;
 
           &:hover {
-            border-left: 2px solid @text-color;
+            text-decoration: @nav-hover-text-decoration;
+            background-color: @nav-hover-background-color;
+            border-left: 2px solid @nav-hover-border-color;
           }
         }
       }
@@ -237,7 +241,9 @@ nav {
             white-space: nowrap;
 
             &:hover {
-                border-left: 2px solid @text-color;
+              text-decoration: @nav-hover-text-decoration;
+              background-color: @nav-hover-background-color;
+              border-left: 2px solid @nav-hover-border-color;
             }
         }
 
@@ -375,7 +381,7 @@ nav {
 
 /* Layout classes */
 nav {
-    width: 220px;
+    width: @nav-width;
 }
 
 .container {
@@ -385,7 +391,7 @@ nav {
 
     .row {
         .content {
-            margin-left: 220px + (@padding * 2);
+            margin-left: @nav-width + (@padding * 2);
             width: 720px - (@padding * 2);
         }
 
@@ -405,19 +411,19 @@ nav {
     .row {
         .content {
             margin-left: 24%;
-            width: 76%;
         }
     }
 
     &.triple {
         nav {
-            width: 16.5%;
+            width: @nav-triple-width;
             padding-right: 1px;
         }
 
         .row .content {
-            margin-left: 18.5%;
-            width: 81.5%;
+            position: relative;
+            margin-left: @nav-triple-width;
+            padding-left: @padding * 2;
         }
     }
 }
@@ -432,12 +438,16 @@ nav {
 }
 
 .middle {
-    width: 48%;
+    box-sizing: border-box;
+    width: 100% - @right-panel-width;
+    padding-right: @padding;
 }
 
 .right {
+    box-sizing: border-box;
     float: right;
-    width: 48.5%;
+    width: @right-panel-width;
+    padding-left: @padding;
 
     a {
         color: @right-link-color;
@@ -548,25 +558,26 @@ nav {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 17.8%;
+    width: @nav-triple-width;
+    padding-right: @padding * 1.2;
     background-color: @nav-background-color;
     border-right: 1px solid @nav-border-color;
     z-index: -1;
 }
 
 #right-panel-background {
-    position: fixed;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 40.95%;
+    position: absolute;
+    right: -@padding;
+    top: -@padding;
+    bottom: -@padding;
+    width: @right-panel-background-width;
     background-color: @right-background-color;
     z-index: -1;
 }
 
 @media (max-width: 1200px) {
     nav {
-        width: 200px;
+        width: @nav-width * 0.9;
     }
 
     .container {
@@ -583,7 +594,7 @@ nav {
 
 @media (max-width: 992px) {
     nav {
-        width: 170px;
+        width: @nav-width * 0.77;
     }
 
     .container {
@@ -621,7 +632,7 @@ nav {
     }
 
     #right-panel-background {
-      width: 50%;
+      width: @right-panel-background-width;
     }
 }
 
@@ -643,15 +654,15 @@ nav {
 }
 
 .resource-group {
-    padding: @padding;
+    padding: @group-padding;
     margin-bottom: @padding;
     background-color: @group-background-color;
     border: 1px solid @group-border-color;
     border-radius: @border-radius;
 
     h2.group-heading, .heading a {
-        padding: @padding;
-        margin: -@padding -@padding @padding -@padding;
+        padding: @group-padding;
+        margin: @group-header-margin;
         background-color: @group-title-background-color;
         border-bottom: 1px solid @group-border-color;
         border-top-left-radius: @border-radius;
@@ -675,6 +686,7 @@ nav {
 
 nav .resource-group{
   .heading a {
+    padding: @padding;
     margin-bottom: 0;
   }
 

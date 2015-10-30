@@ -4,24 +4,35 @@
 @padding: 12px;
 @border-radius: 6px;
 @font-size: 14px;
+@nav-width: 220px;
+@nav-triple-width: 16.5%;
+@right-panel-width: 48.5%;
+@right-panel-background-width: 48.6%;
 
-@base-font: 'Roboto', Helvetica, sans-serif;
-@title-font: 'Raleway', Helvetica, sans-serif;
+@base-font: 400 14px ~"/" 1.42 'Roboto', Helvetica, sans-serif;
+@title-font: 200 36px 'Raleway', Helvetica, sans-serif;
 @code-font: 'Inconsolata', monospace;
 
 /* Basic page-wide colors */
 @background-color: white;
 @text-color: black;
 
-@nav-background-color: #fbfbfb;
-@nav-border-color: #f0f0f0;
-@right-background-color: #333;
-@right-text-color: @background-color;
-
 @link-color: #428bca;
 @right-link-color: @link-color;
 
 @heading-text-color: @text-color;
+
+@table-row-background-color: darken(@background-color, 2%);
+@table-border-color: darken(@background-color, 10%);
+
+/* Nav and right panel */
+@nav-hover-border-color: @text-color;
+@nav-hover-background-color: bad-color;
+@nav-hover-text-decoration: none;
+@nav-background-color: #fbfbfb;
+@nav-border-color: #f0f0f0;
+@right-background-color: #333;
+@right-text-color: @background-color;
 
 /* Tabs */
 @tabs-background-color: #eee;
@@ -42,7 +53,9 @@
 @warning-background-color: mix(@warning-title-text-color, @background-color, 7%);
 @warning-border-color: @warning-title-text-color;
 
-/* HTTP method-specific colors */
+/* Resource groups */
+@group-padding: @padding;
+@group-header-margin: -@padding -@padding @padding -@padding;
 @group-background-color: @background-color;
 @group-title-background-color: contrast(@background-color,
                                         darken(@background-color, 5%),
@@ -51,6 +64,8 @@
                               darken(@background-color, 15%),
                               lighten(@background-color, 15%));
 @group-text-color: contrast(@group-background-color);
+
+/* HTTP method-specific colors */
 
 /* HTTP GET */
 @get-color: darken(@link-color, 6.5%);
@@ -105,6 +120,7 @@
 @inline-code-background-color: #f5f5f5;
 @inline-code-text-color: #444;
 
+@code-block-text-color: @text-color;
 @code-block-background-color: #f5f5f5;
 @code-block-border-color: contrast(@code-block-background-color,
                                    darken(@code-block-background-color, 15%),
