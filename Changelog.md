@@ -4,6 +4,7 @@
 * Add a three-paned theme layout called `triple`. Use it with `--theme-layout triple`. All variable/color schemes are supported. [#161](https://github.com/danielgtaylor/aglio/issues/161)
 * Show example URI for each action so that users with little URI template experience can quickly understand how URI parameters should work. [#138](https://github.com/danielgtaylor/aglio/issues/138)
 * Add variables to better control font information, table styling, column sizing, hover effects, and more. This makes it even easier to modify existing themes to match your project's or company's style.
+* Add a new simplified theme called `streak`. Use with `--theme-variables streak`.
 
 # 1.2.1 - 2015-09-01
 

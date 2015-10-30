@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700|Source+Code+Pro');
+
+/* Page-wide variables */
+@nav-triple-width: 15%;
+@right-panel-width: 52%;
+@right-panel-background-width: 52%;
+
+@base-font: 400 14px ~"/" 1.42 'Roboto', Helvetica, sans-serif;
+@title-font: 100 36px 'Roboto', Helvetica, sans-serif;
+@code-font: 13px ~"/" 19.5px 'Source Code Pro', Menlo, monospace;
+
+/* Basic page-wide colors */
+@text-color: #4c555a;
+
+@link-color: #0099e5;
+@right-link-color: @link-color;
+
+@heading-text-color: #292e31;
+
+/* Nav and right panel */
+@nav-hover-border-color: transparent;
+@nav-hover-background-color: transparent;
+@nav-hover-text-decoration: underline;
+@nav-background-color: #fafcfc;
+@nav-border-color: #f0f4f7;
+@right-background-color: #2d3134;
+@right-text-color: #dde4e8;
+
+/* Tabs */
+@tabs-background-color: #eee;
+@tabs-active-background-color: darken(@tabs-background-color, 10%);
+@tabs-border-color: #ddd;
+@right-tabs-background-color: #424648;
+@right-tabs-active-background-color: lighten(@right-tabs-background-color, 10%);
+@right-tabs-border-color: #6C6F71;
+
+/* Notes and warnings */
+@note-text-color: @text-color;
+@note-title-text-color: @link-color;
+@note-background-color: mix(@link-color, @background-color, 8%);
+@note-border-color: @note-title-text-color;
+
+@warning-text-color: @text-color;
+@warning-title-text-color: #B82E5F;
+@warning-background-color: mix(@warning-title-text-color, @background-color, 7%);
+@warning-border-color: @warning-title-text-color;
+
+/* Resource groups */
+@group-padding: @padding @padding @padding 0;
+@group-header-margin: 0 0 @padding 0;
+@group-background-color: transparent;
+@group-title-background-color: @group-background-color;
+@group-border-color: @group-background-color;
+@group-text-color: black;
+
+/* HTTP method-specific colors */
+
+/* HTTP GET */
+@get-color: multiply(@link-color, #fff);
+@get-background-color: screen(@link-color, #ddd);
+@get-text-color: contrast(@get-background-color);
+@get-badge-text-color: lighten(@get-background-color, 25%);
+@get-border-color: @get-background-color;
+
+/* HTTP HEAD */
+@head-color: @get-color;
+@head-background-color: @get-background-color;
+@head-text-color: @get-text-color;
+@head-badge-text-color: @get-badge-text-color;
+@head-border-color: @get-border-color;
+
+/* HTTP OPTIONS */
+@options-color: @get-color;
+@options-background-color: @get-background-color;
+@options-text-color: @get-text-color;
+@options-badge-text-color: @get-badge-text-color;
+@options-border-color: @get-border-color;
+
+/* HTTP PUT */
+@put-color: multiply(#ebde68, #c0c0c0);
+@put-background-color: screen(#ebde68, #999);
+@put-text-color: contrast(@put-background-color);
+@put-badge-text-color: lighten(@put-background-color, 25%);
+@put-border-color: @put-background-color;
+
+/* HTTP PATCH */
+@patch-color: @put-color;
+@patch-background-color: @put-background-color;
+@patch-text-color: @put-text-color;
+@patch-badge-text-color: @put-badge-text-color;
+@patch-border-color: @put-border-color;
+
+/* HTTP POST */
+@post-color: multiply(#c1ef65, #b0b0b0);
+@post-background-color: desaturate(screen(#c1ef65, #999), 20%);
+@post-text-color: contrast(@post-background-color);
+@post-badge-text-color: lighten(@post-background-color, 25%);
+@post-border-color: @post-background-color;
+
+/* HTTP DELETE */
+@delete-color: screen(#b82e5f, #222);
+@delete-background-color: screen(#b82e5f, #cfcfcf);
+@delete-text-color: contrast(@delete-background-color);
+@delete-badge-text-color: lighten(@delete-background-color, 25%);
+@delete-border-color: @delete-background-color;
+
+/* Code colors */
+@inline-code-background-color: #f5f5f5;
+@inline-code-text-color: #b93d6a;
+
+@code-block-text-color: @text-color;
+@code-block-background-color: #f5f5f5;
+@code-block-border-color: contrast(@code-block-background-color,
+                                   darken(@code-block-background-color, 15%),
+                                   lighten(@code-block-background-color, 15%));
+
+@right-code-block-text-color: #D0D0D0;
+@right-code-block-background-color: #272B2D;
+@right-code-block-border-color: @right-code-block-background-color;
+
+@title-code-background-color: @inline-code-background-color;
+@title-code-text-color: #444;
+@title-code-border-color: @code-block-border-color;
+
+@quote-border-color: contrast(@code-block-background-color,
+                              darken(@code-block-background-color, 5%),
+                              lighten(@code-block-background-color, 5%));
+
+/* Highlight.js Theme Streak */
+.hljs-comment{color:#969896}.css .hljs-class,.css .hljs-id,.css .hljs-pseudo,.hljs-attribute,.hljs-regexp,.hljs-tag,.hljs-variable,.html .hljs-doctype,.ruby .hljs-constant,.xml .hljs-doctype,.xml .hljs-pi,.xml .hljs-tag .hljs-title{color:#77A619}.hljs-literal{color:#A69819}.hljs-built_in,.hljs-constant,.hljs-number,.hljs-params,.hljs-pragma,.hljs-preprocessor{color:#1B88B3}.css .hljs-rule .hljs-attribute,.ruby .hljs-class .hljs-title{color:#A37518}.hljs-header,.hljs-inheritance,.hljs-name,.hljs-string,.hljs-value,.ruby .hljs-symbol,.xml .hljs-cdata{color:inherit}.coffeescript .hljs-title,.css .hljs-hexcolor,.hljs-function,.hljs-title,.javascript .hljs-title,.perl .hljs-sub,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword{color:#A63A4A}.hljs-keyword,.javascript .hljs-function{color:#A69819}.hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .css,.xml .hljs-cdata,.xml .javascript,.xml .vbscript{opacity:.5}
+
+/* Highlight.js Theme Streak Night */
+.right {
+  .hljs-comment{color:#969896}.css .hljs-class,.css .hljs-id,.css .hljs-pseudo,.hljs-attribute,.hljs-regexp,.hljs-tag,.hljs-variable,.html .hljs-doctype,.ruby .hljs-constant,.xml .hljs-doctype,.xml .hljs-pi,.xml .hljs-tag .hljs-title{color:#C1EF65}.hljs-literal{color:#EBDE68}.hljs-built_in,.hljs-constant,.hljs-number,.hljs-params,.hljs-pragma,.hljs-preprocessor{color:#77BCD7}.css .hljs-rule .hljs-attribute,.ruby .hljs-class .hljs-title{color:#f0c674}.hljs-header,.hljs-inheritance,.hljs-name,.hljs-string,.hljs-value,.ruby .hljs-symbol,.xml .hljs-cdata{color:inherit}.coffeescript .hljs-title,.css .hljs-hexcolor,.hljs-function,.hljs-title,.javascript .hljs-title,.perl .hljs-sub,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword{color:#f099a6}.hljs-keyword,.javascript .hljs-function{color:#EBDE68}.hljs{display:block;overflow-x:auto;background:#1d1f21;color:#c5c8c6;padding:.5em;-webkit-text-size-adjust:none}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .css,.xml .hljs-cdata,.xml .javascript,.xml .vbscript{opacity:.5}
+}
