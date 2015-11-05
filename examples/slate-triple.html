@@ -86,7 +86,33 @@
 <p>Markdown</p>
 </li>
 </ul>
-</div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.example.com</span>/notes</span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[]</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="notes-note-list-get" class="action get"><h4 class="action-heading"><div class="name">Get Notes</div><a href="#notes-note-list-get" class="method get">GET</a><code class="uri">/notes</code></h4><p>Get a list of notes.</p>
+</div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.example.com</span>/notes</span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {}
+]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
+  "<span class="hljs-attribute">items</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+    "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+        "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Unique identifier"</span>
+      </span>}</span>,
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+        "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Single line description"</span>
+      </span>}</span>,
+      "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+        "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Full description of the note which supports Markdown."</span>
+      </span>}
+    </span>}</span>,
+    "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+      <span class="hljs-string">"id"</span>,
+      <span class="hljs-string">"title"</span>
+    ]
+  </span>}</span>,
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="notes-note-list-get" class="action get"><h4 class="action-heading"><div class="name">Get Notes</div><a href="#notes-note-list-get" class="method get">GET</a><code class="uri">/notes</code></h4><p>Get a list of notes.</p>
 </div></div><hr class="split"><div class="right"><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://api.example.com</span>/notes</span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">with body</span><span class="tab-button">without body</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"My new note"</span></span>,
   "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"This is the body"</span>
@@ -102,6 +128,27 @@
   "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"Buy milk"</span></span>,
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Grocery list"</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Unique identifier"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Single line description"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Full description of the note which supports Markdown."</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"id"</span>,
+    <span class="hljs-string">"title"</span>
+  ]</span>,
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Note not found"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="notes-note-get" class="action get"><h4 class="action-heading"><div class="name">Get Note</div><a href="#notes-note-get" class="method get">GET</a><code class="uri">/notes/{id}{?body}</code></h4><p>Get a single note.</p>
@@ -113,6 +160,27 @@
   "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"Buy milk"</span></span>,
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Grocery list"</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Unique identifier"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Single line description"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Full description of the note which supports Markdown."</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"id"</span>,
+    <span class="hljs-string">"title"</span>
+  ]</span>,
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Note not found"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
@@ -121,6 +189,27 @@
   "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"Buy milk"</span></span>,
   "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
   "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Grocery list"</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Unique identifier"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Single line description"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Full description of the note which supports Markdown."</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"id"</span>,
+    <span class="hljs-string">"title"</span>
+  ]</span>,
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-Request-ID</span>: <span class="hljs-string">f72fc914</span><br><span class="hljs-attribute">X-Response-Time</span>: <span class="hljs-string">4ms</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"Note not found"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="notes-note-put" class="action put"><h4 class="action-heading"><div class="name">Update a Note</div><a href="#notes-note-put" class="method put">PUT</a><code class="uri">/notes/{id}</code></h4><p>Update a single note by setting the title and/or body.</p>
@@ -179,7 +268,7 @@
 ]</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="tags-and-tagging-long-title-get" class="action get"><h4 class="action-heading"><div class="name"></div><a href="#tags-and-tagging-long-title-get" class="method get">GET</a><code class="uri">/tags</code></h4><p>Get a list of bars</p>
 </div></div><hr class="split"><div class="middle"><div id="tags-and-tagging-long-title-get-one-tag" class="resource"><h3 class="resource-heading">Get one tag<a href="#tags-and-tagging-long-title-get-one-tag" class="permalink">&para;</a></h3><p>Get a single tag</p>
 </div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://api.example.com</span>/tags/<span class="hljs-attribute">id</span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><div class="description text-muted">This response has no content.</div><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="tags-and-tagging-long-title-get-one-tag-get" class="action get"><h4 class="action-heading"><div class="name"></div><a href="#tags-and-tagging-long-title-get-one-tag-get" class="method get">GET</a><code class="uri">/tags/{id}</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>Unique tag identifier</p>
-</dd></dl></div></div></div><hr class="split"><div class="middle"><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 30 Oct 2015</p></div></div></div></div><script>/* eslint-env browser */
+</dd></dl></div></div></div><hr class="split"><div class="middle"><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 04 Nov 2015</p></div></div></div></div><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
