@@ -1,4 +1,4 @@
-# Unreleased
+# 1.4.0 - 2015-11-04
 
 * Tweaks to the `streak` theme.
 * Add an extremely basic JSON Schema generator as a band-aid over missing functionality in Protagonist 1.x.
