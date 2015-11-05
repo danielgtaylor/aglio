@@ -721,7 +721,7 @@ nav .resource-group{
         .method {
             padding: @padding / 2 @padding;
             margin-right: @padding;
-            border-radius: 3px;
+            border-radius: ceil(@border-radius / 2);
 
             &.get {
                 color: contrast(@get-color);
