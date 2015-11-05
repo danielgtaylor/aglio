@@ -1,3 +1,8 @@
+# Unreleased
+
+* Tweaks to the `streak` theme.
+* Add an extremely basic JSON Schema generator as a band-aid over missing functionality in Protagonist 1.x.
+
 # 1.3.0 - 2015-10-30
 
 * Support built-in layout templates by name using `--theme-layout name`.

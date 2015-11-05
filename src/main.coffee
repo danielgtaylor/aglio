@@ -7,6 +7,7 @@ markdownIt = require 'markdown-it'
 moment = require 'moment'
 path = require 'path'
 querystring = require 'querystring'
+renderSchema = require './schema'
 
 # The root directory of this project
 ROOT = path.dirname __dirname
@@ -313,13 +314,25 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
     uri
   , []).join('').replace(/\/+/g, '/').replace(/\/$/, '')
 
-decorate = (api, md, slugCache) ->
+decorate = (api, md, slugCache, verbose) ->
   # Decorate an API Blueprint AST with various pieces of information that
   # will be useful for the theme. Anything that would significantly
   # complicate the Jade template should probably live here instead!
 
   # Use the slug caching mechanism
   slugify = slug.bind slug, slugCache
+
+  # Find data structures. This is a temporary workaround until Drafter is
+  # updated to support JSON Schema again.
+  # TODO: Remove me when Drafter is released.
+  dataStructures = {}
+  for category in api.content or []
+    for item in category.content or []
+      if item.element is 'dataStructure'
+        dataStructure = item.content[0]
+        dataStructures[dataStructure.meta.id] = dataStructure
+  if verbose
+    console.log "Known data structures: #{Object.keys(dataStructures)}"
 
   # API overview description
   if api.description
@@ -394,6 +407,23 @@ decorate = (api, md, slugCache) ->
             for item in example[name] or []
               if name is 'requests' and not action.hasRequest
                 action.hasRequest = true
+
+              # If there is no schema, but there are MSON attributes, then try
+              # to generate the schema. This will fail sometimes.
+              # TODO: Remove me when Drafter is released.
+              if not item.schema and item.content
+                for dataStructure in item.content
+                  if dataStructure.element is 'dataStructure'
+                    try
+                      schema = renderSchema(
+                        dataStructure.content[0], dataStructures)
+                      schema['$schema'] =
+                        'http://json-schema.org/draft-04/schema#'
+                      item.schema = JSON.stringify(schema, null, 2)
+                    catch err
+                      if verbose
+                        console.log(dataStructure.content[0])
+                        console.log(err)
 
               item.hasContent = item.description or \
                                 Object.keys(item.headers).length or \
@@ -477,7 +507,7 @@ exports.render = (input, options, done) ->
   md.renderer.rules.code_block = md.renderer.rules.fence
 
   benchmark.start 'decorate'
-  decorate input, md, slugCache
+  decorate input, md, slugCache, options.verbose
   benchmark.end 'decorate'
 
   benchmark.start 'css-total'
