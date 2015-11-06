@@ -37,6 +37,7 @@ module.exports = renderSchema = (root, dataStructures) ->
       i = 0
       while i < properties.length
         member = properties[i]
+        i++
         if member.element == 'ref'
           ref = dataStructures[member.content.href]
           for item in ref.content
@@ -54,7 +55,6 @@ module.exports = renderSchema = (root, dataStructures) ->
           typeAttr = member.attributes.typeAttributes
           if typeAttr.indexOf('required') isnt -1
             required.push key
-        i++
       if required.length
         schema.required = required
     else
