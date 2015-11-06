@@ -373,10 +373,11 @@ decorate = (api, md, slugCache, verbose) ->
         # Parameters may be defined on the action or on the
         # parent resource. Resource parameters should be concatenated
         # to the action-specific parameters if set.
-        if not action.parameters or not action.parameters.length
-          action.parameters = resource.parameters
-        else if resource.parameters
-          action.parameters = resource.parameters.concat(action.parameters)
+        if not (action.attributes or {}).uriTemplate
+          if not action.parameters or not action.parameters.length
+            action.parameters = resource.parameters
+          else if resource.parameters
+            action.parameters = resource.parameters.concat(action.parameters)
 
         # Remove any duplicates! This gives precedence to the parameters
         # defined on the action.
