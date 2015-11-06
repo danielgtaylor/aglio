@@ -304,7 +304,7 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
             param = parameters[parameterNames.indexOf(
               querystring.unescape name.replace(/^\*|\*$/, ''))]
             "<span class=\"hljs-attribute\">#{name}=</span>" +
-              "<span class=\"hljs-literal\">#{param.example}</span>"
+              "<span class=\"hljs-literal\">#{param.example || ''}</span>"
           else
             "<span class=\"hljs-attribute\">#{name}</span>"
         ).join(if colorize then '&' else ',')
