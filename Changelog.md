@@ -1,7 +1,9 @@
 # Unreleased
 
+* Make navigation badge margin configurable.
+* Permalink rendering fixes.
 * Fix a looping bug in the JSON Schema generator. [#189](https://github.com/danielgtaylor/aglio/pull/189).
-* Don't dispaly `undefined` in URI example, and prevent including resource parameters when actions define their own URI template. [#190](https://github.com/danielgtaylor/aglio/pull/190)
+* Don't display `undefined` in URI example, and prevent including resource parameters when actions define their own URI template. [#190](https://github.com/danielgtaylor/aglio/pull/190)
 
 # 1.4.0 - 2015-11-04
 

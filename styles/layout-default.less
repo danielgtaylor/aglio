@@ -15,13 +15,26 @@ h1, h2, h3, h4, h5 {
     margin: @padding 0;
 
     & .permalink {
-        margin-left: @padding / 2;
+        margin-left: 0;
         opacity: 0;
         transition: opacity 0.25s ease;
     }
 
     &:hover .permalink {
         opacity: 1;
+    }
+
+    // Chrome makes the *text* disappear after hover rather than the permalink
+    // itself... weird bug so we're disabling the fading for now. The key
+    // to the issue is the `position: relative` on the `.triple .content`
+    // container (disabling that rule fixes the problem, hence why it works
+    // in the two-column theme).
+    .triple & .permalink {
+        opacity: 0.15;
+    }
+
+    .triple &:hover .permalink {
+        opacity: 0.15;
     }
 }
 
@@ -309,8 +322,7 @@ nav {
     color: @group-text-color;
     background-color: @group-title-background-color;
     border-radius: 10px;
-    margin-top: -2px;
-    margin-bottom: -2px;
+    margin: @badge-margin;
 
     &.get {
       color: @get-badge-text-color;

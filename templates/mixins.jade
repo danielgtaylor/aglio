@@ -159,15 +159,19 @@ mixin Content()
     //- groups, resources, and actions.
     each resourceGroup in self.api.resourceGroups || []
         section.resource-group(id=resourceGroup.elementId)
-            h2.group-heading!= resourceGroup.name || 'Resource Group'
+            h2.group-heading
+                != resourceGroup.name || 'Resource Group'
+                = " "
                 a.permalink(href=resourceGroup.elementLink) &para;
             if resourceGroup.descriptionHtml
                 != resourceGroup.descriptionHtml
 
             each resource in resourceGroup.resources || []
                 .resource(id=resource.elementId)
-                    h3.resource-heading!= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
-                        a.permalink(href=resource.elementLink) &para;
+                    h3.resource-heading
+                        != resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                        = " "
+                        a.permalink(href=resource.elementLink) &nbsp;&para;
                     if resource.description
                         != self.markdown(resource.description)
 
@@ -214,7 +218,9 @@ mixin ContentTriple()
     each resourceGroup in self.api.resourceGroups || []
         .middle
             section.resource-group(id=resourceGroup.elementId)
-                h2.group-heading!= resourceGroup.name || 'Resource Group'
+                h2.group-heading
+                    != resourceGroup.name || 'Resource Group'
+                    = " "
                     a.permalink(href=resourceGroup.elementLink) &para;
                 if resourceGroup.descriptionHtml
                     != resourceGroup.descriptionHtml
@@ -222,7 +228,9 @@ mixin ContentTriple()
         each resource in resourceGroup.resources || []
             .middle
                 .resource(id=resource.elementId)
-                    h3.resource-heading!= resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                    h3.resource-heading
+                        != resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                        = " "
                         a.permalink(href=resource.elementLink) &para;
                     if resource.description
                         != self.markdown(resource.description)
