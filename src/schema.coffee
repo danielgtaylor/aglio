@@ -9,6 +9,8 @@
 # * Arrays with members of different types
 #
 # It is missing support for many advanced features.
+{deepEqual} = require 'assert'
+
 module.exports = renderSchema = (root, dataStructures) ->
   schema = {}
   switch root.element
@@ -28,7 +30,10 @@ module.exports = renderSchema = (root, dataStructures) ->
       if items.length is 1
         schema.items = items[0]
       else if items.length > 1
-        schema.items = 'anyOf': items
+        try
+          schema.items = items.reduce (l, r) -> deepEqual(l, r) or r
+        catch
+          schema.items = 'anyOf': items
     when 'object'
       schema.type = 'object'
       schema.properties = {}

@@ -1,5 +1,6 @@
-# Unreleased
+# 1.4.1 - 2015-11-10
 
+* Handle homogenous arrays with multiple samples better in the JSON Schema generator.
 * Make navigation badge margin configurable.
 * Permalink rendering fixes.
 * Fix a looping bug in the JSON Schema generator. [#189](https://github.com/danielgtaylor/aglio/pull/189).
