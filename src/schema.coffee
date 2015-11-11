@@ -3,7 +3,7 @@
 #
 # * Simple types, enums, arrays, objects
 # * Property descriptions
-# * Required, default properties
+# * Required, default, nullable properties
 # * References
 # * Mixins (Includes)
 # * Arrays with members of different types
@@ -60,10 +60,17 @@ module.exports = renderSchema = (root, dataStructures) ->
           typeAttr = member.attributes.typeAttributes
           if typeAttr.indexOf('required') isnt -1
             required.push key
+          if typeAttr.indexOf('nullable') isnt -1
+            schema.properties[key].type = [schema.properties[key].type, 'null']
       if required.length
         schema.required = required
     else
       ref = dataStructures[root.element]
       if ref
         schema = renderSchema(ref, dataStructures)
+
+  if root.attributes?.typeAttributes
+    typeAttr = root.attributes.typeAttributes
+    if typeAttr.indexOf('nullable') isnt -1
+      schema.type = [schema.type, 'null']
   schema
