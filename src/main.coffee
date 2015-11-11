@@ -54,16 +54,14 @@ exports.getTheme = (name) ->
     name = 'olio' if not name or name in LEGACY_TEMPLATES
     require "aglio-theme-#{name}"
 
-# Render an API Blueprint string using a given template
-exports.render = (input, options, done) ->
+# Render an API Blueprint object using a given template
+exports.renderBlueprint = (input, options, done) ->
     # Support a template name as the options argument
     if typeof options is 'string' or options instanceof String
         options =
             theme: options
 
     # Defaults
-    options.filterInput ?= true
-    options.includePath ?= process.cwd()
     options.theme ?= 'default'
 
     # For backward compatibility
@@ -78,6 +76,36 @@ exports.render = (input, options, done) ->
         console.log "Setting theme to olio and variables to #{variables}"
         options.themeVariables = variables
         options.theme = 'olio'
+
+    try
+        theme = exports.getTheme options.theme
+    catch err
+        return done(errMsg 'Error getting theme', err)
+
+    # Setup default options if needed
+    for option in theme.getConfig().options or []
+        # Convert `foo-bar` into `themeFooBar`
+        words = (f[0].toUpperCase() + f.slice(1) for f in option.name.split('-'))
+        name = "theme#{words.join('')}"
+        options[name] ?= option.default
+
+    benchmark.start 'render-total'
+    theme.render input, options, (err, html) ->
+        benchmark.end 'render-total'
+        if err then return done(err)
+
+        done null, html, null
+
+# Render an API Blueprint string using a given template
+exports.render = (input, options, done) ->
+    # Support a template name as the options argument
+    if typeof options is 'string' or options instanceof String
+        options =
+            theme: options
+
+    # Defaults
+    options.filterInput ?= true
+    options.includePath ?= process.cwd()
 
     # Handle custom directive(s)
     input = includeDirective options.includePath, input
@@ -97,28 +125,12 @@ exports.render = (input, options, done) ->
             err.input = input
             return done(errMsg 'Error parsing input', err)
 
-        try
-            theme = exports.getTheme options.theme
-        catch err
-            return done(errMsg 'Error getting theme', err)
-
-        # Setup default options if needed
-        for option in theme.getConfig().options or []
-            # Convert `foo-bar` into `themeFooBar`
-            words = (f[0].toUpperCase() + f.slice(1) for f in option.name.split('-'))
-            name = "theme#{words.join('')}"
-            options[name] ?= option.default
-
-        benchmark.start 'render-total'
-        theme.render res.ast, options, (err, html) ->
-            benchmark.end 'render-total'
-            if err then return done(err)
-
+        exports.renderBlueprint res.ast, options, (err, html) ->
             # Add filtered input to warnings since we have no
             # error to return
             res.warnings.input = filteredInput
 
-            done null, html, res.warnings
+            done err, html, res.warnings
 
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
