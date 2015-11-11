@@ -7,6 +7,8 @@ markdownIt = require 'markdown-it'
 moment = require 'moment'
 path = require 'path'
 querystring = require 'querystring'
+
+renderExample = require './example'
 renderSchema = require './schema'
 
 # The root directory of this project
@@ -425,6 +427,13 @@ decorate = (api, md, slugCache, verbose) ->
                       if verbose
                         console.log(dataStructure.content[0])
                         console.log(err)
+
+              if item.content and not process.env.DRAFTER_EXAMPLES
+                for dataStructure in item.content
+                  if dataStructure.element is 'dataStructure'
+                    try
+                      item.body = JSON.stringify(renderExample(
+                        dataStructure.content[0], dataStructures), null, 2)
 
               item.hasContent = item.description or \
                                 Object.keys(item.headers).length or \

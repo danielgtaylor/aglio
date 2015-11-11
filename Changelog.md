@@ -1,3 +1,11 @@
+# Unreleased
+
+* Generate JSON examples internally rather than relying on Drafter. You can disable this feature by setting the `DRAFTEREXAMPLES` environment variable. For example:
+
+  ```
+  DRAFTEREXAMPLES=1 aglio -i input.apib -o output.html
+  ```
+
 # 1.4.1 - 2015-11-10
 
 * Handle homogenous arrays with multiple samples better in the JSON Schema generator.
