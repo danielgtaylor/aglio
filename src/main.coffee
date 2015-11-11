@@ -465,7 +465,9 @@ exports.getConfig = ->
     {name: 'template', description: 'Template name or path to custom template',
     default: 'default'},
     {name: 'style',
-    description: 'Layout style name or path to custom stylesheet'}
+    description: 'Layout style name or path to custom stylesheet'},
+    {name: 'emoji', description: 'Enable support for emoticons',
+    boolean: true, default: true}
   ]
 
 # Render the blueprint with the given options using Jade and LESS
@@ -510,8 +512,9 @@ exports.render = (input, options, done) ->
     permalinkClass: 'permalink'
   ).use(require('markdown-it-checkbox')
   ).use(require('markdown-it-container'), 'note'
-  ).use(require('markdown-it-container'), 'warning'
-  ).use(require('markdown-it-emoji'))
+  ).use(require('markdown-it-container'), 'warning')
+
+  if options.themeEmoji then md.use require('markdown-it-emoji')
 
   # Enable code highlighting for unfenced code blocks
   md.renderer.rules.code_block = md.renderer.rules.fence
