@@ -7,6 +7,7 @@
 # * References
 # * Mixins (Includes)
 # * Arrays with members of different types
+# * One Of (mutually exclusive) properties
 #
 # It is missing support for many advanced features.
 {deepEqual} = require 'assert'
@@ -34,7 +35,7 @@ module.exports = renderSchema = (root, dataStructures) ->
           schema.items = items.reduce (l, r) -> deepEqual(l, r) or r
         catch
           schema.items = 'anyOf': items
-    when 'object'
+    when 'object', 'option'
       schema.type = 'object'
       schema.properties = {}
       required = []
@@ -49,7 +50,14 @@ module.exports = renderSchema = (root, dataStructures) ->
             properties.push item
           continue
         else if member.element == 'select'
-          # TODO: Not supported yet, but we want to skip these.
+          exclusive = []
+          for option in member.content
+            optionSchema = renderSchema(option, dataStructures)
+            for key, prop of optionSchema.properties
+              exclusive.push key
+              schema.properties[key] = prop
+          if not schema.allOf then schema.allOf = []
+          schema.allOf.push not: required: exclusive
           continue
         key = member.content.key.content
         schema.properties[key] = renderSchema(

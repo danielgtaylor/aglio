@@ -1,5 +1,6 @@
 # Unreleased
 
+* Support `One Of` mutually exclusive parameters in JSON Schema.
 * Support `nullable` member attribute in JSON Schema.
 
 # 1.5.0 - 2015-11-10
