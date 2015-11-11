@@ -1,4 +1,4 @@
-# Unreleased
+# 1.6.0 - 2015-11-11
 
 * Allow disabling emoji support via `--no-theme-emoji`. [#194](https://github.com/danielgtaylor/aglio/issues/194)
 * Support `One Of` mutually exclusive parameters in JSON Schema.
