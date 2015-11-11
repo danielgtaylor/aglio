@@ -1,4 +1,4 @@
-# Unreleased
+# 1.5.0 - 2015-11-10
 
 * Generate JSON examples internally rather than relying on Drafter. You can disable this feature by setting the `DRAFTEREXAMPLES` environment variable. For example:
 
