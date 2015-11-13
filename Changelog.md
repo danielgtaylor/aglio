@@ -1,5 +1,6 @@
 # Unreleased
 
+* Show sample values (if they exist) for named path parameters. [#193](https://github.com/danielgtaylor/aglio/issues/193)
 * Properly handle MSON mixin property precedence.
 * Properly handle MSON inheritance with overridden members. [#197](https://github.com/danielgtaylor/aglio/issues/197)
 

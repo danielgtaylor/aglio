@@ -301,14 +301,15 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
       segment.push "+" if v.reservedSet
       segment.push v.parameters.map((name) ->
         if not colorize then name else
+          # TODO: handle errors here?
+          param = parameters[parameterNames.indexOf(
+            querystring.unescape name.replace(/^\*|\*$/, ''))]
           if v.querySet or v.formSet or v.reservedSet
-            # TODO: handle errors here?
-            param = parameters[parameterNames.indexOf(
-              querystring.unescape name.replace(/^\*|\*$/, ''))]
             "<span class=\"hljs-attribute\">#{name}=</span>" +
               "<span class=\"hljs-literal\">#{param.example || ''}</span>"
           else
-            "<span class=\"hljs-attribute\">#{name}</span>"
+            "<span class=\"hljs-attribute\" title=\"#{name}\">#{
+              param.example || name}</span>"
         ).join(if colorize then '&' else ',')
       if not colorize
         segment.push "}"
