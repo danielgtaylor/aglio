@@ -34,8 +34,8 @@ module.exports = renderExample = (root, dataStructures) ->
         i++
         if member.element == 'ref'
           ref = dataStructures[member.content.href]
-          for item in ref.content
-            properties.push item
+          i--
+          properties.splice.apply properties, [i, 1].concat(ref.content)
           continue
         else if member.element == 'select'
           # Note: we *always* select the first choice!

@@ -1,5 +1,6 @@
 # Unreleased
 
+* Properly handle MSON mixin property precedence.
 * Properly handle MSON inheritance with overridden members. [#197](https://github.com/danielgtaylor/aglio/issues/197)
 
 # 1.6.0 - 2015-11-11

@@ -47,8 +47,8 @@ module.exports = renderSchema = (root, dataStructures) ->
         i++
         if member.element == 'ref'
           ref = dataStructures[member.content.href]
-          for item in ref.content
-            properties.push item
+          i--
+          properties.splice.apply properties, [i, 1].concat(ref.content)
           continue
         else if member.element == 'select'
           exclusive = []
@@ -68,7 +68,7 @@ module.exports = renderSchema = (root, dataStructures) ->
         if member.attributes?.typeAttributes
           typeAttr = member.attributes.typeAttributes
           if typeAttr.indexOf('required') isnt -1
-            required.push key
+            if required.indexOf(key) is -1 then required.push key
           if typeAttr.indexOf('nullable') isnt -1
             schema.properties[key].type = [schema.properties[key].type, 'null']
       if required.length
