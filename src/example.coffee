@@ -9,6 +9,8 @@
 # * One Of properties (the first is always selected)
 #
 # It is missing support for many advanced features.
+inherit = require './inherit'
+
 defaultValue = (type) ->
   switch type
     when 'boolean' then true
@@ -44,4 +46,4 @@ module.exports = renderExample = (root, dataStructures) ->
     else
       ref = dataStructures[root.element]
       if ref
-        renderExample(ref, dataStructures)
+        renderExample(inherit(ref, root), dataStructures)

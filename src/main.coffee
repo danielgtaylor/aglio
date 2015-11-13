@@ -425,7 +425,8 @@ decorate = (api, md, slugCache, verbose) ->
                       item.schema = JSON.stringify(schema, null, 2)
                     catch err
                       if verbose
-                        console.log(dataStructure.content[0])
+                        console.log(
+                          JSON.stringify dataStructure.content[0], null, 2)
                         console.log(err)
 
               if item.content and not process.env.DRAFTER_EXAMPLES
@@ -434,6 +435,11 @@ decorate = (api, md, slugCache, verbose) ->
                     try
                       item.body = JSON.stringify(renderExample(
                         dataStructure.content[0], dataStructures), null, 2)
+                    catch err
+                      if verbose
+                        console.log(
+                          JSON.stringify dataStructure.content[0], null, 2)
+                        console.log(err)
 
               item.hasContent = item.description or \
                                 Object.keys(item.headers).length or \

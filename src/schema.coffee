@@ -11,6 +11,7 @@
 #
 # It is missing support for many advanced features.
 {deepEqual} = require 'assert'
+inherit = require './inherit'
 
 module.exports = renderSchema = (root, dataStructures) ->
   schema = {}
@@ -75,7 +76,7 @@ module.exports = renderSchema = (root, dataStructures) ->
     else
       ref = dataStructures[root.element]
       if ref
-        schema = renderSchema(ref, dataStructures)
+        schema = renderSchema(inherit(ref, root), dataStructures)
 
   if root.attributes?.typeAttributes
     typeAttr = root.attributes.typeAttributes
