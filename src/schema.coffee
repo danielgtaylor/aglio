@@ -78,6 +78,9 @@ module.exports = renderSchema = (root, dataStructures) ->
       if ref
         schema = renderSchema(inherit(ref, root), dataStructures)
 
+  if root.meta?.description?
+    schema.description = root.meta.description
+
   if root.attributes?.typeAttributes
     typeAttr = root.attributes.typeAttributes
     if typeAttr.indexOf('nullable') isnt -1

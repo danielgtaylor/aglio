@@ -1,3 +1,7 @@
+# 1.6.2 - 2015-11-16
+
+* Use all element descriptions when available for JSON Schema generation.
+
 # 1.6.1 - 2015-11-13
 
 * Show sample values (if they exist) for named path parameters. [#193](https://github.com/danielgtaylor/aglio/issues/193)
