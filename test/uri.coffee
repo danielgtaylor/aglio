@@ -49,6 +49,25 @@ examples = [
   }
 
   {
+    uriTemplate: '/resource{?greeting}{&name}'
+    parameters: [
+      {
+        name: 'greeting'
+        example: 'hello'
+      }
+      {
+        name: 'name'
+        example: 'world'
+      }
+    ]
+    exampleURI: [
+      '/resource'
+      {operator: '?', attribute: 'greeting', literal: 'hello'}
+      {operator: '&', attribute: 'name', literal: 'world'}
+    ]
+  }
+
+  {
     uriTemplate: '/resource{?greeting}{+something}'
     parameters: [
       {
@@ -132,6 +151,6 @@ describe 'URI Rendering', ->
     it "Should render #{example.uriTemplate}", (done) ->
       theme.render example.ast, (err, html) ->
         if err then return done err
-        assert.include html, example.uriTemplate
+        assert.include html, example.uriTemplate.replace /&/g, '&amp;'
         assert.include html, example.exampleURI
         done()
