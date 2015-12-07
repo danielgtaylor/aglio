@@ -286,7 +286,7 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
     block.reservedSet = templateUri.indexOf("{+", index) is index
     lastIndex = closeIndex + 1
     index++
-    index++ if block.querySet
+    index++ if block.querySet or block.formSet or block.reservedSet
     parameterSet = templateUri.substring(index, closeIndex)
     block.parameters = parameterSet.split(",").filter(parameterValidator)
     parameterBlocks.push block if block.parameters.length
@@ -298,13 +298,13 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
       segment = if not colorize then ["{"] else []
       segment.push "?" if v.querySet
       segment.push "&" if v.formSet
-      segment.push "+" if v.reservedSet
+      segment.push "+" if v.reservedSet and not colorize
       segment.push v.parameters.map((name) ->
         if not colorize then name else
           # TODO: handle errors here?
-          param = parameters[parameterNames.indexOf(
-            querystring.unescape name.replace(/^\*|\*$/, ''))]
-          if v.querySet or v.formSet or v.reservedSet
+          name = name.replace(/^\*|\*$/, '')
+          param = parameters[parameterNames.indexOf(querystring.unescape name)]
+          if v.querySet or v.formSet
             "<span class=\"hljs-attribute\">#{name}=</span>" +
               "<span class=\"hljs-literal\">#{param.example || ''}</span>"
           else
