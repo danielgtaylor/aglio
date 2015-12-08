@@ -37,7 +37,7 @@ getErrContext = (input, lineNo) ->
         if index == 4
             cWarn(">>>>   #{line}")
         else
-            "      #{line}"
+            "       #{line}"
 
 # Get a line number from an error if possible
 getLineNo = (input, err) ->
@@ -51,7 +51,7 @@ logWarnings = (warnings) ->
         errContext = getErrContext(warnings.input, lineNo)
         console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
         console.error cWarn(">> Context")
-        console.info errContext.join('\n')
+        console.error "       ...\n #{errContext.join('\n')} \n       ..."
 
 # Output an error message
 logError = (err, verbose) ->
