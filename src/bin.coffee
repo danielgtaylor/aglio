@@ -29,6 +29,16 @@ parser = require('yargs')
 cErr = clc.white.bgRed
 cWarn = clc.xterm(214).bgXterm(235)
 
+# Get the context from an error if possible
+getErrContext = (input, lineNo) ->
+  inputLines = input.split('\n')
+  context = inputLines.slice(lineNo - 5, lineNo + 5)
+  context.map (line, index) ->
+    if index == 4
+      cWarn(">>>>   #{line}")
+    else
+      "      #{line}"
+
 # Get a line number from an error if possible
 getLineNo = (input, err) ->
     if err.location and err.location.length
@@ -38,7 +48,10 @@ getLineNo = (input, err) ->
 logWarnings = (warnings) ->
     for warning in warnings or []
         lineNo = getLineNo(warnings.input, warning) or 0
+        errContext = getErrContext(warnings.input, lineNo)
         console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
+        console.error cWarn(">> Context")
+        console.info errContext.join('\n')
 
 # Output an error message
 logError = (err, verbose) ->
