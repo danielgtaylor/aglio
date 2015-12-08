@@ -31,13 +31,13 @@ cWarn = clc.xterm(214).bgXterm(235)
 
 # Get the context from an error if possible
 getErrContext = (input, lineNo) ->
-  inputLines = input.split('\n')
-  context = inputLines.slice(lineNo - 5, lineNo + 5)
-  context.map (line, index) ->
-    if index == 4
-      cWarn(">>>>   #{line}")
-    else
-      "      #{line}"
+    inputLines = input.split('\n')
+    context = inputLines.slice(lineNo - 5, lineNo + 5)
+    context.map (line, index) ->
+        if index == 4
+            cWarn(">>>>   #{line}")
+        else
+            "      #{line}"
 
 # Get a line number from an error if possible
 getLineNo = (input, err) ->
