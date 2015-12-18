@@ -5,6 +5,7 @@ node_js:
     - "0.12"
     - "3"
     - "4"
+    - "5"
 addons:
   apt:
     sources:
