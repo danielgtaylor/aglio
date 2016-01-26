@@ -93,7 +93,11 @@ You can choose to use the provided `Dockerfile` to build yourself a repeatable a
 
 1. Build the image with `docker build -t aglio .`
 2. Run aglio inside a container with `docker run -t aglio`
-  You can use the `-v` switch to dynamically mount the folder that holds your API blueprint.
+  You can use the `-v` switch to dynamically mount the folder that holds your API blueprint:
+
+```bash
+docker run -v $(pwd):/tmp -t aglio -i /tmp/input.apib -o /tmp/output.html
+```
 
 ## Node.js Library
 You can also use aglio as a library. First, install and save it as a dependency:
