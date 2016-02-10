@@ -22,6 +22,7 @@ parser = require('yargs')
     .options('v', alias: 'version', describe: 'Display version number', default: false)
     .options('c', alias: 'compile', describe: 'Compile the blueprint file', default: false)
     .options('n', alias: 'include-path', describe: 'Base directory for relative includes')
+    .options('H', alias: 'include-host', describe: 'Base host for relative includes')
     .options('verbose', describe: 'Show verbose information and stack traces', default: false)
     .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
@@ -146,7 +147,9 @@ exports.run = (argv=parser.argv, done=->) ->
             socket.on 'request-refresh', ->
                 sendHtml socket
 
-        paths = aglio.collectPathsSync fs.readFileSync(argv.i, 'utf-8'), path.dirname(argv.i)
+        paths = aglio.collectPathsSync fs.readFileSync(argv.i, 'utf-8'), {
+            includePath: path.dirname(argv.i),
+            includeHost: argv.includeHost }
 
         watcher = chokidar.watch [argv.i].concat(paths)
         watcher.on "change", (path) ->

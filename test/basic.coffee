@@ -28,13 +28,28 @@ describe 'API Blueprint Renderer', ->
             More content...
         '''
 
-        paths = aglio.collectPathsSync input, '.'
+        paths = aglio.collectPathsSync input, { includePath: '.' }
 
         fs.readFileSync.restore()
 
         assert.equal paths.length, 2
         assert 'test1.apib' in paths
         assert 'test2.apib' in paths
+
+    it 'Should get a list of included files with host', ->
+
+        input = '''
+          host: http://localhost
+          # Title
+          <!-- include(/docs/test1.apib) filesystem(host) -->
+          Some content...
+          <!-- include(/test2.apib) filesystem(host) -->
+        '''
+        paths = aglio.collectPathsSync input, { includeHost: 'http://localhost' }
+
+        assert.equal paths.length, 2
+        assert 'http://localhost/docs/test1.apib' in paths
+        assert 'http://localhost/test2.apib' in paths
 
     it 'Should render blank string', (done) ->
         aglio.render '', template: 'default', locals: {foo: 1}, (err, html) ->
@@ -293,7 +308,9 @@ describe 'Executable', ->
             console.error.restore()
             assert err
 
-            bin.run i: path.join(root, 'example.apib'), s: true, p: 3000, h: 'localhost', (err) ->
+            file = path.join(root, 'example.apib')
+
+            bin.run i: file, s: true, p: 3000, h: 'localhost', (err) ->
                 assert.equal err, null
                 http.createServer.restore()
 
