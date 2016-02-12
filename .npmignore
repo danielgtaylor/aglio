@@ -1,6 +1,5 @@
 coverage
 node_modules
-src
 test
 npm-debug.log
 .travis.yml
