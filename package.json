@@ -1,7 +1,7 @@
 {
-  "name": "aglio-theme-olio",
+  "name": "aglio-theme-kaiten",
   "version": "1.6.2",
-  "description": "Default theme for the Aglio API Blueprint renderer",
+  "description": "Kaiten theme for the Aglio API Blueprint renderer",
   "main": "lib/main.js",
   "scripts": {
     "build": "coffeelint src/*.coffee && coffee -o lib -c src",
