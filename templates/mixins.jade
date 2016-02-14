@@ -131,11 +131,11 @@ mixin RequestResponseBody(request, collapse, showBlank)
                 pre: code
                     != self.highlight(request.body, null, ['json', 'yaml', 'xml', 'javascript'])
                 div(style="height: 1px;")
-            if request.schema
-                h5 Schema
-                pre: code
-                    != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
-                div(style="height: 1px;")
+            //if request.schema
+            //    h5 Schema
+            //    pre: code
+            //        != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
+            //    div(style="height: 1px;")
             if !request.hasContent
                 .description.text-muted This response has no content.
                 div(style="height: 1px;")
@@ -143,7 +143,7 @@ mixin RequestResponseBody(request, collapse, showBlank)
 mixin Examples(resourceGroup, resource, action)
     each example in action.examples
         each request in example.requests
-            +RequestResponse('Request', request, true)
+            +RequestResponse('Request', request, false)
         each response in example.responses
             +RequestResponse('Response', response, true)
 
