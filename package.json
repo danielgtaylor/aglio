@@ -1,6 +1,6 @@
 {
   "name": "aglio-theme-kaiten",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Kaiten theme for the Aglio API Blueprint renderer",
   "main": "lib/main.js",
   "scripts": {
