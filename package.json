@@ -1,6 +1,6 @@
 {
   "name": "aglio-theme-kaiten",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "Kaiten theme for the Aglio API Blueprint renderer",
   "main": "lib/main.js",
   "scripts": {
@@ -35,6 +35,7 @@
   "homepage": "https://github.com/danielgtaylor/aglio/tree/olio-theme",
   "dependencies": {
     "coffee-script": "^1.8.0",
+    "coffeelint": "^1.7.1",
     "highlight.js": "^8.4.0",
     "jade": "^1.8.2",
     "less": "^2.1.2",
@@ -48,7 +49,6 @@
   },
   "devDependencies": {
     "chai": "^3.0.0",
-    "coffeelint": "^1.7.1",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.6",
     "mocha": "^2.0.1",
