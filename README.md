@@ -156,12 +156,16 @@ aglio.render(blueprint, options, function (err, html, warnings) {
 ### Reference
 The following methods are available from the `aglio` library:
 
-#### aglio.collectPathsSync (blueprint, includePath)
+#### aglio.collectPaths (blueprint, includePath, callback)
 Get a list of paths that are included in the blueprint. This list can be watched for changes to do things like live reload. The blueprint's own path is not included.
 
 ```javascript
 var blueprint = '# GET /foo\n<-- include(example.json -->\n';
-var watchPaths = aglio.collectPathsSync(blueprint, process.cwd())
+aglio.collectPaths(blueprint, process.cwd(), function (err, watchPaths) {
+  if (err) return console.log(err);
+
+  console.log(watchPaths);
+});
 ```
 
 #### aglio.render (blueprint, options, callback)

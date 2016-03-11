@@ -1,8 +1,11 @@
 fs = require 'fs'
 path = require 'path'
 drafter = require 'drafter'
+hercule = require 'hercule'
 
-INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
+linkRegExp = new RegExp(/((^[\t ]*)?(?:(\:\[.*?]\((.*?)\))|(<!-- include\((.*?)\) -->)))/gm)
+linkMatch = (match) -> match[4] || match[6]
+
 ROOT = path.dirname __dirname
 
 # Legacy template names
@@ -20,34 +23,13 @@ errMsg = (message, err) ->
     err.message = "#{message}: #{err.message}"
     return err
 
-# Replace the include directive with the contents of the included
-# file in the input.
-includeReplace = (includePath, match, spaces, filename) ->
-    fullPath = path.join includePath, filename
-    lines = fs.readFileSync(fullPath, 'utf-8').replace(/\r\n?/g, '\n').split('\n')
-    content = spaces + lines.join "\n#{spaces}"
-
-    # The content can itself include other files, so check those
-    # as well! Beware of circular includes!
-    includeDirective path.dirname(fullPath), content
-
-# Handle the include directive, which inserts the contents of one
-# file into another. We find the directive using a regular expression
-# and replace it using the method above.
-includeDirective = (includePath, input) ->
-    input.replace INCLUDE, includeReplace.bind(this, includePath)
-
 # Get a list of all paths from included files. This *excludes* the
 # input path itself.
-exports.collectPathsSync = (input, includePath) ->
+exports.collectPaths = (input, includePath, done) ->
     paths = []
-    input.replace INCLUDE, (match, spaces, filename) ->
-        fullPath = path.join(includePath, filename)
-        paths.push fullPath
-
-        content = fs.readFileSync fullPath, 'utf-8'
-        paths = paths.concat exports.collectPathsSync(content, path.dirname(fullPath))
-    paths
+    hercule.transcludeString input, {relativePath: includePath, linkRegExp, linkMatch}, (err, output, paths) ->
+        if err then return done(err)
+        return done(null, paths[1..])
 
 # Get the theme module for a given theme name
 exports.getTheme = (name) ->
@@ -79,46 +61,45 @@ exports.render = (input, options, done) ->
         options.themeVariables = variables
         options.theme = 'olio'
 
-    # Handle custom directive(s)
-    input = includeDirective options.includePath, input
+    hercule.transcludeString input, {relativePath: options.includePath, linkRegExp, linkMatch}, (err, input) ->
 
-    # Drafter does not support \r ot \t in the input, so
-    # try to intelligently massage the input so that it works.
-    # This is required to process files created on Windows.
-    filteredInput = if not options.filterInput then input else
-        input
-            .replace(/\r\n?/g, '\n')
-            .replace(/\t/g, '    ')
+        # Drafter does not support \r ot \t in the input, so
+        # try to intelligently massage the input so that it works.
+        # This is required to process files created on Windows.
+        filteredInput = if not options.filterInput then input else
+            input
+                .replace(/\r\n?/g, '\n')
+                .replace(/\t/g, '    ')
 
-    benchmark.start 'parse'
-    drafter.parse filteredInput, type: 'ast', (err, res) ->
-        benchmark.end 'parse'
-        if err
-            err.input = input
-            return done(errMsg 'Error parsing input', err)
+        benchmark.start 'parse'
+        drafter.parse filteredInput, type: 'ast', (err, res) ->
+            benchmark.end 'parse'
+            if err
+                err.input = input
+                return done(errMsg 'Error parsing input', err)
 
-        try
-            theme = exports.getTheme options.theme
-        catch err
-            return done(errMsg 'Error getting theme', err)
+            try
+                theme = exports.getTheme options.theme
+            catch err
+                return done(errMsg 'Error getting theme', err)
 
-        # Setup default options if needed
-        for option in theme.getConfig().options or []
-            # Convert `foo-bar` into `themeFooBar`
-            words = (f[0].toUpperCase() + f.slice(1) for f in option.name.split('-'))
-            name = "theme#{words.join('')}"
-            options[name] ?= option.default
+            # Setup default options if needed
+            for option in theme.getConfig().options or []
+                # Convert `foo-bar` into `themeFooBar`
+                words = (f[0].toUpperCase() + f.slice(1) for f in option.name.split('-'))
+                name = "theme#{words.join('')}"
+                options[name] ?= option.default
 
-        benchmark.start 'render-total'
-        theme.render res.ast, options, (err, html) ->
-            benchmark.end 'render-total'
-            if err then return done(err)
+            benchmark.start 'render-total'
+            theme.render res.ast, options, (err, html) ->
+                benchmark.end 'render-total'
+                if err then return done(err)
 
-            # Add filtered input to warnings since we have no
-            # error to return
-            res.warnings.input = filteredInput
+                # Add filtered input to warnings since we have no
+                # error to return
+                res.warnings.input = filteredInput
 
-            done null, html, res.warnings
+                done null, html, res.warnings
 
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
@@ -148,14 +129,14 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
 # Compile markdown from/to files
 exports.compileFile = (inputFile, outputFile, done) ->
     compile = (input) ->
-        compiled = includeDirective path.dirname(inputFile), input
-
-        if outputFile isnt '-'
-            fs.writeFile outputFile, compiled, (err) ->
-                done err
-        else
-            console.log compiled
-            done null
+        hercule.transcludeString input, { linkRegExp, linkMatch }, (err, compiled) ->
+            if err then return done(errMsg 'Error compiling output', err)
+            if outputFile isnt '-'
+                fs.writeFile outputFile, compiled, (err) ->
+                    done err
+            else
+                console.log compiled
+                done null
 
     if inputFile isnt '-'
         fs.readFile inputFile, encoding: 'utf-8', (err, input) ->

@@ -146,15 +146,15 @@ exports.run = (argv=parser.argv, done=->) ->
             socket.on 'request-refresh', ->
                 sendHtml socket
 
-        paths = aglio.collectPathsSync fs.readFileSync(argv.i, 'utf-8'), path.dirname(argv.i)
+        aglio.collectPaths fs.readFileSync(argv.i, 'utf-8'), path.dirname(argv.i), (err, paths) ->
+            watcher = chokidar.watch [argv.i].concat(paths)
+            watcher.on "change", (path) ->
+                console.log "Updated " + path
+                _html = null
+                sendHtml io
 
-        watcher = chokidar.watch [argv.i].concat(paths)
-        watcher.on "change", (path) ->
-            console.log "Updated " + path
-            _html = null
-            sendHtml io
+            done()
 
-        done()
     else
         # Render or Compile API Blueprint, requires input/output files
         if not argv.i or not argv.o
