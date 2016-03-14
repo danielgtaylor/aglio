@@ -715,25 +715,24 @@ nav .resource-group{
     border-radius: @border-radius;
 
     h4.action-heading {
-        padding: @padding;
+        padding: @padding / 2 @padding;
         margin: -@padding -@padding @padding -@padding;
         border-bottom: 1px solid transparent;
         border-top-left-radius: @border-radius;
         border-top-right-radius: @border-radius;
-
-        white-space: nowrap;
-        text-overflow: ellipsis;
         overflow: hidden;
 
         .name {
             float: right;
             font-weight: normal;
+            padding: @padding / 2 0;
         }
 
         .method {
             padding: @padding / 2 @padding;
             margin-right: @padding;
             border-radius: ceil(@border-radius / 2);
+            display: inline-block;
 
             &.get {
                 color: contrast(@get-color);
@@ -776,6 +775,9 @@ nav .resource-group{
             background-color: @title-code-background-color;
             border-color: @title-code-border-color;
             font-weight: normal;
+            word-break: break-all;
+            display: inline-block;
+            margin-top: 2px;
         }
     }
 
