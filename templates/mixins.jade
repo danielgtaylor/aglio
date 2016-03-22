@@ -98,7 +98,13 @@ mixin Parameters(params)
                             code= self.urldec(value.value)
                             = ' '
 
-mixin RequestResponse(title, request, collapse)
+mixin Constraints(name, schema)
+    each constraint in ['minLength', 'maxLength', 'pattern']
+        if schema.properties[name][constraint]
+            div #{constraint}: #{schema.properties[name][constraint]}
+
+
+mixin RequestResponse(title, request, collapse, showSchema)
     .title
         strong
             = title
@@ -109,9 +115,9 @@ mixin RequestResponse(title, request, collapse)
             .collapse-button
                 span.close Hide
                 span.open Show
-    +RequestResponseBody(request, collapse)
+    +RequestResponseBody(request, collapse, false, showSchema)
 
-mixin RequestResponseBody(request, collapse, showBlank)
+mixin RequestResponseBody(request, collapse, showBlank, showSchema)
     if request.hasContent || showBlank
         div(class=collapse ? 'collapse-content' : ''): .inner
             if request.description
@@ -130,7 +136,7 @@ mixin RequestResponseBody(request, collapse, showBlank)
                 pre: code
                     != self.highlight(request.body, null, ['json', 'yaml', 'xml', 'javascript'])
                 div(style="height: 1px;")
-            if request.schema
+            if showSchema && request.schema
                 - var schema = JSON.parse(request.schema)
                 table(style="width: 100%;")
                     thead
@@ -139,17 +145,20 @@ mixin RequestResponseBody(request, collapse, showBlank)
                             th Type
                             th Required
                             th Description
+                            th Constraints
                             each description, name in schema.properties || []
                                 tr
                                     td #{name}
                                     td #{description.type}
                                     td #{schema.required && schema.required.indexOf(name) >= 0 ? 'true' : ''}
                                     td #{description.description}
+                                    td
+                                        +Constraints(name, schema)
                 div.title
                     .collapse-button
                         span.close Hide
                         span.open Show
-                    strong Schema
+                    span Schema
                 div.collapse-content: .inner
                     pre: code
                         != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
@@ -161,7 +170,7 @@ mixin RequestResponseBody(request, collapse, showBlank)
 mixin Examples(resourceGroup, resource, action)
     each example in action.examples
         each request in example.requests
-            +RequestResponse('Request', request, false)
+            +RequestResponse('Request', request, false, true)
         each response in example.responses
             +RequestResponse('Response', response, true)
 
