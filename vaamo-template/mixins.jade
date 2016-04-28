@@ -1,0 +1,289 @@
+
+mixin Badge(method)
+    //- Draw a badge for a given HTTP method
+    case method
+        when 'GET'
+            span.badge.get: i.fa.fa-arrow-down
+        when 'HEAD'
+            span.badge.head: i.fa.fa-info-circle
+        when 'OPTIONS'
+            span.badge.options: i.fa.fa-dot-circle-o
+        when 'POST'
+            span.badge.post: i.fa.fa-plus
+        when 'PUT'
+            span.badge.put: i.fa.fa-pencil
+        when 'PATCH'
+            span.badge.patch: i.fa.fa-pencil
+        when 'DELETE'
+            span.badge.delete: i.fa.fa-times
+        default
+            span.badge: i.fa.fa-dot-circle-o
+
+mixin Nav()
+    //- Draw a navigation bar, which includes links to individual
+    //- resources and actions.
+    nav
+        if self.api.navItems && self.api.navItems.length
+            .resource-group
+                .heading
+                  .chevron
+                    i.open.fa.fa-angle-down
+                  a(href='#top') Overview
+                .collapse-content
+                  ul: each item in self.api.navItems
+                    li
+                      a(href=item[1])!= item[0]
+        each resourceGroup in self.api.resourceGroups || []
+            .resource-group
+                .heading
+                  .chevron
+                    i.open.fa.fa-angle-down
+                  a(href=resourceGroup.elementLink)!= resourceGroup.name || 'Resource Group'
+                .collapse-content
+                  ul
+                    each item in resourceGroup.navItems || []
+                      li
+                        a(href=item[1])!= item[0]
+                    each resource in resourceGroup.resources || []
+                      li
+                          if !self.condenseNav || (resource.actions.length != 1)
+                              a(href=resource.elementLink)!= resource.name || 'Resource'
+                              ul: each action in resource.actions || []
+                                  li: a(href=action.elementLink)
+                                    +Badge(action.method)
+                                    != action.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+                          else
+                              - var action = resource.actions[0]
+                              a(href=action.elementLink)
+                                  +Badge(action.method)
+                                  != action.name || resource.name || action.method + ' ' + (action.attributes && action.attributes.uriTemplate || resource.uriTemplate)
+        //- Link to the API hostname, e.g. api.yourcompany.com
+        each meta in self.api.metadata || {}
+            if meta.name == 'HOST'
+                p(style="text-align: center; word-wrap: break-word;")
+                    a(href=meta.value)= meta.value
+
+mixin Parameters(params)
+    //- Draw a definition list of parameter names, types, defaults,
+    //- examples and descriptions.
+    .title
+        strong URI Parameters
+        .collapse-button.show
+            span.close Hide
+            span.open Show
+    .collapse-content
+        dl.inner: each param in params || []
+            dt= self.urldec(param.name)
+            dd
+                code= param.type || 'string'
+                | &nbsp;
+                if param.required
+                    span.required (required)
+                else
+                    span (optional)
+                | &nbsp;
+                if param.default
+                    span.text-info.default
+                        strong Default:&nbsp;
+                        span= param.default
+                    | &nbsp;
+                if param.example
+                    span.text-muted.example
+                        strong Example:&nbsp;
+                        span= param.example
+                != self.markdown(param.description)
+                if param.values.length
+                    p.choices
+                        strong Choices:&nbsp;
+                        each value in param.values
+                            code= self.urldec(value.value)
+                            = ' '
+
+mixin RequestResponse(title, request, collapse)
+    .title
+        strong
+            = title
+            if request.name
+                | &nbsp;&nbsp;
+                code= request.name
+        if collapse && request.hasContent
+            .collapse-button
+                span.close Hide
+                span.open Show
+    +RequestResponseBody(request, collapse)
+
+mixin RequestResponseBody(request, collapse, showBlank)
+    if request.hasContent || showBlank
+        div(class=collapse ? 'collapse-content' : ''): .inner
+            if request.description
+                .description!= self.markdown(request.description)
+
+            if Object.keys(request.headers).length
+                h5 Headers
+                pre: code
+                    each item, index in request.headers
+                        != self.highlight(item.name + ': ' + item.value, 'http')
+                        if index < request.headers.length - 1
+                          br
+                div(style="height: 1px;")
+            if request.body
+                h5 Body
+                pre: code
+                    != self.highlight(request.body, null, ['json', 'yaml', 'xml', 'javascript'])
+                div(style="height: 1px;")
+            if !request.hasContent
+                .description.text-muted This response has no content.
+                div(style="height: 1px;")
+
+mixin Examples(resourceGroup, resource, action)
+    each example in action.examples
+        each request in example.requests
+            +RequestResponse('Request', request, true)
+        each response in example.responses
+            +RequestResponse('Response', response, true)
+
+mixin Content()
+    //- Page header and API description
+    header
+        h1#top!= self.api.name || 'API Documentation'
+
+    if self.api.descriptionHtml
+        != self.api.descriptionHtml
+
+    //- Loop through and display information about all the resource
+    //- groups, resources, and actions.
+    each resourceGroup in self.api.resourceGroups || []
+        section.resource-group(id=resourceGroup.elementId)
+            h2.group-heading
+                != resourceGroup.name || 'Resource Group'
+                = " "
+                a.permalink(href=resourceGroup.elementLink) &para;
+            if resourceGroup.descriptionHtml
+                != resourceGroup.descriptionHtml
+
+            each resource in resourceGroup.resources || []
+                .resource(id=resource.elementId)
+                    h3.resource-heading
+                        != resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                        = " "
+                        a.permalink(href=resource.elementLink) &nbsp;&para;
+                    if resource.description
+                        != self.markdown(resource.description)
+
+                    each action in resource.actions || []
+                        .action(class=action.methodLower, id=action.elementId)
+                            h4.action-heading
+                                .name!= action.name
+                                a.method(class=action.methodLower, href=action.elementLink)
+                                    = action.method
+                                code.uri= self.urldec(action.uriTemplate)
+                            if action.description
+                                != self.markdown(action.description)
+
+                            h4 Example URI
+                            .definition
+                                span.method(class=action.methodLower)= action.method
+                                | &nbsp;
+                                span.uri
+                                  span.hostname= self.api.host
+                                  != action.colorizedUriTemplate
+
+                            //- A list of sub-sections for parameters, requests
+                            //- and responses.
+                            if action.parameters.length
+                                +Parameters(action.parameters)
+                            if action.examples
+                                +Examples(resourceGroup, resource, action)
+
+mixin ContentTriple()
+    .middle
+        //- Page header and API description
+        header
+            h1#top!= self.api.name || 'API Documentation'
+
+    .right
+        h5 API Endpoint
+        a(href=self.api.host)= self.api.host
+    .middle
+        if self.api.descriptionHtml
+            != self.api.descriptionHtml
+
+    //- Loop through and display information about all the resource
+    //- groups, resources, and actions.
+    each resourceGroup in self.api.resourceGroups || []
+        .middle
+            section.resource-group(id=resourceGroup.elementId)
+                h2.group-heading
+                    != resourceGroup.name || 'Resource Group'
+                    = " "
+                    a.permalink(href=resourceGroup.elementLink) &para;
+                if resourceGroup.descriptionHtml
+                    != resourceGroup.descriptionHtml
+
+        each resource in resourceGroup.resources || []
+            .middle
+                .resource(id=resource.elementId)
+                    h3.resource-heading
+                        != resource.name || ((resource.actions[0] != null) && resource.actions[0].name) || 'Resource'
+                        = " "
+                        a.permalink(href=resource.elementLink) &para;
+                    if resource.description
+                        != self.markdown(resource.description)
+
+            each action in resource.actions || []
+                if action.examples
+                    .right
+                      .definition
+                          span.method(class=action.methodLower)= action.method
+                          | &nbsp;
+                          span.uri
+                            span.hostname= self.api.host
+                            != action.colorizedUriTemplate
+                      .tabs
+                          if action.hasRequest
+                              .example-names
+                                  span Requests
+                                  - var requestCount = 0
+                                  each example in action.examples
+                                      each request in example.requests
+                                          - requestCount++
+                                          span.tab-button= request.name || 'example ' + requestCount
+                              each example in action.examples
+                                  each request in example.requests
+                                      .tab
+                                          +RequestResponseBody(request, false, true)
+                                          .tabs
+                                              .example-names
+                                                  span Responses
+                                                  each response in example.responses
+                                                      span.tab-button= response.name
+                                              each response in example.responses
+                                                  .tab
+                                                      +RequestResponseBody(response, false, true)
+                          else
+                            each example in action.examples
+                                .tabs
+                                    .example-names
+                                        span Responses
+                                        each response in example.responses
+                                            span.tab-button= response.name
+                                    each response in example.responses
+                                        .tab
+                                            +RequestResponseBody(response, false, true)
+                .middle
+                    .action(class=action.methodLower, id=action.elementId)
+                        h4.action-heading
+                            .name!= action.name
+                            a.method(class=action.methodLower, href=action.elementLink)
+                                = action.method
+                            code.uri= self.urldec(action.uriTemplate)
+                        if action.description
+                            != self.markdown(action.description)
+
+                        //- A list of sub-sections for parameters, requests
+                        //- and responses.
+                        if action.parameters.length
+                            +Parameters(action.parameters)
+
+                hr.split
+
