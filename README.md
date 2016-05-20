@@ -377,6 +377,6 @@ You are free to use whatever template system (Jade, EJS, Nunjucks, etc) and any 
 
 License
 =======
-Copyright (c) 2015 Daniel G. Taylor
+Copyright (c) 2016 Daniel G. Taylor
 
 http://dgt.mit-license.org/

@@ -1,3 +1,8 @@
+# 2.2.1 - 2016-05-20
+
+* Bump protagonist version to 1.3.2 to support new features. [#256](https://github.com/danielgtaylor/aglio/pull/256)
+* Update required default theme version to [1.6.3](https://github.com/danielgtaylor/aglio/blob/olio-theme/Changelog.md#163---2016-05-20).
+
 # 2.2.0 - 2015-10-26
 
 * Support for Node.js 3.x and 4.x. [#183](https://github.com/danielgtaylor/aglio/issues/183)
