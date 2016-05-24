@@ -161,7 +161,7 @@ exports.run = (argv=parser.argv, done=->) ->
             parser.showHelp()
             return done 'Invalid arguments'
 
-        if argv.c or argv.o.match /\.apib$/ or argv.o.match /\.md$/
+        if argv.c or (typeof argv.o is 'string' and (argv.o.match /\.apib$/ or argv.o.match /\.md$/))
             aglio.compileFile argv.i, argv.o, (err) ->
                 if (err)
                     logError err, argv.verbose
