@@ -53,7 +53,7 @@ exports.collectPathsSync = (input, includePath) ->
 exports.getTheme = (name) ->
     name = 'olio' if not name or name in LEGACY_TEMPLATES
     try
-    	  require "aglio-theme-#{name}"
+        require "aglio-theme-#{name}"
     catch err
         require name
 
