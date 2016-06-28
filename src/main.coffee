@@ -171,11 +171,13 @@ getCss = (variables, styles, verbose, done) ->
     less.render tmp, compress: true, (err, result) ->
       if err then return done(msgErr 'Error processing LESS -> CSS', err)
 
-      try
-        css = result.css
-        fs.writeFileSync compiledPath, css, 'utf-8'
-      catch writeErr
-        return done(errMsg 'Error writing cached CSS to file', writeErr)
+      css = result.css
+
+      if not process.env.NOCACHE
+        try
+          fs.writeFileSync compiledPath, css, 'utf-8'
+        catch writeErr
+          return done(errMsg 'Error writing cached CSS to file', writeErr)
 
       benchmark.end 'less-compile'
 
@@ -254,14 +256,15 @@ getTemplate = (name, verbose, done) ->
       catch compileErr
         return done(errMsg 'Error compiling template', compileErr)
 
-    try
-      fs.writeFileSync compiledPath, compiled, 'utf-8'
-    catch writeErr
-      return done(errMsg 'Error writing cached template file', writeErr)
+    if not process.env.NOCACHE
+      try
+        fs.writeFileSync compiledPath, compiled, 'utf-8'
+      catch writeErr
+        return done(errMsg 'Error writing cached template file', writeErr)
 
     benchmark.end 'jade-compile'
 
-    cache[key] = require(compiledPath)
+    cache[key] = eval(compiled)
     done null, cache[key]
 
 modifyUriTemplate = (templateUri, parameters, colorize) ->
