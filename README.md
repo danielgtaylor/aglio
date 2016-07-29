@@ -76,7 +76,7 @@ aglio -i input.apib -s
 aglio -i input.apib -o -
 
 # Disable condensing navigation links
-aglio --no-theme-condense -i input.apib -o output.html
+aglio --no-theme-condense-nav -i input.apib -o output.html
 
 # Render full-width page instead of fixed max width
 aglio --theme-full-width -i input.apib -o output.html
