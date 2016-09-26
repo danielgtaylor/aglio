@@ -169,7 +169,7 @@ getCss = (variables, styles, verbose, done) ->
 
     benchmark.start 'less-compile'
     less.render tmp, compress: true, (err, result) ->
-      if err then return done(msgErr 'Error processing LESS -> CSS', err)
+      if err then return done(errMsg 'Error processing LESS -> CSS', err)
 
       try
         css = result.css
