@@ -49,6 +49,6 @@ Call template       |   28ms |  32ms
 
 License
 =======
-Copyright &copy; 2015 Daniel G. Taylor
+Copyright &copy; 2016 Daniel G. Taylor
 
 http://dgt.mit-license.org/

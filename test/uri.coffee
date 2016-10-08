@@ -85,6 +85,37 @@ examples = [
       {title: 'something', attribute: 'with/slash'}
     ]
   }
+
+  {
+    uriTemplate: '/resource/'
+    parameters: []
+    exampleURI: [
+      '/resource/'
+    ]
+  }
+
+  {
+    uriTemplate: '/resource/{path}/'
+    parameters: [
+      {
+        name: 'path'
+      }
+    ]
+    exampleURI: [
+      '/resource/'
+      {attribute: 'path'}
+      '/'
+    ]
+  }
+
+  {
+    uriTemplate: '/resource'
+    parameters: []
+    exampleURI: [
+      '/resource'
+    ]
+  }
+
 ]
 
 addParameterDefaults = (example) ->
