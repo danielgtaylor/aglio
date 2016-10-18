@@ -1,6 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-protagonist = require 'protagonist'
+drafter = require 'drafter'
 
 INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
 ROOT = path.dirname __dirname
@@ -82,7 +82,7 @@ exports.render = (input, options, done) ->
     # Handle custom directive(s)
     input = includeDirective options.includePath, input
 
-    # Protagonist does not support \r ot \t in the input, so
+    # Drafter does not support \r ot \t in the input, so
     # try to intelligently massage the input so that it works.
     # This is required to process files created on Windows.
     filteredInput = if not options.filterInput then input else
@@ -91,7 +91,7 @@ exports.render = (input, options, done) ->
             .replace(/\t/g, '    ')
 
     benchmark.start 'parse'
-    protagonist.parse filteredInput, type: 'ast', (err, res) ->
+    drafter.parse filteredInput, type: 'ast', (err, res) ->
         benchmark.end 'parse'
         if err
             err.input = input
