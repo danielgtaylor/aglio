@@ -435,7 +435,8 @@ decorate = (api, md, slugCache, verbose) ->
                   if dataStructure.element is 'dataStructure'
                     try
                       item.body = JSON.stringify(renderExample(
-                        dataStructure.content[0], dataStructures), null, 2)
+                        dataStructure.content[0], null, dataStructures),
+                        null, 2)
                     catch err
                       if verbose
                         console.log(
