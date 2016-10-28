@@ -17,14 +17,19 @@ defaultValue = (type) ->
     when 'number' then 1
     when 'string' then 'Hello, world!'
 
-module.exports = renderExample = (root, dataStructures) ->
+module.exports = renderExample = (root, attributes, dataStructures) ->
   switch root.element
     when 'boolean', 'string', 'number'
-      if root.content? then root.content else defaultValue(root.element)
-    when 'enum' then renderExample root.content[0], dataStructures
+      if root.content?
+        root.content
+      else if 'nullable' in (attributes?.typeAttributes || [])
+        null
+      else
+        defaultValue(root.element)
+    when 'enum' then renderExample root.content[0], null, dataStructures
     when 'array'
       for item in root.content or []
-        renderExample(item, dataStructures)
+        renderExample(item, null, dataStructures)
     when 'object'
       obj = {}
       properties = root.content.slice(0)
@@ -41,9 +46,10 @@ module.exports = renderExample = (root, dataStructures) ->
           # Note: we *always* select the first choice!
           member = member.content[0].content[0]
         key = member.content.key.content
-        obj[key] = renderExample(member.content.value, dataStructures)
+        obj[key] = renderExample(member.content.value, member.attributes,
+            dataStructures)
       obj
     else
       ref = dataStructures[root.element]
       if ref
-        renderExample(inherit(ref, root), dataStructures)
+        renderExample(inherit(ref, root), null, dataStructures)
