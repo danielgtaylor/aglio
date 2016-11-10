@@ -1,3 +1,8 @@
+# 2.3.0
+
+* Switch to [Drafter](https://github.com/apiaryio/drafter-npm) for API Blueprint parsing. [#277](https://github.com/danielgtaylor/aglio/pull/277)
+* Fix case when no arguments are supplied after `-o` [#262](https://github.com/danielgtaylor/aglio/pull/262)
+
 # 2.2.1 - 2016-05-20
 
 * Bump protagonist version to 1.3.2 to support new features. [#256](https://github.com/danielgtaylor/aglio/pull/256)
