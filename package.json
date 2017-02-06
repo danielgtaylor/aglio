@@ -34,24 +34,24 @@
   },
   "homepage": "https://github.com/danielgtaylor/aglio/tree/olio-theme",
   "dependencies": {
-    "coffee-script": "^1.12.3",
-    "highlight.js": "^8.4.0",
-    "jade": "^1.11.0",
-    "less": "^2.1.2",
-    "markdown-it": "^8.2.0",
-    "markdown-it-anchor": "^2.1.0",
-    "markdown-it-checkbox": "^1.1.0",
-    "markdown-it-container": "^1.0.0",
-    "markdown-it-emoji": "^1.0.0",
-    "moment": "^2.8.4",
-    "stylus": "^0.54.5"
+    "coffee-script": "1.12.3",
+    "highlight.js": "8.4.0",
+    "jade": "1.11.0",
+    "less": "2.1.2",
+    "markdown-it": "8.2.0",
+    "markdown-it-anchor": "2.1.0",
+    "markdown-it-checkbox": "1.1.0",
+    "markdown-it-container": "1.0.0",
+    "markdown-it-emoji": "1.0.0",
+    "moment": "2.8.4",
+    "stylus": "0.54.5"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "coffeelint": "^1.16.0",
-    "coveralls": "^2.11.16",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "rimraf": "^2.5.4"
+    "chai": "3.5.0",
+    "coffeelint": "1.16.0",
+    "coveralls": "2.11.16",
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "rimraf": "2.5.4"
   }
 }
