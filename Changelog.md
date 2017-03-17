@@ -1,3 +1,9 @@
+# 1.6.3 - 2016-05-20
+
+* Fix for overlapping URI in Olio theme engine [#242](https://github.com/danielgtaylor/aglio/pull/242)
+* Leave trailing slashes if specified in the URI template. This prevents showing an incorrect URI. [#254](https://github.com/danielgtaylor/aglio/pull/254)
+* Improved rendering of URI templates [#200](https://github.com/danielgtaylor/aglio/pull/200)
+
 # 1.6.2 - 2015-11-16
 
 * Use all element descriptions when available for JSON Schema generation.
