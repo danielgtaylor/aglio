@@ -217,7 +217,7 @@ function init() {
 init();
 
 window.onload = function () {
-    // autoCollapse();
+    autoCollapse();
     // Remove the `preload` class to enable animations
     document.querySelector('body').className = '';
 };
