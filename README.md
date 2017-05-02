@@ -194,7 +194,7 @@ var options = {
     }
 };
 
-alio.render(blueprint, options, function (err, html, warnings) {
+aglio.render(blueprint, options, function (err, html, warnings) {
     if (err) return console.log(err);
 
     console.log(html);
