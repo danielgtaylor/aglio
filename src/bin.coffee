@@ -22,6 +22,7 @@ parser = require('yargs')
     .options('v', alias: 'version', describe: 'Display version number', default: false)
     .options('c', alias: 'compile', describe: 'Compile the blueprint file', default: false)
     .options('n', alias: 'include-path', describe: 'Base directory for relative includes')
+    .options('q', alias: 'quiet', boolean: true, describe: 'Suppress warning messages', default: false)
     .options('verbose', describe: 'Show verbose information and stack traces', default: false)
     .epilog('See https://github.com/danielgtaylor/aglio#readme for more information')
 
@@ -46,12 +47,13 @@ getLineNo = (input, err) ->
 
 # Output warning info
 logWarnings = (warnings) ->
-    for warning in warnings or []
-        lineNo = getLineNo(warnings.input, warning) or 0
-        errContext = getErrContext(warnings.input, lineNo)
-        console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
-        console.error cWarn(">> Context")
-        console.error "       ...\n #{errContext.join('\n')} \n       ..."
+    if !parser.argv.quiet
+        for warning in warnings or []
+            lineNo = getLineNo(warnings.input, warning) or 0
+            errContext = getErrContext(warnings.input, lineNo)
+            console.error cWarn(">> Line #{lineNo}:") + " #{warning.message} (warning code #{warning.code})"
+            console.error cWarn(">> Context")
+            console.error "       ...\n #{errContext.join('\n')} \n       ..."
 
 # Output an error message
 logError = (err, verbose) ->
