@@ -3,3 +3,5 @@ node_modules
 npm-debug.log
 coverage
 cache
+.idea/
+yarn.lock
