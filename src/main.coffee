@@ -1,7 +1,7 @@
 crypto = require 'crypto'
 fs = require 'fs'
 hljs = require 'highlight.js'
-jade = require 'jade'
+pug = require 'pug'
 less = require 'less'
 markdownIt = require 'markdown-it'
 moment = require 'moment'
@@ -184,14 +184,14 @@ getCss = (variables, styles, verbose, done) ->
 
 compileTemplate = (filename, options) ->
   compiled = """
-    var jade = require('jade/runtime');
-    #{jade.compileFileClient filename, options}
-    module.exports = compiledFunc;
+    var pug = require('pug');
+    #{pug.compileFileClient filename, options}
+    module.exports = #{options.name};
   """
 
 getTemplate = (name, verbose, done) ->
   # Check if this is a built-in template name
-  builtin = path.join(ROOT, 'templates', "#{name}.jade")
+  builtin = path.join(ROOT, 'templates', "#{name}.pug")
   if not fs.existsSync(name) and fs.existsSync(builtin)
     name = builtin
 
@@ -231,7 +231,7 @@ getTemplate = (name, verbose, done) ->
     # because we are compiling to a client-side template, then adding some
     # module-specific code to make it work here. This allows us to save time
     # in the future by just loading the generated javascript function.
-    benchmark.start 'jade-compile'
+    benchmark.start 'pug-compile'
     compileOptions =
       filename: name
       name: 'compiledFunc'
@@ -259,7 +259,7 @@ getTemplate = (name, verbose, done) ->
     catch writeErr
       return done(errMsg 'Error writing cached template file', writeErr)
 
-    benchmark.end 'jade-compile'
+    benchmark.end 'pug-compile'
 
     cache[key] = require(compiledPath)
     done null, cache[key]
@@ -499,7 +499,7 @@ exports.render = (input, options, done) ->
 
   # Transform built-in layout names to paths
   if options.themeTemplate is 'default'
-    options.themeTemplate = path.join ROOT, 'templates', 'index.jade'
+    options.themeTemplate = path.join ROOT, 'templates', 'index.pug'
 
   # Setup markdown with code highlighting and smartypants. This also enables
   # automatically inserting permalinks for headers.
