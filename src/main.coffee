@@ -6,7 +6,7 @@ less = require 'less'
 markdownIt = require 'markdown-it'
 moment = require 'moment'
 path = require 'path'
-querystring = require 'querystring'
+queryString = require 'querystring'
 
 renderExample = require './example'
 renderSchema = require './schema'
@@ -273,7 +273,7 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
   parameterValidator = (b) ->
     # Compare the names, removing the special `*` operator
     parameterNames.indexOf(
-      querystring.unescape b.replace(/^\*|\*$/, '')) isnt -1
+      queryString.unescape b.replace(/^\*|\*$/, '')) isnt -1
   parameterNames = (param.name for param in parameters)
   parameterBlocks = []
   lastIndex = index = 0
@@ -303,7 +303,7 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
         if not colorize then name else
           # TODO: handle errors here?
           name = name.replace(/^\*|\*$/, '')
-          param = parameters[parameterNames.indexOf(querystring.unescape name)]
+          param = parameters[parameterNames.indexOf(queryString.unescape name)]
           if v.querySet or v.formSet
             "<span class=\"hljs-attribute\">#{name}=</span>" +
               "<span class=\"hljs-literal\">#{param.example || ''}</span>"
@@ -496,6 +496,7 @@ exports.render = (input, options, done) ->
   options.themeTemplate ?= 'default'
   options.themeCondenseNav ?= true
   options.themeFullWidth ?= false
+  options.themeEmoji ?= true
 
   # Transform built-in layout names to paths
   if options.themeTemplate is 'default'
@@ -547,7 +548,7 @@ exports.render = (input, options, done) ->
       highlight: highlight
       markdown: (content) -> md.render content
       slug: slug.bind(slug, slugCache)
-      urldec: (value) -> querystring.unescape(value)
+      urldec: (value) -> queryString.unescape(value)
 
     for key, value of options.locals or {}
       locals[key] = value
