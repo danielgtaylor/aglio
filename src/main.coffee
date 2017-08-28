@@ -6,10 +6,14 @@ less = require 'less'
 markdownIt = require 'markdown-it'
 moment = require 'moment'
 path = require 'path'
+React = require 'react'
+ReactDomServer = require 'react-dom/server'
+AttributesKit = require 'attributes-kit/dist/attributes-kit'
 queryString = require 'querystring'
 
 renderExample = require './example'
 renderSchema = require './schema'
+expandDataStructures = require './expand-data-structures'
 
 # The root directory of this project
 ROOT = path.dirname __dirname
@@ -411,6 +415,23 @@ decorate = (api, md, slugCache, verbose) ->
             for item in example[name] or []
               if name is 'requests' and not action.hasRequest
                 action.hasRequest = true
+
+              if item.content
+                for dataStructure in item.content
+                  # generate attribute html with Attributes Kit
+                  if dataStructure.element isnt 'dataStructure' then continue
+
+                  tempDS = dataStructure.content[0]
+                  tempDS = expandDataStructures(tempDS, dataStructures)
+                  tempDS["meta"] = {
+                    "id": "ATTRIBUTES"
+                  }
+                  element = React.createElement AttributesKit.Attributes, {
+                    dataStructures: [tempDS],
+                    element: tempDS
+                  }
+                  html = ReactDomServer.renderToStaticMarkup element
+                  item.attributes = html
 
               # If there is no schema, but there are MSON attributes, then try
               # to generate the schema. This will fail sometimes.

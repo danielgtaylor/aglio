@@ -126,6 +126,8 @@ mixin RequestResponseBody(request, collapse, showBlank)
                         if index < request.headers.length - 1
                           br
                 div(style="height: 1px;")
+                div(class='attributesKitContainer') !{request.attributes}
+                div(style="height: 20px;")
             if request.body
                 h5 Body
                 pre: code

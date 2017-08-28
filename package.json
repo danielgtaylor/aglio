@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/danielgtaylor/aglio/tree/olio-theme",
   "dependencies": {
+    "attributes-kit": "file:/Users/lee/Code/Practice/Node.js/attributes-kit",
     "coffee-script": "^1.8.0",
     "highlight.js": "^9.12.0",
     "less": "^2.7.2",
@@ -44,12 +45,15 @@
     "markdown-it-emoji": "^1.4.0",
     "moment": "^2.18.1",
     "pug": "^2.0.0-rc.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "stylus": "^0.54.5"
   },
   "devDependencies": {
     "chai": "^3.0.0",
     "coffeelint": "^1.7.1",
     "coveralls": "^2.11.2",
+    "drafter.js": "^2.6.7",
     "istanbul": "^0.3.6",
     "mocha": "^2.0.1",
     "rimraf": "^2.4.1"
