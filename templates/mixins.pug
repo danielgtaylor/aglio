@@ -134,9 +134,14 @@ mixin RequestResponseBody(request, collapse, showBlank)
                     != self.highlight(request.body, null, ['json', 'yaml', 'xml', 'javascript'])
                 div(style="height: 1px;")
             if request.schema
-                h5 Schema
-                pre: code
-                    != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
+                div(class='rawExampleHeaderLabelJsonSchema')
+                    span Schema
+                    div(class='showJSONSchemaButton')
+                        span(class='open') Show
+                        span(class='close') Hide
+                div(class='jsonSchemaContent')
+                    pre: code
+                        != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
                 div(style="height: 1px;")
             if !request.hasContent
                 .description.text-muted This response has no content.
