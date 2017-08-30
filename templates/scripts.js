@@ -216,13 +216,8 @@ function init() {
 
     // make showJSONSchema buttons clickable
     var showJSONSchemaButtons = document.querySelectorAll('.showJSONSchemaButton');
-    for (i = 0; i < buttons.length; i++) {
+    for (i = 0; i < showJSONSchemaButtons.length; i++) {
         showJSONSchemaButtons[i].onclick = toggleShowJSONSchemaButton;
-
-        // Show by default? Then toggle now.
-        if (buttons[i].className.indexOf('show') !== -1) {
-            toggleShowJSONSchemaButton({target: buttons[i].children[0]});
-        }
     }
 
     var responseCodes = document.querySelectorAll('.example-names');
