@@ -71,7 +71,6 @@ function toggleCollapseButton(event) {
 function toggleShowJSONSchemaButton(event) {
     var button = event.target.parentNode;
     var content = button.parentNode.nextSibling;
-    var inner = content.children[0];
 
     if (button.className.indexOf('showJSONSchemaButton') === -1) {
         // Clicked without hitting the right element?
