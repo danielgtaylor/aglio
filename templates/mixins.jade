@@ -132,9 +132,14 @@ mixin RequestResponseBody(request, collapse, showBlank)
                     != self.highlight(request.body, null, ['json', 'yaml', 'xml', 'javascript'])
                 div(style="height: 1px;")
             if request.schema
-                h5 Schema
-                pre: code
-                    != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
+                div
+                    h5(style='display: inline;') Schema
+                    .collapse-button
+                        span.close Hide
+                        span.open Show
+                .collapse-content
+                    pre: code
+                        != self.highlight(request.schema, null, ['json', 'yaml', 'xml'])
                 div(style="height: 1px;")
             if !request.hasContent
                 .description.text-muted This response has no content.
