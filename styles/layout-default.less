@@ -121,6 +121,7 @@ pre {
     border: 1px solid @code-block-border-color;
     border-radius: @border-radius;
     overflow: auto;
+    max-height: 50em;
 
     code {
         color: @code-block-text-color;
@@ -137,6 +138,34 @@ code {
     padding: 1px 4px;
     border: 1px solid @code-block-border-color;
     border-radius: 3px;
+}
+
+input.parameter, select.parameter, select.request {
+    width: 200px;
+}
+
+textarea.body {
+    width: 300px;
+    height: 100px;
+}
+
+button.tryit {
+    padding: 1px 4px;
+    font: inherit;
+    margin: 12px 0 12px 150px;
+}
+
+.spinner {
+    margin-left: 4px;
+    display: none;
+}
+
+.response {
+    display: none;
+}
+
+.click-to-fill {
+    cursor: pointer;
 }
 
 ul, ol {
@@ -389,6 +418,10 @@ nav {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
+
+    dd {
+        overflow: auto;
+    }
 }
 
 /* Layout classes */

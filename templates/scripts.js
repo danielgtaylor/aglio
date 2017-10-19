@@ -3,6 +3,13 @@
 'use strict';
 
 /*
+  Determine if a string starts with another string.
+*/
+function startsWith(str, prefix) {
+    return str.indexOf(prefix) === 0;
+}
+
+/*
   Determine if a string ends with another string.
 */
 function endsWith(str, suffix) {
@@ -118,6 +125,177 @@ function toggleCollapseNav(event, force) {
 }
 
 /*
+  Get a value for the given field and operator.
+*/
+function createFieldValue(field, operator, explosive) {
+    if (operator === '*') {
+        explosive = true;
+        operator = false;
+    }
+    var fieldValue, values, i;
+    if (explosive) {
+        fieldValue = '';
+        if (field.tagName.toLowerCase() === 'select' && field.options) {
+            values = [];
+            for (i = 0; i < field.options.length; i++) {
+                var option = field.options[i];
+                if (option.selected) {
+                    values.push(option.value || option.text);
+                }
+            }
+        } else {
+            values = field.value.split(/\s*,\s*/g);
+        }
+        for (i = 0; i < values.length; i++) {
+            fieldValue += createFieldValue({name: field.name, value: values[i]}, operator);
+            if (operator === '?') {
+                operator = '&';
+            }
+        }
+        return fieldValue;
+    }
+
+    fieldValue = encodeURIComponent(field.value);
+    if (operator && (fieldValue || field.required)) {
+        if (operator === '?' || operator === '&') {
+            fieldValue = operator + field.name + '=' + fieldValue;
+        } else if (operator === '#') {
+            fieldValue = '#' + fieldValue;
+        } else if (operator === '+') {
+            fieldValue = field.value;
+        }
+    }
+    return fieldValue;
+}
+
+/*
+  Send a sandbox request to the server.
+*/
+function sendSandboxRequest(event) {
+    var i, body, regex, regexResult, fieldValue;
+    var button = event.target;
+    var fields = button.form.elements;
+    var method = fields.__method.value;
+    var uri = fields.__uri.value;
+    var headerPrefix = '__' + fields.__request.value + '-header_';
+    var headers = [];
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    if (uri.indexOf('://') === -1 && window.location.hostname) {
+        if (uri.charAt(0) !== '/') {
+            uri = '/' + uri;
+        }
+        if (window.location.port) {
+            uri = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + uri;
+        } else {
+            uri = window.location.protocol + '//' + window.location.hostname + uri;
+        }
+    }
+
+    if (fields.__body) {
+        body = fields.__body.value;
+    }
+
+    for (i = 0; i < fields.length; i++) {
+        if (startsWith(fields[i].name, '__')) {
+            if (startsWith(fields[i].name, headerPrefix)) {
+                headers.push({
+                    name: fields[i].name.substring(headerPrefix.length),
+                    value: fields[i].value
+                });
+            }
+        } else {
+            regex = new RegExp('\\{([#\\+\\?&]?)' + fields[i].name + '(\\*?)\\}');
+            regexResult = regex.exec(uri);
+            if (!regexResult) {
+                continue;
+            }
+            var operator = regexResult[1];
+            if (operator === '&' && uri.indexOf('?') === -1) {
+                operator = '?';
+            }
+            fieldValue = createFieldValue(fields[i], operator, regexResult[2]);
+            uri = uri.substring(0, regexResult.index) + fieldValue + uri.substring(regexResult.index + regexResult[0].length);
+        }
+    }
+    button.form.querySelector('.response-request-uri').textContent = uri;
+
+    xhr.onload = handleSandboxResponse.bind(null, xhr, button);
+    xhr.onerror = xhr.onload;
+    xhr.open(method, uri);
+    for (i = 0; i < headers.length; i++) {
+        xhr.setRequestHeader(headers[i].name, headers[i].value);
+    }
+    if (!window.__jwt && storageAvailable('sessionStorage')) {
+      window.__jwt = sessionStorage.getItem('__jwt');
+    }
+    if (window.__jwt) {
+      xhr.setRequestHeader('Authorization', 'Bearer ' + window.__jwt);
+    }
+
+    button.querySelector('.spinner').style.display = 'inline-block';
+    xhr.send(body);
+}
+
+/*
+  Handle a sandbox response from the server, showing its output.
+*/
+function handleSandboxResponse(xhr, button) {
+    var content = button.form.querySelector('.response.collapse-content');
+    var inner = content.children[0];
+    var responseBody = button.form.querySelector('.response-body');
+    var responseHeaders = button.form.querySelector('.response-headers');
+
+    button.querySelector('.spinner').style.display = 'none';
+    button.form.querySelector('.response.title').style.display = 'block';
+    content.style.display = 'block';
+
+    try {
+        responseBody.textContent = JSON.stringify(JSON.parse(xhr.responseText), null, 2);
+    } catch (e) {
+        responseBody.textContent = xhr.responseText;
+    }
+    responseHeaders.textContent = xhr.getAllResponseHeaders();
+    window.__jwt = xhr.getResponseHeader('X-Set-JWT') || window.__jwt;
+    if (window.__jwt && storageAvailable('sessionStorage')) {
+      sessionStorage.setItem('__jwt', window.__jwt);
+    }
+
+    content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+}
+
+/*
+  Detect whether web storage is available.
+*/
+function storageAvailable(type) {
+  try {
+    var storage = window[type],
+      x = '__storage_test__';
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  }
+  catch(e) {
+    return false;
+  }
+}
+
+/*
+  Fill a field with the content of a text element.
+*/
+function fillField(fieldName, event) {
+    var element = event.target;
+    while (element && !element.dataset.fillTarget) {
+        element = element.parentNode;
+    }
+    var field = document.getElementById(fieldName);
+    if (field && element) {
+        field.value = element.textContent;
+    }
+}
+
+/*
   Refresh the page after a live update from the server. This only
   works in live preview mode (using the `--server` parameter).
 */
@@ -210,6 +388,17 @@ function init() {
 
         // Show all by default
         toggleCollapseNav({target: navItems[i].children[0]});
+    }
+
+    // Set up the sandbox functionality
+    var tryitButtons = document.querySelectorAll('button.tryit');
+    for (i = 0; i < tryitButtons.length; i++) {
+        tryitButtons[i].onclick = sendSandboxRequest;
+    }
+    var clickToFills = document.querySelectorAll('.click-to-fill');
+    for (i = 0; i < clickToFills.length; i++) {
+        clickToFills[i].title = clickToFills[i].title || 'Click to fill the field with this value';
+        clickToFills[i].onclick = fillField.bind(null, clickToFills[i].dataset.fillTarget);
     }
 }
 
