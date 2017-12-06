@@ -1,6 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-drafter = require 'drafter'
+drafter = require 'drafter.js'
 
 INCLUDE = /( *)<!-- include\((.*)\) -->/gmi
 ROOT = path.dirname __dirname

@@ -4,7 +4,7 @@ bin = require '../lib/bin'
 fs = require 'fs'
 http = require 'http'
 path = require 'path'
-drafter = require 'drafter'
+drafter = require 'drafter.js'
 sinon = require 'sinon'
 
 root = path.dirname(__dirname)
