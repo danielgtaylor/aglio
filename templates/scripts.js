@@ -85,6 +85,7 @@ function toggleShowJSONSchemaButton(event) {
         // Currently hidden, so let's show it
         button.className = 'showJSONSchemaButton show';
         content.style.display = 'block';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
     }
 }
 
