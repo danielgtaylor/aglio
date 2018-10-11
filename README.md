@@ -6,6 +6,8 @@
 
 An [API Blueprint](http://apiblueprint.org/) renderer that supports multiple themes and outputs static HTML that can be served by any web host. API Blueprint is a Markdown-based document format that lets you write API descriptions and documentation in a simple and straightforward way. Currently supported is [API Blueprint format 1A](https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md).
 
+**Note**: This project is mature and stable, but I don't have much time for it anymore. If you would like to join as a maintainer then please reach out to my GitHub username at Gmail. Thanks!
+
 ## Features
 
  * Fast parsing thanks to [Protagonist](https://github.com/apiaryio/protagonist)
