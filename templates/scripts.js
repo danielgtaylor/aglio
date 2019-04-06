@@ -70,21 +70,24 @@ function toggleCollapseButton(event) {
  */
 function toggleShowJSONSchemaButton(event) {
     var button = event.target.parentNode;
-    var content = button.parentNode.nextSibling;
+    var jsonContent = button.parentNode.nextSibling;
+    var inner = jsonContent.parentNode;
+    var content = inner.parentNode;
 
     if (button.className.indexOf('showJSONSchemaButton') === -1) {
         // Clicked without hitting the right element?
         return;
     }
 
-    if (content.style.display && content.style.display !== 'none') {
+    if (jsonContent.style.display && jsonContent.style.display !== 'none') {
         // Currently showing, so let's hide it
         button.className = 'showJSONSchemaButton';
-        content.style.display = 'none';
+        jsonContent.style.display = 'none';
     } else {
         // Currently hidden, so let's show it
         button.className = 'showJSONSchemaButton show';
-        content.style.display = 'block';
+        jsonContent.style.display = 'block';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
     }
 }
 
