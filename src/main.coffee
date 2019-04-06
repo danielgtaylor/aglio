@@ -1,15 +1,19 @@
 crypto = require 'crypto'
 fs = require 'fs'
 hljs = require 'highlight.js'
-jade = require 'jade'
+pug = require 'pug'
 less = require 'less'
 markdownIt = require 'markdown-it'
 moment = require 'moment'
 path = require 'path'
-querystring = require 'querystring'
+React = require 'react'
+ReactDomServer = require 'react-dom/server'
+AttributesKit = require 'attributes-kit/dist/attributes-kit'
+queryString = require 'querystring'
 
 renderExample = require './example'
 renderSchema = require './schema'
+expandDataStructures = require './expand-data-structures'
 
 # The root directory of this project
 ROOT = path.dirname __dirname
@@ -184,14 +188,14 @@ getCss = (variables, styles, verbose, done) ->
 
 compileTemplate = (filename, options) ->
   compiled = """
-    var jade = require('jade/runtime');
-    #{jade.compileFileClient filename, options}
-    module.exports = compiledFunc;
+    var pug = require('pug');
+    #{pug.compileFileClient filename, options}
+    module.exports = #{options.name};
   """
 
 getTemplate = (name, verbose, done) ->
   # Check if this is a built-in template name
-  builtin = path.join(ROOT, 'templates', "#{name}.jade")
+  builtin = path.join(ROOT, 'templates', "#{name}.pug")
   if not fs.existsSync(name) and fs.existsSync(builtin)
     name = builtin
 
@@ -231,7 +235,7 @@ getTemplate = (name, verbose, done) ->
     # because we are compiling to a client-side template, then adding some
     # module-specific code to make it work here. This allows us to save time
     # in the future by just loading the generated javascript function.
-    benchmark.start 'jade-compile'
+    benchmark.start 'pug-compile'
     compileOptions =
       filename: name
       name: 'compiledFunc'
@@ -259,7 +263,7 @@ getTemplate = (name, verbose, done) ->
     catch writeErr
       return done(errMsg 'Error writing cached template file', writeErr)
 
-    benchmark.end 'jade-compile'
+    benchmark.end 'pug-compile'
 
     cache[key] = require(compiledPath)
     done null, cache[key]
@@ -273,7 +277,7 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
   parameterValidator = (b) ->
     # Compare the names, removing the special `*` operator
     parameterNames.indexOf(
-      querystring.unescape b.replace(/^\*|\*$/, '')) isnt -1
+      queryString.unescape b.replace(/^\*|\*$/, '')) isnt -1
   parameterNames = (param.name for param in parameters)
   parameterBlocks = []
   lastIndex = index = 0
@@ -303,7 +307,7 @@ modifyUriTemplate = (templateUri, parameters, colorize) ->
         if not colorize then name else
           # TODO: handle errors here?
           name = name.replace(/^\*|\*$/, '')
-          param = parameters[parameterNames.indexOf(querystring.unescape name)]
+          param = parameters[parameterNames.indexOf(queryString.unescape name)]
           if v.querySet or v.formSet
             "<span class=\"hljs-attribute\">#{name}=</span>" +
               "<span class=\"hljs-literal\">#{param.example || ''}</span>"
@@ -412,6 +416,23 @@ decorate = (api, md, slugCache, verbose) ->
               if name is 'requests' and not action.hasRequest
                 action.hasRequest = true
 
+              if item.content
+                for dataStructure in item.content
+                  # generate attribute html with Attributes Kit
+                  if dataStructure.element isnt 'dataStructure' then continue
+
+                  tempDS = dataStructure.content[0]
+                  tempDS = expandDataStructures(tempDS, dataStructures)
+                  tempDS["meta"] = {
+                    "id": "ATTRIBUTES"
+                  }
+                  element = React.createElement AttributesKit.Attributes, {
+                    dataStructures: [tempDS],
+                    element: tempDS
+                  }
+                  html = ReactDomServer.renderToStaticMarkup element
+                  item.attributes = html
+
               # If there is no schema, but there are MSON attributes, then try
               # to generate the schema. This will fail sometimes.
               # TODO: Remove me when Drafter is released.
@@ -496,10 +517,11 @@ exports.render = (input, options, done) ->
   options.themeTemplate ?= 'default'
   options.themeCondenseNav ?= true
   options.themeFullWidth ?= false
+  options.themeEmoji ?= true
 
   # Transform built-in layout names to paths
   if options.themeTemplate is 'default'
-    options.themeTemplate = path.join ROOT, 'templates', 'index.jade'
+    options.themeTemplate = path.join ROOT, 'templates', 'index.pug'
 
   # Setup markdown with code highlighting and smartypants. This also enables
   # automatically inserting permalinks for headers.
@@ -547,7 +569,7 @@ exports.render = (input, options, done) ->
       highlight: highlight
       markdown: (content) -> md.render content
       slug: slug.bind(slug, slugCache)
-      urldec: (value) -> querystring.unescape(value)
+      urldec: (value) -> queryString.unescape(value)
 
     for key, value of options.locals or {}
       locals[key] = value

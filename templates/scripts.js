@@ -64,6 +64,33 @@ function toggleCollapseButton(event) {
     }
 }
 
+/**
+ * show or hide JSON Schema
+ * @param event
+ */
+function toggleShowJSONSchemaButton(event) {
+    var button = event.target.parentNode;
+    var jsonContent = button.parentNode.nextSibling;
+    var inner = jsonContent.parentNode;
+    var content = inner.parentNode;
+
+    if (button.className.indexOf('showJSONSchemaButton') === -1) {
+        // Clicked without hitting the right element?
+        return;
+    }
+
+    if (jsonContent.style.display && jsonContent.style.display !== 'none') {
+        // Currently showing, so let's hide it
+        button.className = 'showJSONSchemaButton';
+        jsonContent.style.display = 'none';
+    } else {
+        // Currently hidden, so let's show it
+        button.className = 'showJSONSchemaButton show';
+        jsonContent.style.display = 'block';
+        content.style.maxHeight = inner.offsetHeight + 12 + 'px';
+    }
+}
+
 function toggleTabButton(event) {
     var i, index;
     var button = event.target;
@@ -188,6 +215,12 @@ function init() {
         if (buttons[i].className.indexOf('show') !== -1) {
             toggleCollapseButton({target: buttons[i].children[0]});
         }
+    }
+
+    // make showJSONSchema buttons clickable
+    var showJSONSchemaButtons = document.querySelectorAll('.showJSONSchemaButton');
+    for (i = 0; i < showJSONSchemaButtons.length; i++) {
+        showJSONSchemaButtons[i].onclick = toggleShowJSONSchemaButton;
     }
 
     var responseCodes = document.querySelectorAll('.example-names');
