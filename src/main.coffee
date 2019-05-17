@@ -120,6 +120,17 @@ exports.render = (input, options, done) ->
 
             done null, html, res.warnings
 
+process_stdin = (processor) ->
+    process.stdin.setEncoding 'utf-8'
+    chunks = []
+    process.stdin.on 'readable', ->
+        while (chunk = process.stdin.read()) != null
+            chunks.push chunk
+    process.stdin.on 'end', ->
+        content = chunks.join ''
+        if content?
+            processor content
+
 # Render from/to files
 exports.renderFile = (inputFile, outputFile, options, done) ->
     render = (input) ->
@@ -139,11 +150,7 @@ exports.renderFile = (inputFile, outputFile, options, done) ->
             if err then return done(errMsg 'Error reading input', err)
             render input.toString()
     else
-        process.stdin.setEncoding 'utf-8'
-        process.stdin.on 'readable', ->
-            chunk = process.stdin.read()
-            if chunk?
-                render chunk
+        process_stdin render
 
 # Compile markdown from/to files
 exports.compileFile = (inputFile, outputFile, done) ->
@@ -162,8 +169,4 @@ exports.compileFile = (inputFile, outputFile, done) ->
             if err then return done(errMsg 'Error writing output', err)
             compile input.toString()
     else
-        process.stdin.setEncoding 'utf-8'
-        process.stdin.on 'readable', ->
-            chunk = process.stdin.read()
-            if chunk?
-                compile chunk
+        process_stdin compile
