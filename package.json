@@ -38,6 +38,7 @@
     "aglio-theme-olio": "^1.6.3",
     "chokidar": "^1.4.1",
     "cli-color": "^1.1.0",
+    "hercule": "^3.0.1",
     "pretty-error": "^1.2.0",
     "drafter": "^1.0.0",
     "serve-static": "^1.10.0",

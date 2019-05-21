@@ -17,9 +17,15 @@ describe 'API Blueprint Renderer', ->
 
         assert.ok theme
 
-    it 'Should get a list of included files', ->
-        sinon.stub fs, 'readFileSync', -> 'I am a test file'
+    it 'Should get a list of included files', (done) ->
+        aglio.collectPaths blueprint, '.', (err, paths) ->
+            assert.equal err, null
+            assert.equal paths.length, 2
+            assert 'example-include.md' in paths
+            assert 'example-schema.json' in paths
+            done()
 
+    it 'Should return error on bad links', (done) ->
         input = '''
             # Title
             <!-- include(test1.apib) -->
@@ -28,13 +34,9 @@ describe 'API Blueprint Renderer', ->
             More content...
         '''
 
-        paths = aglio.collectPathsSync input, '.'
-
-        fs.readFileSync.restore()
-
-        assert.equal paths.length, 2
-        assert 'test1.apib' in paths
-        assert 'test2.apib' in paths
+        aglio.collectPaths input, '.', (err, paths) ->
+            assert.ok err.message
+            done()
 
     it 'Should render blank string', (done) ->
         aglio.render '', template: 'default', locals: {foo: 1}, (err, html) ->
@@ -128,6 +130,15 @@ describe 'API Blueprint Renderer', ->
             process.stdin.read.restore()
             process.stdin.removeAllListeners()
 
+            done()
+
+    it 'Should handle compile errors', (done) ->
+        sinon.stub process.stdin, 'read', -> '# Hello\n<!-- include(i-dont-exist.md) -->\n'
+
+        setTimeout -> process.stdin.emit 'readable', 1
+
+        aglio.compileFile '-', 'example-compiled.apib', (err) ->
+            assert.ok err.message
             done()
 
     it 'Should compile to stdout', (done) ->
