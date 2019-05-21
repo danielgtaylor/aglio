@@ -203,6 +203,17 @@ aglio.render(blueprint, options, function (err, html, warnings) {
 });
 ```
 
+#### aglio.renderBlueprint (blueprint, options, callback)
+Render a preparsed API Blueprint. Analogous to `render` except for the first argument, which is expected to be a blueprint object.
+
+```javascript
+aglio.renderBlueprint(blueprint, options, function (err, html, warnings) {
+    if (err) return console.log(err);
+
+    console.log(html);
+});
+```
+
 #### aglio.renderFile (inputFile, outputFile, options, callback)
 Render an API Blueprint file and save the HTML to another file. The input/output file arguments are file paths. The options behaves the same as above for `aglio.render`, except that the `options.includePath` defaults to the basename of the input filename.
 
