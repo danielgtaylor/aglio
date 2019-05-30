@@ -148,7 +148,7 @@ exports.run = (argv=parser.argv, done=->) ->
 
         paths = aglio.collectPathsSync fs.readFileSync(argv.i, 'utf-8'), path.dirname(argv.i)
 
-        watcher = chokidar.watch [argv.i].concat(paths)
+        watcher = chokidar.watch [argv.i].concat(paths), awaitWriteFinish: true
         watcher.on "change", (path) ->
             console.log "Updated " + path
             _html = null
